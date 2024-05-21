@@ -1,6 +1,6 @@
 import * as T from 'calendar/types';
 import DefaultOptionsCalendar from 'calendar/scripts/default';
-import init from 'calendar';
+import init from 'calendar/scripts/init';
 import update from 'calendar/scripts/update';
 import destroy from 'calendar/scripts/destroy';
 import show from 'calendar/scripts/show';
@@ -8,10 +8,10 @@ import hide from 'calendar/scripts/hide';
 import messages from 'calendar/scripts/helpers/getMessages';
 
 export default class VanillaCalendar extends DefaultOptionsCalendar implements T.IVanillaCalendar {
-	constructor(selector: HTMLElement | string, options?: Partial<T.IOptions>) {
+	constructor(selector: HTMLElement, options?: Partial<T.IOptions>) {
 		super();
 
-		this.HTMLElement = (typeof selector === 'string' ? document.querySelector(selector) : selector) as HTMLElement;
+		this.HTMLElement = selector;
 
 		if (!this.HTMLElement) throw new Error(messages.notFoundSelector(selector));
 
@@ -29,7 +29,7 @@ export default class VanillaCalendar extends DefaultOptionsCalendar implements T
 		replaceProperties(this, options);
 	}
 
-	init = () => init(this);
+	init = () => init(this)
 
 	update = (reset?: T.IReset) => update(this, reset);
 

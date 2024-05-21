@@ -4,7 +4,7 @@ import handleInput from 'calendar/scripts/handles/handleInput';
 import handleClick from 'calendar/scripts/handles/handleClick';
 import create from 'calendar/scripts/create';
 
-const init = (self: VanillaCalendar) => {
+const init = (self: VanillaCalendar): (() => void) => {
 	self.HTMLOriginalElement = self.HTMLElement.cloneNode(true) as HTMLElement;
 	self.isInit = true;
 

@@ -1,5 +1,5 @@
 import { IReset } from 'calendar/types';
-import VanillaCalendar from 'src/calendar';
+import VanillaCalendar from 'calendar';
 import setVariables from 'calendar/scripts/helpers/setVariables';
 import create from 'calendar/scripts/create';
 import handleDayRangedSelection from 'calendar/scripts/handles/handleDayRangedSelection';
