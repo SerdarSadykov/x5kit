@@ -26,7 +26,7 @@ export const CancelFilter: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} {...props}>
+    <SVGComponent ref={ref} name={CancelFilter.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVGComponent>
   );

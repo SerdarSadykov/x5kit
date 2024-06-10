@@ -11,11 +11,11 @@ export const SVGComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) =>
 
   return (
     <svg
-      data-qa={`Icon`}
       ref={ref}
+      fill={color}
+      data-qa={`${name}Icon`}
       width={`${w}px`}
       height={`${w}px`}
-      fill={color}
       viewBox={`0 0 ${w} ${w}`}
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"

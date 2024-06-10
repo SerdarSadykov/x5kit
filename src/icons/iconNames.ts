@@ -87,5 +87,3 @@ export const iconNames = {
   Warning: 'warning / solid',
   WarningOutline: 'warning / outline',
 }
-
-export default iconNames

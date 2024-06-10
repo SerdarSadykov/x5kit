@@ -10,19 +10,19 @@ const largeIcon = (
 )
 
 const smallIcon = [
-  <circle cx="6" cy="4" r="1" />,
-  <circle cx="6" cy="8" r="1" />,
-  <circle cx="6" cy="12" r="1" />,
-  <circle cx="10" cy="4" r="1" />,
-  <circle cx="10" cy="8" r="1" />,
-  <circle cx="10" cy="12" r="1" />,
+  <circle key="1" cx="6" cy="4" r="1" />,
+  <circle key="2" cx="6" cy="8" r="1" />,
+  <circle key="3" cx="6" cy="12" r="1" />,
+  <circle key="4" cx="10" cy="4" r="1" />,
+  <circle key="5" cx="10" cy="8" r="1" />,
+  <circle key="6" cx="10" cy="12" r="1" />,
 ]
 
 export const DragIndicator: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} {...props}>
+    <SVGComponent ref={ref} name={DragIndicator.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVGComponent>
   );

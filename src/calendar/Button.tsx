@@ -1,5 +1,4 @@
 import {Calendar} from './index';
-import {useEffect} from 'react';
 
 export const Button = () => {
   return (

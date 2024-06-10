@@ -36,7 +36,7 @@ export const DataGridCustomizationRows: IconComponent = forwardRef((props, ref) 
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} {...props}>
+    <SVGComponent ref={ref} name={DataGridCustomizationRows.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVGComponent>
   );
