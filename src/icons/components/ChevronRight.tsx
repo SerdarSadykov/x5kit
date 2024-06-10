@@ -18,11 +18,11 @@ const smallIcon = (
   />
 )
 
-export const Right: IconComponent = forwardRef((props, ref) => {
+export const ChevronRight: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={Right.name} {...props}>
+    <SVGComponent ref={ref} name={ChevronRight.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVGComponent>
   );
