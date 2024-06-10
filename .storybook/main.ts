@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/react-webpack5';
+import type {StorybookConfig} from '@storybook/react-webpack5';
 
 const path = require('path');
 
@@ -16,10 +16,24 @@ const config: StorybookConfig = {
 
   framework: {
     name: '@storybook/react-webpack5',
-    options: {},
+    options: {
+      builder: {
+        useSWC: true,
+      },
+    },
   },
 
-  webpackFinal: async (config) => {
+  swc: () => ({
+    jsc: {
+      transform: {
+        react: {
+          runtime: 'automatic',
+        },
+      },
+    },
+  }),
+
+  webpackFinal: async config => {
     config.resolve ??= {};
     config.resolve.modules ??= [];
 

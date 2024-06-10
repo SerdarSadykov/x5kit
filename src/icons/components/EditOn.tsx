@@ -1,0 +1,25 @@
+import {forwardRef} from 'react';
+
+import {SizeTokenValue} from 'tokens';
+import {IconComponent} from 'icons/types';
+
+import {SVGComponent} from './SVGComponent';
+
+const largeIcon = (
+  <path d="M3 17.46V20.5C3 20.78 3.22 21 3.5 21H6.54C6.67 21 6.8 20.95 6.89 20.85L17.81 9.94L14.06 6.19L3.15 17.1C3.05 17.2 3 17.32 3 17.46ZM20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C17.98 2.9 17.35 2.9 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04Z" />
+)
+
+const smallIcon = (
+  <path d="M2 11.6417V13.6683C2 13.855 2.14667 14.0017 2.33333 14.0017H4.36C4.44667 14.0017 4.53333 13.9683 4.59333 13.9017L11.6964 6.80511C11.7941 6.70749 11.7941 6.54914 11.6965 6.45148L9.55011 4.30511C9.45248 4.20748 9.29419 4.20748 9.19656 4.30511L2.1 11.4017C2.03333 11.4683 2 11.5483 2 11.6417ZM13.8067 4.695C14.0667 4.435 14.0667 4.015 13.8067 3.755L12.2467 2.195C11.9867 1.935 11.5667 1.935 11.3067 2.195L10.2634 3.23822C10.1658 3.33585 10.1658 3.49415 10.2634 3.59178L12.4099 5.73822C12.5075 5.83585 12.6658 5.83585 12.7634 5.73822L13.8067 4.695Z" />
+)
+
+export const EditOn: IconComponent = forwardRef((props, ref) => {
+  const {size} = props;
+
+  return (
+    <SVGComponent ref={ref} {...props}>
+      {size === SizeTokenValue.Small ? smallIcon : largeIcon}
+    </SVGComponent>
+  );
+});
+
