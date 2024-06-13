@@ -62,74 +62,74 @@ export function setToStartDay(date: CalendarDay, dateFormat: CalendarProps['date
 }
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-export function getDayStates({
-  day,
-  date,
-  viewDate,
-  minDate,
-  maxDate,
-  dateFormat,
-  isDisabled,
-  hoverDate,
-  freezeRange,
-}: Pick<CalendarProps, 'date' | 'viewDate' | 'dateFormat' | 'freezeRange'> &
-  Pick<CalendarBlockProps, 'minDate' | 'maxDate'> & {
-    day: string
-    isDisabled: boolean
-    hoverDate: string
-  }): CalendarDayState[] {
-  const states = []
-  const isPeriod = Array.isArray(date)
+// export function getDayStates({
+//   day,
+//   date,
+//   viewDate,
+//   minDate,
+//   maxDate,
+//   dateFormat,
+//   isDisabled,
+//   hoverDate,
+//   freezeRange,
+// }: Pick<CalendarProps, 'date' | 'viewDate' | 'dateFormat' | 'freezeRange'> &
+//   Pick<CalendarBlockProps, 'minDate' | 'maxDate'> & {
+//     day: string
+//     isDisabled: boolean
+//     hoverDate: string
+//   }): CalendarDayState[] {
+//   const states = []
+//   const isPeriod = Array.isArray(date)
 
-  const normalizedViewDate = setToStartDay(viewDate, dateFormat)
-  const normalizedDay = setToStartDay(day, dateFormat)
-  const normalizedHoverDate = setToStartDay(hoverDate, dateFormat)
+//   const normalizedViewDate = setToStartDay(viewDate, dateFormat)
+//   const normalizedDay = setToStartDay(day, dateFormat)
+//   const normalizedHoverDate = setToStartDay(hoverDate, dateFormat)
 
-  const isDisabledDay = isOutOfLimit(minDate, maxDate, normalizedDay) || isDisabled
-  const [startDate, endDate] = Array.isArray(date)
-    ? date.map((item) => (item ? setToStartDay(item, dateFormat) : ''))
-    : [date && setToStartDay(date, dateFormat)]
+//   const isDisabledDay = isOutOfLimit(minDate, maxDate, normalizedDay) || isDisabled
+//   const [startDate, endDate] = Array.isArray(date)
+//     ? date.map((item) => (item ? setToStartDay(item, dateFormat) : ''))
+//     : [date && setToStartDay(date, dateFormat)]
 
-  // Previous month or next month
-  if (normalizedDay.month() !== normalizedViewDate.month()) {
-    states.push(isDisabledDay ? 'disabled' : 'otherMonthDay')
-    return states
-  }
+//   // Previous month or next month
+//   if (normalizedDay.month() !== normalizedViewDate.month()) {
+//     states.push(isDisabledDay ? 'disabled' : 'otherMonthDay')
+//     return states
+//   }
 
-  // Today
-  if (normalizedDay.format(dateFormat) === dayjs().format(dateFormat)) {
-    states.push('today')
-  }
+//   // Today
+//   if (normalizedDay.format(dateFormat) === dayjs().format(dateFormat)) {
+//     states.push('today')
+//   }
 
-  // Disabled day
-  if (isDisabledDay) {
-    states.push('disabled')
-  }
+//   // Disabled day
+//   if (isDisabledDay) {
+//     states.push('disabled')
+//   }
 
-  // Period
-  if (isPeriod && (startDate || freezeRange === freezeRangeValues.end)) {
-    // Start date and end date is equal
-    if (+startDate === +endDate && +normalizedDay === +startDate && !isDisabledDay) {
-      states.push('selected')
-      // Select start
-    } else if (+normalizedDay === +startDate && !isDisabledDay) {
-      states.push('selected', 'selectedStart')
-      // Select end
-    } else if (+normalizedDay === +endDate && !isDisabledDay) {
-      states.push('selected', 'selectedEnd')
-      // Between start date and end date
-    } else if (endDate && startDate && +normalizedDay > +startDate && +normalizedDay < +endDate) {
-      states.push('betweenPeriod')
-    }
-    // Select day for non-period
-  } else if (+normalizedDay === +startDate && !isDisabledDay) {
-    states.push('selected')
-  }
+//   // Period
+//   if (isPeriod && (startDate || freezeRange === freezeRangeValues.end)) {
+//     // Start date and end date is equal
+//     if (+startDate === +endDate && +normalizedDay === +startDate && !isDisabledDay) {
+//       states.push('selected')
+//       // Select start
+//     } else if (+normalizedDay === +startDate && !isDisabledDay) {
+//       states.push('selected', 'selectedStart')
+//       // Select end
+//     } else if (+normalizedDay === +endDate && !isDisabledDay) {
+//       states.push('selected', 'selectedEnd')
+//       // Between start date and end date
+//     } else if (endDate && startDate && +normalizedDay > +startDate && +normalizedDay < +endDate) {
+//       states.push('betweenPeriod')
+//     }
+//     // Select day for non-period
+//   } else if (+normalizedDay === +startDate && !isDisabledDay) {
+//     states.push('selected')
+//   }
 
-  // Hover
-  if (startDate && +normalizedDay <= +normalizedHoverDate && +normalizedDay > +startDate) {
-    states.push('betweenPeriod')
-  }
+//   // Hover
+//   if (startDate && +normalizedDay <= +normalizedHoverDate && +normalizedDay > +startDate) {
+//     states.push('betweenPeriod')
+//   }
 
-  return states
-}
+//   return states
+// }

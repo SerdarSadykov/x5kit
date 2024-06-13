@@ -2,7 +2,7 @@ import {createContext, useEffect, useState} from 'react';
 // import clsx from 'clsx';
 // import { defaultDateFormat } from '@x5-react-uikit/core'
 
-import {Month, format, startOfDay} from 'date-fns';
+import {Day, Month, format, startOfDay} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
 import Block from './Block';
@@ -23,7 +23,6 @@ import {RequiredQA, getQAAttribute} from 'common';
 import {Container} from './Container';
 import {DropdownItem} from './Dropdown';
 import {CalendarContextProps, CalendarProps} from './types';
-
 
 export const CalendarContext = createContext<CalendarContextProps>({} as any);
 
@@ -189,11 +188,18 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
     });
   }
 
+  const weekStartsOn = props.weekStartsOn ?? 1;
+  const weekDays: Day[] = [0, 1, 2, 3, 4, 5, 6];
+
+  weekDays.push(...weekDays.splice(0, weekStartsOn));
+
   const value: CalendarContextProps = {
     ...props,
     viewDate,
     years,
+    weekDays,
     months,
+    weekStartsOn,
     locale,
     onChangeViewDate,
   };

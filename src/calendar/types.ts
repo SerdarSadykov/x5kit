@@ -1,4 +1,4 @@
-import {FormatOptions} from 'date-fns';
+import {Day, FormatOptions} from 'date-fns';
 
 import {QA} from 'common';
 
@@ -12,6 +12,8 @@ export enum freezeRangeValues {
   end = 'end',
 }
 
+export type CalendarDay = Day;
+
 export type CalendarDisableDates = (date: Date) => boolean;
 
 export type CalendarBaseProps = {
@@ -24,6 +26,8 @@ export type CalendarBaseProps = {
   minDate?: Date;
   maxDate?: Date;
 
+  weekStartsOn?: CalendarDay;
+
   freezeRange?: keyof typeof freezeRangeValues;
   long?: boolean;
   disabledDates?: CalendarDisableDates;
@@ -34,5 +38,6 @@ export type CalendarProps = CalendarBaseProps & QA;
 export type CalendarContextProps = {
   years: DropdownItem[];
   months: DropdownItem[];
+  weekDays: Day[];
 } & CalendarProps &
-  Required<Pick<CalendarProps, 'viewDate' | 'onChangeViewDate' | 'locale'>>;
+  Required<Pick<CalendarProps, 'viewDate' | 'onChangeViewDate' | 'locale' | 'weekStartsOn'>>;

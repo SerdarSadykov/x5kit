@@ -1,26 +1,42 @@
 import {ButtonHTMLAttributes, MouseEventHandler, useContext} from 'react';
 import styled from '@emotion/styled';
-import {startOfMonth, endOfMonth} from 'date-fns';
+import {startOfMonth, endOfMonth, addMonths, subMonths} from 'date-fns';
 
+import {getQAAttribute, RequiredQA} from 'common';
 import {CalendarContext} from 'calendar';
 import {ChevronLeft, ChevronRight} from 'icons';
-import {getQAAttribute, RequiredQA} from 'common';
+import {SizeTokenValue} from 'tokens';
 
 import {Years} from './Years';
 import {Months} from './Months';
 
-const HeaderContainer = styled.div`
+const Container = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 17.5px;
+  justify-content: space-between;
 `;
 
-const ArrowButton = styled.button``;
+const Center = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+const ArrowButton = styled.button`
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  line-height: 0;
+  background: no-repeat;
+  border: none;
+  outline: none;
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+`;
 
 const ArrowLeft: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   return (
     <ArrowButton {...props}>
-      <ChevronLeft />
+      <ChevronLeft size={SizeTokenValue.Small} />
     </ArrowButton>
   );
 };
@@ -28,32 +44,35 @@ const ArrowLeft: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
 const ArrowRight: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   return (
     <ArrowButton {...props}>
-      <ChevronRight />
+      <ChevronRight size={SizeTokenValue.Small} />
     </ArrowButton>
   );
 };
 
-
 export const Header: React.FC<RequiredQA> = ({qa}) => {
-  const {viewDate, minDate, maxDate} = useContext(CalendarContext);
+  const {viewDate, minDate, maxDate, onChangeViewDate} = useContext(CalendarContext);
 
   const getQA = getQAAttribute(qa);
 
   const isPrevDisabled = !!minDate && minDate >= endOfMonth(viewDate);
   const isNextDisabled = !!maxDate && maxDate <= startOfMonth(viewDate);
 
-  const onPrev: MouseEventHandler = () => {};
+  const onPrev: MouseEventHandler = () => {
+    onChangeViewDate(addMonths(viewDate, 1));
+  };
 
-  const onNext: MouseEventHandler = () => {};
+  const onNext: MouseEventHandler = () => {
+    onChangeViewDate(subMonths(viewDate, 1));
+  };
 
   return (
-    <HeaderContainer data-qa={getQA()}>
+    <Container data-qa={getQA()}>
       <ArrowLeft data-qa={getQA('previous')} disabled={isPrevDisabled} onClick={onPrev} />
-      <div>
+      <Center>
         <Years qa={getQA('year')} />
         <Months qa={getQA('month')} />
-      </div>
+      </Center>
       <ArrowRight data-qa={getQA('next')} disabled={isNextDisabled} onClick={onNext} />
-    </HeaderContainer>
+    </Container>
   );
 };

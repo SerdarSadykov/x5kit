@@ -1,20 +1,20 @@
 import {useContext} from 'react';
-
-import {RequiredQA, getQAAttribute} from 'common';
-
-import Day from '../Day';
-import {Week} from '../Week';
-import {Header} from '../Header';
-
-import {CalendarBlockProps} from './types';
-import {freezeRangeValues} from '../types';
-import {getDayStates, findDisabledDate} from './helpers';
-
-import {useStyles} from './styles';
-import {CalendarContext} from 'calendar';
 import styled from '@emotion/styled';
 
-const BlockContainer = styled.div();
+import {RequiredQA, getQAAttribute} from 'common';
+import {CalendarContext} from 'calendar';
+
+import {WeekDays} from '../WeekDays';
+import {Header} from '../Header';
+import {Days} from '../Days';
+
+// import {CalendarBlockProps} from './types';
+// import {freezeRangeValues} from '../types';
+// import {getDayStates, findDisabledDate} from './helpers';
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const Block: React.FC<RequiredQA> = ({qa}) => {
   const {} = useContext(CalendarContext);
@@ -49,10 +49,10 @@ const Block: React.FC<RequiredQA> = ({qa}) => {
   // }
 
   return (
-    <BlockContainer data-qa={getQA('block-1')}>
+    <Container data-qa={getQA('block-1')}>
       <Header qa={getQA('header')} />
-      <Week qa={getQA('week')} />
-      <div>
+      <WeekDays qa={getQA('week')} />
+      <Days />
         {/* {elements.map((days, i) => (
           <div key={i} className={classes.block}>
             {days.map((day, j) => {
@@ -89,8 +89,8 @@ const Block: React.FC<RequiredQA> = ({qa}) => {
             })}
           </div>
         ))} */}
-      </div>
-    </BlockContainer>
+      {/* </div> */}
+    </Container>
   );
 };
 

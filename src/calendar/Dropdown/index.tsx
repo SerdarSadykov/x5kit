@@ -2,7 +2,10 @@ import {useContext, useRef, useState} from 'react';
 import {usePopper} from 'react-popper';
 import styled from '@emotion/styled';
 
-const DropdownButton = styled.button``;
+const DropdownButton = styled.button`
+  position: relative;
+`;
+
 const DropdownList = styled.div`
   &[hidden] {
     display: none;
@@ -41,12 +44,14 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange}) => {
   const [btnRef, setBtnRef] = useState<HTMLButtonElement | null>(null);
   const [listRef, setListRef] = useState<HTMLDivElement | null>(null);
 
-  const {styles, attributes} = usePopper(btnRef, listRef, {
-    placement: 'bottom-start',
-  });
+  const popper = usePopper(btnRef, listRef, {placement: 'bottom-start'});
 
   const onToggle = () => {
     setIsOpen(!isOpen);
+
+    if (!isOpen) {
+      popper.update?.();
+    }
   };
 
   return (
@@ -54,7 +59,7 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange}) => {
       <DropdownButton ref={setBtnRef} onClick={onToggle}>
         {value.name}
       </DropdownButton>
-      <DropdownList ref={setListRef} hidden={!isOpen} style={styles.popper} {...attributes.popper}>
+      <DropdownList ref={setListRef} hidden={!isOpen} style={popper.styles.popper} {...popper.attributes.popper}>
         {items.map(item => (
           <DropdownListItem key={item.value} item={item} onChange={onChange} />
         ))}
