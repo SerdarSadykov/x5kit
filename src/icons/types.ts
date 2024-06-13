@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 import {SizeTokenValue} from 'tokens';
 
 export type IconProps = React.SVGProps<SVGSVGElement> & {
-  size?: SizeTokenValue;
+  size?: SizeTokenValue | number;
   color?: string;
 };
 

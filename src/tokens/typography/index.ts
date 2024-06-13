@@ -1,12 +1,10 @@
-import { TypographyTokenGroup } from './types'
-
 const base = {
   fontFamily: '"X5 Sans UI", Roboto, Arial, Helvetica, sans-serif',
   WebkitFontSmoothing: 'antialiased',
   MozOsxFontSmoothing: 'grayscale',
-}
+};
 
-export const typography: TypographyTokenGroup = {
+export const typography = {
   base,
   h1: {
     ...base,
@@ -79,4 +77,4 @@ export const typography: TypographyTokenGroup = {
     fontWeight: '400',
     letterSpacing: '0.08px',
   },
-} as const
+} as const;

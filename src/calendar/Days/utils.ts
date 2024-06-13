@@ -2,21 +2,17 @@ import {Day, endOfMonth, endOfWeek, startOfMonth, startOfWeek} from 'date-fns';
 
 export const getWeeks = (date: Date, weekStartsOn: Day): Date[][] => {
   const blockStart = startOfWeek(startOfMonth(date), {weekStartsOn});
-  const blockEnd = endOfWeek(endOfMonth(date), {weekStartsOn});
 
   const weeks: Date[][] = [];
-
-  let curWeek = 0;
   const curDay: Date = blockStart;
 
-  while (curDay < blockEnd) {
-    weeks[curWeek] ??= [];
-    weeks[curWeek].push(new Date(curDay.getTime()));
+  for (let weekN = 0; weekN < 6; weekN++) {
+    weeks[weekN] = [];
 
-    curDay.setDate(curDay.getDate() + 1);
+    for (let weekD = 1; weekD <= 7; weekD++) {
+      weeks[weekN].push(new Date(curDay.getTime()));
 
-    if (weeks[curWeek].length >= 7) {
-      curWeek++;
+      curDay.setDate(curDay.getDate() + 1);
     }
   }
 

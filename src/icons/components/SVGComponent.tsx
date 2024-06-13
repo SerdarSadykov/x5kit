@@ -7,7 +7,7 @@ import {IconProps} from '../types';
 export const SVGComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const {name, size = SizeTokenValue.Large, color = 'currentColor', ...restProps} = props;
 
-  const w = size === SizeTokenValue.Small ? 16 : 24;
+  const w = typeof size === 'number' ? size : (size === SizeTokenValue.Small ? 16 : 24);
 
   return (
     <svg

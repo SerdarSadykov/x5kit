@@ -18,7 +18,7 @@ export const useYears = (): DropdownProps => {
     onChangeViewDate(setYear(viewDate, newItem.value));
   };
 
-  return {onChange, value, items: years};
+  return {onChange, value, items: years, width: 80};
 };
 
 export const Years: React.FC<RequiredQA> = () => {

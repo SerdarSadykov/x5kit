@@ -1,6 +1,6 @@
 import {ColorTokenGroup} from './types';
 
-export const colorsAdditional = {
+export const additional = {
   blueGrey: <ColorTokenGroup>{
     5: '#f3f5f6',
     10: '#eaedef',

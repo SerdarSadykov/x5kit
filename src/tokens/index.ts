@@ -1,14 +1,12 @@
-import * as colors from './colors';
-import * as placements from './placements';
-import * as shadows from './shadows';
+import {colors} from './colors';
+import {shadows} from './shadows';
+import {spaces} from './spaces';
+import {typography} from './typography';
 import * as sizes from './sizes';
-import * as spaces from './spaces';
-import * as typography from './typography';
 
-export const theme = {colors, placements, shadows, sizes, spaces, typography};
+export const theme = {colors, shadows, sizes, spaces, typography};
 
 export * from './colors';
-export * from './placements';
 export * from './shadows';
 export * from './sizes';
 export * from './spaces';

@@ -19,12 +19,26 @@ import Block from './Block';
 // import { getDateString } from '../Datepicker/helpers'
 
 import {RequiredQA, getQAAttribute} from 'common';
+import {SpaceTokenName, colors, shadows, spaces, typography} from 'tokens'
 
-import {Container} from './Container';
 import {DropdownItem} from './Dropdown';
 import {CalendarContextProps, CalendarProps} from './types';
 
 export const CalendarContext = createContext<CalendarContextProps>({} as any);
+import styled from '@emotion/styled';
+
+
+export const Container = styled.div`
+  display: 'flex';
+  width: 'fit-content';
+  padding: ${spaces.join(SpaceTokenName.x10, SpaceTokenName.x8)};
+  background: ${colors.white};
+  box-shadow: ${shadows.medium};
+  border-radius: ${spaces.x4}px;
+  box-sizing: 'border-box';
+  font-family: ${typography.base.fontFamily};
+  font-size: ${spaces.x8}px;
+`;
 
 const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
   const getQA = getQAAttribute(qa);

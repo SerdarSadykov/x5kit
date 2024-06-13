@@ -36,7 +36,7 @@ const ArrowButton = styled.button`
 const ArrowLeft: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   return (
     <ArrowButton {...props}>
-      <ChevronLeft size={SizeTokenValue.Small} />
+      <ChevronLeft size={SizeTokenValue.Medium} />
     </ArrowButton>
   );
 };
@@ -44,7 +44,7 @@ const ArrowLeft: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
 const ArrowRight: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   return (
     <ArrowButton {...props}>
-      <ChevronRight size={SizeTokenValue.Small} />
+      <ChevronRight size={SizeTokenValue.Medium} />
     </ArrowButton>
   );
 };
@@ -58,19 +58,19 @@ export const Header: React.FC<RequiredQA> = ({qa}) => {
   const isNextDisabled = !!maxDate && maxDate <= startOfMonth(viewDate);
 
   const onPrev: MouseEventHandler = () => {
-    onChangeViewDate(addMonths(viewDate, 1));
+    onChangeViewDate(subMonths(viewDate, 1));
   };
 
   const onNext: MouseEventHandler = () => {
-    onChangeViewDate(subMonths(viewDate, 1));
+    onChangeViewDate(addMonths(viewDate, 1));
   };
 
   return (
     <Container data-qa={getQA()}>
       <ArrowLeft data-qa={getQA('previous')} disabled={isPrevDisabled} onClick={onPrev} />
       <Center>
-        <Years qa={getQA('year')} />
         <Months qa={getQA('month')} />
+        <Years qa={getQA('year')} />
       </Center>
       <ArrowRight data-qa={getQA('next')} disabled={isNextDisabled} onClick={onNext} />
     </Container>

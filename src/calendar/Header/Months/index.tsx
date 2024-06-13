@@ -1,15 +1,15 @@
 import {useContext} from 'react';
-import {setMonth} from 'date-fns';
+import {Month, setMonth} from 'date-fns';
 
 import {RequiredQA} from 'common';
 import {CalendarContext} from 'calendar';
 import {Dropdown, DropdownItem, DropdownProps} from 'calendar/Dropdown';
 
 export const useMonths = (): DropdownProps => {
-  const {viewDate, months, onChangeViewDate} = useContext(CalendarContext);
+  const {locale, viewDate, months, onChangeViewDate} = useContext(CalendarContext);
 
   const value: DropdownItem = {
-    name: String(viewDate.getMonth()),
+    name: locale.localize.month(viewDate.getMonth() as Month),
     value: viewDate.getMonth(),
     disabled: false,
   };
@@ -18,7 +18,7 @@ export const useMonths = (): DropdownProps => {
     onChangeViewDate(setMonth(viewDate, newItem.value));
   };
 
-  return {onChange, items: months, value};
+  return {onChange, value, items: months, width: 100};
 };
 
 export const Months: React.FC<RequiredQA> = () => {
