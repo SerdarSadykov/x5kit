@@ -19,14 +19,13 @@ import Block from './Block';
 // import { getDateString } from '../Datepicker/helpers'
 
 import {RequiredQA, getQAAttribute} from 'common';
-import {SpaceTokenName, colors, shadows, spaces, typography} from 'tokens'
+import {SpaceTokenName, colors, shadows, spaces, typography} from 'tokens';
 
 import {DropdownItem} from './Dropdown';
 import {CalendarContextProps, CalendarProps} from './types';
 
 export const CalendarContext = createContext<CalendarContextProps>({} as any);
 import styled from '@emotion/styled';
-
 
 export const Container = styled.div`
   display: 'flex';
@@ -165,6 +164,8 @@ const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
 export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
   const locale = props.locale ?? ru;
 
+  const value = props.value ?? [null, null];
+
   const [viewDate, setViewDate] = useState<Date>(() => startOfDay(props.viewDate?.getTime() ?? new Date()));
 
   const onChangeViewDate: CalendarProps['onChangeViewDate'] = newViewDate => {
@@ -207,8 +208,9 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
 
   weekDays.push(...weekDays.splice(0, weekStartsOn));
 
-  const value: CalendarContextProps = {
+  const context: CalendarContextProps = {
     ...props,
+    value,
     viewDate,
     years,
     weekDays,
@@ -219,7 +221,7 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
   };
 
   return (
-    <CalendarContext.Provider value={value}>
+    <CalendarContext.Provider value={context}>
       <CalendarComponent qa={qa ?? 'calendar'} />
     </CalendarContext.Provider>
   );

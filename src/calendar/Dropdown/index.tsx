@@ -2,20 +2,34 @@ import {MouseEventHandler, useEffect, useRef, useState} from 'react';
 import {usePopper} from 'react-popper';
 import styled from '@emotion/styled';
 
-import {theme} from 'tokens';
+import {SizeTokenValue, theme} from 'tokens';
+import {ArrowDown, ArrowUp} from 'icons';
 
 const Container = styled.div``;
 
-const DropdownButton = styled.button`
+const DropdownButton = styled.button<DropdownButtonStyle>`
   position: relative;
-  width: ${(props: DropdownStyle) => props.width}px;
+  width: ${props => props.width}px;
+  height: 32px;
   font-family: ${theme.typography.base.fontFamily};
   font-size: ${theme.spaces.x8}px;
+  text-transform: capitalize;
+  color: ${theme.colors.grey[100]};
+  background: none;
+  border: 2px solid ${props => props.isOpen ? theme.colors.accent[90] : 'transparent'};
+  border-radius: 4px;
   cursor: pointer;
+
+  & svg {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    color: ${theme.colors.grey[60]};
+  }
 `;
 
-const List = styled.div`
-  width: ${(props: DropdownStyle) => props.width}px;
+const List = styled.div<DropdownStyle>`
+  width: ${props => props.width}px;
   max-height: 240px;
   padding-top: 8px;
   z-index: ${theme.sizes.zIndex.dropdown};
@@ -56,6 +70,10 @@ export type DropdownItem = {
 type DropdownStyle = {
   width: number;
 };
+
+type DropdownButtonStyle = DropdownStyle & {
+  isOpen: boolean;
+}
 
 export type DropdownProps = DropdownStyle & {
   items: DropdownItem[];
@@ -110,10 +128,13 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, width
 
   const listItems = items.map(item => <DropdownListItem key={item.value} item={item} onChange={onClickItem} />);
 
+  const Chevron = isOpen ? ArrowUp : ArrowDown;
+
   return (
     <Container onClick={onClickContainer}>
-      <DropdownButton ref={setBtnRef} width={width} onClick={onToggle}>
+      <DropdownButton ref={setBtnRef} width={width} isOpen={isOpen} onClick={onToggle}>
         {value.name}
+        <Chevron size={SizeTokenValue.Small} />
       </DropdownButton>
 
       <List ref={setListRef} width={width} hidden={!isOpen} style={popper.styles.popper} {...popper.attributes.popper}>

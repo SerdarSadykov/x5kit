@@ -18,9 +18,9 @@ const Week = styled.div`
 `;
 
 export const Days: React.FC = () => {
-  const {viewDate, weekStartsOn} = useContext(CalendarContext);
+  const context = useContext(CalendarContext);
 
-  const weeks = getWeeks(viewDate, weekStartsOn);
+  const weeks = getWeeks(context);
 
   return (
     <Container>

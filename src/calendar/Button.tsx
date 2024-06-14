@@ -1,10 +1,14 @@
-import {Calendar} from './index';
+import {useState} from 'react';
+import {Calendar, CalendarValue} from './index';
 
 export const Button = () => {
+  const [value, setValue] = useState<CalendarValue>();
+
   return (
     <div id="calendar">
       <Calendar
-        onChange={() => {}}
+        value={value}
+        onChange={setValue}
       />
     </div>
   );

@@ -16,9 +16,11 @@ export type CalendarDay = Day;
 
 export type CalendarDisableDates = (date: Date) => boolean;
 
+export type CalendarValue = [Date | null, Date | null];
+
 export type CalendarBaseProps = {
-  date?: [Date, Date | undefined];
-  onChange: (newDate?: Date) => void;
+  value?: CalendarValue;
+  onChange: (newValue: CalendarValue) => void;
 
   viewDate?: Date;
   onChangeViewDate?: (newViewDate: Date) => void;
@@ -40,4 +42,4 @@ export type CalendarContextProps = {
   months: DropdownItem[];
   weekDays: Day[];
 } & CalendarProps &
-  Required<Pick<CalendarProps, 'viewDate' | 'onChangeViewDate' | 'locale' | 'weekStartsOn'>>;
+  Required<Pick<CalendarProps, 'value' | 'viewDate' | 'onChangeViewDate' | 'locale' | 'weekStartsOn'>>;
