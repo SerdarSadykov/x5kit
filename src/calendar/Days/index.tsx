@@ -1,10 +1,10 @@
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import styled from '@emotion/styled';
 
 import {CalendarContext} from 'calendar/Calendar';
 
-import {getDayComponent} from './Day';
-import {getWeeks} from './utils';
+import {DayEvents, getDayComponent} from './Day';
+import {getNewRange, getWeeks} from './utils';
 
 export * from './utils';
 
@@ -19,13 +19,31 @@ const Week = styled.div`
 
 export const Days: React.FC = () => {
   const context = useContext(CalendarContext);
+  const {onChange, value} = context;
+  const [hoverDate, setHoverDate] = useState<Date | null>(null);
 
-  const weeks = getWeeks(context);
+  const weeks = getWeeks(context, hoverDate);
+
+  const events = (date: Date): DayEvents => ({
+    onClick: () => {
+      onChange(getNewRange(value, date));
+    },
+
+    onMouseEnter: () => {
+      setHoverDate(date);
+    },
+
+    onMouseLeave: () => {
+      if (date.getTime() === hoverDate?.getTime()) {
+        setHoverDate(null);
+      }
+    },
+  });
 
   return (
     <Container>
       {weeks.map((week, indx) => (
-        <Week key={indx}>{week.map(getDayComponent)}</Week>
+        <Week key={indx}>{week.map(dayProps => getDayComponent(dayProps, events(dayProps.date)))}</Week>
       ))}
     </Container>
   );

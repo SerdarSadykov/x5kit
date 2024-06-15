@@ -1,5 +1,11 @@
 import styled from '@emotion/styled';
+
 import {theme} from 'tokens';
+
+import {DayEvents, DayProps} from './types';
+
+export * from './utils';
+export * from './types';
 
 const Container = styled.div<Omit<DayProps, 'date'>>`
   position: relative;
@@ -8,6 +14,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
   height: 40px;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   &::before {
     content: '';
@@ -23,11 +30,11 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
     border-color: ${({isToday}) => (isToday ? theme.colors.accent[90] : 'transparent')};
   }
 
-  ${({isViewMonth, isRangeStart, isRangeEnd, isRangeIn, isDisabled}) => {
+  ${({isViewMonth, isRangeStart, isRangeEnd, isRangeIn, isRangeHover, isDisabled}) => {
     if (isDisabled) {
       return {
         color: theme.colors.grey[40],
-      }
+      };
     }
 
     if (isRangeStart) {
@@ -46,7 +53,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
       };
     }
 
-    if (isRangeIn) {
+    if (isRangeIn || isRangeHover) {
       return {
         color: theme.colors.grey[100],
         backgroundColor: theme.colors.accent[10],
@@ -57,26 +64,14 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
       return {
         color: theme.colors.grey[60],
       };
-      
     }
 
     return theme.colors.white;
   }}
 `;
 
-export type DayProps = {
-  date: Date;
-  isViewMonth: boolean;
-  isToday: boolean;
-  isRangeStart: boolean;
-  isRangeEnd: boolean;
-  isRangeIn: boolean;
-  isDisabled: boolean;
-  onClick: () => void;
-};
-
-export const getDayComponent = ({date, ...props}: DayProps) => (
-  <Container key={date.getTime()} {...props}>
+export const getDayComponent = ({date, ...props}: DayProps, events: DayEvents) => (
+  <Container key={date.getTime()} {...props} {...events}>
     {date.getDate()}
   </Container>
 );

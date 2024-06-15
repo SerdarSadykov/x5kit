@@ -1,61 +1,10 @@
-import {startOfMonth, startOfToday, startOfWeek} from 'date-fns';
+import {startOfMonth, startOfWeek} from 'date-fns';
 
 import {CalendarContextProps, CalendarValue} from 'calendar/types';
 
-import {DayProps} from './Day';
+import {DayProps, getDayProps} from './Day';
 
-export const getNewRange = (value: CalendarValue, date: Date): CalendarValue => {
-  let [rangeStart, rangeEnd] = value;
-
-  if (!rangeStart) {
-    return [date, rangeEnd];
-  }
-
-  if (!rangeEnd) {
-    return [rangeStart, date];
-  }
-
-  if (date > rangeStart) {
-    return [rangeStart, date];
-  }
-
-  return [date, rangeEnd];
-};
-
-export const getDayProps = (date: Date, context: CalendarContextProps): DayProps => {
-  const {viewDate, minDate, maxDate, value, onChange} = context;
-  const [rangeStart, rangeEnd] = value;
-
-  const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
-
-  const isToday = startOfToday().getTime() === date.getTime();
-
-  const isRangeStart = !!rangeStart && rangeStart.getTime() === date.getTime();
-
-  const isRangeEnd = !!rangeEnd && rangeEnd.getTime() === date.getTime();
-
-  const isRangeIn =
-    !!rangeStart && !!rangeEnd && rangeStart.getTime() < date.getTime() && rangeEnd.getTime() > date.getTime();
-
-  const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date);
-
-  const onClick = () => {
-    onChange(getNewRange(value, date));
-  };
-
-  return {
-    date,
-    isViewMonth,
-    isToday,
-    isRangeStart,
-    isRangeEnd,
-    isRangeIn,
-    isDisabled,
-    onClick,
-  };
-};
-
-export const getWeeks = (context: CalendarContextProps): DayProps[][] => {
+export const getWeeks = (context: CalendarContextProps, hoverDate: Date | null): DayProps[][] => {
   const {viewDate, weekStartsOn} = context;
   const blockStart = startOfWeek(startOfMonth(viewDate), {weekStartsOn});
 
@@ -66,13 +15,27 @@ export const getWeeks = (context: CalendarContextProps): DayProps[][] => {
     weeks[weekN] = [];
 
     for (let weekD = 1; weekD <= 7; weekD++) {
-      weeks[weekN].push(getDayProps(new Date(curDay.getTime()), context));
+      weeks[weekN].push(getDayProps(context, new Date(curDay.getTime()), hoverDate));
 
       curDay.setDate(curDay.getDate() + 1);
     }
   }
 
   return weeks;
+};
+
+export const getNewRange = (value: CalendarValue, date: Date): CalendarValue => {
+  let [rangeStart, rangeEnd] = value;
+  
+  if (!rangeStart) {
+    return [date, rangeEnd];
+  }
+
+  if (!rangeEnd) {
+    return date > rangeStart ? [rangeStart, date] : [date, rangeStart];
+  }
+
+  return [date, null];
 };
 
 // const previousMonthDays = [];
