@@ -104,7 +104,12 @@ type DropdownButtonStyle = DropdownStyle & {
   isOpen: boolean;
 };
 
-export type DropdownProps = DropdownStyle & {
+export type DropdownOpenProps = {
+  isOpen: boolean;
+  setIsOpen: (newIsOpen: boolean) => void;
+}
+
+export type DropdownProps = DropdownStyle & DropdownOpenProps & {
   items: DropdownItem[];
   value: DropdownItem;
   onChange: (newItem: DropdownItem) => void;
@@ -122,9 +127,7 @@ const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSe
   );
 };
 
-export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, width}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpen, setIsOpen, width}) => {
   const [btnRef, setBtnRef] = useState<HTMLButtonElement | null>(null);
   const [listRef, setListRef] = useState<HTMLDivElement | null>(null);
 

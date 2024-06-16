@@ -182,7 +182,7 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
   const years: DropdownItem[] = [];
   const months: DropdownItem[] = [];
   const currentYear = viewDate.getFullYear();
-  const minYear = props.minDate ? props.minDate.getFullYear() : currentYear - 10;
+  const minYear = props.minDate ? props.minDate.getFullYear() : currentYear - 5;
   const maxYear = props.maxDate ? props.maxDate.getFullYear() : currentYear + 10;
 
   for (let i = minYear; i <= maxYear; i++) {
