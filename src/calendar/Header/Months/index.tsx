@@ -18,7 +18,7 @@ export const useMonths = (): DropdownProps => {
     onChangeViewDate(setMonth(viewDate, newItem.value));
   };
 
-  return {onChange, value, items: months, width: 100};
+  return {onChange, value, items: months, width: 112};
 };
 
 export const Months: React.FC<RequiredQA> = () => {

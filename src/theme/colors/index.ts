@@ -204,6 +204,7 @@ export const colors = {
   },
 
   white: '#ffffff',
+  focus: '#1565c0',
 
   [ColorTokenState.Success]: '#4caf50',
   [ColorTokenState.Error]: '#f44336',

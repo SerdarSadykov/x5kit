@@ -19,7 +19,7 @@ import Block from './Block';
 // import { getDateString } from '../Datepicker/helpers'
 
 import {RequiredQA, getQAAttribute} from 'common';
-import {SpaceTokenName, colors, shadows, spaces, typography} from 'theme';
+import {SpaceTokenName, colors, shadows, spaces, theme, typography} from 'theme';
 
 import {DropdownItem} from './Dropdown';
 import {CalendarContextProps, CalendarProps} from './types';
@@ -28,9 +28,7 @@ export const CalendarContext = createContext<CalendarContextProps>({} as any);
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  display: 'flex';
-  width: 'fit-content';
-  padding: ${spaces.join(SpaceTokenName.x10, SpaceTokenName.x8)};
+  padding: ${theme.spaces.x8}px;
   background: ${colors.white};
   box-shadow: ${shadows.medium};
   border-radius: ${spaces.x4}px;

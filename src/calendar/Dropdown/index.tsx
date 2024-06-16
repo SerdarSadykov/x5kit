@@ -5,31 +5,35 @@ import styled from '@emotion/styled';
 import {SizeTokenValue, theme} from 'theme';
 import {ArrowDown, ArrowUp} from 'icons';
 
-const Container = styled.div``;
+const Container = styled.div`
+  font-family: ${theme.typography.base.fontFamily};
+`;
 
 const DropdownButton = styled.button<DropdownButtonStyle>`
   position: relative;
   width: ${props => props.width}px;
   height: 32px;
-  font-family: ${theme.typography.base.fontFamily};
+  padding: 0 0 0 12px;
   font-size: ${theme.spaces.x8}px;
+  letter-spacing: 0.12px;
   text-transform: capitalize;
+  text-align: left;
   color: ${theme.colors.grey[100]};
   background: none;
   border-style: solid;
   border-width: 2px;
-  border-color: ${props => props.isOpen ? theme.colors.accent[90] : 'transparent'};
+  border-color: ${props => (props.isOpen ? theme.colors.accent[90] : 'transparent')};
   border-radius: 4px;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     border-color: ${theme.colors.grey[40]};
   }
 
   & svg {
     position: absolute;
-    right: 0;
-    top: 5px;
+    right: 10px;
+    top: 7px;
     color: ${theme.colors.grey[60]};
   }
 `;
@@ -38,33 +42,52 @@ const List = styled.div<DropdownStyle>`
   width: ${props => props.width}px;
   max-height: 240px;
   padding-top: 8px;
-  z-index: ${theme.sizes.zIndex.dropdown};
   background-color: ${theme.colors.white};
   border-radius: 8px;
-  box-shadow: ${theme.shadows.small};
+  box-shadow: ${theme.shadows.medium};
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: ${theme.sizes.zIndex.dropdown};
 
   &[hidden] {
     display: none;
   }
+
+  ${theme.scroll}
 `;
 
-const ListItem = styled.button`
+export type ListItemStyle = {
+  isSelected: boolean;
+};
+
+const ListItem = styled.button<ListItemStyle>`
   display: block;
   min-width: 100%;
   height: 32px;
   padding: 0 12px;
+  font-family: ${theme.typography.base.fontFamily};
   font-size: ${theme.spaces.x8}px;
+  letter-spacing: 0.12px;
+  text-transform: capitalize;
+  text-align: left;
   background: none;
   border: none;
   outline: none;
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 
   &:hover {
-    color: ${theme.colors.white};
-    background-color: ${theme.colors.accent[90]};
+    color: ${theme.colors.grey[100]};
+    background-color: ${theme.colors.grey[20]};
   }
+
+  ${props => {
+    if (props.isSelected) {
+      return {
+        color: theme.colors.white,
+        backgroundColor: theme.colors.accent[90],
+      };
+    }
+  }}
 `;
 
 export type DropdownItem = {
@@ -79,7 +102,7 @@ type DropdownStyle = {
 
 type DropdownButtonStyle = DropdownStyle & {
   isOpen: boolean;
-}
+};
 
 export type DropdownProps = DropdownStyle & {
   items: DropdownItem[];
@@ -87,13 +110,13 @@ export type DropdownProps = DropdownStyle & {
   onChange: (newItem: DropdownItem) => void;
 };
 
-export type DropdownListItemProps = Pick<DropdownProps, 'onChange'> & {item: DropdownItem};
+export type DropdownListItemProps = Pick<DropdownProps, 'onChange'> & ListItemStyle & {item: DropdownItem};
 
-const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item}) => {
+const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSelected}) => {
   const {name, disabled} = item;
 
   return (
-    <ListItem onClick={() => onChange(item)} disabled={disabled}>
+    <ListItem onClick={() => onChange(item)} disabled={disabled} isSelected={isSelected}>
       {name}
     </ListItem>
   );
@@ -132,7 +155,9 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, width
     return () => document.body.removeEventListener('click', listner);
   }, [setIsOpen]);
 
-  const listItems = items.map(item => <DropdownListItem key={item.value} item={item} onChange={onClickItem} />);
+  const listItems = items.map(item => (
+    <DropdownListItem key={item.value} item={item} isSelected={item.value === value.value} onChange={onClickItem} />
+  ));
 
   const Chevron = isOpen ? ArrowUp : ArrowDown;
 

@@ -10,6 +10,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   align-items: flex-start;
+  margin-bottom: ${theme.spaces.x2}px;
 `;
 
 type ItemStyle = {weekDay: Day};
