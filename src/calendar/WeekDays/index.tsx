@@ -4,7 +4,7 @@ import {Day} from 'date-fns';
 
 import {RequiredQA} from 'common';
 import {CalendarContext} from 'calendar';
-import {theme} from 'tokens';
+import {theme} from 'theme';
 
 const Container = styled.div`
   position: relative;

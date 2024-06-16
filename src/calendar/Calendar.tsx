@@ -19,7 +19,7 @@ import Block from './Block';
 // import { getDateString } from '../Datepicker/helpers'
 
 import {RequiredQA, getQAAttribute} from 'common';
-import {SpaceTokenName, colors, shadows, spaces, typography} from 'tokens';
+import {SpaceTokenName, colors, shadows, spaces, typography} from 'theme';
 
 import {DropdownItem} from './Dropdown';
 import {CalendarContextProps, CalendarProps} from './types';

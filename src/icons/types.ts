@@ -1,6 +1,6 @@
 import {forwardRef} from 'react';
 
-import {SizeTokenValue} from 'tokens';
+import {SizeTokenValue} from 'theme';
 
 export type IconProps = React.SVGProps<SVGSVGElement> & {
   size?: SizeTokenValue | number;

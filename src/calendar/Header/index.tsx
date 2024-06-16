@@ -5,7 +5,7 @@ import {startOfMonth, endOfMonth, addMonths, subMonths} from 'date-fns';
 import {getQAAttribute, RequiredQA} from 'common';
 import {CalendarContext} from 'calendar';
 import {ChevronLeft, ChevronRight} from 'icons';
-import {SizeTokenValue} from 'tokens';
+import {SizeTokenValue, theme} from 'theme';
 
 import {Years} from './Years';
 import {Months} from './Months';
@@ -19,17 +19,17 @@ const Container = styled.div`
 
 const Center = styled.div`
   display: flex;
-  gap: 8px;
 `;
 
 const ArrowButton = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   line-height: 0;
   background: no-repeat;
   border: none;
   outline: none;
+  color: ${theme.colors.grey[60]};
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 `;
 

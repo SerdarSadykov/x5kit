@@ -2,7 +2,7 @@ import {MouseEventHandler, useEffect, useRef, useState} from 'react';
 import {usePopper} from 'react-popper';
 import styled from '@emotion/styled';
 
-import {SizeTokenValue, theme} from 'tokens';
+import {SizeTokenValue, theme} from 'theme';
 import {ArrowDown, ArrowUp} from 'icons';
 
 const Container = styled.div``;
@@ -16,9 +16,15 @@ const DropdownButton = styled.button<DropdownButtonStyle>`
   text-transform: capitalize;
   color: ${theme.colors.grey[100]};
   background: none;
-  border: 2px solid ${props => props.isOpen ? theme.colors.accent[90] : 'transparent'};
+  border-style: solid;
+  border-width: 2px;
+  border-color: ${props => props.isOpen ? theme.colors.accent[90] : 'transparent'};
   border-radius: 4px;
   cursor: pointer;
+
+  &:hover{
+    border-color: ${theme.colors.grey[40]};
+  }
 
   & svg {
     position: absolute;

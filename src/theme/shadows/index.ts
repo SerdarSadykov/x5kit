@@ -1,4 +1,4 @@
-import {SizeTokenValue} from 'tokens/sizes';
+import {SizeTokenValue} from 'theme/sizes';
 
 const small = '0px 0px 8px rgba(80, 86, 94, 0.08), 0px 1px 2px rgba(80, 86, 94, 0.32)';
 const medium =

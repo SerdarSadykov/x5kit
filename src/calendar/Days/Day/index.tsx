@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import {theme} from 'tokens';
+import {theme} from 'theme';
 
 import {DayEvents, DayProps} from './types';
 
