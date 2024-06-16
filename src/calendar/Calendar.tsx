@@ -164,7 +164,19 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
 
   const value = props.value ?? [null, null];
 
-  const [viewDate, setViewDate] = useState<Date>(() => startOfDay(props.viewDate?.getTime() ?? new Date()));
+  const [viewDate, setViewDate] = useState<Date>(() => {
+    let newViewDate = startOfDay(props.viewDate?.getTime() ?? new Date());
+
+    if(props.minDate && newViewDate < props.minDate){
+      newViewDate = props.minDate;
+    }
+
+    if(props.maxDate && newViewDate > props.maxDate){
+      newViewDate = props.maxDate;
+    }
+
+    return newViewDate;
+  });
 
   const onChangeViewDate: CalendarProps['onChangeViewDate'] = newViewDate => {
     setViewDate(newViewDate);

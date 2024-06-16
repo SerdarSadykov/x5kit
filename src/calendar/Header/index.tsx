@@ -52,7 +52,7 @@ const ArrowRight: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   );
 };
 
-enum IsOpenDropdown {
+export enum IsOpenDropdown {
   year = 'year',
   month = 'month',
 }
@@ -64,8 +64,8 @@ export const Header: React.FC<RequiredQA> = ({qa}) => {
 
   const getQA = getQAAttribute(qa);
 
-  const isPrevDisabled = !!minDate && minDate >= endOfMonth(viewDate);
-  const isNextDisabled = !!maxDate && maxDate <= startOfMonth(viewDate);
+  const isPrevDisabled = !!minDate && endOfMonth(minDate).getTime() >= endOfMonth(viewDate).getTime();
+  const isNextDisabled = !!maxDate && startOfMonth(maxDate).getTime() <= startOfMonth(viewDate).getTime();
 
   const onPrev: MouseEventHandler = () => {
     onChangeViewDate(subMonths(viewDate, 1));
@@ -78,9 +78,7 @@ export const Header: React.FC<RequiredQA> = ({qa}) => {
   const getDropdownProps = (dropdown: IsOpenDropdown): HeaderDropdownProps => ({
     qa: getQA(dropdown),
     isOpen: isOpen === dropdown,
-    setIsOpen: newIsOpen => {
-      setIsOpen(newIsOpen && isOpen !== dropdown ? dropdown : null);
-    },
+    setIsOpen: newIsOpen => setIsOpen(newIsOpen && isOpen !== dropdown ? dropdown : null),
   });
 
   return (

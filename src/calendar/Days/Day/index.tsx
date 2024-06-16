@@ -15,6 +15,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
   justify-content: center;
   align-items: center;
   user-select: none;
+  cursor: ${props => props.isDisabled ? 'default' : 'pointer'};
 
   &::before {
     content: '';
@@ -66,7 +67,9 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
       };
     }
 
-    return theme.colors.white;
+    return {
+      backgroundColor: theme.colors.white,
+    }
   }}
 `;
 
