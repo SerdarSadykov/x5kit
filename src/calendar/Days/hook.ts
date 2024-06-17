@@ -11,7 +11,7 @@ export const useWeeks = (): DayProps[][] => {
   const context = useContext(CalendarContext);
   const {viewDate} = useContext(BlockContext);
 
-  const {weekStartsOn, hoverDate} = context;
+  const {weekStartsOn, hoverDate, blocks} = context;
   const blockStart = startOfWeek(startOfMonth(viewDate), {weekStartsOn});
 
   const weeks: DayProps[][] = [];
@@ -31,6 +31,10 @@ export const useWeeks = (): DayProps[][] => {
       );
 
       curDay.setDate(curDay.getDate() + 1);
+    }
+
+    if (blocks > 0 && curDay.getMonth() !== viewDate.getMonth()) {
+      break;
     }
   }
 

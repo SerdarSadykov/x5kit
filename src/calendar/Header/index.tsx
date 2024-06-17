@@ -57,7 +57,8 @@ const ArrowRight: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
 };
 
 export const Header: React.FC<RequiredQA> = ({qa}) => {
-  const {minDate, maxDate, onChangeViewDate} = useContext(CalendarContext);
+  const context = useContext(CalendarContext);
+  const {minDate, maxDate, onChangeViewDate} = context;
   const {isSingle, isFirst, isLast} = useContext(BlockContext);
   const {viewDate} = useContext(BlockContext);
 
@@ -67,11 +68,11 @@ export const Header: React.FC<RequiredQA> = ({qa}) => {
   const isNextDisabled = !!maxDate && startOfMonth(maxDate).getTime() <= startOfMonth(viewDate).getTime();
 
   const onPrev: MouseEventHandler = () => {
-    onChangeViewDate(subMonths(viewDate, 1));
+    onChangeViewDate(subMonths(context.viewDate, 1));
   };
 
   const onNext: MouseEventHandler = () => {
-    onChangeViewDate(addMonths(viewDate, 1));
+    onChangeViewDate(addMonths(context.viewDate, 1));
   };
 
   const HeaderDateComponent = isSingle ? HeaderDateDropdown : HeaderDate

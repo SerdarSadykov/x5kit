@@ -13,6 +13,7 @@ const Container = styled.div`
   display: flex;
   gap: ${theme.spaces.x4}px;
   text-transform: capitalize;
+  user-select: none;
 `;
 
 export const HeaderDate: React.FC<RequiredQA> = ({qa}) => {

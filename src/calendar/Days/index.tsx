@@ -1,12 +1,6 @@
-import {useContext, useState} from 'react';
 import styled from '@emotion/styled';
 
-import {CalendarContext} from 'calendar/Calendar';
-import {BlockContext} from 'calendar/Block';
-
-import {DayEvents, getDayComponent} from './Day';
-import {getNewRange} from './utils';
-
+import {DayProps, getDayComponent} from './Day';
 import {useEvents, useWeeks} from './hook';
 
 export * from './utils';
@@ -24,11 +18,9 @@ export const Days: React.FC = () => {
   const weeks = useWeeks();
   const events = useEvents();
 
-  return (
-    <Container>
-      {weeks.map((week, indx) => (
-        <Week key={indx}>{week.map(dayProps => getDayComponent(dayProps, events(dayProps.date)))}</Week>
-      ))}
-    </Container>
+  const getWeek = (week: DayProps[], indx: number) => (
+    <Week key={indx}>{week.map(dayProps => getDayComponent(dayProps, events(dayProps.date)))}</Week>
   );
+
+  return <Container>{weeks.map(getWeek)}</Container>;
 };

@@ -54,9 +54,11 @@ const getRangeDayProps = ({date, hoverDate, context: {mode, value}}: GetDayProps
 
 export const getDayProps = (args: GetDayPropsArgs): DayProps => {
   const {context, date, viewDate} = args;
-  const {minDate, maxDate, disabledDates, tooltips} = context;
+  const {minDate, maxDate, disabledDates, tooltips, blocks} = context;
 
   const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
+
+  const isHidden = !isViewMonth && blocks > 0;
 
   const isToday = startOfToday().getTime() === date.getTime();
 
@@ -67,6 +69,7 @@ export const getDayProps = (args: GetDayPropsArgs): DayProps => {
   return {
     date,
     tooltip,
+    isHidden,
     isViewMonth,
     isToday,
     isDisabled,

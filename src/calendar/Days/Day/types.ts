@@ -11,6 +11,7 @@ export type RangeDayProps = {
 export type DayProps = {
   date: Date;
   tooltip: ReactNode | string | null;
+  isHidden: boolean;
   isViewMonth: boolean;
   isToday: boolean;
   isDisabled: boolean;

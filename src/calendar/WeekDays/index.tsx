@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
   align-items: flex-start;
   margin-bottom: ${theme.spaces.x2}px;
+  user-select: none;
 `;
 
 type ItemStyle = {weekDay: Day};

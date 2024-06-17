@@ -15,7 +15,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
   justify-content: center;
   align-items: center;
   user-select: none;
-  cursor: ${props => props.isDisabled ? 'default' : 'pointer'};
+  cursor: ${props => (props.isDisabled ? 'default' : 'pointer')};
 
   &::before {
     content: '';
@@ -31,7 +31,14 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
     border-color: ${({isToday}) => (isToday ? theme.colors.accent[90] : 'transparent')};
   }
 
-  ${({isViewMonth, isSelected, isRangeStart, isRangeEnd, isRangeIn, isRangeHover, isDisabled}) => {
+  ${({isHidden, isViewMonth, isSelected, isRangeStart, isRangeEnd, isRangeIn, isRangeHover, isDisabled}) => {
+    if (isHidden) {
+      return {
+        visibility: 'hidden',
+        pointerEvents: 'none',
+      };
+    }
+
     if (isDisabled) {
       return {
         color: theme.colors.grey[40],
@@ -77,7 +84,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
 
     return {
       backgroundColor: theme.colors.white,
-    }
+    };
   }}
 `;
 
