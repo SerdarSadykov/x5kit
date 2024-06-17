@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
+import {CalendarContextProps, CalendarMode} from 'calendar/types';
 
-import {DayEvents, DayProps} from './types';
+import {DayProps} from './types';
+import {getNewHoverDate, getNewRange} from '../utils';
 
 export * from './utils';
 export * from './types';
@@ -88,8 +90,40 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
   }}
 `;
 
-export const getDayComponent = ({date, ...props}: DayProps, events: DayEvents) => (
-  <Container key={date.getTime()} {...props} {...events}>
-    {date.getDate()}
-  </Container>
-);
+export const getDayComponent = (context: CalendarContextProps) => ({date, ...props}: DayProps) => {
+  const {
+    mode,
+    onChange,
+    hoverDate,
+    setHoverDate,
+    value: [rangeStart, rangetEnd],
+  } = context;
+
+  const hasHover = mode === CalendarMode.range && (!rangeStart || !rangetEnd);
+
+  const events = {
+    onClick: () => {
+      onChange(getNewRange(date, context));
+    },
+
+    onMouseEnter: !hasHover
+      ? undefined
+      : () => {
+          setHoverDate(getNewHoverDate(date, context));
+        },
+
+    onMouseLeave: !hasHover
+      ? undefined
+      : () => {
+          if (date.getTime() === hoverDate?.getTime()) {
+            setHoverDate(undefined);
+          }
+        },
+  };
+
+  return (
+    <Container key={date.getTime()} {...props} {...events}>
+      {date.getDate()}
+    </Container>
+  );
+};

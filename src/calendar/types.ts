@@ -20,7 +20,7 @@ export type CalendarDay = Day;
 export type CalendarDisableDates = (date: Date) => boolean;
 export type CalendarTooltip = (date: Date) => ReactNode | string;
 
-export type CalendarValue = Date | null;
+export type CalendarValue = Date | undefined;
 export type BaseCalendarValue = [CalendarValue, CalendarValue];
 export type RangeCalendarValue = BaseCalendarValue;
 
@@ -58,7 +58,7 @@ export type CalendarContextProps = {
   years: DropdownItem[];
   months: DropdownItem[];
   weekDays: Day[];
-  hoverDate: Date | null;
-  setHoverDate: (newHoverDate: Date | null) => void;
+  hoverDate: Date | undefined;
+  setHoverDate: (newHoverDate: Date | undefined) => void;
 } & BaseCalendarProps &
   Required<Pick<BaseCalendarProps, 'value' | 'viewDate' | 'onChangeViewDate' | 'locale' | 'weekStartsOn' | 'blocks'>>;

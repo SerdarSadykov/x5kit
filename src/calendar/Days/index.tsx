@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import {DayProps, getDayComponent} from './Day';
-import {useEvents, useWeeks} from './hook';
+import {useDays} from './hook';
 
 export * from './utils';
 
@@ -15,12 +15,9 @@ const Week = styled.div`
 `;
 
 export const Days: React.FC = () => {
-  const weeks = useWeeks();
-  const events = useEvents();
+  const {weeks, context} = useDays();
 
-  const getWeek = (week: DayProps[], indx: number) => (
-    <Week key={indx}>{week.map(dayProps => getDayComponent(dayProps, events(dayProps.date)))}</Week>
-  );
+  const getWeek = (week: DayProps[], indx: number) => <Week key={indx}>{week.map(getDayComponent(context))}</Week>;
 
   return <Container>{weeks.map(getWeek)}</Container>;
 };

@@ -8,7 +8,14 @@ import {theme} from 'theme';
 
 import Block from './Block';
 import {DropdownItem} from './Dropdown';
-import {CalendarContextProps, BaseCalendarProps, CalendarProps, RangeCalendarProps, CalendarMode} from './types';
+import {
+  CalendarContextProps,
+  BaseCalendarProps,
+  CalendarProps,
+  RangeCalendarProps,
+  CalendarMode,
+  RangeCalendarValue,
+} from './types';
 
 export const CalendarContext = createContext<CalendarContextProps>({} as never);
 
@@ -39,8 +46,8 @@ const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
 export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
   const locale = props.locale ?? ru;
 
-  const value = props.value ?? [null, null];
-
+  const value = props.value ?? [undefined, undefined];
+  console.log('value', value);
   const [viewDate, setViewDate] = useState<Date>(() => {
     let newViewDate = startOfDay(props.viewDate?.getTime() ?? new Date());
 
@@ -97,7 +104,7 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
 
   const blocks = props.blocks ?? 1;
 
-  const [hoverDate, setHoverDate] = useState<Date | null>(null);
+  const [hoverDate, setHoverDate] = useState<Date | undefined>();
 
   const context: CalendarContextProps = {
     ...props,
@@ -122,13 +129,18 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
 };
 
 export const RangeCalendar: React.FC<RangeCalendarProps> = props => {
-  const value = props.value ?? [null, null];
+  const [rangeStart, rangeEnd] = props.value ?? [];
+
+  const value: RangeCalendarValue = [
+    rangeStart ? startOfDay(rangeStart) : undefined,
+    rangeEnd ? startOfDay(rangeEnd) : undefined,
+  ];
 
   return <BaseCalendar mode={CalendarMode.range} {...props} value={value} />;
 };
 
 export const Calendar: React.FC<CalendarProps> = props => {
-  const value: BaseCalendarProps['value'] = props.value ? [props.value, null] : [null, null];
+  const value: BaseCalendarProps['value'] = props.value ? [startOfDay(props.value), undefined] : [undefined, undefined];
 
   const onChange: BaseCalendarProps['onChange'] = newValue => props.onChange(newValue[0]);
 

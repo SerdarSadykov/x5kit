@@ -1,17 +1,17 @@
 import {startOfToday} from 'date-fns';
 
 import {CalendarContextProps, CalendarMode} from 'calendar/types';
+import {BlockContextProps} from 'calendar/Block';
 
 import {DayProps, RangeDayProps} from './types';
 
 type GetDayPropsArgs = {
   context: CalendarContextProps;
+  blockContext: BlockContextProps;
   date: Date;
-  viewDate: Date;
-  hoverDate: Date | null;
 };
 
-const getRangeDayProps = ({date, hoverDate, context: {mode, value}}: GetDayPropsArgs): RangeDayProps => {
+const getRangeDayProps = ({date, context: {mode, value, hoverDate}}: GetDayPropsArgs): RangeDayProps => {
   const [rangeStart, rangeEnd] = value;
 
   if (mode === CalendarMode.single) {
@@ -53,8 +53,11 @@ const getRangeDayProps = ({date, hoverDate, context: {mode, value}}: GetDayProps
 };
 
 export const getDayProps = (args: GetDayPropsArgs): DayProps => {
-  const {context, date, viewDate} = args;
-  const {minDate, maxDate, disabledDates, tooltips, blocks} = context;
+  const {
+    date,
+    blockContext: {viewDate},
+    context: {minDate, maxDate, disabledDates, tooltips, blocks},
+  } = args;
 
   const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
 
@@ -64,7 +67,7 @@ export const getDayProps = (args: GetDayPropsArgs): DayProps => {
 
   const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date) || !!disabledDates?.(date);
 
-  const tooltip = tooltips?.(date) || null;
+  const tooltip = tooltips?.(date);
 
   return {
     date,

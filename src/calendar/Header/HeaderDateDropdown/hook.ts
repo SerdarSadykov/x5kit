@@ -43,14 +43,14 @@ export const useYears = (): Omit<DropdownProps, keyof DropdownOpenProps> => {
 };
 
 export const useHeaderDateDropdown = ({qa}: RequiredQA) => {
-  const [isOpen, setIsOpen] = useState<HeaderDateType | null>(null);
+  const [isOpen, setIsOpen] = useState<HeaderDateType>();
 
   const getQA = getQAAttribute(qa);
 
   const getDropdownProps = (dropdown: HeaderDateType): DropdownOpenProps & RequiredQA => ({
     qa: getQA(dropdown),
     isOpen: isOpen === dropdown,
-    setIsOpen: newIsOpen => setIsOpen(newIsOpen && isOpen !== dropdown ? dropdown : null),
+    setIsOpen: newIsOpen => setIsOpen(newIsOpen && isOpen !== dropdown ? dropdown : undefined),
   });
 
   return getDropdownProps;

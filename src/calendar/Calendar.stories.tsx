@@ -1,84 +1,118 @@
-import React, {useState} from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import {useEffect, useState} from 'react';
+import type {Meta} from '@storybook/react';
 
 import {Calendar} from './Calendar';
-import {CalendarValue} from './types';
+import {CalendarProps, CalendarValue} from './types';
 
-const minDate = new Date();
-minDate.setFullYear(2024);
-minDate.setMonth(4);
-minDate.setHours(0);
-minDate.setMinutes(0);
-minDate.setSeconds(0);
-minDate.setMilliseconds(0);
+export const Component: React.FC<CalendarProps> = props => {
+  const viewDate = props.viewDate ? new Date(props.viewDate) : new Date();
+  const minDate = props.minDate ? new Date(props.minDate) : undefined;
+  const maxDate = props.maxDate ? new Date(props.maxDate) : undefined;
 
-const maxDate = new Date();
-maxDate.setFullYear(2024);
-maxDate.setMonth(8);
-maxDate.setHours(0);
-maxDate.setMinutes(0);
-maxDate.setSeconds(0);
-maxDate.setMilliseconds(0);
-
-export const Component = () => {
   const [value, setValue] = useState<CalendarValue>();
 
+  useEffect(() => {
+    if (props.value) {
+      setValue(new Date(props.value));
+    }
+  }, [props.value]);
+
   return (
-    <Calendar
-      value={value}
-      onChange={setValue}
-      blocks={2}
-      viewDate={minDate}
-      // freezeRange={CalendarFreezeRange.start}
-      minDate={minDate}
-      maxDate={maxDate}
-    />
+    <Calendar {...props} value={value} onChange={setValue} viewDate={viewDate} minDate={minDate} maxDate={maxDate} />
   );
 };
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Calendar',
   component: Component,
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
   argTypes: {
-    backgroundColor: { control: 'color' },
+    value: {
+      type: 'Date' as never,
+      control: 'date',
+      description: 'Выбранная дата',
+    },
+
+    onChange: {
+      type: '(newValue: Date | undefined) => void' as never,
+      description: 'Обработчик изменения',
+    },
+
+    viewDate: {
+      type: 'Date' as never,
+      control: 'date',
+      description: 'Фокус на дату',
+    },
+
+    minDate: {
+      type: 'Date' as never,
+      control: 'date',
+      description: 'Левая граница',
+    },
+
+    maxDate: {
+      type: 'Date' as never,
+      control: 'date',
+      description: 'Правая граница',
+    },
+
+    disabledDates: {
+      type: '(date: Date) => boolean' as never,
+      description: 'Обработчик недоступных дат',
+    },
+
+    weekStartsOn: {
+      description: 'Начало недели',
+      control: {
+        type: 'select',
+        labels: {
+          0: 'Воскресенье',
+          1: 'Понедельник',
+          2: 'Вторник',
+          3: 'Среда',
+          4: 'Четверг',
+          5: 'Пятница',
+          6: 'Суббота',
+        },
+      },
+      options: [1, 2, 3, 4, 5, 6, 0],
+      table: {
+        defaultValue: {
+          summary: 'Понедельник',
+        },
+      },
+    },
+
+    blocks: {
+      description: 'Кол-во календарей',
+      control: {
+        type: 'number',
+        min: 1,
+        max: 3,
+      },
+      table: {
+        defaultValue: {
+          summary: '1',
+        },
+      },
+    },
+
+    tooltips: {
+      type: '(date: Date) => ReactNode | string' as never,
+      description: 'Обработчик подсказки',
+    },
+
+    qa: {type: 'string', control: 'text'},
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
-} satisfies Meta<typeof Component>;
+
+  args: {
+    value: new Date(),
+    viewDate: new Date(),
+    weekStartsOn: 1,
+    blocks: 1,
+  },
+} satisfies Meta<typeof Calendar>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
-  args: {
-    primary: true,
-    label: 'Button',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    label: 'Button',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'large',
-    label: 'Button',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: 'small',
-    label: 'Button',
-  },
-};

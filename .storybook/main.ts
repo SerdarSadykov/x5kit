@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
-    '@storybook/addon-themes'
+    '@storybook/addon-themes',
   ],
 
   framework: {
@@ -21,6 +21,11 @@ const config: StorybookConfig = {
         useSWC: true,
       },
     },
+  },
+
+  typescript: {
+    reactDocgen: 'react-docgen',
+    check: false,
   },
 
   swc: () => ({

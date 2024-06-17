@@ -4,14 +4,15 @@ import {startOfMonth, startOfWeek} from 'date-fns';
 import {CalendarContext} from 'calendar/Calendar';
 import {BlockContext} from 'calendar/Block';
 
-import {DayEvents, DayProps, getDayProps} from './Day';
-import {getNewHoverDate, getNewRange} from './utils';
+import {DayProps, getDayProps} from './Day';
 
-export const useWeeks = (): DayProps[][] => {
+export const useDays = () => {
   const context = useContext(CalendarContext);
-  const {viewDate} = useContext(BlockContext);
+  const blockContext = useContext(BlockContext);
 
-  const {weekStartsOn, hoverDate, blocks} = context;
+  const {weekStartsOn, blocks} = context;
+  const {viewDate} = blockContext;
+
   const blockStart = startOfWeek(startOfMonth(viewDate), {weekStartsOn});
 
   const weeks: DayProps[][] = [];
@@ -24,8 +25,7 @@ export const useWeeks = (): DayProps[][] => {
       weeks[weekN].push(
         getDayProps({
           context,
-          viewDate,
-          hoverDate,
+          blockContext,
           date: new Date(curDay.getTime()),
         })
       );
@@ -38,28 +38,5 @@ export const useWeeks = (): DayProps[][] => {
     }
   }
 
-  return weeks;
-};
-
-export const useEvents = () => {
-  const context = useContext(CalendarContext);
-  const {onChange, hoverDate, setHoverDate} = context;
-
-  const events = (date: Date): DayEvents => ({
-    onClick: () => {
-      onChange(getNewRange(date, context));
-    },
-
-    onMouseEnter: () => {
-      setHoverDate(getNewHoverDate(date, context));
-    },
-
-    onMouseLeave: () => {
-      if (date.getTime() === hoverDate?.getTime()) {
-        setHoverDate(null);
-      }
-    },
-  });
-
-  return events;
+  return {weeks, context};
 };

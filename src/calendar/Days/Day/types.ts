@@ -10,15 +10,9 @@ export type RangeDayProps = {
 
 export type DayProps = {
   date: Date;
-  tooltip: ReactNode | string | null;
+  tooltip: ReactNode | string | undefined;
   isHidden: boolean;
   isViewMonth: boolean;
   isToday: boolean;
   isDisabled: boolean;
 } & RangeDayProps;
-
-export type DayEvents = {
-  onClick: () => void;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
-};

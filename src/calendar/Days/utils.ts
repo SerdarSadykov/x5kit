@@ -8,15 +8,15 @@ export const getNewRange = (date: Date, context: CalendarContextProps): BaseCale
   } = context;
 
   if (mode === CalendarMode.single) {
-    return [date, null];
+    return [date, undefined];
   }
 
   if (freezeRange === CalendarFreezeRange.start && rangeStart) {
-    return [rangeStart, date < rangeStart ? null : date];
+    return [rangeStart, date < rangeStart ? undefined : date];
   }
 
   if (freezeRange === CalendarFreezeRange.end && rangeEnd) {
-    return [date > rangeEnd ? null : date, rangeEnd];
+    return [date > rangeEnd ? undefined : date, rangeEnd];
   }
 
   if (!rangeStart) {
@@ -27,21 +27,21 @@ export const getNewRange = (date: Date, context: CalendarContextProps): BaseCale
     return date > rangeStart ? [rangeStart, date] : [date, rangeStart];
   }
 
-  return [date, null];
+  return [date, undefined];
 };
 
-export const getNewHoverDate = (date: Date, context: CalendarContextProps): Date | null => {
+export const getNewHoverDate = (date: Date, context: CalendarContextProps): Date | undefined => {
   const {
     value: [rangeStart, rangeEnd],
     freezeRange,
   } = context;
 
   if (freezeRange === CalendarFreezeRange.start && rangeStart && date < rangeStart) {
-    return null;
+    return;
   }
 
   if (freezeRange === CalendarFreezeRange.end && rangeEnd && date > rangeEnd) {
-    return null;
+    return;
   }
 
   return date;
