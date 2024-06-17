@@ -11,9 +11,12 @@ const Container = styled.div`
 
 const DropdownButton = styled.button<DropdownButtonStyle>`
   position: relative;
+  display: flex;
+  align-items: center;
   width: ${props => props.width}px;
   height: 32px;
-  padding: 0 0 0 12px;
+  gap: 6px;
+  padding: 0 10px;
   font-size: ${theme.spaces.x8}px;
   letter-spacing: 0.12px;
   text-transform: capitalize;
@@ -31,9 +34,6 @@ const DropdownButton = styled.button<DropdownButtonStyle>`
   }
 
   & svg {
-    position: absolute;
-    right: 10px;
-    top: 7px;
     color: ${theme.colors.grey[60]};
   }
 `;
@@ -166,7 +166,7 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpe
 
   return (
     <Container onClick={onClickContainer}>
-      <DropdownButton ref={setBtnRef} width={width} isOpen={isOpen} onClick={onToggle}>
+      <DropdownButton ref={setBtnRef} isOpen={isOpen} onClick={onToggle}>
         {value.name}
         <Chevron size={SizeTokenValue.Small} />
       </DropdownButton>

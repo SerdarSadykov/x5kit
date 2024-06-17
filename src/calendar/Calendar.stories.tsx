@@ -5,11 +5,13 @@ import {Calendar} from './Calendar';
 import {CalendarProps, CalendarValue} from './types';
 
 export const Component: React.FC<CalendarProps> = props => {
-  const viewDate = props.viewDate ? new Date(props.viewDate) : new Date();
+  const propsViewDate = props.viewDate ? new Date(props.viewDate) : new Date();
+
   const minDate = props.minDate ? new Date(props.minDate) : undefined;
   const maxDate = props.maxDate ? new Date(props.maxDate) : undefined;
 
   const [value, setValue] = useState<CalendarValue>();
+  const [viewDate, setViewDate] = useState<Date>(propsViewDate);
 
   useEffect(() => {
     if (props.value) {
@@ -17,8 +19,22 @@ export const Component: React.FC<CalendarProps> = props => {
     }
   }, [props.value]);
 
+  useEffect(() => {
+    if (props.viewDate) {
+      setViewDate(new Date(props.viewDate));
+    }
+  }, [props.viewDate]);
+
   return (
-    <Calendar {...props} value={value} onChange={setValue} viewDate={viewDate} minDate={minDate} maxDate={maxDate} />
+    <Calendar
+      {...props}
+      value={value}
+      onChange={setValue}
+      onChangeViewDate={setViewDate}
+      viewDate={viewDate}
+      minDate={minDate}
+      maxDate={maxDate}
+    />
   );
 };
 
@@ -44,6 +60,11 @@ const meta = {
       type: 'Date' as never,
       control: 'date',
       description: 'Фокус на дату',
+    },
+
+    onChangeViewDate: {
+      type: '(newViewDate: Date) => void' as never,
+      description: 'Обработчик смены фокуса',
     },
 
     minDate: {
