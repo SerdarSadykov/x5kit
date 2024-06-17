@@ -38,6 +38,14 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
       };
     }
 
+    if (isRangeStart && isRangeEnd) {
+      return {
+        borderRadius: '4px',
+        color: theme.colors.white,
+        backgroundColor: theme.colors.accent[90],
+      };
+    }
+
     if (isRangeStart) {
       return {
         borderRadius: '4px 0 0 4px',

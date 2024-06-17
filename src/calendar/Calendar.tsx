@@ -1,160 +1,41 @@
-import {createContext, useEffect, useState} from 'react';
-// import clsx from 'clsx';
-// import { defaultDateFormat } from '@x5-react-uikit/core'
-
-import {Day, Month, format, startOfDay} from 'date-fns';
+import {ReactNode, createContext, useContext, useEffect, useState} from 'react';
+import styled from '@emotion/styled';
+import {Day, Month, startOfDay} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
-import Block from './Block';
-
-// import {
-//   createBlock,
-//   generateDays,
-//   normalizeChangedDate,
-//   addFreezedDateToDisabledDates,
-//   normalizeViewDate,
-//   getMinDate,
-//   getMaxDate,
-// } from './helpers';
-// import { getDateString } from '../Datepicker/helpers'
-
 import {RequiredQA, getQAAttribute} from 'common';
-import {SpaceTokenName, colors, shadows, spaces, theme, typography} from 'theme';
+import {theme} from 'theme';
 
+import Block from './Block';
 import {DropdownItem} from './Dropdown';
 import {CalendarContextProps, CalendarProps} from './types';
 
-export const CalendarContext = createContext<CalendarContextProps>({} as any);
-import styled from '@emotion/styled';
+export const CalendarContext = createContext<CalendarContextProps>({} as never);
 
 export const Container = styled.div`
-  padding: ${theme.spaces.x8}px;
-  background: ${colors.white};
-  box-shadow: ${shadows.medium};
-  border-radius: ${spaces.x4}px;
+  display: flex;
+  align-items: flex-start;
+  background: ${theme.colors.white};
+  box-shadow: ${theme.shadows.medium};
+  border-radius: ${theme.spaces.x4}px;
   box-sizing: 'border-box';
-  font-family: ${typography.base.fontFamily};
-  font-size: ${spaces.x8}px;
+  font-family: ${theme.typography.base.fontFamily};
+  font-size: ${theme.spaces.x8}px;
 `;
 
 const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
+  const {blocks} = useContext(CalendarContext);
   const getQA = getQAAttribute(qa);
 
-  // const normalizedMinDate = getMinDate(minDate, maxDate, dateFormat);
-  // const normalizedMaxDate = getMaxDate(minDate, maxDate, dateFormat);
+  const blockComponents: ReactNode[] = [];
 
-  // const disabledDates = addFreezedDateToDisabledDates({
-  //   freezeRange,
-  //   date,
-  //   dateFormat,
-  //   maxDate: normalizedMaxDate,
-  //   minDate: normalizedMinDate,
-  //   disabledDates: disabledDatesFromProps,
-  // });
-
-  // const [hoverDate, setHoverDate] = useState('');
-  // const [viewDate, updateViewDate] = useState(viewDateFromProps);
-  // const normalizedViewDate = normalizeViewDate({
-  //   viewDate,
-  //   dateFormat,
-  //   minDate: normalizedMinDate,
-  //   maxDate: normalizedMaxDate,
-  // });
-
-  // const nextViewDate = normalizedViewDate.month(normalizedViewDate.month() + 1);
-  // const [blockElements, updateBlockElements] =
-  // useState();
-  // createBlock(
-  //   generateDays({
-  //     date: normalizedViewDate,
-  //     minDate: normalizedMinDate,
-  //     maxDate: normalizedMaxDate,
-  //     dateFormat,
-  //     hideOtherMonthDays: long,
-  //   }),
-  // ),
-
-  // const onChangeDate = value => {
-  // const newDate = normalizeChangedDate(value, date, dateFormat, freezeRange)
-  // onChange(Array.isArray(newDate) ? newDate.map((item) => (item ? item.format(dateFormat) : '')) : value, newDate)
-  // };
-
-  // const onChangeViewDate = (value, unit) => {
-  // let newDate = dayjs(value, dateFormat)
-  // if (unit === 'year') {
-  //   newDate = newDate.month(normalizedViewDate.month())
-  // }
-  // newDate = normalizeViewDate({
-  //   viewDate: newDate,
-  //   dateFormat,
-  //   minDate: normalizedMinDate,
-  //   maxDate: normalizedMaxDate,
-  // })
-  // if (onChangeViewDateFromProps) {
-  //   onChangeViewDateFromProps(newDate.format(dateFormat), newDate)
-  // }
-  // updateViewDate(newDate)
-  // updateBlockElements(
-  //   createBlock(
-  //     generateDays({
-  //       date: newDate,
-  //       minDate: normalizedMinDate,
-  //       maxDate: normalizedMaxDate,
-  //       dateFormat,
-  //       hideOtherMonthDays: long,
-  //     }),
-  //   ),
-  // )
-  // };
-
-  /*
-  //  * Меняем viewDate, если поменялся date
-  //  * Это нужно когда календарь открыт и мы вводим дату вручную в Datepicker
-  //  * */
-
-  // useEffect(() => {
-  //   if (changeViewDateOnChangeDate) {
-  //     const actualDate = Array.isArray(date) ? date[long ? 0 : 1] : date
-
-  //     if (actualDate) {
-  //       onChangeViewDate(actualDate, '')
-  //     }
-  //   }
-  //   /* eslint-disable */
-  // }, [changeViewDateOnChangeDate, getDateString(date, dateFormat)])
+  for (let block = 0; block < blocks; block++) {
+    blockComponents.push(<Block qa={getQA(`block-${block}`)} blockNumber={block} />);
+  }
 
   return (
     <Container data-qa={getQA()}>
-      <Block qa={getQA('block-1')} />
-      {/* 
-      {long && (
-        <Block
-          hoverDate={hoverDate}
-          onChangeHoverDate={setHoverDate}
-          className={classes.offsetBlock}
-          dateFormat={dateFormat}
-          viewDate={nextViewDate}
-          minDate={normalizedMinDate}
-          maxDate={normalizedMaxDate}
-          date={date}
-          onChangeViewDate={onChangeViewDate}
-          onChangeDate={onChangeDate}
-          long={long}
-          hideArrow="left"
-          disabledDates={disabledDates}
-          qa={getQA('block-2')}
-          freezeRange={freezeRange}
-          elements={createBlock(
-            generateDays({
-              date: nextViewDate,
-              minDate: normalizedMinDate,
-              maxDate: normalizedMaxDate,
-              dateFormat,
-              hideOtherMonthDays: long,
-            }),
-          )}
-        />
-      )} */}
+      {blockComponents}
     </Container>
   );
 };
@@ -167,11 +48,11 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
   const [viewDate, setViewDate] = useState<Date>(() => {
     let newViewDate = startOfDay(props.viewDate?.getTime() ?? new Date());
 
-    if(props.minDate && newViewDate < props.minDate){
+    if (props.minDate && newViewDate < props.minDate) {
       newViewDate = props.minDate;
     }
 
-    if(props.maxDate && newViewDate > props.maxDate){
+    if (props.maxDate && newViewDate > props.maxDate) {
       newViewDate = props.maxDate;
     }
 
@@ -218,6 +99,10 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
 
   weekDays.push(...weekDays.splice(0, weekStartsOn));
 
+  const blocks = props.blocks ?? 1;
+
+  const [hoverDate, setHoverDate] = useState<Date | null>(null);
+
   const context: CalendarContextProps = {
     ...props,
     value,
@@ -227,6 +112,9 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
     months,
     weekStartsOn,
     locale,
+    blocks,
+    hoverDate,
+    setHoverDate,
     onChangeViewDate,
   };
 

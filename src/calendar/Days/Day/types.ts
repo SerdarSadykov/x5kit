@@ -1,5 +1,8 @@
+import {ReactNode} from 'react';
+
 export type DayProps = {
   date: Date;
+  tooltip: ReactNode | string | null;
   isViewMonth: boolean;
   isToday: boolean;
   isRangeStart: boolean;

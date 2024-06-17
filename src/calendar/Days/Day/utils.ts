@@ -4,8 +4,15 @@ import {CalendarContextProps} from 'calendar/types';
 
 import {DayProps} from './types';
 
-export const getDayProps = (context: CalendarContextProps, date: Date, hoverDate: Date | null): DayProps => {
-  const {viewDate, minDate, maxDate, value, onChange} = context;
+type GetDayPropsArgs = {
+  context: CalendarContextProps;
+  date: Date;
+  viewDate: Date;
+  hoverDate: Date | null;
+}
+
+export const getDayProps = ({context, date, viewDate, hoverDate}: GetDayPropsArgs): DayProps => {
+  const {minDate, maxDate, value, disabledDates, tooltips} = context;
   const [rangeStart, rangeEnd] = value;
 
   const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
@@ -20,21 +27,24 @@ export const getDayProps = (context: CalendarContextProps, date: Date, hoverDate
     !!rangeStart && !!rangeEnd && rangeStart.getTime() < date.getTime() && rangeEnd.getTime() > date.getTime();
 
   const isRangeHover = (() => {
-    if(!hoverDate || !rangeStart || !!rangeEnd){
+    if (!hoverDate || !rangeStart || !!rangeEnd) {
       return false;
     }
 
-    if(hoverDate > rangeStart){
+    if (hoverDate > rangeStart) {
       return date > rangeStart && date.getTime() <= hoverDate.getTime();
     }
 
     return date < rangeStart && date.getTime() >= hoverDate.getTime();
-  })()
+  })();
 
-  const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date);
+  const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date) || !!disabledDates?.(date);
+
+  const tooltip = tooltips?.(date) || null;
 
   return {
     date,
+    tooltip,
     isViewMonth,
     isToday,
     isRangeStart,

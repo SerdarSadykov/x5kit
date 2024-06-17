@@ -1,4 +1,4 @@
-import {RequiredQA} from 'common';
-import {DropdownOpenProps} from 'calendar/Dropdown';
-
-export type HeaderDropdownProps = RequiredQA & DropdownOpenProps;
+export enum HeaderDateType {
+  year = 'year',
+  month = 'month',
+}
