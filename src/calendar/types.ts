@@ -5,8 +5,10 @@ import {QA} from 'common';
 
 import {DropdownItem} from './Dropdown';
 
-export type CalendarDisabledDateInput = string | number | {value: string | number; tooltip?: string};
-export type CalendarDisabledDateOutput = {value: number; tooltip?: string};
+export enum CalendarMode {
+  single = 'single',
+  range = 'range',
+}
 
 export enum CalendarFreezeRange {
   start = 'start',
@@ -18,11 +20,15 @@ export type CalendarDay = Day;
 export type CalendarDisableDates = (date: Date) => boolean;
 export type CalendarTooltip = (date: Date) => ReactNode | string;
 
-export type CalendarValue = [Date | null, Date | null];
+export type CalendarValue = Date | null;
+export type BaseCalendarValue = [CalendarValue, CalendarValue];
+export type RangeCalendarValue = BaseCalendarValue;
 
-export type CalendarBaseProps = {
-  value?: CalendarValue;
-  onChange: (newValue: CalendarValue) => void;
+export type BaseCalendarProps = {
+  mode: CalendarMode;
+
+  value: BaseCalendarValue;
+  onChange: (newValue: BaseCalendarValue) => void;
 
   viewDate?: Date;
   onChangeViewDate?: (newViewDate: Date) => void;
@@ -36,9 +42,17 @@ export type CalendarBaseProps = {
   freezeRange?: CalendarFreezeRange;
 
   tooltips?: CalendarTooltip;
-} & Pick<FormatOptions, 'locale'>;
+} & QA &
+  Pick<FormatOptions, 'locale'>;
 
-export type CalendarProps = CalendarBaseProps & QA;
+export type RangeCalendarProps = Omit<BaseCalendarProps, 'mode' | 'value'> & {
+  value: RangeCalendarValue | undefined;
+};
+
+export type CalendarProps = {
+  value: CalendarValue | undefined;
+  onChange: (newValue: CalendarValue) => void;
+} & Omit<BaseCalendarProps, 'mode' | 'value' | 'onChange' | 'freezeRange'>;
 
 export type CalendarContextProps = {
   years: DropdownItem[];
@@ -46,5 +60,5 @@ export type CalendarContextProps = {
   weekDays: Day[];
   hoverDate: Date | null;
   setHoverDate: (newHoverDate: Date | null) => void;
-} & CalendarProps &
-  Required<Pick<CalendarProps, 'value' | 'viewDate' | 'onChangeViewDate' | 'locale' | 'weekStartsOn' | 'blocks'>>;
+} & BaseCalendarProps &
+  Required<Pick<BaseCalendarProps, 'value' | 'viewDate' | 'onChangeViewDate' | 'locale' | 'weekStartsOn' | 'blocks'>>;

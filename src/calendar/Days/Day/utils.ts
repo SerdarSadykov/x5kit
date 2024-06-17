@@ -1,23 +1,28 @@
 import {startOfToday} from 'date-fns';
 
-import {CalendarContextProps} from 'calendar/types';
+import {CalendarContextProps, CalendarMode} from 'calendar/types';
 
-import {DayProps} from './types';
+import {DayProps, RangeDayProps} from './types';
 
 type GetDayPropsArgs = {
   context: CalendarContextProps;
   date: Date;
   viewDate: Date;
   hoverDate: Date | null;
-}
+};
 
-export const getDayProps = ({context, date, viewDate, hoverDate}: GetDayPropsArgs): DayProps => {
-  const {minDate, maxDate, value, disabledDates, tooltips} = context;
+const getRangeDayProps = ({date, hoverDate, context: {mode, value}}: GetDayPropsArgs): RangeDayProps => {
   const [rangeStart, rangeEnd] = value;
 
-  const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
-
-  const isToday = startOfToday().getTime() === date.getTime();
+  if (mode === CalendarMode.single) {
+    return {
+      isSelected: !!rangeStart && rangeStart?.getTime() === date.getTime(),
+      isRangeStart: false,
+      isRangeEnd: false,
+      isRangeIn: false,
+      isRangeHover: false,
+    };
+  }
 
   const isRangeStart = !!rangeStart && rangeStart.getTime() === date.getTime();
 
@@ -38,6 +43,23 @@ export const getDayProps = ({context, date, viewDate, hoverDate}: GetDayPropsArg
     return date < rangeStart && date.getTime() >= hoverDate.getTime();
   })();
 
+  return {
+    isSelected: false,
+    isRangeStart,
+    isRangeEnd,
+    isRangeIn,
+    isRangeHover,
+  };
+};
+
+export const getDayProps = (args: GetDayPropsArgs): DayProps => {
+  const {context, date, viewDate} = args;
+  const {minDate, maxDate, disabledDates, tooltips} = context;
+
+  const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
+
+  const isToday = startOfToday().getTime() === date.getTime();
+
   const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date) || !!disabledDates?.(date);
 
   const tooltip = tooltips?.(date) || null;
@@ -47,10 +69,7 @@ export const getDayProps = ({context, date, viewDate, hoverDate}: GetDayPropsArg
     tooltip,
     isViewMonth,
     isToday,
-    isRangeStart,
-    isRangeEnd,
-    isRangeIn,
-    isRangeHover,
     isDisabled,
+    ...getRangeDayProps(args),
   };
 };

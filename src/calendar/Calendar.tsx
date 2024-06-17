@@ -1,4 +1,4 @@
-import {ReactNode, createContext, useContext, useEffect, useState} from 'react';
+import React, {ReactNode, createContext, useContext, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
 import {Day, Month, startOfDay} from 'date-fns';
 import {ru} from 'date-fns/locale';
@@ -8,7 +8,7 @@ import {theme} from 'theme';
 
 import Block from './Block';
 import {DropdownItem} from './Dropdown';
-import {CalendarContextProps, CalendarProps} from './types';
+import {CalendarContextProps, BaseCalendarProps, CalendarProps, RangeCalendarProps, CalendarMode} from './types';
 
 export const CalendarContext = createContext<CalendarContextProps>({} as never);
 
@@ -33,14 +33,10 @@ const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
     blockComponents.push(<Block qa={getQA(`block-${block}`)} blockNumber={block} />);
   }
 
-  return (
-    <Container data-qa={getQA()}>
-      {blockComponents}
-    </Container>
-  );
+  return <Container data-qa={getQA()}>{blockComponents}</Container>;
 };
 
-export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
+export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
   const locale = props.locale ?? ru;
 
   const value = props.value ?? [null, null];
@@ -59,7 +55,7 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
     return newViewDate;
   });
 
-  const onChangeViewDate: CalendarProps['onChangeViewDate'] = newViewDate => {
+  const onChangeViewDate: BaseCalendarProps['onChangeViewDate'] = newViewDate => {
     setViewDate(newViewDate);
     props.onChangeViewDate?.(newViewDate);
   };
@@ -123,4 +119,18 @@ export const Calendar: React.FC<CalendarProps> = ({qa, ...props}) => {
       <CalendarComponent qa={qa ?? 'calendar'} />
     </CalendarContext.Provider>
   );
+};
+
+export const RangeCalendar: React.FC<RangeCalendarProps> = props => {
+  const value = props.value ?? [null, null];
+
+  return <BaseCalendar mode={CalendarMode.range} {...props} value={value} />;
+};
+
+export const Calendar: React.FC<CalendarProps> = props => {
+  const value: BaseCalendarProps['value'] = props.value ? [props.value, null] : [null, null];
+
+  const onChange: BaseCalendarProps['onChange'] = newValue => props.onChange(newValue[0]);
+
+  return <BaseCalendar mode={CalendarMode.single} {...props} value={value} onChange={onChange} />;
 };

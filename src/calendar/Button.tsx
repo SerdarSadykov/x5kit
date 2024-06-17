@@ -9,7 +9,7 @@ minDate.setSeconds(0);
 minDate.setMilliseconds(0);
 
 export const Button = () => {
-  const [value, setValue] = useState<CalendarValue>([minDate, null]);
+  const [value, setValue] = useState<CalendarValue>();
 
 
   // const maxDate = new Date();
@@ -25,7 +25,7 @@ export const Button = () => {
         onChange={setValue}
         blocks={2}
         viewDate={minDate}
-        freezeRange={CalendarFreezeRange.start}
+        // freezeRange={CalendarFreezeRange.start}
         // minDate={minDate}
         // maxDate={maxDate}
       />

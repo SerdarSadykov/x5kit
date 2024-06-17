@@ -31,14 +31,14 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
     border-color: ${({isToday}) => (isToday ? theme.colors.accent[90] : 'transparent')};
   }
 
-  ${({isViewMonth, isRangeStart, isRangeEnd, isRangeIn, isRangeHover, isDisabled}) => {
+  ${({isViewMonth, isSelected, isRangeStart, isRangeEnd, isRangeIn, isRangeHover, isDisabled}) => {
     if (isDisabled) {
       return {
         color: theme.colors.grey[40],
       };
     }
 
-    if (isRangeStart && isRangeEnd) {
+    if (isSelected) {
       return {
         borderRadius: '4px',
         color: theme.colors.white,
