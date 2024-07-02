@@ -1,4 +1,4 @@
-import {MouseEventHandler, useEffect, useRef, useState} from 'react';
+import {MouseEventHandler, useEffect, useState} from 'react';
 import {usePopper} from 'react-popper';
 import styled from '@emotion/styled';
 
