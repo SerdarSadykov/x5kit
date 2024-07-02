@@ -30,7 +30,7 @@ const ArrowButton = styled.button`
   background: no-repeat;
   border: none;
   outline: none;
-  color: ${theme.colors.grey[60]};
+  color: ${props => theme.colors.grey[props.disabled ? 40 : 60]};
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 
   &[hidden] {
@@ -75,7 +75,7 @@ export const Header: React.FC<RequiredQA> = ({qa}) => {
     onChangeViewDate(addMonths(context.viewDate, 1));
   };
 
-  const HeaderDateComponent = isSingle ? HeaderDateDropdown : HeaderDate
+  const HeaderDateComponent = isSingle ? HeaderDateDropdown : HeaderDate;
 
   return (
     <Container data-qa={getQA()}>

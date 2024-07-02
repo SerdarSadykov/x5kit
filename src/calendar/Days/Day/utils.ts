@@ -61,7 +61,7 @@ export const getDayProps = (args: GetDayPropsArgs): DayProps => {
 
   const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
 
-  const isHidden = !isViewMonth && blocks > 0;
+  const isHidden = !isViewMonth && blocks > 1;
 
   const isToday = startOfToday().getTime() === date.getTime();
 

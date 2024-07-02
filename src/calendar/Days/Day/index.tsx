@@ -81,6 +81,11 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
     if (!isViewMonth) {
       return {
         color: theme.colors.grey[60],
+
+        '&:hover': {
+          borderRadius: '4px',
+          backgroundColor: theme.colors.grey[20],
+        },
       };
     }
 
@@ -90,40 +95,42 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
   }}
 `;
 
-export const getDayComponent = (context: CalendarContextProps) => ({date, ...props}: DayProps) => {
-  const {
-    mode,
-    onChange,
-    hoverDate,
-    setHoverDate,
-    value: [rangeStart, rangetEnd],
-  } = context;
+export const getDayComponent = (context: CalendarContextProps) => {
+  return ({date, ...props}: DayProps) => {
+    const {
+      mode,
+      onChange,
+      hoverDate,
+      setHoverDate,
+      value: [rangeStart, rangetEnd],
+    } = context;
 
-  const hasHover = mode === CalendarMode.range && (!rangeStart || !rangetEnd);
+    const hasHover = mode === CalendarMode.range && (!rangeStart || !rangetEnd);
 
-  const events = {
-    onClick: () => {
-      onChange(getNewRange(date, context));
-    },
+    const events = {
+      onClick: () => {
+        onChange(getNewRange(date, context));
+      },
 
-    onMouseEnter: !hasHover
-      ? undefined
-      : () => {
-          setHoverDate(getNewHoverDate(date, context));
-        },
+      onMouseEnter: !hasHover
+        ? undefined
+        : () => {
+            setHoverDate(getNewHoverDate(date, context));
+          },
 
-    onMouseLeave: !hasHover
-      ? undefined
-      : () => {
-          if (date.getTime() === hoverDate?.getTime()) {
-            setHoverDate(undefined);
-          }
-        },
+      onMouseLeave: !hasHover
+        ? undefined
+        : () => {
+            if (date.getTime() === hoverDate?.getTime()) {
+              setHoverDate(undefined);
+            }
+          },
+    };
+
+    return (
+      <Container key={date.getTime()} {...props} {...events}>
+        {date.getDate()}
+      </Container>
+    );
   };
-
-  return (
-    <Container key={date.getTime()} {...props} {...events}>
-      {date.getDate()}
-    </Container>
-  );
 };

@@ -1,6 +1,6 @@
 import React, {ReactNode, createContext, useContext, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
-import {Day, Month, startOfDay} from 'date-fns';
+import {Day, Month, endOfMonth, setMonth, startOfDay, startOfMonth} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
 import {RequiredQA, getQAAttribute} from 'common';
@@ -47,16 +47,19 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
   const locale = props.locale ?? ru;
 
   const value = props.value ?? [undefined, undefined];
-  console.log('value', value);
+
+  const minDate = props.minDate ? startOfDay(props.minDate) : undefined;
+  const maxDate = props.maxDate ? startOfDay(props.maxDate) : undefined;
+
   const [viewDate, setViewDate] = useState<Date>(() => {
     let newViewDate = startOfDay(props.viewDate?.getTime() ?? new Date());
 
-    if (props.minDate && newViewDate < props.minDate) {
-      newViewDate = props.minDate;
+    if (minDate && newViewDate < minDate) {
+      newViewDate = minDate;
     }
 
-    if (props.maxDate && newViewDate > props.maxDate) {
-      newViewDate = props.maxDate;
+    if (maxDate && newViewDate > maxDate) {
+      newViewDate = maxDate;
     }
 
     return newViewDate;
@@ -78,8 +81,8 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
   const years: DropdownItem[] = [];
   const months: DropdownItem[] = [];
   const currentYear = viewDate.getFullYear();
-  const minYear = props.minDate ? props.minDate.getFullYear() : currentYear - 5;
-  const maxYear = props.maxDate ? props.maxDate.getFullYear() : currentYear + 10;
+  const minYear = minDate ? minDate.getFullYear() : currentYear - 5;
+  const maxYear = maxDate ? maxDate.getFullYear() : currentYear + 10;
 
   for (let i = minYear; i <= maxYear; i++) {
     years.push({
@@ -90,10 +93,20 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
   }
 
   for (let i = 0; i < 12; i++) {
+    let disabled = false;
+
+    if (minDate || maxDate) {
+      const monthViewDate = setMonth(viewDate, i);
+
+      disabled = !!minDate && minDate.getTime() >= endOfMonth(monthViewDate).getTime()
+
+      disabled ||= !!maxDate && maxDate.getTime() <= startOfMonth(monthViewDate).getTime();
+    }
+
     months.push({
+      disabled,
       name: locale.localize.month(i as Month),
       value: i,
-      disabled: false,
     });
   }
 
@@ -110,6 +123,8 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
     ...props,
     value,
     viewDate,
+    minDate,
+    maxDate,
     years,
     weekDays,
     months,

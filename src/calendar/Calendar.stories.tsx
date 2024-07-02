@@ -1,10 +1,20 @@
 import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
-import {Calendar} from './Calendar';
-import {CalendarProps, CalendarValue} from './types';
+import {Calendar as BaseCalendar} from './Calendar';
+import type {CalendarProps, CalendarValue} from './types';
 
-export const Component: React.FC<CalendarProps> = props => {
+type CalendarStoryProps = {
+  value: number;
+  viewDate: number;
+  minDate: number;
+  maxDate: number;
+  disabledDates: boolean;
+  onChange: boolean;
+  onChangeViewDate: boolean;
+};
+
+export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof CalendarStoryProps>> = props => {
   const propsViewDate = props.viewDate ? new Date(props.viewDate) : new Date();
 
   const minDate = props.minDate ? new Date(props.minDate) : undefined;
@@ -12,6 +22,10 @@ export const Component: React.FC<CalendarProps> = props => {
 
   const [value, setValue] = useState<CalendarValue>();
   const [viewDate, setViewDate] = useState<Date>(propsViewDate);
+
+  const disabledDates = props.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
+  const onChangeViewDate = props.onChangeViewDate ? (date: Date) => alert(date.toString()) : undefined;
+  const onChange = props.onChange ? (date: CalendarValue) => alert(date?.toString()) : undefined;
 
   useEffect(() => {
     if (props.value) {
@@ -25,8 +39,16 @@ export const Component: React.FC<CalendarProps> = props => {
     }
   }, [props.viewDate]);
 
+  useEffect(() => {
+    onChangeViewDate?.(viewDate);
+  }, [viewDate]);
+
+  useEffect(() => {
+    onChange?.(value);
+  }, [value]);
+
   return (
-    <Calendar
+    <BaseCalendar
       {...props}
       value={value}
       onChange={setValue}
@@ -34,25 +56,21 @@ export const Component: React.FC<CalendarProps> = props => {
       viewDate={viewDate}
       minDate={minDate}
       maxDate={maxDate}
+      disabledDates={disabledDates}
     />
   );
 };
 
 const meta = {
   title: 'Calendar',
-  component: Component,
+  component: Calendar,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
-    value: {
-      type: 'Date' as never,
-      control: 'date',
-      description: 'Выбранная дата',
-    },
-
     onChange: {
       type: '(newValue: Date | undefined) => void' as never,
+      control: 'boolean',
       description: 'Обработчик изменения',
     },
 
@@ -64,6 +82,7 @@ const meta = {
 
     onChangeViewDate: {
       type: '(newViewDate: Date) => void' as never,
+      control: 'boolean',
       description: 'Обработчик смены фокуса',
     },
 
@@ -81,6 +100,7 @@ const meta = {
 
     disabledDates: {
       type: '(date: Date) => boolean' as never,
+      control: 'boolean',
       description: 'Обработчик недоступных дат',
     },
 
@@ -126,11 +146,16 @@ const meta = {
     },
 
     qa: {type: 'string', control: 'text'},
-  },
 
+    value: {
+      type: 'Date' as never,
+      control: 'date',
+      description: 'Выбранная дата',
+    },
+  },
   args: {
-    value: new Date(),
-    viewDate: new Date(),
+    value: new Date().getTime(),
+    viewDate: new Date().getTime(),
     weekStartsOn: 1,
     blocks: 1,
   },

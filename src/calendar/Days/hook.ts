@@ -33,7 +33,7 @@ export const useDays = () => {
       curDay.setDate(curDay.getDate() + 1);
     }
 
-    if (blocks > 0 && curDay.getMonth() !== viewDate.getMonth()) {
+    if (blocks > 1 && curDay.getMonth() !== viewDate.getMonth()) {
       break;
     }
   }
