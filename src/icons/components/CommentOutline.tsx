@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 import {SizeTokenValue} from 'theme';
 import {IconComponent} from 'icons/types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="M21.99 4C21.99 2.9 21.1 2 20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H18L22 22L21.99 4ZM20 4V17.17L18.83 16H4V4H20ZM6 12H18V14H6V12ZM6 9H18V11H6V9ZM6 6H18V8H6V6Z" />
@@ -21,9 +21,9 @@ export const CommentOutline: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={CommentOutline.name} {...props}>
+    <SVG ref={ref} name={CommentOutline.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

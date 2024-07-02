@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 import {SizeTokenValue} from 'theme';
 import {IconComponent} from 'icons/types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = <circle cx="12" cy="12" r="6" />
 
@@ -15,9 +15,9 @@ export const Marker: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={Marker.name} {...props}>
+    <SVG ref={ref} name={Marker.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

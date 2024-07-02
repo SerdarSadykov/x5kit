@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 
 import type {IconComponent} from '../types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path
@@ -26,9 +26,9 @@ export const CancelFilter: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={CancelFilter.name} {...props}>
+    <SVG ref={ref} name={CancelFilter.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

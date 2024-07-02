@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 
 import type {IconComponent} from '../types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="M9.31434 6.3157C8.89522 6.73482 8.89522 7.41186 9.31434 7.83097L13.484 12.0007L9.31434 16.1704C8.89522 16.5895 8.89522 17.2665 9.31434 17.6857C9.73346 18.1048 10.4105 18.1048 10.8296 17.6857L15.7623 12.7529C16.1815 12.3338 16.1815 11.6568 15.7623 11.2377L10.8296 6.30495C10.4212 5.89658 9.73346 5.89658 9.31434 6.3157Z" />
@@ -22,9 +22,9 @@ export const ChevronRight: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={ChevronRight.name} {...props}>
+    <SVG ref={ref} name={ChevronRight.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

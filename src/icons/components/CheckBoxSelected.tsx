@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 
 import type {IconComponent} from '../types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = [
   <path
@@ -20,9 +20,9 @@ const largeIcon = [
 
 export const CheckBoxSelected: IconComponent = forwardRef((props, ref) => {
   return (
-    <SVGComponent ref={ref} name={CheckBoxSelected.name} {...props}>
+    <SVG ref={ref} name={CheckBoxSelected.name} {...props}>
       {largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

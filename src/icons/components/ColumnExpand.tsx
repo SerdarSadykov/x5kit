@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 
 import type {IconComponent} from '../types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="M18.9999 12H16.9999V15H13.9999V17H18.9999V12ZM6.99988 9H9.99988V7H4.99988V12H6.99988V9ZM20.9999 3H2.99988C1.89988 3 0.999878 3.9 0.999878 5V19C0.999878 20.1 1.89988 21 2.99988 21H20.9999C22.0999 21 22.9999 20.1 22.9999 19V5C22.9999 3.9 22.0999 3 20.9999 3ZM20.9999 19.01H2.99988V4.99H20.9999V19.01Z" />
@@ -22,9 +22,9 @@ export const ColumnExpand: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={ColumnExpand.name} {...props}>
+    <SVG ref={ref} name={ColumnExpand.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

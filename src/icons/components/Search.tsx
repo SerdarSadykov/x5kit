@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 import {SizeTokenValue} from 'theme';
 import {IconComponent} from 'icons/types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="M15.5 14H14.71L14.43 13.73C15.63 12.33 16.25 10.42 15.91 8.39C15.44 5.61 13.12 3.39 10.32 3.05C6.09005 2.53 2.53005 6.09 3.05005 10.32C3.39005 13.12 5.61005 15.44 8.39005 15.91C10.42 16.25 12.33 15.63 13.73 14.43L14 14.71V15.5L18.25 19.75C18.66 20.16 19.33 20.16 19.74 19.75C20.15 19.34 20.15 18.67 19.74 18.26L15.5 14ZM9.50005 14C7.01005 14 5.00005 11.99 5.00005 9.5C5.00005 7.01 7.01005 5 9.50005 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.50005 14Z" />
@@ -21,9 +21,9 @@ export const Search: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={Search.name} {...props}>
+    <SVG ref={ref} name={Search.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

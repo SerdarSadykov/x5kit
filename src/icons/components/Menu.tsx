@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 import {SizeTokenValue} from 'theme';
 import {IconComponent} from 'icons/types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = [
   <path d="M3 7C3 7.6 3.5 8 4 8H20C20.5 8 21 7.6 21 7C21 6.4 20.5 6 20 6H4C3.5 6 3 6.4 3 7Z" key="1" />,
@@ -23,9 +23,9 @@ export const Menu: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={Menu.name} {...props}>
+    <SVG ref={ref} name={Menu.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

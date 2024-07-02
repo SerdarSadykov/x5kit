@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 
 import type {IconComponent} from '../types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="M22 4C22 2.9 21.1 2 20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H17.5858C17.851 18 18.1054 18.1054 18.2929 18.2929L22 22V4ZM20 17.17L19.1229 16.2929C18.9354 16.1054 18.681 16 18.4158 16H4V4H20V17.17ZM13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6V9H8C7.44772 9 7 9.44772 7 10C7 10.5523 7.44772 11 8 11H11V14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14V11H16C16.5523 11 17 10.5523 17 10C17 9.44772 16.5523 9 16 9H13V6Z" />
@@ -22,8 +22,8 @@ export const AddComment: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={AddComment.name} {...props}>
+    <SVG ref={ref} name={AddComment.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });

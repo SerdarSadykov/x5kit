@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 
 import type {IconComponent} from '../types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="m6.4 9.2h0.2c0.77 0 1.4 0.63 1.4 1.4v7c0 0.77-0.63 1.4-1.4 1.4h-0.2c-0.77 0-1.4-0.63-1.4-1.4v-7c0-0.77 0.63-1.4 1.4-1.4zm5.6-4.2c0.77 0 1.4 0.63 1.4 1.4v11.2c0 0.77-0.63 1.4-1.4 1.4s-1.4-0.63-1.4-1.4v-11.2c0-0.77 0.63-1.4 1.4-1.4zm5.6 8c0.77 0 1.4 0.63 1.4 1.4v3.2c0 0.77-0.63 1.4-1.4 1.4s-1.4-0.63-1.4-1.4v-3.2c0-0.77 0.63-1.4 1.4-1.4z" />
@@ -22,9 +22,9 @@ export const BarChart: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={BarChart.name} {...props}>
+    <SVG ref={ref} name={BarChart.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 

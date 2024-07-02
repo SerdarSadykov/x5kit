@@ -72,7 +72,7 @@ export * from './Refresh';
 export * from './Remove';
 export * from './ReplyAll';
 export * from './Restore';
-export * from './SVGComponent';
+export * from './SVG';
 export * from './Search';
 export * from './Settings';
 export * from './ShoppingCart';

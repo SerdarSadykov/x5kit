@@ -1,7 +1,11 @@
 import {useState} from 'react';
 import type {Meta} from '@storybook/react';
 
-import {Input as BaseInput, InputProps} from './Input';
+import {SizeTokenValue} from 'theme';
+import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
+
+import {Input as BaseInput} from './Input';
+import {InputProps} from './types';
 
 export const Input: React.FC<InputProps> = props => {
   const [value, setValue] = useState<string>();
@@ -10,7 +14,18 @@ export const Input: React.FC<InputProps> = props => {
     setValue(target.value);
   };
 
-  return <BaseInput {...props} value={value} onChange={onChange} />;
+  const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
+  const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
+
+  const resultProps = {
+    ...props,
+    value,
+    onChange,
+    startAdornment,
+    endAdornment,
+  };
+
+  return <BaseInput {...resultProps} />;
 };
 
 const meta = {
@@ -32,6 +47,13 @@ const meta = {
       description: 'Подпись',
     },
 
+    size: {
+      type: 'SizeTokenValue' as never,
+      control: 'select',
+      options: [SizeTokenValue.Small, SizeTokenValue.Medium, SizeTokenValue.Large],
+      description: 'Ширина',
+    },
+
     width: {
       type: 'string',
       control: 'text',
@@ -43,6 +65,51 @@ const meta = {
       control: 'text',
       description: 'Ошибка',
     },
+
+    filled: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    unborder: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    loading: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    readOnly: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    autoComplete: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    autoFocus: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    startAdornment: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    endAdornment: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+  },
+  args: {
+    label: 'Label',
+    caption: 'hint',
+    width: '248px',
   },
 } satisfies Meta<typeof BaseInput>;
 

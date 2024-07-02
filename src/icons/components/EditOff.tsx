@@ -3,7 +3,7 @@ import {forwardRef} from 'react';
 import {SizeTokenValue} from 'theme';
 import {IconComponent} from 'icons/types';
 
-import {SVGComponent} from './SVGComponent';
+import {SVG} from './SVG';
 
 const largeIcon = (
   <path d="M18.66 2C18.4 2 18.16 2.09 17.97 2.28L16.13 4.13L19.88 7.88L21.72 6.03C22.11 5.64 22.11 5 21.72 4.63L19.38 2.28C19.18 2.09 18.91 2 18.66 2ZM3.91852 4.64148C3.56611 4.28744 2.99322 4.28678 2.64 4.64V4.64C2.28678 4.99322 2.28744 5.56611 2.64148 5.91852L8.5 11.75L4.14645 16.1036C4.05268 16.1973 4 16.3245 4 16.4571V19.5C4 19.7761 4.22386 20 4.5 20H7.54289C7.6755 20 7.80268 19.9473 7.89645 19.8536L12.25 15.5L18.0815 21.3585C18.4339 21.7126 19.0068 21.7132 19.36 21.36V21.36C19.7132 21.0068 19.7126 20.4339 19.3585 20.0815L13.5 14.25L9.75 10.5L3.91852 4.64148ZM15.06 5.19L11.03 9.22L14.78 12.97L18.81 8.94L15.06 5.19Z" />
@@ -17,9 +17,9 @@ export const EditOff: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVGComponent ref={ref} name={EditOff.name} {...props}>
+    <SVG ref={ref} name={EditOff.name} {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
-    </SVGComponent>
+    </SVG>
   );
 });
 
