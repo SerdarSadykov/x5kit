@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import {theme} from 'theme';
+import {SizeTokenValue, theme} from 'theme';
 
 import {Asterisk} from '../Asterisk';
 import type {InputProps} from '../types';
@@ -14,14 +14,18 @@ const Container = styled.div`
 const Input = styled.input<InputProps>`
   position: relative;
   width: 100%;
-  min-height: 48px;
   box-sizing: border-box;
-  padding: ${props => (props.filled ? 14 : 0)}px 0 0;
+  padding: 0;
   outline: none;
   border: none;
   font-size: ${theme.spaces.x8}px;
   line-height: ${theme.spaces.x12}px;
   letter-spacing: 0.12px;
+
+  ${({size, filled}) => ({
+    minHeight: size === SizeTokenValue.Small ? 32 : 48,
+    paddingTop: filled && size !== SizeTokenValue.Small ? 14 : 0,
+  })}
 `;
 
 const LabelContainer = styled.div<Pick<InputProps, 'filled'>>`
@@ -56,8 +60,7 @@ const LabelContainer = styled.div<Pick<InputProps, 'filled'>>`
   }}
 `;
 
-const Label = styled.label<Pick<InputProps, 'filled'>>`
-  display: block;
+const Label = styled.label<Pick<InputProps, 'filled' | 'size'>>`
   position: relative;
   max-width: 100%;
 
@@ -71,13 +74,20 @@ const Label = styled.label<Pick<InputProps, 'filled'>>`
 
   & svg {
     position: absolute;
-    top: ${props => (props.filled ? 6 : 2)}px;
     right: 3px;
+
+    ${({filled, size}) => ({
+      top: filled && size ? 6 : 2,
+    })}
   }
+
+  ${({size, filled}) => ({
+    display: size === SizeTokenValue.Small && filled ? 'none' : 'block',
+  })}
 `;
 
 export const Field: React.FC<InputProps> = props => {
-  const {label, filled} = props;
+  const {label, size, filled} = props;
 
   return (
     <Container>
@@ -85,7 +95,7 @@ export const Field: React.FC<InputProps> = props => {
 
       {label && (
         <LabelContainer filled={filled}>
-          <Label filled={filled}>
+          <Label filled={filled} size={size}>
             <div>{label}</div>
             <Asterisk />
           </Label>
