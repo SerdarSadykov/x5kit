@@ -3,14 +3,15 @@ import styled from '@emotion/styled';
 import {keyframes} from '@emotion/react';
 
 import {QA, getQAAttribute} from 'common';
-import {theme, SizeTokenValue} from 'theme';
+import {theme, SizeTokenValue, ColorTokenValue} from 'theme';
 
-export type LoaderProps = {
+type LoaderProps = {
   size?: SizeTokenValue | number;
+  color?: ColorTokenValue;
 } & QA &
   PropsWithChildren;
 
-export const progressKeyframe = keyframes`
+const progressKeyframe = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -20,7 +21,7 @@ export const progressKeyframe = keyframes`
   }
 `;
 
-export const dashKeyframe = keyframes`
+const dashKeyframe = keyframes`
   0% {
     stroke-dasharray: 1px, 200px;
     stroke-dashoffset: 0;
@@ -37,16 +38,9 @@ export const dashKeyframe = keyframes`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-`;
-
 const SVG = styled.svg`
   display: block;
-  color: ${theme.colors.accent[90]};
+  color: currentColor;
 `;
 
 const Circle = styled.circle`
@@ -57,28 +51,36 @@ const Circle = styled.circle`
 `;
 
 const Rotation = styled.div<LoaderProps>`
-  display: inline-block;
   animation: ${progressKeyframe} 1.4s ease-in-out infinite;
 
-  ${({size}) => {
-    const width = typeof size === 'number' ? size : size === SizeTokenValue.Small ? 16 : 24;
+  ${({size, color}) => {
+    switch (size) {
+      case SizeTokenValue.Large:
+        size = 48;
+        break;
+      case SizeTokenValue.Medium:
+        size = 24;
+        break;
+      case SizeTokenValue.Small:
+        size = 16;
+        break;
+    }
 
-    return {width, height: width};
+    return {color, width: size, height: size};
   }}
 `;
 
-export const Loader: React.FC<LoaderProps> = ({children, size = SizeTokenValue.Medium, qa = 'loader'}) => {
+export const Loader: React.FC<LoaderProps> = props => {
+  const {size = SizeTokenValue.Medium, color = theme.colors.accent[90], qa = 'loader'} = props;
+
   const getQA = getQAAttribute(qa);
 
   return (
-    <Container data-qa={getQA()}>
-      <Rotation data-qa={getQA('container')} size={size}>
-        <SVG viewBox="22 22 44 44">
-          <Circle cx="44" cy="44" r="20" fill="none" strokeWidth="3.6" />
-        </SVG>
-      </Rotation>
-      {children}
-    </Container>
+    <Rotation data-qa={getQA('container')} size={size} color={color}>
+      <SVG viewBox="22 22 44 44">
+        <Circle cx="44" cy="44" r="20" fill="none" strokeWidth="3.6" />
+      </SVG>
+    </Rotation>
   );
 };
 

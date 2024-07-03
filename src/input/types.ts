@@ -11,6 +11,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   filled?: boolean;
   unborder?: boolean;
   loading?: boolean;
+  focused: boolean;
 
   error?: boolean | string;
 
@@ -24,8 +25,4 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-};
-
-export type InputStyles = Pick<InputProps, 'error' | 'filled' | 'unborder' | 'loading'> & {
-  focused: boolean;
 };

@@ -24,7 +24,7 @@ const Item = styled.div<ItemStyle>`
   align-items: center;
   text-transform: capitalize;
 
-  color: ${({weekDay}) => (weekDay === 0 || weekDay === 6 ? theme.colors.additional.red[80] : theme.colors.grey[60])};
+  color: ${props => (props.weekDay === 0 || props.weekDay === 6 ? theme.colors.additional.red[80] : theme.colors.grey[60])};
 `;
 
 export const WeekDays: React.FC<RequiredQA> = ({qa}) => {

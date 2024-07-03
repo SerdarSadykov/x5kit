@@ -1,8 +1,8 @@
 import {Loader} from 'loader';
 
-import {InputProps, InputStyles} from '../types';
+import {InputProps} from '../types';
 
-export const EndAdornment: React.FC<InputProps & InputStyles> = props => {
+export const EndAdornment: React.FC<InputProps> = props => {
   const {size, endAdornment, loading} = props;
 
   if (endAdornment) {

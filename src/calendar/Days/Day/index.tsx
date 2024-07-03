@@ -30,7 +30,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
     border-style: solid;
     border-radius: ${theme.spaces.x2}px;
     border-width: 1px;
-    border-color: ${({isToday}) => (isToday ? theme.colors.accent[90] : 'transparent')};
+    border-color: ${props => (props.isToday ? theme.colors.accent[90] : 'transparent')};
   }
 
   ${({isHidden, isViewMonth, isSelected, isRangeStart, isRangeEnd, isRangeIn, isRangeHover, isDisabled}) => {

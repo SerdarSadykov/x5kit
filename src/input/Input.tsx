@@ -6,23 +6,45 @@ import {theme} from 'theme';
 import {Caption} from './Caption';
 import {EndAdornment} from './EndAdornment';
 import {Field} from './Field';
-import {InputProps, InputStyles} from './types';
+import {InputProps} from './types';
 
 const Container = styled.div<InputHTMLAttributes<HTMLInputElement>>`
   width: ${props => props.width || '100%'};
   font-family: ${theme.typography.base.fontFamily};
 `;
 
-const InputContainer = styled.div<InputStyles>`
+const InputContainer = styled.div<InputProps>`
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0 12px;
-  font-size: ${theme.spaces.x8}px;
-  line-height: ${theme.spaces.x12}px;
-  letter-spacing: 0.12px;
   overflow: hidden;
+
+  ${({disabled}) => {
+    if (disabled) {
+      return {
+        color: theme.colors.grey[40],
+      };
+    }
+
+    return {
+      color: theme.colors.grey[60],
+    };
+  }}
+
+  &:hover::after {
+    ${({disabled, focused}) => {
+      if (disabled || focused) {
+        return;
+      }
+
+      return {
+        borderWidth: 2,
+        borderColor: theme.colors.grey[40],
+      };
+    }}
+  }
 
   &::after {
     content: '';
@@ -38,11 +60,18 @@ const InputContainer = styled.div<InputStyles>`
     user-select: none;
     pointer-events: none;
 
-    ${({error, focused, unborder}) => {
+    ${({error, disabled, focused, unborder}) => {
       if (error) {
         return {
           borderWidth: 2,
           borderColor: theme.colors.additional.red[80],
+        };
+      }
+
+      if (disabled) {
+        return {
+          borderWidth: 1,
+          borderColor: theme.colors.grey[20],
         };
       }
 
@@ -67,9 +96,8 @@ const InputContainer = styled.div<InputStyles>`
   }
 `;
 
-
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const {value, loading, startAdornment} = props;
+  const {value, startAdornment} = props;
 
   const [focused, setFocused] = useState<boolean>(false);
 
@@ -83,26 +111,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     props.onBlur?.(e);
   };
 
-  const styles: InputStyles = {
-    focused,
-    loading,
-    error: props.error,
-    unborder: props.unborder,
+  const inputProps = {
+    ...props,
+
+    onFocus,
+    onBlur,
+
+    focused: props.focused ?? focused,
     filled: props.filled ?? !!value,
   };
 
-  const inputProps = {...props, ...styles, onFocus, onBlur};
-
   return (
     <Container ref={ref} width={props.width}>
-      <InputContainer {...styles}>
+      <InputContainer {...inputProps}>
         {startAdornment}
 
         <Field {...inputProps} />
 
         <EndAdornment {...inputProps} />
       </InputContainer>
-      
+
       <Caption {...inputProps} />
     </Container>
   );

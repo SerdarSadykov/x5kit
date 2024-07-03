@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {InputProps, InputStyles} from '../types';
+import {Asterisk} from '../Asterisk';
+import type {InputProps} from '../types';
 
 const Container = styled.div`
   position: relative;
@@ -10,17 +11,20 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const Input = styled.input`
+const Input = styled.input<InputProps>`
   position: relative;
   width: 100%;
   min-height: 48px;
   box-sizing: border-box;
-  padding: 0;
+  padding: ${props => (props.filled ? 14 : 0)}px 0 0;
   outline: none;
   border: none;
+  font-size: ${theme.spaces.x8}px;
+  line-height: ${theme.spaces.x12}px;
+  letter-spacing: 0.12px;
 `;
 
-const LabelContainer = styled.div<InputStyles>`
+const LabelContainer = styled.div<Pick<InputProps, 'filled'>>`
   position: absolute;
   display: flex;
   align-items: center;
@@ -30,7 +34,9 @@ const LabelContainer = styled.div<InputStyles>`
   width: 100%;
   box-sizing: border-box;
   transition-duration: 0.2s;
-  color: ${theme.colors.grey[60]};
+  font-size: ${theme.spaces.x8}px;
+  line-height: ${theme.spaces.x12}px;
+  letter-spacing: 0.12px;
 
   ${({filled}) => {
     if (filled) {
@@ -50,24 +56,39 @@ const LabelContainer = styled.div<InputStyles>`
   }}
 `;
 
-const Label = styled.label`
+const Label = styled.label<Pick<InputProps, 'filled'>>`
   display: block;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  white-space: nowrap;
-  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+
+  & div {
+    padding-right: 10px;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  & svg {
+    position: absolute;
+    top: ${props => (props.filled ? 6 : 2)}px;
+    right: 3px;
+  }
 `;
 
-export const Field: React.FC<InputProps & InputStyles> = props => {
-  const {label} = props;
+export const Field: React.FC<InputProps> = props => {
+  const {label, filled} = props;
 
   return (
     <Container>
       <Input {...props} />
 
       {label && (
-        <LabelContainer {...props}>
-          <Label>{label}</Label>
+        <LabelContainer filled={filled}>
+          <Label filled={filled}>
+            <div>{label}</div>
+            <Asterisk />
+          </Label>
         </LabelContainer>
       )}
     </Container>

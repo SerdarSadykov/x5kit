@@ -66,6 +66,16 @@ const meta = {
       description: 'Ошибка',
     },
 
+    disabled: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    required: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
     filled: {
       type: 'boolean',
       control: 'boolean',
