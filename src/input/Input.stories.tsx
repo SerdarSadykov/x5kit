@@ -16,6 +16,7 @@ export const Input: React.FC<InputProps> = props => {
 
   const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
   const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
+  const onClearClick = props.onClearClick ? () => setValue('') : undefined;
 
   const resultProps = {
     ...props,
@@ -23,6 +24,7 @@ export const Input: React.FC<InputProps> = props => {
     onChange,
     startAdornment,
     endAdornment,
+    onClearClick,
   };
 
   return <BaseInput {...resultProps} />;
@@ -92,6 +94,11 @@ const meta = {
     },
 
     readOnly: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    onClearClick: {
       type: 'boolean',
       control: 'boolean',
     },

@@ -1,9 +1,9 @@
-import {InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
+import React, {InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
 
 import {SizeTokenValue} from 'theme';
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  label?: string | ReactNode;
+  label?: string | React.FC<InputProps>;
   caption?: string | ReactNode;
 
   size?: SizeTokenValue;
@@ -18,7 +18,6 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   endAdornment?: ReactNode;
   startAdornment?: ReactNode;
 
-  clear?: boolean;
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
 
   // forbidTyping?: boolean; - readonly
