@@ -1,22 +1,22 @@
-import {MaskaDetail, MaskOptions} from 'maska';
 import {InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
+import {MaskInputOptions} from 'maska';
 
 import {SizeTokenValue} from 'theme';
 
 export type InputStyles = {
   size?: SizeTokenValue;
 
+  error?: boolean | string;
+
   disabled?: boolean;
   filled?: boolean;
-  focused: boolean;
+  focused?: boolean;
   unborder?: boolean;
   loading?: boolean;
-
-  error?: boolean | string;
 };
 
 export type InputProps = {
-  label?: string | React.FC<InputStyles>;
+  label?: string | React.FC<InputProps>;
   caption?: string | ReactNode;
 
   value: string | undefined;
@@ -26,17 +26,15 @@ export type InputProps = {
 
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
 
+  mask: MaskInputOptions;
+
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
 } & InputStyles & Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>;
 
-export type MaskedInputProps = Omit<InputProps, 'onChange'> & {
-  mask: MaskOptions;
-  onChange: ({target, detail}: {target: HTMLInputElement, detail: MaskaDetail}) => void;
-};
-
-export type InputInternalProps<T = InputProps | MaskedInputProps> = T & {
-  styles: InputStyles;
-};
+export type InputInternalProps = {
+  style: InputStyles & {labeled: boolean};
+  props: Omit<InputProps, keyof InputStyles>;
+}

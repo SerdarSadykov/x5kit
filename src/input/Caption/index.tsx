@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {InputProps} from '../types';
+import {InputInternalProps, InputStyles} from '../types';
 
-const Container = styled.div<CaptionProps>`
+const Container = styled.div<InputStyles>`
   padding: 4px 0;
   width: 100%;
   font-size: ${theme.spaces.x6}px;
@@ -17,14 +17,12 @@ const Container = styled.div<CaptionProps>`
   })}
 `;
 
-type CaptionProps = Pick<InputProps, 'error' | 'caption'>;
-
-export const Caption: React.FC<CaptionProps> = props => {
-  const children = props.error || props.caption;
+export const Caption: React.FC<InputInternalProps> = ({props, style}) => {
+  const children = style.error || props.caption;
 
   if (!children) {
     return null;
   }
 
-  return <Container {...props}>{children}</Container>;
+  return <Container {...props.style}>{children}</Container>;
 };

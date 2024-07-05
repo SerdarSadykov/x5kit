@@ -8,7 +8,7 @@ import {EndAdornment} from './EndAdornment';
 import {Field, MaskedField} from './Field';
 import {Label} from './Label';
 
-import {InputInternalProps, InputProps, InputStyles, MaskedInputProps} from './types';
+import {InputProps, InputStyles} from './types';
 
 const Container = styled.div<InputHTMLAttributes<HTMLInputElement>>`
   width: ${props => props.width || '100%'};
@@ -107,7 +107,7 @@ const Inner = styled.div`
   height: 100%;
 `;
 
-const useInput = (props: InputProps | MaskedInputProps): InputInternalProps => {
+const useInput = (props: InputProps): InputProps => {
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
@@ -120,7 +120,12 @@ const useInput = (props: InputProps | MaskedInputProps): InputInternalProps => {
     props.onBlur?.(e);
   };
 
-  const styles: InputStyles = {
+  return {
+    ...props,
+
+    onFocus,
+    onBlur,
+
     filled: props.filled ?? !!props.value,
     focused: props.focused ?? focused,
 
@@ -132,24 +137,16 @@ const useInput = (props: InputProps | MaskedInputProps): InputInternalProps => {
 
     error: props.error,
   };
-
-  return {
-    ...props,
-
-    onFocus,
-    onBlur,
-    styles,
-  };
 };
 
-export const Input = forwardRef<HTMLDivElement, InputProps | MaskedInputProps>((props, ref) => {
+export const Input = forwardRef<HTMLDivElement, InputProps>((props, ref) => {
   const inputProps = useInput(props);
 
-  const component = 'mask' in inputProps ? <MaskedField {...inputProps} /> : <Field {...inputProps} />;
+  const component = inputProps.mask ? <MaskedField {...inputProps} /> : <Field {...inputProps} />;
 
   return (
     <Container ref={ref} width={props.width}>
-      <InputContainer {...inputProps.styles}>
+      <InputContainer {...inputProps}>
         {props.startAdornment}
 
         <Inner>

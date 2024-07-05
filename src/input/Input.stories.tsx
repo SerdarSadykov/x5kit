@@ -5,9 +5,16 @@ import {SizeTokenValue} from 'theme';
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 
 import {Input as BaseInput} from './Input';
-import {InputProps, MaskedInputProps} from './types';
+import {InputProps} from './types';
 
-export const Input: React.FC<InputProps> = props => {
+type InputStoryProps = Omit<InputProps, 'onClearClick'> & {
+  startAdornment: boolean;
+  endAdornment: boolean;
+  onClearClick: boolean;
+  mask: string;
+};
+
+export const Input: React.FC<InputStoryProps> = props => {
   const [value, setValue] = useState<string>();
 
   const onChange: InputProps['onChange'] = ({target}) => {
@@ -19,7 +26,7 @@ export const Input: React.FC<InputProps> = props => {
   const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
   const onClearClick = props.onClearClick ? () => setValue('') : undefined;
 
-  const resultProps = {
+  const resultProps: any = {
     ...props,
     value,
     onChange,
@@ -28,13 +35,11 @@ export const Input: React.FC<InputProps> = props => {
     onClearClick,
   };
 
-  const mask: MaskedInputProps['mask'] = {
-    mask: '+7 (000) 000 - 00 - 00',
-    eager: true,
-    tokens: {'0': {pattern: /[0-9]/}},
+  if (props.mask) {
+    resultProps.mask = {mask: props.mask};
   }
 
-  return <BaseInput {...resultProps} mask={mask} />;
+  return <BaseInput {...resultProps} />;
 };
 
 const meta = {
@@ -72,7 +77,7 @@ const meta = {
     mask: {
       type: 'string',
       control: 'text',
-      description: 'Маска',
+      description: 'Маска https://beholdr.github.io/maska/v3/#/tokens',
     },
 
     error: {
