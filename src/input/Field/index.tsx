@@ -41,10 +41,10 @@ const Placeholder = styled.div<InputStyles>`
   }
 
   ${({isSmall, isFilled, isFocused, isLabeled}) => ({
-    display: isFilled || isFocused ? 'flex' : 'none',
+    display: isFocused || isFilled  ? 'flex' : 'none',
     paddingTop: isLabeled && isFilled && !isSmall ? 8 : 0,
     height: isSmall ? 32 : 48,
-    lineHeight: !isSmall ? '48px' : '32px',
+    lineHeight: isSmall ? '32px' : '48px',
   })}
 `;
 
@@ -68,17 +68,16 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     };
   }, []);
 
-  const placeHolder =
-    typeof mask.mask !== 'string' ? null : (
-      <Placeholder {...style}>
-        <div>{value}</div>
-        <div>{mask.mask.substring(value?.length ?? 0)}</div>
-      </Placeholder>
-    );
+  const placeHolder = typeof mask.mask === 'string' && (
+    <Placeholder {...style}>
+      <div>{value}</div>
+      <div>{mask.mask.substring(value?.length ?? 0)}</div>
+    </Placeholder>
+  );
 
   return (
     <>
-      <InputComponent onInput={onChange} {...inputProps} {...style} ref={ref} />
+      <InputComponent onInput={onChange} ref={ref} {...inputProps} {...style} />
       {placeHolder}
     </>
   );
