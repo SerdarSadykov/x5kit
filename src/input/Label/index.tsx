@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
-import {SizeTokenValue, theme} from 'theme';
+import {theme} from 'theme';
 
 import {Asterisk} from '../Asterisk';
-import type {InputProps} from '../types';
+import type {InputInternalProps, InputStyles} from '../types';
 
-const Container = styled.div<Pick<InputProps, 'size' | 'filled' | 'focused' | 'mask'>>`
+const Container = styled.div<InputStyles>`
   position: absolute;
   display: flex;
   align-items: center;
@@ -37,18 +37,18 @@ const Container = styled.div<Pick<InputProps, 'size' | 'filled' | 'focused' | 'm
     }
   }
 
-  ${({size, filled, focused, mask}) => {
-    if (filled) {
+  ${({isSmall, isFilled, isFocused, isMasked}) => {
+    if (isFilled) {
       return {
         top: 4,
         height: 16,
         fontSize: theme.spaces.x6,
         letterSpacing: '0.08px',
-        display: size === SizeTokenValue.Small ? 'none' : undefined,
+        display: isSmall ? 'none' : undefined,
       };
     }
 
-    if (focused && mask) {
+    if (isFocused && isMasked) {
       return {
         display: 'none',
       };
@@ -62,19 +62,17 @@ const Container = styled.div<Pick<InputProps, 'size' | 'filled' | 'focused' | 'm
   }}
 `;
 
-export const Label: React.FC<InputProps> = props => {
-  const {label} = props;
-
+export const Label: React.FC<InputInternalProps> = ({label, style}) => {
   if (!label) {
     return null;
   }
 
   if (typeof label === 'function') {
-    return label(props);
+    return label(style);
   }
 
   return (
-    <Container {...props}>
+    <Container {...style}>
       <div>
         <label>{label}</label>
         <Asterisk />

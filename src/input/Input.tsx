@@ -1,16 +1,16 @@
-import {FocusEventHandler, InputHTMLAttributes, forwardRef, useState} from 'react';
+import {FocusEventHandler, forwardRef, useState} from 'react';
 import styled from '@emotion/styled';
 
-import {theme} from 'theme';
+import {SizeTokenValue, theme} from 'theme';
 
 import {Caption} from './Caption';
 import {EndAdornment} from './EndAdornment';
-import {Field, MaskedField} from './Field';
+import {Field} from './Field';
 import {Label} from './Label';
 
-import {InputProps, InputStyles} from './types';
+import {InputInternalProps, InputProps, InputStyles} from './types';
 
-const Container = styled.div<InputHTMLAttributes<HTMLInputElement>>`
+const Container = styled.div<Pick<InputInternalProps, 'width'>>`
   width: ${props => props.width || '100%'};
 
   * {
@@ -26,8 +26,8 @@ const InputContainer = styled.div<InputStyles>`
   padding: 0 12px;
   overflow: hidden;
 
-  ${({disabled}) => {
-    if (disabled) {
+  ${({isDisabled}) => {
+    if (isDisabled) {
       return {
         color: theme.colors.grey[40],
       };
@@ -39,8 +39,8 @@ const InputContainer = styled.div<InputStyles>`
   }}
 
   &:hover::after {
-    ${({disabled, focused}) => {
-      if (disabled || focused) {
+    ${({isDisabled, isFocused}) => {
+      if (isDisabled || isFocused) {
         return;
       }
 
@@ -65,29 +65,29 @@ const InputContainer = styled.div<InputStyles>`
     user-select: none;
     pointer-events: none;
 
-    ${({error, disabled, focused, unborder}) => {
-      if (error) {
+    ${({isError, isDisabled, isFocused, isUnborder}) => {
+      if (isError) {
         return {
           borderWidth: 2,
           borderColor: theme.colors.additional.red[80],
         };
       }
 
-      if (disabled) {
+      if (isDisabled) {
         return {
           borderWidth: 1,
           borderColor: theme.colors.grey[20],
         };
       }
 
-      if (focused) {
+      if (isFocused) {
         return {
           borderWidth: 2,
           borderColor: theme.colors.accent[90],
         };
       }
 
-      if (unborder) {
+      if (isUnborder) {
         return {
           display: 'none',
         };
@@ -107,50 +107,50 @@ const Inner = styled.div`
   height: 100%;
 `;
 
-const useInput = (props: InputProps): InputProps => {
+const useInput = (props: InputProps): InputInternalProps => {
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
     setFocused(true);
-    props.onFocus?.(e);
+    props.inputProps?.onFocus?.(e);
   };
 
   const onBlur: FocusEventHandler<HTMLInputElement> = e => {
     setFocused(false);
-    props.onBlur?.(e);
+    props.inputProps?.onBlur?.(e);
   };
 
   return {
     ...props,
 
-    onFocus,
-    onBlur,
+    style: {
+      isDisabled: props.disabled,
+      isUnborder: props.unborder,
+      isLoading: props.loading,
+      isLabeled: !!props.label,
+      isMasked: !!props.mask,
+      isError: !!props.error,
 
-    filled: props.filled ?? !!props.value,
-    focused: props.focused ?? focused,
+      isFocused: props.focused ?? focused,
+      isFilled: props.filled ?? !!props.value,
+      isSmall: props.size === SizeTokenValue.Small,
+    },
 
-    size: props.size,
-
-    disabled: props.disabled,
-    unborder: props.unborder,
-    loading: props.loading,
-
-    error: props.error,
+    inputProps: {...props.inputProps, onFocus, onBlur},
   };
 };
 
 export const Input = forwardRef<HTMLDivElement, InputProps>((props, ref) => {
   const inputProps = useInput(props);
-
-  const component = inputProps.mask ? <MaskedField {...inputProps} /> : <Field {...inputProps} />;
+  const {startAdornment, width, style} = inputProps;
 
   return (
-    <Container ref={ref} width={props.width}>
-      <InputContainer {...inputProps}>
-        {props.startAdornment}
+    <Container ref={ref} width={width}>
+      <InputContainer {...style}>
+        {startAdornment}
 
         <Inner>
-          {component}
+          <Field {...inputProps} />
           <Label {...inputProps} />
         </Inner>
 

@@ -4,9 +4,9 @@ import {Loader} from 'loader';
 import {SizeTokenValue, theme} from 'theme';
 import {Close} from 'icons';
 
-import {InputProps} from '../types';
+import {InputInternalProps, InputStyles} from '../types';
 
-const Button = styled.button<Pick<InputProps, 'size'>>`
+const Button = styled.button<InputStyles>`
   padding: 0;
   margin-right: -4px;
   border: 0;
@@ -25,29 +25,33 @@ const Button = styled.button<Pick<InputProps, 'size'>>`
   }
 
   ${props => {
-    const size = props.size === SizeTokenValue.Small ? 16 : 32;
+    const size = props.isSmall ? 16 : 32;
 
     return {width: size, height: size};
   }}
 `;
 
-export const EndAdornment: React.FC<InputProps> = props => {
-  const {endAdornment, loading, filled, onClearClick} = props;
+export const EndAdornment: React.FC<InputInternalProps> = props => {
+  const {
+    endAdornment,
+    onClearClick,
+    style: {isSmall, isLoading, isFilled},
+  } = props;
 
-  const size = props.size === SizeTokenValue.Small ? SizeTokenValue.Small : SizeTokenValue.Medium;
+  const iconSize = isSmall ? SizeTokenValue.Small : SizeTokenValue.Medium;
 
   if (endAdornment) {
     return endAdornment;
   }
 
-  if (loading) {
-    return <Loader size={size} />;
+  if (isLoading) {
+    return <Loader size={iconSize} />;
   }
 
-  if (filled && onClearClick) {
+  if (isFilled && onClearClick) {
     return (
-      <Button size={props.size} onClick={onClearClick}>
-        <Close size={size} />
+      <Button onClick={onClearClick} {...style}>
+        <Close size={iconSize} />
       </Button>
     );
   }

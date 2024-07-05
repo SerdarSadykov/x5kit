@@ -1,25 +1,25 @@
-import {InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
+import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
 import {MaskInputOptions} from 'maska';
 
 import {SizeTokenValue} from 'theme';
 
-export type InputStyles = {
+export type InputProps = {
   size?: SizeTokenValue;
 
-  error?: boolean | string;
+  width?: number | string;
 
   disabled?: boolean;
   filled?: boolean;
   focused?: boolean;
   unborder?: boolean;
   loading?: boolean;
-};
+  error?: boolean | string;
 
-export type InputProps = {
-  label?: string | React.FC<InputProps>;
+  label?: string | React.FC<InputStyles>;
   caption?: string | ReactNode;
 
   value: string | undefined;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 
   endAdornment?: ReactNode;
   startAdornment?: ReactNode;
@@ -28,13 +28,26 @@ export type InputProps = {
 
   mask: MaskInputOptions;
 
+  inputProps?: Omit<InputHTMLAttributes<HTMLInputElement>, keyof InputProps>;
+
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-} & InputStyles & Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>;
+};
 
-export type InputInternalProps = {
-  style: InputStyles & {labeled: boolean};
-  props: Omit<InputProps, keyof InputStyles>;
-}
+export type InputStyles = {
+  isDisabled?: boolean;
+  isFilled?: boolean;
+  isFocused: boolean;
+  isUnborder?: boolean;
+  isLoading?: boolean;
+  isLabeled: boolean;
+  isMasked: boolean;
+  isSmall: boolean;
+  isError: boolean;
+};
+
+export type InputInternalProps = InputProps & {
+  style: InputStyles;
+};

@@ -2,11 +2,11 @@ import {useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 import {MaskInput} from 'maska';
 
-import {SizeTokenValue, theme} from 'theme';
+import {theme} from 'theme';
 
-import type {InputProps} from '../types';
+import type {InputInternalProps, InputStyles} from '../types';
 
-const InputComponent = styled.input<InputProps>`
+const InputComponent = styled.input<InputStyles>`
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -17,15 +17,14 @@ const InputComponent = styled.input<InputProps>`
   line-height: ${theme.spaces.x12}px;
   letter-spacing: 0.12px;
 
-  ${({size, filled, label}) => ({
-    minHeight: size === SizeTokenValue.Small ? 32 : 48,
-    paddingTop: filled && !!label && size !== SizeTokenValue.Small ? 14 : 0,
+  ${({isSmall, isFilled, isLabeled}) => ({
+    minHeight: isSmall ? 32 : 48,
+    paddingTop: isFilled && isLabeled && !isSmall ? 14 : 0,
   })}
 `;
 
-const Placeholder = styled.div<InputProps>`
+const Placeholder = styled.div<InputStyles>`
   position: absolute;
-  display: ${props => props.filled || props.focused ? 'flex' : 'none'};
   left: 0;
   top: 0;
   pointer-events: none;
@@ -35,23 +34,22 @@ const Placeholder = styled.div<InputProps>`
   letter-spacing: 0.12px;
   white-space: pre-wrap;
   color: ${theme.colors.grey[60]};
+  box-sizing: border-box;
 
   div:first-child {
     visibility: hidden;
   }
 
-  ${({size, filled, label}) => ({
-    lineHeight: filled && !!label && size !== SizeTokenValue.Small ? '34px' : '32px',
-    paddingTop: filled && !!label && size !== SizeTokenValue.Small ? 14 : 0,
+  ${({isSmall, isFilled, isFocused, isLabeled}) => ({
+    display: isFilled || isFocused ? 'flex' : 'none',
+    paddingTop: isLabeled && isFilled && !isSmall ? 8 : 0,
+    height: isSmall ? 32 : 48,
+    lineHeight: !isSmall ? '48px' : '32px',
   })}
 `;
 
-export const Field: React.FC<InputProps> = props => {
-  return <InputComponent {...props} />;
-};
-
-export const MaskedField: React.FC<InputProps & Required<Pick<InputProps, 'mask'>>> = props => {
-  const {mask, value, onChange} = props;
+const MaskedField: React.FC<InputInternalProps> = props => {
+  const {mask, value, onChange, style, inputProps} = props;
 
   const maska = useRef<MaskInput>();
 
@@ -60,7 +58,7 @@ export const MaskedField: React.FC<InputProps & Required<Pick<InputProps, 'mask'
       return;
     }
 
-    maska.current = new MaskInput(target, {eager: true, ...mask,});
+    maska.current = new MaskInput(target, {eager: true, ...mask});
   };
 
   useEffect(() => {
@@ -72,7 +70,7 @@ export const MaskedField: React.FC<InputProps & Required<Pick<InputProps, 'mask'
 
   const placeHolder =
     typeof mask.mask !== 'string' ? null : (
-      <Placeholder {...props}>
+      <Placeholder {...style}>
         <div>{value}</div>
         <div>{mask.mask.substring(value?.length ?? 0)}</div>
       </Placeholder>
@@ -80,8 +78,18 @@ export const MaskedField: React.FC<InputProps & Required<Pick<InputProps, 'mask'
 
   return (
     <>
-      <InputComponent onInput={onChange} {...props} ref={ref} />
+      <InputComponent onInput={onChange} {...inputProps} {...style} ref={ref} />
       {placeHolder}
     </>
   );
+};
+
+export const Field: React.FC<InputInternalProps> = props => {
+  const {inputProps, style} = props;
+
+  if (style.isMasked) {
+    return <MaskedField {...props} />;
+  }
+
+  return <InputComponent {...style} {...inputProps} />;
 };
