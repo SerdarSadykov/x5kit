@@ -5,12 +5,13 @@ import {SizeTokenValue} from 'theme';
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 
 import {Input as BaseInput} from './Input';
-import {InputProps} from './types';
+import {InputProps, MaskedInputProps} from './types';
 
 export const Input: React.FC<InputProps> = props => {
   const [value, setValue] = useState<string>();
 
   const onChange: InputProps['onChange'] = ({target}) => {
+    console.log('target.value', target.value);
     setValue(target.value);
   };
 
@@ -27,7 +28,13 @@ export const Input: React.FC<InputProps> = props => {
     onClearClick,
   };
 
-  return <BaseInput {...resultProps} />;
+  const mask: MaskedInputProps['mask'] = {
+    mask: '+7 (000) 000 - 00 - 00',
+    eager: true,
+    tokens: {'0': {pattern: /[0-9]/}},
+  }
+
+  return <BaseInput {...resultProps} mask={mask} />;
 };
 
 const meta = {
@@ -60,6 +67,12 @@ const meta = {
       type: 'string',
       control: 'text',
       description: 'Ширина',
+    },
+
+    mask: {
+      type: 'string',
+      control: 'text',
+      description: 'Маска',
     },
 
     error: {

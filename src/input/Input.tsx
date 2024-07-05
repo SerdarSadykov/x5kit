@@ -5,15 +5,20 @@ import {theme} from 'theme';
 
 import {Caption} from './Caption';
 import {EndAdornment} from './EndAdornment';
-import {Field} from './Field';
-import {InputProps} from './types';
+import {Field, MaskedField} from './Field';
+import {Label} from './Label';
+
+import {InputInternalProps, InputProps, InputStyles, MaskedInputProps} from './types';
 
 const Container = styled.div<InputHTMLAttributes<HTMLInputElement>>`
   width: ${props => props.width || '100%'};
-  font-family: ${theme.typography.base.fontFamily};
+
+  * {
+    font-family: ${theme.typography.base.fontFamily};
+  }
 `;
 
-const InputContainer = styled.div<InputProps>`
+const InputContainer = styled.div<InputStyles>`
   position: relative;
   display: flex;
   align-items: center;
@@ -96,9 +101,13 @@ const InputContainer = styled.div<InputProps>`
   }
 `;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const {value, startAdornment} = props;
+const Inner = styled.div`
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+`;
 
+const useInput = (props: InputProps | MaskedInputProps): InputInternalProps => {
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
@@ -111,22 +120,42 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     props.onBlur?.(e);
   };
 
-  const inputProps = {
+  const styles: InputStyles = {
+    filled: props.filled ?? !!props.value,
+    focused: props.focused ?? focused,
+
+    size: props.size,
+
+    disabled: props.disabled,
+    unborder: props.unborder,
+    loading: props.loading,
+
+    error: props.error,
+  };
+
+  return {
     ...props,
 
     onFocus,
     onBlur,
-
-    focused: props.focused ?? focused,
-    filled: props.filled ?? !!value,
+    styles,
   };
+};
+
+export const Input = forwardRef<HTMLDivElement, InputProps | MaskedInputProps>((props, ref) => {
+  const inputProps = useInput(props);
+
+  const component = 'mask' in inputProps ? <MaskedField {...inputProps} /> : <Field {...inputProps} />;
 
   return (
     <Container ref={ref} width={props.width}>
-      <InputContainer {...inputProps}>
-        {startAdornment}
+      <InputContainer {...inputProps.styles}>
+        {props.startAdornment}
 
-        <Field {...inputProps} />
+        <Inner>
+          {component}
+          <Label {...inputProps} />
+        </Inner>
 
         <EndAdornment {...inputProps} />
       </InputContainer>

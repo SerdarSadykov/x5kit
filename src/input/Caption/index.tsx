@@ -4,7 +4,7 @@ import {theme} from 'theme';
 
 import {InputProps} from '../types';
 
-const Container = styled.div<InputProps>`
+const Container = styled.div<CaptionProps>`
   padding: 4px 0;
   width: 100%;
   font-size: ${theme.spaces.x6}px;
@@ -17,7 +17,9 @@ const Container = styled.div<InputProps>`
   })}
 `;
 
-export const Caption: React.FC<InputProps> = props => {
+type CaptionProps = Pick<InputProps, 'error' | 'caption'>;
+
+export const Caption: React.FC<CaptionProps> = props => {
   const children = props.error || props.caption;
 
   if (!children) {

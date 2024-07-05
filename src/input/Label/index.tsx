@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import {SizeTokenValue, theme} from 'theme';
 
 import {Asterisk} from '../Asterisk';
-import type {InputProps} from '../types';
+import type {InputInternalProps, InputStyles} from '../types';
 
-const Container = styled.div<Pick<InputProps, 'size' | 'filled'>>`
+const Container = styled.div<InputStyles>`
   position: absolute;
   display: flex;
   align-items: center;
@@ -22,6 +22,7 @@ const Container = styled.div<Pick<InputProps, 'size' | 'filled'>>`
     max-width: 100%;
 
     label {
+      display: block;
       padding-right: 10px;
       text-overflow: ellipsis;
       word-break: break-all;
@@ -31,6 +32,7 @@ const Container = styled.div<Pick<InputProps, 'size' | 'filled'>>`
 
     svg {
       position: absolute;
+      top: 0;
       right: 3px;
     }
   }
@@ -42,7 +44,7 @@ const Container = styled.div<Pick<InputProps, 'size' | 'filled'>>`
         height: 16,
         fontSize: theme.spaces.x6,
         letterSpacing: '0.08px',
-        visibility: size === SizeTokenValue.Small ? 'hidden' : 'visible',
+        display: size === SizeTokenValue.Small ? 'none' : undefined,
       };
     }
 
@@ -54,15 +56,19 @@ const Container = styled.div<Pick<InputProps, 'size' | 'filled'>>`
   }}
 `;
 
-export const Label: React.FC<InputProps> = props => {
-  const {label, filled} = props;
+export const Label: React.FC<InputInternalProps> = props => {
+  const {label, styles} = props;
 
-  if (typeof label === 'function') {
-    return label(props);
+  if (!label) {
+    return null;
+  }
+
+  if(typeof label === 'function'){
+    return label(styles)
   }
 
   return (
-    <Container filled={filled}>
+    <Container {...styles}>
       <div>
         <label>{label}</label>
         <Asterisk />

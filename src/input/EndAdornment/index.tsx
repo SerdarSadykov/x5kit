@@ -4,7 +4,7 @@ import {Loader} from 'loader';
 import {SizeTokenValue, theme} from 'theme';
 import {Close} from 'icons';
 
-import {InputProps} from '../types';
+import {InputProps, MaskedInputProps} from '../types';
 
 const Button = styled.button<Pick<InputProps, 'size'>>`
   padding: 0;
@@ -31,7 +31,7 @@ const Button = styled.button<Pick<InputProps, 'size'>>`
   }}
 `;
 
-export const EndAdornment: React.FC<InputProps> = props => {
+export const EndAdornment: React.FC<InputProps | MaskedInputProps> = props => {
   const {endAdornment, loading, filled, onClearClick} = props;
 
   const size = props.size === SizeTokenValue.Small ? SizeTokenValue.Small : SizeTokenValue.Medium;
