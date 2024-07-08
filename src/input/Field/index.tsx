@@ -17,9 +17,10 @@ const InputComponent = styled.input<InputStyles>`
   line-height: ${theme.spaces.x12}px;
   letter-spacing: 0.12px;
 
-  ${({isSmall, isFilled, isLabeled}) => ({
+  ${({isSmall, isFocused, isFilled, isLabeled}) => ({
     minHeight: isSmall ? 32 : 48,
     paddingTop: isFilled && isLabeled && !isSmall ? 14 : 0,
+    textOverflow: !isFocused ? 'ellipsis' : undefined,
   })}
 `;
 
@@ -84,11 +85,11 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 };
 
 export const Field: React.FC<InputInternalProps> = props => {
-  const {inputProps, style} = props;
+  const {inputProps, style, onChange} = props;
 
   if (style.isMasked) {
     return <MaskedField {...props} />;
   }
 
-  return <InputComponent {...style} {...inputProps} />;
+  return <InputComponent onChange={onChange} {...style} {...inputProps} />;
 };

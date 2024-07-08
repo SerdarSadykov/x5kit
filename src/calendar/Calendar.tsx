@@ -37,7 +37,7 @@ const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
   const blockComponents: ReactNode[] = [];
 
   for (let block = 0; block < blocks; block++) {
-    blockComponents.push(<Block qa={getQA(`block-${block}`)} blockNumber={block} />);
+    blockComponents.push(<Block key={block} qa={getQA(`block-${block}`)} blockNumber={block} />);
   }
 
   return <Container data-qa={getQA()}>{blockComponents}</Container>;

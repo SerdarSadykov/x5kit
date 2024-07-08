@@ -13,11 +13,16 @@ const Container = styled.div<InputStyles>`
   word-break: break-all;
 
   ${props => ({
+    position: props.isAbsoluteCaption ? 'absolute' : undefined,
     color: props.isError ? theme.colors.additional.red[80] : theme.colors.grey[60],
   })}
 `;
 
 export const Caption: React.FC<InputInternalProps> = ({error, caption, style}) => {
+  if (typeof caption === 'function') {
+    return caption({...style, error});
+  }
+
   const children = error || caption;
 
   if (!children) {

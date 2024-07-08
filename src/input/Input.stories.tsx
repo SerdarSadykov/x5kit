@@ -18,7 +18,6 @@ export const Input: React.FC<InputStoryProps> = props => {
   const [value, setValue] = useState<string>();
 
   const onChange: InputProps['onChange'] = ({target}) => {
-    console.log('target.value', target.value);
     setValue(target.value);
   };
 
@@ -26,7 +25,7 @@ export const Input: React.FC<InputStoryProps> = props => {
   const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
   const onClearClick = props.onClearClick ? () => setValue('') : undefined;
 
-  const resultProps: any = {
+  const resultProps: InputProps = {
     ...props,
     value,
     onChange,
@@ -96,6 +95,12 @@ const meta = {
       control: 'boolean',
     },
 
+
+    readOnly: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
     filled: {
       type: 'boolean',
       control: 'boolean',
@@ -111,22 +116,17 @@ const meta = {
       control: 'boolean',
     },
 
-    readOnly: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
     onClearClick: {
       type: 'boolean',
       control: 'boolean',
     },
 
-    autoComplete: {
+    autoFocus: {
       type: 'boolean',
       control: 'boolean',
     },
 
-    autoFocus: {
+    absoluteCaption: {
       type: 'boolean',
       control: 'boolean',
     },

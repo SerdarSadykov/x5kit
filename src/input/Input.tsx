@@ -130,13 +130,25 @@ const useInput = (props: InputProps): InputInternalProps => {
       isLabeled: !!props.label,
       isMasked: !!props.mask,
       isError: !!props.error,
+      isAbsoluteCaption: !!props.absoluteCaption,
 
       isFocused: props.focused ?? focused,
       isFilled: props.filled ?? !!props.value,
       isSmall: props.size === SizeTokenValue.Small,
     },
 
-    inputProps: {...props.inputProps, onFocus, onBlur},
+    inputProps: {
+      ...props.inputProps,
+
+      disabled: props.disabled,
+      readOnly: props.readOnly,
+      required: props.required,
+      autoFocus: props.autoFocus,
+      autoComplete: props.autoComplete,
+
+      onFocus,
+      onBlur,
+    },
   };
 };
 

@@ -1,7 +1,9 @@
-import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
+import {ChangeEventHandler, HTMLInputAutoCompleteAttribute, InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
 import {MaskInputOptions} from 'maska';
 
 import {SizeTokenValue} from 'theme';
+
+type ReactComponentProp = React.FC<InputStyles & Pick<InputProps, 'error'>>;
 
 export type InputProps = {
   size?: SizeTokenValue;
@@ -9,14 +11,19 @@ export type InputProps = {
   width?: number | string;
 
   disabled?: boolean;
+  readOnly?: boolean;
+  required?: boolean;
+  autoFocus?: boolean;
+  autoComplete?: HTMLInputAutoCompleteAttribute;
   filled?: boolean;
   focused?: boolean;
   unborder?: boolean;
   loading?: boolean;
   error?: boolean | string;
+  absoluteCaption?: boolean | string;
 
-  label?: string | React.FC<InputStyles>;
-  caption?: string | ReactNode;
+  label?: string | ReactComponentProp;
+  caption?: string | ReactComponentProp;
 
   value: string | undefined;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -28,7 +35,7 @@ export type InputProps = {
 
   mask: MaskInputOptions;
 
-  inputProps?: Omit<InputHTMLAttributes<HTMLInputElement>, keyof InputProps>;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
 
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
@@ -46,6 +53,7 @@ export type InputStyles = {
   isMasked: boolean;
   isSmall: boolean;
   isError: boolean;
+  isAbsoluteCaption: boolean;
 };
 
 export type InputInternalProps = InputProps & {

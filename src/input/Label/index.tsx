@@ -62,20 +62,20 @@ const Container = styled.div<InputStyles>`
   }}
 `;
 
-export const Label: React.FC<InputInternalProps> = ({label, style}) => {
+export const Label: React.FC<InputInternalProps> = ({error, label, required, style}) => {
   if (!label) {
     return null;
   }
 
   if (typeof label === 'function') {
-    return label(style);
+    return label({...style, error});
   }
 
   return (
     <Container {...style}>
       <div>
         <label>{label}</label>
-        <Asterisk />
+        {required && <Asterisk />}
       </div>
     </Container>
   );
