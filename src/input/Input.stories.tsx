@@ -43,7 +43,7 @@ export const Input: React.FC<InputStoryProps> = props => {
 
 const meta = {
   title: 'Input',
-  component: BaseInput,
+  component: Input,
   parameters: {
     layout: 'centered',
   },
@@ -146,6 +146,6 @@ const meta = {
     caption: 'hint',
     width: '248px',
   },
-} satisfies Meta<typeof BaseInput>;
+} satisfies Meta<typeof Input>;
 
 export default meta;

@@ -5,43 +5,43 @@ import {ArrowNavigationForward} from 'icons';
 
 import inputStory from 'input/Input.stories';
 
-import {SearchInput as BaseInput} from './SearchInput';
-import {SearchInputProps} from './types';
+import {Datepicker as BaseDatepicker} from './Datepicker';
+import {DatepickerProps} from './types';
 
-type SearchInputStoryProps = Omit<SearchInputProps, 'onClearClick'> & {
+type DatepickerStoryProps = Omit<DatepickerProps, 'onClearClick'> & {
   endAdornment: boolean;
   onClearClick: boolean;
   mask: string;
 };
 
-export const SearchInput: React.FC<SearchInputStoryProps> = props => {
+export const Datepicker: React.FC<DatepickerStoryProps> = props => {
   const [value, setValue] = useState<string>();
 
-  const onChange: SearchInputProps['onChange'] = ({target}) => {
+  const onChange: DatepickerProps['onChange'] = ({target}) => {
     setValue(target.value);
   };
 
   const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
   const onClearClick = props.onClearClick ? () => setValue('') : undefined;
 
-  const resultProps: SearchInputProps = {
+  const resultProps: DatepickerStoryProps = {
     ...props,
     value,
     onChange,
-    endAdornment,
-    onClearClick,
+    // endAdornment,
+    // onClearClick,
   };
 
   if (props.mask) {
-    resultProps.mask = {mask: props.mask};
+    // resultProps.mask = {mask: props.mask};
   }
 
-  return <BaseInput {...resultProps} />;
+  return <BaseDatepicker {...resultProps} />;
 };
 
 const meta = {
-  title: 'Input',
-  component: SearchInput,
+  title: 'Datepicker',
+  component: Datepicker,
   parameters: {
     layout: 'centered',
   },
@@ -51,6 +51,6 @@ const meta = {
     caption: 'hint',
     width: '248px',
   },
-} satisfies Meta<typeof SearchInput>;
+} satisfies Meta<typeof Datepicker>;
 
 export default meta;

@@ -40,8 +40,8 @@ export const PasswordInput: React.FC<PasswordInputStoryProps> = props => {
 };
 
 const meta = {
-  title: 'PasswordInput',
-  component: BaseInput,
+  title: 'Input',
+  component: PasswordInput,
   parameters: {
     layout: 'centered',
   },
@@ -51,6 +51,6 @@ const meta = {
     caption: 'hint',
     width: '248px',
   },
-} satisfies Meta<typeof BaseInput>;
+} satisfies Meta<typeof PasswordInput>;
 
 export default meta;
