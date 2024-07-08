@@ -6,7 +6,7 @@ import {Close} from 'icons';
 
 import {InputInternalProps, InputStyles} from '../types';
 
-const Button = styled.button<Pick<InputStyles, 'isSmall'>>`
+export const InputButton = styled.button<Pick<InputStyles, 'isSmall'>>`
   flex-shrink: 0;
   padding: 0;
   margin-right: -4px;
@@ -52,9 +52,9 @@ export const EndAdornment: React.FC<InputInternalProps> = props => {
 
   if (isFilled && onClearClick) {
     return (
-      <Button onClick={onClearClick} isSmall={isSmall}>
+      <InputButton onClick={onClearClick} isSmall={isSmall}>
         <Close size={iconSize} />
-      </Button>
+      </InputButton>
     );
   }
 

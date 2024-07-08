@@ -1,4 +1,4 @@
-import {ChangeEventHandler, HTMLInputAutoCompleteAttribute, InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
+import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
 import {MaskInputOptions} from 'maska';
 
 import {SizeTokenValue} from 'theme';
@@ -10,11 +10,6 @@ export type InputProps = {
 
   width?: number | string;
 
-  disabled?: boolean;
-  readOnly?: boolean;
-  required?: boolean;
-  autoFocus?: boolean;
-  autoComplete?: HTMLInputAutoCompleteAttribute;
   filled?: boolean;
   focused?: boolean;
   unborder?: boolean;
@@ -28,8 +23,8 @@ export type InputProps = {
   value: string | undefined;
   onChange: ChangeEventHandler<HTMLInputElement>;
 
-  endAdornment?: ReactNode;
   startAdornment?: ReactNode;
+  endAdornment?: ReactNode;
 
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
 
@@ -41,7 +36,7 @@ export type InputProps = {
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-};
+} & Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'disabled' | 'required' | 'readOnly' | 'autoFocus' | 'autoComplete'>;
 
 export type InputStyles = {
   isDisabled?: boolean;

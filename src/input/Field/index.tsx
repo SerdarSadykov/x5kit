@@ -42,7 +42,7 @@ const Placeholder = styled.div<InputStyles>`
   }
 
   ${({isSmall, isFilled, isFocused, isLabeled}) => ({
-    display: isFocused || isFilled  ? 'flex' : 'none',
+    display: isFocused || isFilled ? 'flex' : 'none',
     paddingTop: isLabeled && isFilled && !isSmall ? 8 : 0,
     height: isSmall ? 32 : 48,
     lineHeight: isSmall ? '32px' : '48px',
@@ -50,7 +50,7 @@ const Placeholder = styled.div<InputStyles>`
 `;
 
 const MaskedField: React.FC<InputInternalProps> = props => {
-  const {mask, value, onChange, style, inputProps} = props;
+  const {mask, value, style} = props;
 
   const maska = useRef<MaskInput>();
 
@@ -76,20 +76,37 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     </Placeholder>
   );
 
+  const componentProsp = {
+    ...props.inputProps,
+    ...style,
+
+    ref,
+    value,
+    type: props.type,
+    onInput: props.onChange,
+  };
+
   return (
     <>
-      <InputComponent onInput={onChange} ref={ref} {...inputProps} {...style} />
+      <InputComponent {...componentProsp} />
       {placeHolder}
     </>
   );
 };
 
 export const Field: React.FC<InputInternalProps> = props => {
-  const {inputProps, style, onChange} = props;
-
-  if (style.isMasked) {
+  if (props.style.isMasked) {
     return <MaskedField {...props} />;
   }
 
-  return <InputComponent onChange={onChange} {...style} {...inputProps} />;
+  const componentProsp = {
+    ...props.inputProps,
+    ...props.style,
+
+    value: props.value,
+    type: props.type,
+    onInput: props.onChange,
+  };
+
+  return <InputComponent {...componentProsp} />;
 };
