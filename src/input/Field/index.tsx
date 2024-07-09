@@ -17,6 +17,10 @@ const InputComponent = styled.input<InputStyles>`
   line-height: ${theme.spaces.x12}px;
   letter-spacing: 0.12px;
 
+  ::selection {
+    background-color: ${theme.colors.accent[10]};
+  }
+
   ${({isSmall, isFocused, isFilled, isLabeled}) => ({
     minHeight: isSmall ? 32 : 48,
     paddingTop: isFilled && isLabeled && !isSmall ? 14 : 0,
@@ -37,6 +41,8 @@ const Placeholder = styled.div<InputStyles>`
   color: ${theme.colors.grey[60]};
   box-sizing: border-box;
 
+  -moz-user-select: none;
+
   div:first-child {
     visibility: hidden;
   }
@@ -50,7 +56,7 @@ const Placeholder = styled.div<InputStyles>`
 `;
 
 const MaskedField: React.FC<InputInternalProps> = props => {
-  const {mask, value, style} = props;
+  const {mask, value, style, inputProps} = props;
 
   const maska = useRef<MaskInput>();
 
@@ -60,6 +66,8 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     }
 
     maska.current = new MaskInput(target, {eager: true, ...mask});
+
+    inputProps?.ref?.(target);
   };
 
   useEffect(() => {
@@ -77,7 +85,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
   );
 
   const componentProsp = {
-    ...props.inputProps,
+    ...inputProps,
     ...style,
 
     ref,
@@ -95,6 +103,10 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 };
 
 export const Field: React.FC<InputInternalProps> = props => {
+  if (props.inputComponent) {
+    return props.inputComponent(props);
+  }
+
   if (props.style.isMasked) {
     return <MaskedField {...props} />;
   }

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import type {Meta} from '@storybook/react';
 
-import {ArrowNavigationForward} from 'icons';
+import {ArrowNavigationBackward} from 'icons';
 
 import inputStory from 'input/Input.stories';
 
@@ -9,27 +9,21 @@ import {Datepicker as BaseDatepicker} from './Datepicker';
 import {DatepickerProps} from './types';
 
 type DatepickerStoryProps = Omit<DatepickerProps, 'onClearClick'> & {
-  endAdornment: boolean;
+  startAdornment: boolean;
   onClearClick: boolean;
   mask: string;
 };
 
 export const Datepicker: React.FC<DatepickerStoryProps> = props => {
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<Date>();
 
-  const onChange: DatepickerProps['onChange'] = ({target}) => {
-    setValue(target.value);
-  };
+  const startAdornment = props.endAdornment ? <ArrowNavigationBackward /> : undefined;
 
-  const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
-  const onClearClick = props.onClearClick ? () => setValue('') : undefined;
-
-  const resultProps: DatepickerStoryProps = {
+  const resultProps: DatepickerProps = {
     ...props,
     value,
-    onChange,
-    // endAdornment,
-    // onClearClick,
+    startAdornment,
+    onChange: setValue,
   };
 
   if (props.mask) {

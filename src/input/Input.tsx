@@ -22,6 +22,7 @@ const InputContainer = styled.div<InputStyles>`
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 8px;
   padding: 0 12px;
   overflow: hidden;

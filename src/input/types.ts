@@ -1,4 +1,4 @@
-import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode} from 'react';
+import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode, RefCallback} from 'react';
 import {MaskInputOptions} from 'maska';
 
 import {SizeTokenValue} from 'theme';
@@ -30,7 +30,8 @@ export type InputProps = {
 
   mask: MaskInputOptions;
 
-  inputProps?: InputHTMLAttributes<HTMLInputElement>;
+  inputProps?: InputHTMLAttributes<HTMLInputElement> & {ref?: RefCallback<HTMLInputElement>};
+  inputComponent?: React.FC<InputInternalProps>;
 
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
