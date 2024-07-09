@@ -49,6 +49,7 @@ type ValueItemProps = {
 };
 
 const ValueItem = styled.span<ValueItemProps>`
+  white-space: pre;
   color: ${props => theme.colors.grey[props.isFilled ? 100 : 60]};
 
   span {
@@ -69,53 +70,81 @@ const HiddenInput = styled.input`
   opacity: 0;
 `;
 
-const InputComponent: React.FC<InputInternalProps> = props => {
-  const [viewValue, setViewValue] = useState<string[]>(['', '', '']);
+const useInputComponent = (dates: number, props: InputInternalProps) => {
+  const [viewValue, setViewValue] = useState<string[]>(() => Array(dates * 3).fill(''));
   const [inputValue, setInputValue] = useState<string>('');
 
-  const [step, setStep] = useState<number>();
+  const [step, setStepValue] = useState<number>(-1);
+
+  const setStep = (newStep: number) => {
+    const maxStep = dates * 3 - 1;
+
+    if (newStep < 0) {
+      newStep = 0;
+    } else if (newStep >= maxStep) {
+      newStep = maxStep;
+    }
+
+    setStepValue(newStep);
+  };
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
     props.inputProps?.onFocus?.(e);
 
-    setStep(0);
+    setStepValue(0);
   };
 
   const onBlur: FocusEventHandler<HTMLInputElement> = e => {
     props.inputProps?.onFocus?.(e);
 
-    setStep(undefined);
+    setStepValue(-1);
     setInputValue('');
   };
 
   const onKeyDown: KeyboardEventHandler = ({key}) => {
-    if (key === 'ArrowLeft' && step && step > 0) {
+    if (key === 'ArrowLeft' && step > 0) {
       setStep(step - 1);
       return;
     }
 
-    if (key === 'ArrowRight' && step && step < 2) {
+    if (key === 'ArrowRight') {
       setStep(step + 1);
       return;
+    }
+
+    if (key === 'Backspace' && !inputValue) {
+      const newViewValue = [...viewValue];
+
+      if (viewValue[step]) {
+        newViewValue[step] = '';
+      } else {
+        newViewValue[step ? step - 1 : 0] = '';
+      }
+
+      setViewValue(newViewValue);
+      setStep(step - 1);
+
+      return;
+    }
+
+    if (key === 'Escape') {
+      (window.document.activeElement as HTMLInputElement)?.blur();
     }
   };
 
-  const onInput: ChangeEventHandler<HTMLInputElement> = ({target}) => {
+  const onChange: ChangeEventHandler<HTMLInputElement> = ({target}) => {
     const newValue = target.value.replace(/[^\d]+/, '');
 
-    const newViewValue = viewValue ? [...viewValue] : ['', '', ''];
-    newViewValue[step ?? 0] = newValue;
+    const newViewValue = [...viewValue];
+    newViewValue[step] = newValue;
 
     setViewValue(newViewValue);
 
-    if ((step === 0 || step === 1) && newValue.length >= 2) {
+    const isStepEnd = newValue.length >= (step === 2 || step === 5 ? 4 : 2);
+
+    if (isStepEnd) {
       setInputValue('');
       setStep(step + 1);
-      return;
-    }
-
-    if (step === 2 && newValue.length >= 4) {
-      setInputValue('');
       return;
     }
 
@@ -125,7 +154,7 @@ const InputComponent: React.FC<InputInternalProps> = props => {
   const componentProsp: InputHTMLAttributes<HTMLInputElement> = {
     ...props.inputProps,
 
-    onInput,
+    onChange,
     onKeyDown,
     onFocus,
     onBlur,
@@ -135,28 +164,50 @@ const InputComponent: React.FC<InputInternalProps> = props => {
 
   const items = viewValue.map((item, indx) => {
     let textContent = '';
+    let isYear = false;
 
     switch (indx) {
       case 0:
+      case 3:
         textContent = item.padEnd(2, 'д');
         break;
 
       case 1:
+      case 4:
         textContent = item.padEnd(2, 'м');
         break;
 
-      case 2:
+      default:
         textContent = item.padEnd(4, 'г');
+        isYear = true;
         break;
     }
 
     return (
       <ValueItem key={indx} isFilled={!!item} isCurrent={step === indx}>
+        {indx === 3 ? ' — ' : undefined}
         <span>{textContent}</span>
-        {indx === 2 ? '' : '.'}
+        {!isYear ? '.' : undefined}
       </ValueItem>
     );
   });
+
+  return {componentProsp, items};
+};
+
+const InputComponent: React.FC<InputInternalProps> = props => {
+  const {items, componentProsp} = useInputComponent(1, props);
+
+  return (
+    <>
+      <Value {...props.style}>{items}</Value>
+      <HiddenInput {...componentProsp} />
+    </>
+  );
+};
+
+const RangeInputComponent: React.FC<InputInternalProps> = props => {
+  const {items, componentProsp} = useInputComponent(2, props);
 
   return (
     <>
@@ -189,7 +240,7 @@ export const DateInput: React.FC<TDateInput> = props => {
     value: '',
     onChange: onInputChange,
 
-    inputComponent: InputComponent,
+    inputComponent: RangeInputComponent,
     filled: true,
   };
 
