@@ -29,7 +29,7 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
     value,
     onChange,
   };
-
+  console.log(calendarProps);
   const context: DatepickerContextProps = {
     ...props,
 

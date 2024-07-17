@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import type {Meta} from '@storybook/react';
+import type {ArgTypes, Meta} from '@storybook/react';
 
 import {SizeTokenValue} from 'theme';
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
@@ -41,94 +41,90 @@ export const Input: React.FC<InputStoryProps> = props => {
   return <BaseInput {...resultProps} />;
 };
 
+const commonArgTypes: ArgTypes = {
+  label: {
+    type: 'string',
+    control: 'text',
+    description: 'Label',
+  },
+
+  caption: {
+    type: 'string',
+    control: 'text',
+    description: 'Подпись',
+  },
+
+  size: {
+    type: 'SizeTokenValue' as never,
+    control: 'select',
+    options: [SizeTokenValue.Small, SizeTokenValue.Medium, SizeTokenValue.Large],
+    description: 'Ширина',
+  },
+
+  width: {
+    type: 'string',
+    control: 'text',
+    description: 'Ширина',
+  },
+
+  error: {
+    type: 'string',
+    control: 'text',
+    description: 'Ошибка',
+  },
+
+  disabled: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  required: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  readOnly: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  filled: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  unborder: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  loading: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  autoFocus: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+
+  absoluteCaption: {
+    type: 'boolean',
+    control: 'boolean',
+  },
+};
+
 const meta = {
+  commonArgTypes,
+
   title: 'Input',
   component: Input,
   parameters: {
     layout: 'centered',
   },
+
   argTypes: {
-    label: {
-      type: 'string',
-      control: 'text',
-      description: 'Label',
-    },
-
-    caption: {
-      type: 'string',
-      control: 'text',
-      description: 'Подпись',
-    },
-
-    size: {
-      type: 'SizeTokenValue' as never,
-      control: 'select',
-      options: [SizeTokenValue.Small, SizeTokenValue.Medium, SizeTokenValue.Large],
-      description: 'Ширина',
-    },
-
-    width: {
-      type: 'string',
-      control: 'text',
-      description: 'Ширина',
-    },
-    mask: {
-      type: 'string',
-      control: 'text',
-      description: 'Маска https://beholdr.github.io/maska/v3/#/tokens',
-    },
-
-    error: {
-      type: 'string',
-      control: 'text',
-      description: 'Ошибка',
-    },
-
-    disabled: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    required: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-
-    readOnly: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    filled: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    unborder: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    loading: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    onClearClick: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    autoFocus: {
-      type: 'boolean',
-      control: 'boolean',
-    },
-
-    absoluteCaption: {
-      type: 'boolean',
-      control: 'boolean',
-    },
+    ...commonArgTypes,
 
     startAdornment: {
       type: 'boolean',
@@ -136,6 +132,11 @@ const meta = {
     },
 
     endAdornment: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    onClearClick: {
       type: 'boolean',
       control: 'boolean',
     },
@@ -151,6 +152,6 @@ const meta = {
     caption: 'hint',
     width: '248px',
   },
-} satisfies Meta<typeof Input>;
+} as Meta<typeof Input> & {commonArgTypes: typeof commonArgTypes};
 
 export default meta;

@@ -10,8 +10,8 @@ import {
 } from 'react';
 import {format, isValid, parse, startOfToday} from 'date-fns';
 
-import {BaseCalendarValue} from 'calendar';
 import {InputInternalProps, } from 'input';
+import {BaseCalendarValue} from 'calendar';
 import {DatepickerContext} from 'datepicker';
 
 import {startOfDay} from '../utils';
@@ -68,11 +68,7 @@ const useSegments = () => {
       const segment = newSegments[indx];
       const segmentDate = value[+indx >= 3 ? 1 : 0]
 
-      if (!segmentDate) {
-        continue;
-      }
-
-      segment.value = format(segmentDate, segment.token);
+      segment.value = segmentDate ? format(segmentDate, segment.token) : '';
     }
 
     setSegmentsValue(newSegments);
