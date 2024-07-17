@@ -1,4 +1,4 @@
-import React, {ReactNode, createContext, useContext, useEffect, useState} from 'react';
+import  {ReactNode, createContext, useContext, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
 import {Day, Month, endOfMonth, setMonth, startOfDay, startOfMonth} from 'date-fns';
 import {ru} from 'date-fns/locale';
@@ -98,7 +98,7 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
     if (minDate || maxDate) {
       const monthViewDate = setMonth(viewDate, i);
 
-      disabled = !!minDate && minDate.getTime() >= endOfMonth(monthViewDate).getTime()
+      disabled = !!minDate && minDate.getTime() >= endOfMonth(monthViewDate).getTime();
 
       disabled ||= !!maxDate && maxDate.getTime() <= startOfMonth(monthViewDate).getTime();
     }
@@ -154,10 +154,14 @@ export const RangeCalendar: React.FC<RangeCalendarProps> = props => {
   return <BaseCalendar mode={CalendarMode.range} {...props} value={value} />;
 };
 
-export const Calendar: React.FC<CalendarProps> = props => {
-  const value: BaseCalendarProps['value'] = props.value ? [startOfDay(props.value), undefined] : [undefined, undefined];
+export const Calendar: React.FC<CalendarProps> = ({value, onChange, ...props}) => {
+  const override = {
+    mode: CalendarMode.single,
 
-  const onChange: BaseCalendarProps['onChange'] = newValue => props.onChange(newValue[0]);
+    value: value ? [startOfDay(value), undefined] : [undefined, undefined],
 
-  return <BaseCalendar mode={CalendarMode.single} {...props} value={value} onChange={onChange} />;
+    onChange: newValue => onChange(newValue[0]),
+  } as BaseCalendarProps;
+
+  return <BaseCalendar {...props} {...override} />;
 };

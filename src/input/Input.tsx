@@ -157,15 +157,19 @@ export const Input = forwardRef<HTMLDivElement, InputProps>((props, ref) => {
   const inputProps = useInput(props);
   const {startAdornment, width, style} = inputProps;
 
+  const inputComponent = props.inputComponent?.(inputProps) ?? (
+    <>
+      <Field {...inputProps} />
+      <Label {...inputProps} />
+    </>
+  );
+
   return (
     <Container ref={ref} width={width}>
       <InputContainer {...style}>
         {startAdornment}
 
-        <Inner>
-          <Field {...inputProps} />
-          <Label {...inputProps} />
-        </Inner>
+        <Inner>{inputComponent}</Inner>
 
         <EndAdornment {...inputProps} />
       </InputContainer>

@@ -1,7 +1,8 @@
 import {useState} from 'react';
-import type {Meta} from '@storybook/react';
+import type {ArgTypes, Meta} from '@storybook/react';
 
 import {ArrowNavigationBackward} from 'icons';
+import {CalendarValue} from 'calendar';
 
 import inputStory from 'input/Input.stories';
 
@@ -15,23 +16,33 @@ type DatepickerStoryProps = Omit<DatepickerProps, 'onClearClick'> & {
 };
 
 export const Datepicker: React.FC<DatepickerStoryProps> = props => {
-  const [value, setValue] = useState<Date>();
+  const [value, setValue] = useState<CalendarValue>();
 
   const startAdornment = props.endAdornment ? <ArrowNavigationBackward /> : undefined;
 
   const resultProps: DatepickerProps = {
     ...props,
+
     value,
     startAdornment,
     onChange: setValue,
   };
-
-  if (props.mask) {
-    // resultProps.mask = {mask: props.mask};
-  }
-
+  console.log('value', value);
   return <BaseDatepicker {...resultProps} />;
 };
+
+const argTypes: Partial<typeof inputStory.argTypes> & Partial<ArgTypes<DatepickerProps>> = {
+  ...inputStory.argTypes,
+
+  format: {
+    type: 'string',
+    control: 'text',
+    description: 'Формат, поддерживает д,d,м,m,г,y',
+  },
+};
+
+delete argTypes.mask;
+delete argTypes.endAdornment;
 
 const meta = {
   title: 'Datepicker',
@@ -39,7 +50,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  argTypes: inputStory.argTypes,
+  argTypes: argTypes,
   args: {
     label: 'Label',
     caption: 'hint',

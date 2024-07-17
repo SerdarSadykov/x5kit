@@ -77,7 +77,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     };
   }, []);
 
-  const placeHolder = typeof mask.mask === 'string' && (
+  const placeHolder = typeof mask?.mask === 'string' && (
     <Placeholder {...style}>
       <div>{value}</div>
       <div>{mask.mask.substring(value?.length ?? 0)}</div>
@@ -103,10 +103,6 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 };
 
 export const Field: React.FC<InputInternalProps> = props => {
-  if (props.inputComponent) {
-    return props.inputComponent(props);
-  }
-
   if (props.style.isMasked) {
     return <MaskedField {...props} />;
   }

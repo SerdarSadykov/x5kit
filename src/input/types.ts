@@ -28,7 +28,7 @@ export type InputProps = {
 
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
 
-  mask: MaskInputOptions;
+  mask?: MaskInputOptions;
 
   inputProps?: InputHTMLAttributes<HTMLInputElement> & {ref?: RefCallback<HTMLInputElement>};
   inputComponent?: React.FC<InputInternalProps>;

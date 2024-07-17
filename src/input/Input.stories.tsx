@@ -72,7 +72,6 @@ const meta = {
       control: 'text',
       description: 'Ширина',
     },
-
     mask: {
       type: 'string',
       control: 'text',
@@ -139,6 +138,12 @@ const meta = {
     endAdornment: {
       type: 'boolean',
       control: 'boolean',
+    },
+
+    mask: {
+      type: 'string',
+      control: 'text',
+      description: 'Маска https://beholdr.github.io/maska/v3/#/tokens',
     },
   },
   args: {

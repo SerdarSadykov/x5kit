@@ -1,34 +1,71 @@
-import {useState} from 'react';
+import {createContext, useState} from 'react';
+import {startOfDay, startOfToday} from 'date-fns';
 
-import {Calendar as CalendarComponent, CalendarProps} from 'calendar';
+import {BaseCalendar, BaseCalendarProps, CalendarMode, RangeCalendarValue} from 'calendar';
 
-import {DatepickerProps} from './types';
 import {DateInput} from './DateInput';
+import {
+  BaseDatepickerProps,
+  DatepickerProps,
+  RangeDatepickerProps,
+  DatepickerContextProps,
+  DEFAULT_FORMAT,
+} from './types';
 
-export const Datepicker: React.FC<DatepickerProps> = props => {
-  const {value, onChange, calendar} = props;
+export const DatepickerContext = createContext<DatepickerContextProps>({} as never);
+
+const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
+  const {calendar, mode, value, onChange, referenceDate = startOfToday()} = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const calendarProps: CalendarProps = {
+  const calendarProps: BaseCalendarProps = {
     ...calendar,
 
+    mode,
     value,
-    viewDate: value ?? undefined,
     onChange,
   };
 
-  const inputProps = {
+  const context: DatepickerContextProps = {
     ...props,
 
     isOpen,
     setIsOpen,
-  }
+    referenceDate,
+  };
 
   return (
-    <>
-      <DateInput {...inputProps} />
-      {isOpen && <CalendarComponent {...calendarProps} />}
-    </>
+    <DatepickerContext.Provider value={context}>
+      <DateInput />
+      {isOpen && <BaseCalendar {...calendarProps} />}
+    </DatepickerContext.Provider>
   );
+};
+
+export const Datepicker: React.FC<DatepickerProps> = ({format, value, onChange, ...props}) => {
+  const overrideProps = {
+    mode: CalendarMode.single,
+
+    format: format ?? DEFAULT_FORMAT,
+
+    value: [value ? startOfDay(value) : undefined, undefined],
+
+    onChange: newValue => onChange(newValue[0]),
+  } as BaseDatepickerProps;
+
+  return <BaseDatepicker {...props} {...overrideProps} />;
+};
+
+export const RangeDatepicker: React.FC<RangeDatepickerProps> = props => {
+  const [rangeStart, rangeEnd] = props.value ?? [];
+
+  const value: RangeCalendarValue = [
+    rangeStart ? startOfDay(rangeStart) : undefined,
+    rangeEnd ? startOfDay(rangeEnd) : undefined,
+  ];
+
+  const format = `${props.format ?? DEFAULT_FORMAT} — ${props.format ?? DEFAULT_FORMAT}`;
+
+  return <BaseDatepicker mode={CalendarMode.range} {...props} value={value} format={format} />;
 };
