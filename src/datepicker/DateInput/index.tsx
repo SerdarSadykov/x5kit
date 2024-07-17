@@ -29,12 +29,7 @@ const Value = styled.div<InputStyles>`
   })}
 `;
 
-type ValueItemProps = {
-  isCurrent: boolean;
-  isFilled: boolean;
-};
-
-const ValueItem = styled.span<ValueItemProps>`
+const ValueItem = styled.span<{isCurrent: boolean; isFilled: boolean}>`
   white-space: pre;
   color: ${props => theme.colors.grey[props.isFilled ? 100 : 60]};
 
@@ -61,13 +56,13 @@ const inputComponent: React.FC<InputInternalProps> = props => {
 
   const {step, componentProps, segments} = useInputComponent(inputProps);
 
-  const items = segments.map((item, indx) => {
-    const textContent = item.value.padEnd(item.label.length, item.label[0]);
+  const items = segments.map(({label, end, value}, indx) => {
+    const textContent = value.padEnd(label.length, label[0]);
 
     return (
-      <ValueItem key={indx} isFilled={!!item} isCurrent={step === indx}>
+      <ValueItem key={indx} isFilled={!!value} isCurrent={step === indx}>
         <span>{textContent}</span>
-        {item.end}
+        {end}
       </ValueItem>
     );
   });

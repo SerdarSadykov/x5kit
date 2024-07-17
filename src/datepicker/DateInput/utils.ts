@@ -1,30 +1,39 @@
-import  {
+import {
   ChangeEventHandler,
   FocusEventHandler,
   InputHTMLAttributes,
   KeyboardEventHandler,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
-import {isValid, parse, startOfDay, startOfToday} from 'date-fns';
+import {format, isValid, parse, startOfToday} from 'date-fns';
 
 import {BaseCalendarValue} from 'calendar';
-import {InputInternalProps,} from 'input';
+import {InputInternalProps, } from 'input';
 import {DatepickerContext} from 'datepicker';
 
-import {Segment} from './types';
+import {startOfDay} from '../utils';
 
+type Segment = {
+  label: string;
+  token: string;
+  end: string;
+  value: string;
+};
 
 const useSegments = () => {
-  const {format, value, onChange} = useContext(DatepickerContext);
+  const {dateFormat, value, onChange} = useContext(DatepickerContext);
+
+  const inputValue = useRef<BaseCalendarValue>();
 
   const [segments, setSegmentsValue] = useState<Segment[]>([]);
 
   const setSegments = (newSegments: Segment[]) => {
     setSegmentsValue(newSegments);
 
-    const newValue = [];
+    const newValue: BaseCalendarValue = [undefined, undefined];
     const referenceDate = startOfToday();
 
     for (let i = 0; i < newSegments.length; i += 3) {
@@ -40,16 +49,39 @@ const useSegments = () => {
 
       const segmentDate = parse(segmentValue, segmentFormat, referenceDate);
 
-      newValue.push(isValid(segmentDate) ? startOfDay(segmentDate) : undefined);
+      newValue[i / 3] = isValid(segmentDate) ? startOfDay(segmentDate) : undefined;
     }
 
-    onChange(newValue as BaseCalendarValue);
+    inputValue.current = newValue;
+
+    onChange(newValue);
   };
+
+  useEffect(() => {
+    if (value.join() === inputValue.current?.join()) {
+      return;
+    }
+
+    const newSegments = [...segments];
+
+    for (const indx in newSegments) {
+      const segment = newSegments[indx];
+      const segmentDate = value[+indx >= 3 ? 1 : 0]
+
+      if (!segmentDate) {
+        continue;
+      }
+
+      segment.value = format(segmentDate, segment.token);
+    }
+
+    setSegmentsValue(newSegments);
+  }, [value]);
 
   useEffect(() => {
     const newSegments: Segment[] = [];
 
-    const matches = format.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
+    const matches = dateFormat.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
 
     for (const [, label, end] of matches) {
       const token = label.replaceAll(/д|м|г/gi, part => {
@@ -57,7 +89,8 @@ const useSegments = () => {
           case 'д':
             return 'd';
           case 'м':
-            return 'm';
+          case 'm':
+            return 'M';
           case 'г':
             return 'y';
         }
@@ -69,7 +102,7 @@ const useSegments = () => {
     }
 
     setSegmentsValue(newSegments);
-  }, [format]);
+  }, [dateFormat]);
 
   return {segments, setSegments};
 };

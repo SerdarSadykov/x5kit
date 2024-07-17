@@ -12,6 +12,7 @@ type CalendarStoryProps = {
   disabledDates: boolean;
   onChange: boolean;
   onChangeViewDate: boolean;
+  tooltips: boolean;
 };
 
 export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof CalendarStoryProps>> = props => {
@@ -26,6 +27,7 @@ export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof C
   const disabledDates = props.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
   const onChangeViewDate = props.onChangeViewDate ? (date: Date) => alert(date.toString()) : undefined;
   const onChange = props.onChange ? (date: CalendarValue) => alert(date?.toString()) : undefined;
+  const tooltips = props.tooltips ? (date: Date) => date.toDateString() : undefined;
 
   useEffect(() => {
     if (props.value) {
@@ -47,18 +49,20 @@ export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof C
     onChange?.(value);
   }, [value]);
 
-  return (
-    <BaseCalendar
-      {...props}
-      value={value}
-      onChange={setValue}
-      onChangeViewDate={setViewDate}
-      viewDate={viewDate}
-      minDate={minDate}
-      maxDate={maxDate}
-      disabledDates={disabledDates}
-    />
-  );
+  const calendarProps = {
+    ...props,
+
+    value,
+    viewDate,
+    minDate,
+    maxDate,
+    disabledDates,
+    tooltips,
+    onChange: setValue,
+    onChangeViewDate: setViewDate,
+  };
+
+  return <BaseCalendar {...calendarProps} />;
 };
 
 const meta = {
@@ -143,6 +147,7 @@ const meta = {
     tooltips: {
       type: '(date: Date) => ReactNode | string' as never,
       description: 'Обработчик подсказки',
+      control: 'boolean',
     },
 
     qa: {type: 'string', control: 'text'},

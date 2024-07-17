@@ -1,6 +1,6 @@
 import  {ReactNode, createContext, useContext, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
-import {Day, Month, endOfMonth, setMonth, startOfDay, startOfMonth} from 'date-fns';
+import {Day, Month, endOfMonth, setMonth, startOfMonth} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
 import {RequiredQA, getQAAttribute} from 'common';
@@ -8,6 +8,7 @@ import {theme} from 'theme';
 
 import Block from './Block';
 import {DropdownItem} from './Dropdown';
+import {startOfDay} from './utils';
 import {
   CalendarContextProps,
   BaseCalendarProps,
@@ -52,7 +53,7 @@ export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
   const maxDate = props.maxDate ? startOfDay(props.maxDate) : undefined;
 
   const [viewDate, setViewDate] = useState<Date>(() => {
-    let newViewDate = startOfDay(props.viewDate?.getTime() ?? new Date());
+    let newViewDate = startOfDay(props.viewDate ?? new Date());
 
     if (minDate && newViewDate < minDate) {
       newViewDate = minDate;

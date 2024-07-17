@@ -16,7 +16,9 @@ type RangeComponentProps = {
   onChangeViewDate: boolean;
 };
 
-export const RangeCalendar: React.FC<RangeComponentProps & Omit<RangeCalendarProps, keyof RangeComponentProps>> = props => {
+export const RangeCalendar: React.FC<
+  RangeComponentProps & Omit<RangeCalendarProps, keyof RangeComponentProps>
+> = props => {
   const propsViewDate = props.viewDate ? new Date(props.viewDate) : new Date();
 
   const minDate = props.minDate ? new Date(props.minDate) : undefined;
@@ -28,6 +30,7 @@ export const RangeCalendar: React.FC<RangeComponentProps & Omit<RangeCalendarPro
   const disabledDates = props.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
   const onChangeViewDate = props.onChangeViewDate ? (date: Date) => alert(date.toString()) : undefined;
   const onChange = props.onChange ? (date?: RangeCalendarValue) => alert(date?.toString()) : undefined;
+  const tooltips = props.tooltips ? (date: Date) => date.toDateString() : undefined;
 
   useEffect(() => {
     const newValue: RangeCalendarValue = value ? [...value] : [undefined, undefined];
@@ -57,18 +60,20 @@ export const RangeCalendar: React.FC<RangeComponentProps & Omit<RangeCalendarPro
     onChange?.(value);
   }, [value]);
 
-  return (
-    <BaseRangeCalendar
-      {...props}
-      value={value}
-      onChange={setValue}
-      onChangeViewDate={setViewDate}
-      viewDate={viewDate}
-      minDate={minDate}
-      maxDate={maxDate}
-      disabledDates={disabledDates}
-    />
-  );
+  const calendarProps = {
+    ...props,
+
+    value,
+    viewDate,
+    minDate,
+    maxDate,
+    disabledDates,
+    tooltips,
+    onChange: setValue,
+    onChangeViewDate: setViewDate,
+  };
+
+  return <BaseRangeCalendar {...calendarProps} />;
 };
 
 const valueTo = new Date();

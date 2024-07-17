@@ -1,9 +1,10 @@
 import {createContext, useState} from 'react';
-import {startOfDay, startOfToday} from 'date-fns';
+import {startOfToday} from 'date-fns';
 
 import {BaseCalendar, BaseCalendarProps, CalendarMode, RangeCalendarValue} from 'calendar';
 
 import {DateInput} from './DateInput';
+import {startOfDay} from './utils';
 import {
   BaseDatepickerProps,
   DatepickerProps,
@@ -20,6 +21,8 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const calendarProps: BaseCalendarProps = {
+    viewDate: value[0],
+
     ...calendar,
 
     mode,
@@ -43,11 +46,11 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
   );
 };
 
-export const Datepicker: React.FC<DatepickerProps> = ({format, value, onChange, ...props}) => {
+export const Datepicker: React.FC<DatepickerProps> = ({dateFormat, value, onChange, ...props}) => {
   const overrideProps = {
     mode: CalendarMode.single,
 
-    format: format ?? DEFAULT_FORMAT,
+    dateFormat: dateFormat ?? DEFAULT_FORMAT,
 
     value: [value ? startOfDay(value) : undefined, undefined],
 
@@ -65,7 +68,7 @@ export const RangeDatepicker: React.FC<RangeDatepickerProps> = props => {
     rangeEnd ? startOfDay(rangeEnd) : undefined,
   ];
 
-  const format = `${props.format ?? DEFAULT_FORMAT} — ${props.format ?? DEFAULT_FORMAT}`;
+  const format = `${props.dateFormat ?? DEFAULT_FORMAT} — ${props.dateFormat ?? DEFAULT_FORMAT}`;
 
-  return <BaseDatepicker mode={CalendarMode.range} {...props} value={value} format={format} />;
+  return <BaseDatepicker mode={CalendarMode.range} {...props} value={value} dateFormat={format} />;
 };
