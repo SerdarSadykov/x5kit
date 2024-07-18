@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {startOfMonth, startOfWeek} from 'date-fns';
+import {startOfMonth, startOfToday, startOfWeek} from 'date-fns';
 
 import {CalendarContext} from 'calendar/Calendar';
 import {BlockContext} from 'calendar/Block';
@@ -12,6 +12,8 @@ export const useDays = () => {
 
   const {weekStartsOn, blocks} = context;
   const {viewDate} = blockContext;
+
+  const currentDateTime = startOfToday().getTime();
 
   const blockStart = startOfWeek(startOfMonth(viewDate), {weekStartsOn});
 
@@ -26,6 +28,7 @@ export const useDays = () => {
         getDayProps({
           context,
           blockContext,
+          currentDateTime,
           date: new Date(curDay.getTime()),
         })
       );

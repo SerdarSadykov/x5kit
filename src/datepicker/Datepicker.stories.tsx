@@ -1,7 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 import {useEffect, useState} from 'react';
-import type {Meta, ArgTypes} from '@storybook/react';
+import type {Meta} from '@storybook/react';
 
 import {ArrowNavigationBackward} from 'icons';
 import {CalendarProps, CalendarValue} from 'calendar';
@@ -12,26 +12,25 @@ import calendarStory from 'calendar/Calendar.stories';
 import {Datepicker as BaseDatepicker} from './Datepicker';
 import {DatepickerProps} from './types';
 
-type CalendarStoryProps = {
-  minDate: number;
-  maxDate: number;
-  disabledDates: boolean;
-  tooltips: boolean;
-};
-
 type DatepickerStoryProps = {
   startAdornment: boolean;
   onClearClick: boolean;
   format: string;
-} & Omit<DatepickerProps, 'onClearClick'> &
-  CalendarStoryProps;
+  calendar: {
+    minDate: number;
+    maxDate: number;
+    disabledDates: boolean;
+    tooltips: boolean;
+  };
+} & Omit<DatepickerProps, 'onClearClick' | 'calendar'>;
 
-export const Datepicker: React.FC<DatepickerStoryProps> = props => {
-  const [value, setValue] = useState<CalendarValue>();
+const calendarProps = Object.entries(calendarStory['commonArgTypes']).reduce((acc, [code, value]) => {
+  acc[`calendar.${code}`] = value;
+  return acc;
+}, {});
 
-  const startAdornment = props.endAdornment ? <ArrowNavigationBackward /> : undefined;
-
-  const calendarProps = {} as CalendarStoryProps;
+const parseCalendarProps = (props: DatepickerStoryProps) => {
+  const calendarProps = {} as DatepickerStoryProps['calendar'];
 
   for (const prop in props) {
     if (!prop.startsWith('calendar')) {
@@ -50,20 +49,28 @@ export const Datepicker: React.FC<DatepickerStoryProps> = props => {
   const disabledDates = calendarProps.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
   const tooltips = calendarProps.tooltips ? (date: Date) => date.toDateString() : undefined;
 
+  return {
+    ...calendarProps,
+
+    minDate,
+    maxDate,
+    disabledDates,
+    tooltips,
+  };
+};
+
+export const Datepicker: React.FC<DatepickerStoryProps> = props => {
+  const [value, setValue] = useState<CalendarValue>();
+
+  const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
+
   const resultProps: DatepickerProps = {
     ...props,
 
     value,
     startAdornment,
     onChange: setValue,
-    calendar: {
-      ...calendarProps,
-
-      minDate,
-      maxDate,
-      disabledDates,
-      tooltips,
-    },
+    calendarProps: parseCalendarProps(props),
   };
 
   useEffect(() => {
@@ -76,29 +83,28 @@ export const Datepicker: React.FC<DatepickerStoryProps> = props => {
     <div>
       <BaseDatepicker {...resultProps} />
 
-      <div style={{paddingTop: 20, opacity: 0.8, textAlign: 'center'}}>
-        {value?.toISOString()}
-      </div>
+      <div style={{paddingTop: 20, opacity: 0.8, textAlign: 'center'}}>{value?.toISOString()}</div>
     </div>
   );
 };
 
-const calendarProps = Object.entries(calendarStory.argTypes).reduce((acc, [code, value]) => {
-  if (!['mode', 'viewDate', 'value', 'onChange', 'onChangeViewDate'].includes(code)) {
-    acc[`calendar.${code}`] = value;
-  }
-
-  return acc;
-}, {} as ArgTypes);
-
 const meta = {
+  calendarProps,
+  parseCalendarProps,
+
   title: 'Datepicker',
   component: Datepicker,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
-    ...inputStory.commonArgTypes,
+    formatStr: {
+      type: 'string',
+      control: 'text',
+      description: 'Формат (поддержка д|d|м|m|г|y)',
+    },
+
+    ...inputStory['commonArgTypes'],
     ...calendarProps,
   },
   args: {
@@ -106,6 +112,6 @@ const meta = {
     caption: 'hint',
     width: '248px',
   },
-} satisfies Meta<typeof Datepicker>;
+} as Meta<typeof Datepicker>;
 
 export default meta;

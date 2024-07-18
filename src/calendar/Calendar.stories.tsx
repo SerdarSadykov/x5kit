@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import type {Meta} from '@storybook/react';
+import type {ArgTypes, Meta} from '@storybook/react';
 
 import {Calendar as BaseCalendar} from './Calendar';
 import type {CalendarProps, CalendarValue} from './types';
@@ -65,17 +65,83 @@ export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof C
   return <BaseCalendar {...calendarProps} />;
 };
 
+const commonArgTypes: ArgTypes = {
+  minDate: {
+    type: 'Date' as never,
+    control: 'date',
+    description: 'Левая граница',
+  },
+
+  maxDate: {
+    type: 'Date' as never,
+    control: 'date',
+    description: 'Правая граница',
+  },
+
+  disabledDates: {
+    type: '(date: Date) => boolean' as never,
+    control: 'boolean',
+    description: 'Обработчик недоступных дат',
+  },
+
+  weekStartsOn: {
+    description: 'Начало недели',
+    control: {
+      type: 'select',
+      labels: {
+        0: 'Воскресенье',
+        1: 'Понедельник',
+        2: 'Вторник',
+        3: 'Среда',
+        4: 'Четверг',
+        5: 'Пятница',
+        6: 'Суббота',
+      },
+    },
+    options: [1, 2, 3, 4, 5, 6, 0],
+    table: {
+      defaultValue: {
+        summary: 'Понедельник',
+      },
+    },
+  },
+
+  blocks: {
+    description: 'Кол-во календарей',
+    control: {
+      type: 'number',
+      min: 1,
+      max: 3,
+    },
+    table: {
+      defaultValue: {
+        summary: '1',
+      },
+    },
+  },
+
+  tooltips: {
+    type: '(date: Date) => ReactNode | string' as never,
+    description: 'Обработчик подсказки',
+    control: 'boolean',
+  },
+
+  qa: {type: 'string', control: 'text'},
+}
+
 const meta = {
+  commonArgTypes,
+
   title: 'Calendar',
   component: Calendar,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
-    onChange: {
-      type: '(newValue: Date | undefined) => void' as never,
-      control: 'boolean',
-      description: 'Обработчик изменения',
+    value: {
+      type: 'Date' as never,
+      control: 'date',
+      description: 'Выбранная дата',
     },
 
     viewDate: {
@@ -84,78 +150,18 @@ const meta = {
       description: 'Фокус на дату',
     },
 
+    ...commonArgTypes,
+
+    onChange: {
+      type: '(newValue: Date | undefined) => void' as never,
+      control: 'boolean',
+      description: 'Обработчик изменения',
+    },
+  
     onChangeViewDate: {
       type: '(newViewDate: Date) => void' as never,
       control: 'boolean',
       description: 'Обработчик смены фокуса',
-    },
-
-    minDate: {
-      type: 'Date' as never,
-      control: 'date',
-      description: 'Левая граница',
-    },
-
-    maxDate: {
-      type: 'Date' as never,
-      control: 'date',
-      description: 'Правая граница',
-    },
-
-    disabledDates: {
-      type: '(date: Date) => boolean' as never,
-      control: 'boolean',
-      description: 'Обработчик недоступных дат',
-    },
-
-    weekStartsOn: {
-      description: 'Начало недели',
-      control: {
-        type: 'select',
-        labels: {
-          0: 'Воскресенье',
-          1: 'Понедельник',
-          2: 'Вторник',
-          3: 'Среда',
-          4: 'Четверг',
-          5: 'Пятница',
-          6: 'Суббота',
-        },
-      },
-      options: [1, 2, 3, 4, 5, 6, 0],
-      table: {
-        defaultValue: {
-          summary: 'Понедельник',
-        },
-      },
-    },
-
-    blocks: {
-      description: 'Кол-во календарей',
-      control: {
-        type: 'number',
-        min: 1,
-        max: 3,
-      },
-      table: {
-        defaultValue: {
-          summary: '1',
-        },
-      },
-    },
-
-    tooltips: {
-      type: '(date: Date) => ReactNode | string' as never,
-      description: 'Обработчик подсказки',
-      control: 'boolean',
-    },
-
-    qa: {type: 'string', control: 'text'},
-
-    value: {
-      type: 'Date' as never,
-      control: 'date',
-      description: 'Выбранная дата',
     },
   },
   args: {
@@ -164,6 +170,6 @@ const meta = {
     weekStartsOn: 1,
     blocks: 1,
   },
-} satisfies Meta<typeof Calendar>;
+} as Meta<typeof Calendar>;
 
 export default meta;

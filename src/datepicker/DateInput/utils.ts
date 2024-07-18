@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import {format, isValid, parse, startOfToday} from 'date-fns';
+import {format, isValid, parse} from 'date-fns';
 
 import {InputInternalProps, } from 'input';
 import {BaseCalendarValue} from 'calendar';
@@ -24,7 +24,7 @@ type Segment = {
 };
 
 const useSegments = () => {
-  const {dateFormat, value, onChange} = useContext(DatepickerContext);
+  const {formatStr, value, onChange, referenceDate} = useContext(DatepickerContext);
 
   const inputValue = useRef<BaseCalendarValue>();
 
@@ -34,7 +34,6 @@ const useSegments = () => {
     setSegmentsValue(newSegments);
 
     const newValue: BaseCalendarValue = [undefined, undefined];
-    const referenceDate = startOfToday();
 
     for (let i = 0; i < newSegments.length; i += 3) {
       const [segmentFormat, segmentValue] = newSegments.slice(i, i + 3).reduce(
@@ -66,7 +65,7 @@ const useSegments = () => {
 
     for (const indx in newSegments) {
       const segment = newSegments[indx];
-      const segmentDate = value[+indx >= 3 ? 1 : 0]
+      const segmentDate = value[+indx >= 3 ? 1 : 0];
 
       segment.value = segmentDate ? format(segmentDate, segment.token) : '';
     }
@@ -77,7 +76,7 @@ const useSegments = () => {
   useEffect(() => {
     const newSegments: Segment[] = [];
 
-    const matches = dateFormat.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
+    const matches = formatStr.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
 
     for (const [, label, end] of matches) {
       const token = label.replaceAll(/д|м|г/gi, part => {
@@ -98,7 +97,7 @@ const useSegments = () => {
     }
 
     setSegmentsValue(newSegments);
-  }, [dateFormat]);
+  }, [formatStr]);
 
   return {segments, setSegments};
 };

@@ -3,7 +3,9 @@ export const startOfDay = (date: Date) => {
     return date;
   }
 
-  date.setHours(0, 0, 0, 0);
+  const newDate = new Date(date.getTime());
 
-  return date;
+  newDate.setHours(0, 0, 0, 0);
+
+  return newDate;
 };

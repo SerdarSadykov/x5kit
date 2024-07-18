@@ -1,9 +1,11 @@
 import {createContext, useState} from 'react';
+import {offset, useFloating} from '@floating-ui/react';
 import {startOfToday} from 'date-fns';
 
-import {BaseCalendar, BaseCalendarProps, CalendarMode, RangeCalendarValue} from 'calendar';
+import {CalendarMode, RangeCalendarValue} from 'calendar';
 
 import {DateInput} from './DateInput';
+import {Calendar} from './Calendar';
 import {startOfDay} from './utils';
 import {
   BaseDatepickerProps,
@@ -16,41 +18,47 @@ import {
 export const DatepickerContext = createContext<DatepickerContextProps>({} as never);
 
 const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
-  const {calendar, mode, value, onChange, referenceDate = startOfToday()} = props;
+  const {referenceDate = startOfToday()} = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const calendarProps: BaseCalendarProps = {
-    viewDate: value[0],
+  const popper = useFloating({
+    placement: 'bottom',
+    middleware: [offset(10)],
+    open: isOpen,
+    onOpenChange: setIsOpen,
+  });
 
-    ...calendar,
+  const onToggle = (newIsOpen: boolean) => {
+    setIsOpen(newIsOpen);
 
-    mode,
-    value,
-    onChange,
+    if (newIsOpen) {
+      popper.update?.();
+    }
   };
-  console.log(calendarProps);
+
   const context: DatepickerContextProps = {
     ...props,
 
+    popper,
     isOpen,
-    setIsOpen,
     referenceDate,
+    setIsOpen: onToggle,
   };
 
   return (
     <DatepickerContext.Provider value={context}>
       <DateInput />
-      {isOpen && <BaseCalendar {...calendarProps} />}
+      <Calendar />
     </DatepickerContext.Provider>
   );
 };
 
-export const Datepicker: React.FC<DatepickerProps> = ({dateFormat, value, onChange, ...props}) => {
+export const Datepicker: React.FC<DatepickerProps> = ({formatStr, value, onChange, ...props}) => {
   const overrideProps = {
     mode: CalendarMode.single,
 
-    dateFormat: dateFormat ?? DEFAULT_FORMAT,
+    formatStr: formatStr ?? DEFAULT_FORMAT,
 
     value: [value ? startOfDay(value) : undefined, undefined],
 
@@ -68,7 +76,7 @@ export const RangeDatepicker: React.FC<RangeDatepickerProps> = props => {
     rangeEnd ? startOfDay(rangeEnd) : undefined,
   ];
 
-  const format = `${props.dateFormat ?? DEFAULT_FORMAT} — ${props.dateFormat ?? DEFAULT_FORMAT}`;
+  const format = `${props.formatStr ?? DEFAULT_FORMAT} — ${props.formatStr ?? DEFAULT_FORMAT}`;
 
-  return <BaseDatepicker mode={CalendarMode.range} {...props} value={value} dateFormat={format} />;
+  return <BaseDatepicker mode={CalendarMode.range} {...props} value={value} formatStr={format} />;
 };

@@ -26,7 +26,7 @@ export const Container = styled.div`
   background: ${theme.colors.white};
   box-shadow: ${theme.shadows.medium};
   border-radius: ${theme.spaces.x4}px;
-  box-sizing: 'border-box';
+  box-sizing: border-box;
   font-family: ${theme.typography.base.fontFamily};
   font-size: ${theme.spaces.x8}px;
 `;
@@ -159,7 +159,7 @@ export const Calendar: React.FC<CalendarProps> = ({value, onChange, ...props}) =
   const override = {
     mode: CalendarMode.single,
 
-    value: value ? [startOfDay(value), undefined] : [undefined, undefined],
+    value: [value ? startOfDay(value): undefined, undefined],
 
     onChange: newValue => onChange(newValue[0]),
   } as BaseCalendarProps;

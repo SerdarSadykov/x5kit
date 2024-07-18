@@ -152,6 +152,6 @@ const meta = {
     caption: 'hint',
     width: '248px',
   },
-} as Meta<typeof Input> & {commonArgTypes: typeof commonArgTypes};
+} as Meta<typeof Input>;
 
 export default meta;

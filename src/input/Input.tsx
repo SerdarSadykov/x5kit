@@ -5,9 +5,8 @@ import {SizeTokenValue, theme} from 'theme';
 
 import {Caption} from './Caption';
 import {EndAdornment} from './EndAdornment';
-import {Field} from './Field';
-import {Label} from './Label';
 
+import {InputComponent} from './InputComponent';
 import {InputInternalProps, InputProps, InputStyles} from './types';
 
 const Container = styled.div<Pick<InputInternalProps, 'width'>>`
@@ -26,6 +25,7 @@ const InputContainer = styled.div<InputStyles>`
   gap: 8px;
   padding: 0 12px;
   overflow: hidden;
+  box-sizing: border-box;
 
   ${({isDisabled}) => {
     if (isDisabled) {
@@ -102,12 +102,6 @@ const InputContainer = styled.div<InputStyles>`
   }
 `;
 
-const Inner = styled.div`
-  position: relative;
-  flex-grow: 1;
-  height: 100%;
-`;
-
 const useInput = (props: InputProps): InputInternalProps => {
   const [focused, setFocused] = useState<boolean>(false);
 
@@ -155,21 +149,16 @@ const useInput = (props: InputProps): InputInternalProps => {
 
 export const Input = forwardRef<HTMLDivElement, InputProps>((props, ref) => {
   const inputProps = useInput(props);
-  const {startAdornment, width, style} = inputProps;
+  const {startAdornment, width, style, containerRef} = inputProps;
 
-  const inputComponent = props.inputComponent?.(inputProps) ?? (
-    <>
-      <Field {...inputProps} />
-      <Label {...inputProps} />
-    </>
-  );
+  const Component = props.inputComponent ?? InputComponent;
 
   return (
     <Container ref={ref} width={width}>
-      <InputContainer {...style}>
+      <InputContainer ref={containerRef} {...style}>
         {startAdornment}
 
-        <Inner>{inputComponent}</Inner>
+        <Component {...inputProps} />
 
         <EndAdornment {...inputProps} />
       </InputContainer>

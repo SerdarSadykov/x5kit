@@ -8,6 +8,12 @@ import {DatepickerContext} from 'datepicker';
 
 import {useInputComponent} from './utils';
 
+const Container = styled.div`
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+`;
+
 const Value = styled.div<InputStyles>`
   position: relative;
   width: 100%;
@@ -68,22 +74,25 @@ const inputComponent: React.FC<InputInternalProps> = props => {
   });
 
   return (
-    <>
+    <Container>
       <Label {...props} style={{...style, isFilled: style.isFocused || style.isFilled}} />
       <Value {...style}>{items}</Value>
       <HiddenInput {...componentProps} />
-    </>
+    </Container>
   );
 };
 
 export const DateInput: React.FC = () => {
   const context = useContext(DatepickerContext);
-  const {isOpen, setIsOpen, size, value} = context;
+  const {isOpen, setIsOpen, size, value, popper, endAdornment: parentEndAdornment} = context;
 
   const endAdornment = (
-    <InputButton isSmall={size === SizeTokenValue.Small} onClick={() => setIsOpen(!isOpen)}>
-      <Calendar size={size} color={theme.colors.grey[60]} />
-    </InputButton>
+    <>
+      {parentEndAdornment}
+      <InputButton isSmall={size === SizeTokenValue.Small} onClick={() => setIsOpen(!isOpen)}>
+        <Calendar size={size} color={theme.colors.grey[60]} />
+      </InputButton>
+    </>
   );
 
   const inputProps: InputProps = {
@@ -94,6 +103,8 @@ export const DateInput: React.FC = () => {
 
     value: value[0] || value[1] ? 'filled' : '',
     onChange: () => {},
+
+    containerRef: popper.refs.setReference,
   };
 
   return <Input {...inputProps} />;

@@ -42,21 +42,25 @@ export const EndAdornment: React.FC<InputInternalProps> = props => {
 
   const iconSize = isSmall ? SizeTokenValue.Small : SizeTokenValue.Medium;
 
-  if (endAdornment) {
-    return endAdornment;
-  }
-
   if (isLoading) {
-    return <Loader size={iconSize} />;
+    return (
+      <>
+        <Loader size={iconSize} />
+        {endAdornment}
+      </>
+    );
   }
 
   if (isFilled && onClearClick) {
     return (
-      <InputButton onClick={onClearClick} isSmall={isSmall}>
-        <Close size={iconSize} />
-      </InputButton>
+      <>
+        <InputButton onClick={onClearClick} isSmall={isSmall}>
+          <Close size={iconSize} />
+        </InputButton>
+        {endAdornment}
+      </>
     );
   }
 
-  return null;
+  return endAdornment;
 };

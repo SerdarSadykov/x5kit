@@ -1,5 +1,3 @@
-import {startOfToday} from 'date-fns';
-
 import {CalendarContextProps, CalendarMode} from 'calendar/types';
 import {BlockContextProps} from 'calendar/Block';
 
@@ -8,6 +6,7 @@ import {DayProps, RangeDayProps} from './types';
 type GetDayPropsArgs = {
   context: CalendarContextProps;
   blockContext: BlockContextProps;
+  currentDateTime: number;
   date: Date;
 };
 
@@ -55,6 +54,7 @@ const getRangeDayProps = ({date, context: {mode, value, hoverDate}}: GetDayProps
 export const getDayProps = (args: GetDayPropsArgs): DayProps => {
   const {
     date,
+    currentDateTime,
     blockContext: {viewDate},
     context: {minDate, maxDate, disabledDates, tooltips, blocks},
   } = args;
@@ -63,7 +63,7 @@ export const getDayProps = (args: GetDayPropsArgs): DayProps => {
 
   const isHidden = !isViewMonth && blocks > 1;
 
-  const isToday = startOfToday().getTime() === date.getTime();
+  const isToday = currentDateTime === date.getTime();
 
   const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date) || !!disabledDates?.(date);
 

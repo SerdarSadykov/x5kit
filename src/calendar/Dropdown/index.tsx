@@ -1,5 +1,5 @@
-import {MouseEventHandler, useEffect, useState} from 'react';
-import {usePopper} from 'react-popper';
+import {MouseEventHandler, useEffect} from 'react';
+import {useFloating, flip} from '@floating-ui/react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
@@ -13,7 +13,6 @@ const DropdownButton = styled.button<DropdownButtonStyle>`
   position: relative;
   display: flex;
   align-items: center;
-  width: ${props => props.width}px;
   height: 32px;
   gap: 6px;
   padding: 0 10px;
@@ -100,20 +99,21 @@ type DropdownStyle = {
   width: number;
 };
 
-type DropdownButtonStyle = DropdownStyle & {
+type DropdownButtonStyle = {
   isOpen: boolean;
 };
 
 export type DropdownOpenProps = {
   isOpen: boolean;
   setIsOpen: (newIsOpen: boolean) => void;
-}
+};
 
-export type DropdownProps = DropdownStyle & DropdownOpenProps & {
+export type DropdownProps = {
   items: DropdownItem[];
   value: DropdownItem;
   onChange: (newItem: DropdownItem) => void;
-};
+} & DropdownStyle &
+  DropdownOpenProps;
 
 export type DropdownListItemProps = Pick<DropdownProps, 'onChange'> & ListItemStyle & {item: DropdownItem};
 
@@ -128,10 +128,7 @@ const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSe
 };
 
 export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpen, setIsOpen, width}) => {
-  const [btnRef, setBtnRef] = useState<HTMLButtonElement | null>(null);
-  const [listRef, setListRef] = useState<HTMLDivElement | null>(null);
-
-  const popper = usePopper(btnRef, listRef, {placement: 'bottom-start'});
+  const popper = useFloating({placement: 'bottom-start', middleware: [flip()]});
 
   const onToggle = () => {
     setIsOpen(!isOpen);
@@ -166,12 +163,12 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpe
 
   return (
     <Container onClick={onClickContainer}>
-      <DropdownButton ref={setBtnRef} isOpen={isOpen} onClick={onToggle}>
+      <DropdownButton ref={popper.refs.setReference} isOpen={isOpen} onClick={onToggle}>
         {value.name}
         <Chevron size={SizeTokenValue.Small} />
       </DropdownButton>
 
-      <List ref={setListRef} width={width} hidden={!isOpen} style={popper.styles.popper} {...popper.attributes.popper}>
+      <List ref={popper.refs.setFloating} width={width} hidden={!isOpen} style={popper.floatingStyles}>
         {listItems}
       </List>
     </Container>
