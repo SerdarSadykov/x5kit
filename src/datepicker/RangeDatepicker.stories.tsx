@@ -55,12 +55,11 @@ export const RangeDatepicker: React.FC<DatepickerStoryProps> = props => {
   }, [props.valueFrom, props.valueTo]);
 
   return (
-    <div>
-      <div>
-        <BaseDatepicker {...resultProps} />
-      </div>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <BaseDatepicker {...resultProps} />
+
       <div style={{paddingTop: 20, opacity: 0.8, textAlign: 'center'}}>
-        [{value?.map(val => val?.toISOString() ?? 'undefined').join(', ')}]
+        [{value?.map(val => val?.toLocaleString() ?? 'undefined').join(', ')}]
       </div>
     </div>
   );

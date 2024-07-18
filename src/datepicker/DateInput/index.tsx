@@ -84,13 +84,17 @@ const inputComponent: React.FC<InputInternalProps> = props => {
 
 export const DateInput: React.FC = () => {
   const context = useContext(DatepickerContext);
-  const {isOpen, setIsOpen, size, value, popper, endAdornment: parentEndAdornment} = context;
+  const {isOpen, setIsOpen, size, value, disabled, readOnly, popper, endAdornment: parentEndAdornment} = context;
 
   const endAdornment = (
     <>
       {parentEndAdornment}
-      <InputButton isSmall={size === SizeTokenValue.Small} onClick={() => setIsOpen(!isOpen)}>
-        <Calendar size={size} color={theme.colors.grey[60]} />
+      <InputButton
+        isDisabled={disabled || readOnly}
+        isSmall={size === SizeTokenValue.Small}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <Calendar size={size} />
       </InputButton>
     </>
   );

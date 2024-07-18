@@ -6,7 +6,7 @@ import {Close} from 'icons';
 
 import {InputInternalProps, InputStyles} from '../types';
 
-export const InputButton = styled.button<Pick<InputStyles, 'isSmall'>>`
+export const InputButton = styled.button<Pick<InputStyles, 'isSmall' | 'isDisabled'>>`
   flex-shrink: 0;
   padding: 0;
   margin-right: -4px;
@@ -16,7 +16,6 @@ export const InputButton = styled.button<Pick<InputStyles, 'isSmall'>>`
   cursor: pointer;
   border-radius: 4px;
   line-height: 0;
-  color: ${theme.colors.grey[60]};
 
   &:hover {
     background-color: ${theme.colors.grey[20]};
@@ -28,8 +27,10 @@ export const InputButton = styled.button<Pick<InputStyles, 'isSmall'>>`
 
   ${props => {
     const size = props.isSmall ? 16 : 32;
+    const color = theme.colors.grey[props.isDisabled ? 40 : 60];
+    const pointerEvents = props.isDisabled ? 'none' : undefined;
 
-    return {width: size, height: size};
+    return {color, pointerEvents, width: size, height: size};
   }}
 `;
 
@@ -37,7 +38,7 @@ export const EndAdornment: React.FC<InputInternalProps> = props => {
   const {
     endAdornment,
     onClearClick,
-    style: {isSmall, isLoading, isFilled},
+    style: {isDisabled, isSmall, isLoading, isFilled},
   } = props;
 
   const iconSize = isSmall ? SizeTokenValue.Small : SizeTokenValue.Medium;
@@ -51,7 +52,7 @@ export const EndAdornment: React.FC<InputInternalProps> = props => {
     );
   }
 
-  if (isFilled && onClearClick) {
+  if (!isDisabled && isFilled && onClearClick) {
     return (
       <>
         <InputButton onClick={onClearClick} isSmall={isSmall}>

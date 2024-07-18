@@ -106,7 +106,8 @@ const useInput = (props: InputProps): InputInternalProps => {
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
-    setFocused(true);
+    setFocused(!props.readOnly);
+
     props.inputProps?.onFocus?.(e);
   };
 

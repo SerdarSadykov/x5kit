@@ -83,7 +83,7 @@ export const Datepicker: React.FC<DatepickerStoryProps> = props => {
     <div>
       <BaseDatepicker {...resultProps} />
 
-      <div style={{paddingTop: 20, opacity: 0.8, textAlign: 'center'}}>{value?.toISOString()}</div>
+      <div style={{paddingTop: 20, opacity: 0.8, textAlign: 'center'}}>{value?.toLocaleString()}</div>
     </div>
   );
 };
