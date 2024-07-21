@@ -14,7 +14,11 @@ export const PasswordInput: React.FC<PasswordInputProps> = props => {
   const type: InputHTMLAttributes<HTMLInputElement>['type'] = isOpen ? 'text' : 'password';
 
   const endAdornment = (
-    <InputButton isSmall={props.size === SizeTokenValue.Small} onClick={() => setIsOpen(!isOpen)}>
+    <InputButton
+      isDisabled={props.disabled}
+      isSmall={props.size === SizeTokenValue.Small}
+      onClick={() => setIsOpen(!isOpen)}
+    >
       <Icon size={props.size} />
     </InputButton>
   );

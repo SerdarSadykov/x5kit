@@ -14,13 +14,17 @@ import {
   useTransitionStyles,
 } from '@floating-ui/react';
 
-import {TooltipPlacement, TooltipProps} from './types';
+import {getQAAttribute} from 'common';
+
+import {TooltipProps} from './types';
 
 
 export const useTooltip = (props: TooltipProps) => {
   const {
     children,
-    placement = TooltipPlacement.auto,
+    placement,
+    qa = 'tooltip',
+
     delay = {open: 330, close: 100},
   } = props;
 
@@ -28,7 +32,7 @@ export const useTooltip = (props: TooltipProps) => {
   const isOpen = props.isOpen ?? isOpenIn;
   const setIsOpen = props.setIsOpen ?? setIsOpenIn;
 
-  const isAutoPlacement = placement === 'auto';
+  const getQA = getQAAttribute(qa);
 
   const arrowRef = useRef(null);
 
@@ -37,8 +41,8 @@ export const useTooltip = (props: TooltipProps) => {
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
 
-    placement: isAutoPlacement ? undefined : placement,
-    middleware: [offset(8), isAutoPlacement ? autoPlacement() : flip(), shift(), arrow({element: arrowRef})],
+    placement: placement,
+    middleware: [offset(8), !placement ? autoPlacement() : flip(), shift(), arrow({element: arrowRef})],
   });
 
   const interactions = useInteractions([
@@ -52,5 +56,5 @@ export const useTooltip = (props: TooltipProps) => {
 
   const child = cloneElement(children, interactions.getReferenceProps({...children.props, ref}));
 
-  return {isMounted, popper, interactions, arrowRef, styles, child};
+  return {isMounted, getQA, popper, interactions, arrowRef, styles, child};
 };
