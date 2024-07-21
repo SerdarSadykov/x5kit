@@ -30,12 +30,14 @@ export const Chip: React.FC<ChipProps> = props => {
 
   const onClick = props.onClick ? () => alert('onClick') : undefined;
   const onDelete = props.onDelete ? () => alert('onDelete') : undefined;
+  const maxLengthFunc = props.maxLengthFunc ? (label: string) => label.slice(0, 3) + '...' + label.slice(7) : undefined;
 
   const resultProps = {
     ...props,
 
     onClick,
     onDelete,
+    maxLengthFunc,
     startAdornment,
     endAdornment,
   };
@@ -83,6 +85,22 @@ const meta = {
       description: 'Вариант',
     },
 
+    maxWidth: {
+      type: 'number',
+      control: 'number',
+    },
+
+    maxLength: {
+      type: 'number',
+      control: 'number',
+    },
+
+    maxLengthFunc: {
+      type: '(label: string) => string' as never,
+      control: 'boolean',
+      description: 'Контроль длины',
+    },
+
     checked: {
       type: 'boolean',
       control: 'boolean',
@@ -118,7 +136,10 @@ const meta = {
       control: 'boolean',
     },
   },
-  args: {},
+  args: {
+    label: 'Label',
+    maxLength: 25,
+  },
 } satisfies Meta<typeof Chip>;
 
 export default meta;

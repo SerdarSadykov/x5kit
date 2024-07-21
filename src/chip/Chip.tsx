@@ -1,11 +1,11 @@
-import {CSSProperties} from 'react';
+import {CSSProperties, forwardRef} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {Tooltip} from 'tooltip';
-
 import {EndAdornment} from './EndAdornment';
+import {Content} from './Content';
+import {Tooltip} from './Tooltip';
 import {ChipProps, ChipVariant} from './types';
 
 const Container = styled.div<Pick<ChipProps, 'size' | 'disabled'> & {isButton: boolean}>`
@@ -88,23 +88,20 @@ const OutlinedContainer = styled(Container)<Pick<ChipProps, 'checked' | 'error'>
   }}
 `;
 
-const Content = styled.div<Pick<ChipProps, 'whiteSpace'>>(props => ({
-  whiteSpace: props.whiteSpace,
-  userSelect: 'none',
-}));
-
-export const Chip: React.FC<ChipProps> = props => {
+export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
   const {
-    label,
     startAdornment,
-    tooltip,
     onClick,
 
+    maxLength = 25,
     size = SizeTokenValue.Medium,
     variant = ChipVariant.filled,
   } = props;
 
+  const newProps = {maxLength, size, variant, ...props};
+
   const componentProps = {
+    ref,
     size,
 
     disabled: props.disabled,
@@ -117,19 +114,15 @@ export const Chip: React.FC<ChipProps> = props => {
 
   const Component = variant === ChipVariant.outlined ? OutlinedContainer : FilledContainer;
 
-  const child = (
-    <Component {...componentProps}>
-      {startAdornment}
+  return (
+    <Tooltip {...newProps}>
+      <Component {...componentProps}>
+        {startAdornment}
 
-      <Content whiteSpace={props.whiteSpace}>{label}</Content>
+        <Content {...newProps} />
 
-      <EndAdornment {...props} />
-    </Component>
+        <EndAdornment {...newProps} />
+      </Component>
+    </Tooltip>
   );
-
-  if (tooltip) {
-    return <Tooltip content={tooltip}>{child}</Tooltip>;
-  }
-
-  return child;
-};
+});

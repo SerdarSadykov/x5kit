@@ -2,11 +2,11 @@ import {createContext, useState} from 'react';
 import {offset, useFloating} from '@floating-ui/react';
 import {startOfToday} from 'date-fns';
 
+import {startOfDay} from 'common';
 import {CalendarMode, RangeCalendarValue} from 'calendar';
 
 import {DateInput} from './DateInput';
 import {Calendar} from './Calendar';
-import {startOfDay} from './utils';
 import {
   BaseDatepickerProps,
   DatepickerProps,

@@ -20,8 +20,9 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     content,
     width,
     whiteSpace,
-    isPortal,
+    qa,
 
+    isPortal = true,
     zIndex = theme.sizes.zIndex.tooltip,
     color = theme.colors.white,
     backgroundColor = theme.colors.grey[90],

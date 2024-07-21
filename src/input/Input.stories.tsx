@@ -58,7 +58,7 @@ const commonArgTypes: ArgTypes = {
     type: 'SizeTokenValue' as never,
     control: 'select',
     options: [SizeTokenValue.Small, SizeTokenValue.Medium, SizeTokenValue.Large],
-    description: 'Ширина',
+    description: 'Размер',
   },
 
   width: {

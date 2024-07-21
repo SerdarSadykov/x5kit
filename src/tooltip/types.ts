@@ -20,7 +20,7 @@ export enum TooltipPlacement {
 
 export type TooltipProps = {
   children: ReactElement;
-  content: ReactNode;
+  content: string | ReactNode;
 
   width?: number;
   zIndex?: number;

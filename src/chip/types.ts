@@ -1,4 +1,4 @@
-import {CSSProperties, DOMAttributes, ReactNode} from 'react';
+import {CSSProperties, DOMAttributes, PropsWithChildren, ReactNode} from 'react';
 
 import {QA} from 'common';
 import {SizeTokenValue} from 'theme';
@@ -10,13 +10,13 @@ export enum ChipVariant {
 }
 
 export type ChipProps = {
+  label: string | ReactNode;
+
   size?: SizeTokenValue;
   variant?: ChipVariant;
   disabled?: boolean;
   checked?: boolean;
   error?: boolean;
-
-  label: string;
 
   startAdornment?: ReactNode; // icon
   endAdornment?: ReactNode; // icon
@@ -24,7 +24,8 @@ export type ChipProps = {
 
   onDelete?: () => void;
 
-  // maxLabelLength?: number
-  // shorteningFunc?: (label: string, length: number) => string
+  maxLength?: number
+  maxLengthFunc?: (label: string) => string
+
   // onChange -> onClick
-} & QA & Pick<CSSProperties, 'whiteSpace'> & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;
+} & QA & Pick<CSSProperties, 'whiteSpace' | 'maxWidth'> & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;

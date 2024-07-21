@@ -10,11 +10,10 @@ import {
 } from 'react';
 import {format, isValid, parse} from 'date-fns';
 
+import {startOfDay} from 'common';
 import {InputInternalProps, } from 'input';
 import {BaseCalendarValue} from 'calendar';
 import {DatepickerContext} from 'datepicker';
-
-import {startOfDay} from '../utils';
 
 type Segment = {
   label: string;

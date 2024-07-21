@@ -3,12 +3,11 @@ import styled from '@emotion/styled';
 import {Day, Month, endOfMonth, setMonth, startOfMonth} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
-import {RequiredQA, getQAAttribute} from 'common';
+import {RequiredQA, getQAAttribute, startOfDay} from 'common';
 import {theme} from 'theme';
 
 import Block from './Block';
 import {DropdownItem} from './Dropdown';
-import {startOfDay} from './utils';
 import {
   CalendarContextProps,
   BaseCalendarProps,
