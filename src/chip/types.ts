@@ -1,34 +1,30 @@
-import {CSSProperties, ReactNode} from 'react';
+import {CSSProperties, DOMAttributes, ReactNode} from 'react';
 
 import {QA} from 'common';
 import {SizeTokenValue} from 'theme';
+import {TooltipProps} from 'tooltip';
 
 export enum ChipVariant {
   outlined = 'outlined',
   filled = 'filled',
 }
 
-export type ChipStyles = {
+export type ChipProps = {
   size?: SizeTokenValue;
   variant?: ChipVariant;
+  disabled?: boolean;
   checked?: boolean;
   error?: boolean;
-} & Pick<CSSProperties, 'whiteSpace'>;
 
-export type ChipProps = {
   label: string;
 
-  startAdornment?: ReactNode;
-  endAdornment?: ReactNode;
+  startAdornment?: ReactNode; // icon
+  endAdornment?: ReactNode; // icon
+  tooltip?: TooltipProps['content'];
 
-  // name?: string
-  // checked?: boolean
-  // error?: boolean
-  // variant?: keyof typeof chipVariants
-  // icon?: ReactElement
-  // tooltip?: string
+  onDelete?: () => void;
+
   // maxLabelLength?: number
   // shorteningFunc?: (label: string, length: number) => string
-  // onDelete?: (name?: string) => void
-  // onChange?: ({ name, checked }: { name?: string; checked?: boolean }) => void
-} & QA & ChipStyles;
+  // onChange -> onClick
+} & QA & Pick<CSSProperties, 'whiteSpace'> & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;

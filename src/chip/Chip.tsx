@@ -1,10 +1,14 @@
+import {CSSProperties} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {ChipProps, ChipStyles, ChipVariant} from './types';
+import {Tooltip} from 'tooltip';
 
-const Container = styled.div<ChipStyles>`
+import {EndAdornment} from './EndAdornment';
+import {ChipProps, ChipVariant} from './types';
+
+const Container = styled.div<Pick<ChipProps, 'size' | 'disabled'> & {isButton: boolean}>`
   display: flex;
   align-items: flex-start;
   box-sizing: border-box;
@@ -16,25 +20,38 @@ const Container = styled.div<ChipStyles>`
 
   ${theme.typography.p2}
 
-  ${({size, whiteSpace}) => {
-    const isSmall = size == SizeTokenValue.Small;
+  ${props => {
+    const isSmall = props.size == SizeTokenValue.Small;
+    let cursor: CSSProperties['cursor'];
+
+    if (props.disabled) {
+      cursor = 'not-allowed';
+    } else if (props.isButton) {
+      cursor = 'pointer';
+    }
 
     return {
-      whiteSpace,
+      cursor,
       padding: isSmall ? '2px 6px' : 8,
       minHeight: isSmall ? 20 : 32,
     };
   }}
 `;
 
-const FilledContainer = styled(Container)`
+const FilledContainer = styled(Container)<Pick<ChipProps, 'checked' | 'error'>>`
   &:hover {
     background-color: ${theme.colors.grey[30]};
     border-color: ${theme.colors.grey[30]};
   }
 
-  ${({checked}) => {
-    const backgroundColor = checked ? theme.colors.accent[20] : theme.colors.grey[20];
+  ${props => {
+    let backgroundColor = theme.colors.grey[20];
+
+    if (props.error) {
+      backgroundColor = theme.colors.red[20];
+    } else if (props.checked) {
+      backgroundColor = theme.colors.accent[20];
+    }
 
     return {
       backgroundColor,
@@ -43,7 +60,7 @@ const FilledContainer = styled(Container)`
   }}
 `;
 
-const OutlinedContainer = styled(Container)`
+const OutlinedContainer = styled(Container)<Pick<ChipProps, 'checked' | 'error'>>`
   &:hover {
     background-color: ${theme.colors.grey[20]};
     border-color: ${theme.colors.grey[30]};
@@ -71,29 +88,48 @@ const OutlinedContainer = styled(Container)`
   }}
 `;
 
-const Content = styled.div<ChipStyles>`
-  ${({whiteSpace}) => ({whiteSpace})}
-`;
+const Content = styled.div<Pick<ChipProps, 'whiteSpace'>>(props => ({
+  whiteSpace: props.whiteSpace,
+  userSelect: 'none',
+}));
 
 export const Chip: React.FC<ChipProps> = props => {
-  const {label, startAdornment, endAdornment, size = SizeTokenValue.Medium, variant = ChipVariant.filled} = props;
+  const {
+    label,
+    startAdornment,
+    tooltip,
+    onClick,
 
-  const styles: ChipStyles = {
+    size = SizeTokenValue.Medium,
+    variant = ChipVariant.filled,
+  } = props;
+
+  const componentProps = {
     size,
-    whiteSpace: props.whiteSpace,
+
+    disabled: props.disabled,
     checked: props.checked,
     error: props.error,
+    isButton: !!onClick,
+
+    onClick: props.disabled ? undefined : onClick,
   };
 
   const Component = variant === ChipVariant.outlined ? OutlinedContainer : FilledContainer;
 
-  return (
-    <Component {...styles}>
+  const child = (
+    <Component {...componentProps}>
       {startAdornment}
 
-      <Content {...styles}>{label}</Content>
+      <Content whiteSpace={props.whiteSpace}>{label}</Content>
 
-      {endAdornment}
+      <EndAdornment {...props} />
     </Component>
   );
+
+  if (tooltip) {
+    return <Tooltip content={tooltip}>{child}</Tooltip>;
+  }
+
+  return child;
 };

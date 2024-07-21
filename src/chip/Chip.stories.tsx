@@ -28,9 +28,14 @@ export const Chip: React.FC<ChipProps> = props => {
   const startAdornment = props.startAdornment ? <Icon /> : undefined;
   const endAdornment = props.endAdornment ? <Done size={SizeTokenValue.Small} /> : undefined;
 
+  const onClick = props.onClick ? () => alert('onClick') : undefined;
+  const onDelete = props.onDelete ? () => alert('onDelete') : undefined;
+
   const resultProps = {
     ...props,
 
+    onClick,
+    onDelete,
     startAdornment,
     endAdornment,
   };
@@ -50,6 +55,12 @@ const meta = {
       type: 'string',
       control: 'text',
       description: 'Контент',
+    },
+
+    tooltip: {
+      type: 'string',
+      control: 'text',
+      description: 'Tooltip',
     },
 
     whiteSpace: {
@@ -77,6 +88,10 @@ const meta = {
       control: 'boolean',
     },
 
+    disabled: {
+      type: 'boolean',
+      control: 'boolean',
+    },
 
     error: {
       type: 'boolean',
@@ -90,6 +105,16 @@ const meta = {
 
     endAdornment: {
       type: 'boolean',
+      control: 'boolean',
+    },
+
+    onClick: {
+      type: 'MouseEventHandler<HTMLDivElement>' as never,
+      control: 'boolean',
+    },
+
+    onDelete: {
+      type: '() => void' as never,
       control: 'boolean',
     },
   },
