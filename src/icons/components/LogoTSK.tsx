@@ -33,7 +33,7 @@ export const LogoTSK: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={LogoTSK.name} {...props}>
+    <SVG ref={ref} name="LogoTSK" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

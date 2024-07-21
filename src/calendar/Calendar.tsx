@@ -27,8 +27,8 @@ export const Container = styled.div`
   box-shadow: ${theme.shadows.medium};
   border-radius: ${theme.spaces.x4}px;
   box-sizing: border-box;
-  font-family: ${theme.typography.base.fontFamily};
-  font-size: ${theme.spaces.x8}px;
+
+${theme.typography.p2}
 `;
 
 const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {

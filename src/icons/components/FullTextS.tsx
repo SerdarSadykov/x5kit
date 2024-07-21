@@ -11,7 +11,7 @@ const largeIcon = (
 
 export const FullTextS: IconComponent = forwardRef((props, ref) => {
   return (
-    <SVG ref={ref} name={FullTextS.name} {...props}>
+    <SVG ref={ref} name="FullTextS" {...props}>
       {largeIcon}
     </SVG>
   );

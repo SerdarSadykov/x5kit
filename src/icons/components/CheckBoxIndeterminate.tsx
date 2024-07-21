@@ -16,7 +16,7 @@ const largeIcon = [
 
 export const CheckBoxIndeterminate: IconComponent = forwardRef((props, ref) => {
   return (
-    <SVG ref={ref} name={CheckBoxIndeterminate.name} {...props}>
+    <SVG ref={ref} name="CheckBoxIndeterminate" {...props}>
       {largeIcon}
     </SVG>
   );

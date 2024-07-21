@@ -25,7 +25,7 @@ export const Restore: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Restore.name} {...props}>
+    <SVG ref={ref} name="Restore" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

@@ -31,7 +31,7 @@ export const LockIndeterminate: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={LockIndeterminate.name} {...props}>
+    <SVG ref={ref} name="LockIndeterminate" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

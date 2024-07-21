@@ -28,7 +28,7 @@ export const ArrowCircleDown: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={ArrowCircleDown.name} {...props}>
+    <SVG ref={ref} name="ArrowCircleDown" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

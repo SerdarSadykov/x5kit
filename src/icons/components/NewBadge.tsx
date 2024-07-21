@@ -55,7 +55,7 @@ export const NewBadge: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={NewBadge.name} {...props}>
+    <SVG ref={ref} name="NewBadge" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

@@ -10,7 +10,7 @@ const largeIcon = (
 
 export const Check: IconComponent = forwardRef((props, ref) => {
   return (
-    <SVG ref={ref} name={Check.name} {...props}>
+    <SVG ref={ref} name="Check" {...props}>
       {largeIcon}
     </SVG>
   );

@@ -25,7 +25,7 @@ export const WrapOff: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={WrapOff.name} {...props}>
+    <SVG ref={ref} name="WrapOff" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

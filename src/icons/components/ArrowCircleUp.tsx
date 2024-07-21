@@ -28,7 +28,7 @@ export const ArrowCircleUp: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={ArrowCircleUp.name} {...props}>
+    <SVG ref={ref} name="ArrowCircleUp" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

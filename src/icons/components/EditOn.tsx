@@ -17,7 +17,7 @@ export const EditOn: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={EditOn.name} {...props}>
+    <SVG ref={ref} name="EditOn" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

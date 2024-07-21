@@ -22,7 +22,7 @@ export const Calendar: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Calendar.name} {...props}>
+    <SVG ref={ref} name="Calendar" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

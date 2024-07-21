@@ -25,7 +25,7 @@ export const Apps: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Apps.name} {...props}>
+    <SVG ref={ref} name="Apps" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

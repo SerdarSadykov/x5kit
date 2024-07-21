@@ -6,8 +6,13 @@ import {InputProps} from 'input';
 export const DEFAULT_FORMAT = 'дд.мм.гггг';
 
 export type BaseDatepickerProps = {
+  isOpen?: boolean;
+  setIsOpen?: (newIsOpen: boolean) => void;
+
   formatStr: string;
+
   calendarProps: Omit<BaseCalendarProps, 'mode' | 'value' | 'onChange'>;
+
   referenceDate?: Date;
 } & Omit<InputProps, 'mask' | 'value' | 'onChange' | 'onClearClick'> & Pick<BaseCalendarProps, 'mode' | 'value' | 'onChange'>;
 

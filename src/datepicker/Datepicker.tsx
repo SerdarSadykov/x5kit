@@ -20,16 +20,11 @@ export const DatepickerContext = createContext<DatepickerContextProps>({} as nev
 const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
   const {referenceDate = startOfToday()} = props;
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenIn, setIsOpenIn] = useState<boolean>(false);
+  const isOpen = props.isOpen ?? isOpenIn;
+  const setIsOpen = props.setIsOpen ?? setIsOpenIn;
 
-  const popper = useFloating({
-    placement: 'bottom',
-    middleware: [offset(10)],
-    open: isOpen,
-    onOpenChange: setIsOpen,
-  });
-
-  const onToggle = (newIsOpen: boolean) => {
+  const onOpenChange = (newIsOpen: boolean) => {
     setIsOpen(newIsOpen);
 
     if (newIsOpen) {
@@ -37,13 +32,20 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
     }
   };
 
+  const popper = useFloating({
+    onOpenChange,
+    placement: 'bottom',
+    middleware: [offset(10)],
+    open: isOpen,
+  });
+
   const context: DatepickerContextProps = {
     ...props,
 
     popper,
     isOpen,
     referenceDate,
-    setIsOpen: onToggle,
+    setIsOpen: onOpenChange,
   };
 
   return (

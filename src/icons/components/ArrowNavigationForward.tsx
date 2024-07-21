@@ -22,7 +22,7 @@ export const ArrowNavigationForward: IconComponent = forwardRef((props, ref) => 
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={ArrowNavigationForward.name} {...props}>
+    <SVG ref={ref} name="ArrowNavigationForward" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

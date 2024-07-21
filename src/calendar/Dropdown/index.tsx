@@ -5,9 +5,7 @@ import styled from '@emotion/styled';
 import {SizeTokenValue, theme} from 'theme';
 import {ArrowDown, ArrowUp} from 'icons';
 
-const Container = styled.div`
-  font-family: ${theme.typography.base.fontFamily};
-`;
+const Container = styled.div(theme.typography.base);
 
 const DropdownButton = styled.button<DropdownButtonStyle>`
   position: relative;
@@ -16,8 +14,6 @@ const DropdownButton = styled.button<DropdownButtonStyle>`
   height: 32px;
   gap: 6px;
   padding: 0 10px;
-  font-size: ${theme.spaces.x8}px;
-  letter-spacing: 0.12px;
   text-transform: capitalize;
   text-align: left;
   color: ${theme.colors.grey[100]};
@@ -27,6 +23,8 @@ const DropdownButton = styled.button<DropdownButtonStyle>`
   border-color: ${props => (props.isOpen ? theme.colors.accent[90] : 'transparent')};
   border-radius: 4px;
   cursor: pointer;
+
+  ${theme.typography.p1}
 
   &:hover {
     border-color: ${theme.colors.grey[40]};
@@ -64,15 +62,14 @@ const ListItem = styled.button<ListItemStyle>`
   min-width: 100%;
   height: 32px;
   padding: 0 12px;
-  font-family: ${theme.typography.base.fontFamily};
-  font-size: ${theme.spaces.x8}px;
-  letter-spacing: 0.12px;
   text-transform: capitalize;
   text-align: left;
   background: none;
   border: none;
   outline: none;
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+
+  ${theme.typography.p1}
 
   &:hover {
     color: ${theme.colors.grey[100]};

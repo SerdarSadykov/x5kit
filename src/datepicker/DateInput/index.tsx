@@ -23,9 +23,8 @@ const Value = styled.div<InputStyles>`
   padding: 0;
   outline: none;
   border: none;
-  font-size: ${theme.spaces.x8}px;
-  line-height: ${theme.spaces.x12}px;
-  letter-spacing: 0.12px;
+  
+  ${theme.typography.p1}
 
   ${({isSmall, isFocused, isFilled, isLabeled}) => ({
     opacity: !isLabeled || isFocused || isFilled ? 1 : 0,

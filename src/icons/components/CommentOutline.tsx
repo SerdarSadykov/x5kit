@@ -21,7 +21,7 @@ export const CommentOutline: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={CommentOutline.name} {...props}>
+    <SVG ref={ref} name="CommentOutline" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

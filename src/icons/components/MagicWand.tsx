@@ -30,7 +30,7 @@ export const MagicWand: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={MagicWand.name} {...props}>
+    <SVG ref={ref} name="MagicWand" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

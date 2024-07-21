@@ -22,7 +22,7 @@ export const Comment: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Comment.name} {...props}>
+    <SVG ref={ref} name="Comment" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

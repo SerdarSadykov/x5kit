@@ -21,7 +21,7 @@ export const ShoppingCart: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={ShoppingCart.name} {...props}>
+    <SVG ref={ref} name="ShoppingCart" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

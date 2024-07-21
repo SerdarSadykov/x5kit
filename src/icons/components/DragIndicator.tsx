@@ -22,7 +22,7 @@ export const DragIndicator: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={DragIndicator.name} {...props}>
+    <SVG ref={ref} name="DragIndicator" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

@@ -22,7 +22,7 @@ export const ChevronRight: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={ChevronRight.name} {...props}>
+    <SVG ref={ref} name="ChevronRight" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

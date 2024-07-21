@@ -20,7 +20,7 @@ const largeIcon = [
 
 export const CheckBoxSelected: IconComponent = forwardRef((props, ref) => {
   return (
-    <SVG ref={ref} name={CheckBoxSelected.name} {...props}>
+    <SVG ref={ref} name="CheckBoxSelected" {...props}>
       {largeIcon}
     </SVG>
   );

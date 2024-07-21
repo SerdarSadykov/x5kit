@@ -22,7 +22,7 @@ export const BarChart: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={BarChart.name} {...props}>
+    <SVG ref={ref} name="BarChart" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

@@ -17,7 +17,7 @@ export const LogoTS5: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={LogoTS5.name} {...props}>
+    <SVG ref={ref} name="LogoTS5" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

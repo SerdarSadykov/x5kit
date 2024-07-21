@@ -25,7 +25,7 @@ export const Unlock: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Unlock.name} {...props}>
+    <SVG ref={ref} name="Unlock" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

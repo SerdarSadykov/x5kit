@@ -21,7 +21,7 @@ export const Group: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Group.name} {...props}>
+    <SVG ref={ref} name="Group" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

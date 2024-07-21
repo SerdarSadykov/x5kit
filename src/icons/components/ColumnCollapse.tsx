@@ -26,7 +26,7 @@ export const ColumnCollapse: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={ColumnCollapse.name} {...props}>
+    <SVG ref={ref} name="ColumnCollapse" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

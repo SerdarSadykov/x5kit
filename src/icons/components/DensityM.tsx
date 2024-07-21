@@ -25,7 +25,7 @@ export const DensityM: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={DensityM.name} {...props}>
+    <SVG ref={ref} name="DensityM" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

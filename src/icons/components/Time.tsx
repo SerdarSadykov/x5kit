@@ -17,7 +17,7 @@ export const Time: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Time.name} {...props}>
+    <SVG ref={ref} name="Time" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

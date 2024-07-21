@@ -7,10 +7,9 @@ import {InputInternalProps, InputStyles} from '../types';
 const Container = styled.div<InputStyles>`
   padding: 4px 0;
   width: 100%;
-  font-size: ${theme.spaces.x6}px;
-  line-height: ${theme.spaces.x8}px;
-  letter-spacing: 0.08px;
   word-break: break-all;
+
+  ${theme.typography.p3}
 
   ${props => ({
     position: props.isAbsoluteCaption ? 'absolute' : undefined,
@@ -23,7 +22,7 @@ export const Caption: React.FC<InputInternalProps> = ({error, caption, style}) =
     return caption({...style, error});
   }
 
-  const children = error || caption;
+  const children = error && typeof error === 'string' ? error : caption;
 
   if (!children) {
     return null;

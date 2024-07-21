@@ -22,7 +22,7 @@ export const Copy: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Copy.name} {...props}>
+    <SVG ref={ref} name="Copy" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

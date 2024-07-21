@@ -32,7 +32,7 @@ export const Sync: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Sync.name} {...props}>
+    <SVG ref={ref} name="Sync" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

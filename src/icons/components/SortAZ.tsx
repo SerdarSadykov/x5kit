@@ -25,7 +25,7 @@ export const SortAZ: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={SortAZ.name} {...props}>
+    <SVG ref={ref} name="SortAZ" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

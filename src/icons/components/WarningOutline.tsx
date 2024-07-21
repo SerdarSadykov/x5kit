@@ -25,7 +25,7 @@ export const WarningOutline: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={WarningOutline.name} {...props}>
+    <SVG ref={ref} name="WarningOutline" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

@@ -25,7 +25,7 @@ export const Refresh: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Refresh.name} {...props}>
+    <SVG ref={ref} name="Refresh" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

@@ -28,7 +28,7 @@ export const Info: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={Info.name} {...props}>
+    <SVG ref={ref} name="Info" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

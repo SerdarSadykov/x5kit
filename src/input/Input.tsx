@@ -13,7 +13,7 @@ const Container = styled.div<Pick<InputInternalProps, 'width'>>`
   width: ${props => props.width || '100%'};
 
   * {
-    font-family: ${theme.typography.base.fontFamily};
+    ${theme.typography.base}
   }
 `;
 

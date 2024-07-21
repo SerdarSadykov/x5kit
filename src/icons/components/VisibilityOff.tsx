@@ -25,7 +25,7 @@ export const VisibilityOff: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={VisibilityOff.name} {...props}>
+    <SVG ref={ref} name="VisibilityOff" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );

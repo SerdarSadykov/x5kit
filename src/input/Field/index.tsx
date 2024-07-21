@@ -13,9 +13,8 @@ const InputComponent = styled.input<InputStyles>`
   padding: 0;
   outline: none;
   border: none;
-  font-size: ${theme.spaces.x8}px;
-  line-height: ${theme.spaces.x12}px;
-  letter-spacing: 0.12px;
+
+  ${theme.typography.p1}
 
   ::selection {
     background-color: ${theme.colors.accent[10]};
@@ -35,13 +34,11 @@ const Placeholder = styled.div<InputStyles>`
   pointer-events: none;
   user-select: none;
   background-color: transparent;
-  font-size: ${theme.spaces.x8}px;
-  letter-spacing: 0.12px;
   white-space: pre-wrap;
   color: ${theme.colors.grey[60]};
   box-sizing: border-box;
 
-  -moz-user-select: none;
+  ${theme.typography.p1}
 
   div:first-child {
     visibility: hidden;

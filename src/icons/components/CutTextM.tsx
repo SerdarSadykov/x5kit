@@ -22,7 +22,7 @@ export const CutTextM: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name={CutTextM.name} {...props}>
+    <SVG ref={ref} name="CutTextM" {...props}>
       {size === SizeTokenValue.Small ? smallIcon : largeIcon}
     </SVG>
   );
