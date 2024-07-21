@@ -1,8 +1,8 @@
-import {ReactNode} from 'react';
 import {Day, FormatOptions} from 'date-fns';
 
 import {QA} from 'common';
 
+import {DayProps} from './Days/Day';
 import {DropdownItem} from './Dropdown';
 
 export enum CalendarMode {
@@ -18,7 +18,7 @@ export enum CalendarFreezeRange {
 export type CalendarDay = Day;
 
 export type CalendarDisableDates = (date: Date) => boolean;
-export type CalendarTooltip = (date: Date) => ReactNode | string;
+export type CalendarTooltip = React.FC<DayProps>;
 
 export type CalendarValue = Date | undefined;
 export type BaseCalendarValue = [CalendarValue, CalendarValue];

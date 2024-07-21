@@ -3,6 +3,7 @@ import type {ArgTypes, Meta} from '@storybook/react';
 
 import {Calendar as BaseCalendar} from './Calendar';
 import type {CalendarProps, CalendarValue} from './types';
+import {DayProps} from './Days';
 
 type CalendarStoryProps = {
   value: number;
@@ -27,7 +28,7 @@ export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof C
   const disabledDates = props.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
   const onChangeViewDate = props.onChangeViewDate ? (date: Date) => alert(date.toString()) : undefined;
   const onChange = props.onChange ? (date: CalendarValue) => alert(date?.toString()) : undefined;
-  const tooltips = props.tooltips ? (date: Date) => date.toDateString() : undefined;
+  const tooltips = props.tooltips ? ({date}: DayProps) => date.toDateString() : undefined;
 
   useEffect(() => {
     if (props.value) {

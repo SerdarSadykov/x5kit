@@ -4,6 +4,7 @@ import {DayProps, getDayComponent} from './Day';
 import {useDays} from './hook';
 
 export * from './utils';
+export * from './Day';
 
 const Container = styled.div`
   position: relative;

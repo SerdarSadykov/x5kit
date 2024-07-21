@@ -22,7 +22,7 @@ type DatepickerStoryProps = {
     minDate: number;
     maxDate: number;
     disabledDates: boolean;
-    tooltips: boolean;
+    tooltip: boolean;
   };
 } & Omit<DatepickerProps, 'onClearClick'>;
 

@@ -56,7 +56,7 @@ export const getDayProps = (args: GetDayPropsArgs): DayProps => {
     date,
     currentDateTime,
     blockContext: {viewDate},
-    context: {minDate, maxDate, disabledDates, tooltips, blocks},
+    context: {minDate, maxDate, tooltips, disabledDates, blocks},
   } = args;
 
   const isViewMonth = viewDate.getMonth() === date.getMonth() && viewDate.getFullYear() === date.getFullYear();
@@ -67,15 +67,17 @@ export const getDayProps = (args: GetDayPropsArgs): DayProps => {
 
   const isDisabled = (!!minDate && minDate > date) || (!!maxDate && maxDate < date) || !!disabledDates?.(date);
 
-  const tooltip = tooltips?.(date);
-
-  return {
+  const dayProps = {
     date,
-    tooltip,
     isHidden,
     isViewMonth,
     isToday,
     isDisabled,
+
     ...getRangeDayProps(args),
-  };
+  } as DayProps;
+
+  dayProps.tooltipContent = tooltips?.(dayProps);
+
+  return dayProps;
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import {FloatingArrow, FloatingPortal} from '@floating-ui/react';
 
@@ -15,7 +16,16 @@ const Container = styled.div`
 `;
 
 export const Tooltip: React.FC<TooltipProps> = props => {
-  const {color = theme.colors.white, backgroundColor = theme.colors.grey[90]} = props;
+  const {
+    content,
+    width,
+    whiteSpace,
+    isPortal,
+
+    zIndex = theme.sizes.zIndex.tooltip,
+    color = theme.colors.white,
+    backgroundColor = theme.colors.grey[90],
+  } = props;
 
   const {isMounted, popper, interactions, arrowRef, styles, child} = useTooltip(props);
 
@@ -32,8 +42,9 @@ export const Tooltip: React.FC<TooltipProps> = props => {
       ...styles,
       ...popper.floatingStyles,
 
-      width: props.width,
-      whiteSpace: props.whiteSpace,
+      width,
+      whiteSpace,
+      zIndex,
 
       color: color,
       backgroundColor: backgroundColor,
@@ -49,16 +60,18 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     fill: backgroundColor,
   };
 
+  const Wrapper = isPortal ? FloatingPortal : React.Fragment;
+
   return (
     <>
       {child}
-      <FloatingPortal>
+      <Wrapper>
         <Container {...containerProps}>
-          {props.content}
+          {content}
 
           <FloatingArrow {...arrowProps} />
         </Container>
-      </FloatingPortal>
+      </Wrapper>
     </>
   );
 };

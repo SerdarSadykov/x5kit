@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
 import {ArrowNavigationBackward} from 'icons';
-import {CalendarProps, CalendarValue} from 'calendar';
+import {CalendarProps, CalendarValue, DayProps} from 'calendar';
 
 import inputStory from 'input/Input.stories';
 import calendarStory from 'calendar/Calendar.stories';
@@ -47,8 +47,8 @@ const parseCalendarProps = (props: DatepickerStoryProps) => {
   const maxDate = calendarProps.maxDate ? new Date(calendarProps.maxDate) : undefined;
 
   const disabledDates = calendarProps.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
-  const tooltips = calendarProps.tooltips ? (date: Date) => date.toDateString() : undefined;
-
+  const tooltips = calendarProps.tooltips ? ({date}: DayProps) => date.toDateString() : undefined;
+  console.log('tooltips', tooltips);
   return {
     ...calendarProps,
 

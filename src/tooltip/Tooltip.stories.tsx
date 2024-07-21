@@ -98,6 +98,12 @@ const meta = {
       control: 'boolean',
       description: 'Флаг раскрытия',
     },
+
+    isPortal: {
+      type: 'boolean',
+      control: 'boolean',
+      description: 'Использовать портал для рендера',
+    },
   },
   args: {
     content: `Контент всплывающей подсказки в несколько строк.

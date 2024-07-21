@@ -28,4 +28,6 @@ export type TooltipProps = {
 
   isOpen?: boolean;
   setIsOpen?: (newIsOpen: boolean) => void;
+
+  isPortal?: boolean;
 } & QA & Pick<UseHoverProps, 'delay'> & Pick<CSSProperties, 'color' | 'backgroundColor' | 'whiteSpace'>;

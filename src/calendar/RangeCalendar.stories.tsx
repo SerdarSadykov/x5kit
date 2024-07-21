@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
+import {DayProps} from './Days';
+import calendarMeta from './Calendar.stories';
 import {RangeCalendar as BaseRangeCalendar} from './Calendar';
 import {RangeCalendarProps, RangeCalendarValue} from './types';
-import calendarMeta from './Calendar.stories';
 
 type RangeComponentProps = {
   valueFrom: number;
@@ -14,6 +15,7 @@ type RangeComponentProps = {
   disabledDates: boolean;
   onChange: boolean;
   onChangeViewDate: boolean;
+  tooltips: boolean;
 };
 
 export const RangeCalendar: React.FC<
@@ -30,7 +32,7 @@ export const RangeCalendar: React.FC<
   const disabledDates = props.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
   const onChangeViewDate = props.onChangeViewDate ? (date: Date) => alert(date.toString()) : undefined;
   const onChange = props.onChange ? (date?: RangeCalendarValue) => alert(date?.toString()) : undefined;
-  const tooltips = props.tooltips ? (date: Date) => date.toDateString() : undefined;
+  const tooltips = props.tooltips ? ({date}: DayProps) => date.toDateString() : undefined;
 
   useEffect(() => {
     const newValue: RangeCalendarValue = value ? [...value] : [undefined, undefined];

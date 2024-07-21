@@ -5,11 +5,12 @@ import {CalendarContextProps, CalendarMode} from 'calendar/types';
 
 import {DayProps} from './types';
 import {getNewHoverDate, getNewRange} from '../utils';
+import {Tooltip} from 'tooltip';
 
 export * from './utils';
 export * from './types';
 
-const Container = styled.div<Omit<DayProps, 'date'>>`
+const Container = styled.div<Omit<DayProps, 'date' | 'tooltipContent'>>`
   position: relative;
   display: flex;
   width: 40px;
@@ -96,7 +97,7 @@ const Container = styled.div<Omit<DayProps, 'date'>>`
 `;
 
 export const getDayComponent = (context: CalendarContextProps) => {
-  return ({date, ...props}: DayProps) => {
+  return ({date, tooltipContent, ...props}: DayProps) => {
     const {
       mode,
       onChange,
@@ -127,10 +128,16 @@ export const getDayComponent = (context: CalendarContextProps) => {
           },
     };
 
-    return (
+    const child = (
       <Container key={date.getTime()} {...props} {...events}>
         {date.getDate()}
       </Container>
     );
+
+    if (tooltipContent) {
+      return <Tooltip content={tooltipContent}>{child}</Tooltip>;
+    }
+
+    return child;
   };
 };
