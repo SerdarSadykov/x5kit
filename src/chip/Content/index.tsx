@@ -10,9 +10,9 @@ const Container = styled.div<Pick<ChipProps, 'whiteSpace' | 'maxWidth'>>(({maxWi
   textOverflow: 'ellipsis',
 }));
 
-export const Content: React.FC<ChipProps> = ({label, whiteSpace, maxWidth, maxLength, maxLengthFunc}) => {
-  if (typeof label !== 'string') {
-    return label;
+export const Content: React.FC<ChipProps> = ({children, label, whiteSpace, maxWidth, maxLength, maxLengthFunc}) => {
+  if (!label) {
+    return children;
   }
 
   if (maxLength && label.length > maxLength) {

@@ -10,7 +10,7 @@ export enum ChipVariant {
 }
 
 export type ChipProps = {
-  label: string | ReactNode;
+  label?: string;
 
   size?: SizeTokenValue;
   variant?: ChipVariant;
@@ -24,8 +24,11 @@ export type ChipProps = {
 
   onDelete?: () => void;
 
-  maxLength?: number
-  maxLengthFunc?: (label: string) => string
+  maxLength?: number;
+  maxLengthFunc?: (label: string) => string;
 
   // onChange -> onClick
-} & QA & Pick<CSSProperties, 'whiteSpace' | 'maxWidth'> & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;
+} & QA
+  & PropsWithChildren
+  & Pick<CSSProperties, 'whiteSpace' | 'maxWidth'>
+  & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;

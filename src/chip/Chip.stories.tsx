@@ -42,7 +42,14 @@ export const Chip: React.FC<ChipProps> = props => {
     endAdornment,
   };
 
-  return <BaseChip {...resultProps} />;
+  return (
+    <div style={{display: 'flex', gap: 16}}>
+      <BaseChip {...resultProps} />
+      <BaseChip {...resultProps} label={undefined}>
+        Подробнее <a href="#">Сссылк</a>
+      </BaseChip>
+    </div>
+  );
 };
 
 const meta = {

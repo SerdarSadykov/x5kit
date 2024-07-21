@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 
-import {Tooltip as BaseTooltip} from 'tooltip';
+import {Tooltip as BaseTooltip, TooltipPlacement} from 'tooltip';
 
 import {ChipProps} from '../types';
 
@@ -11,7 +11,7 @@ export const Tooltip: React.FC<ChipTooltipProps> = props => {
 
   let content = props.tooltip;
 
-  if (!content && typeof label === 'string' && maxLength && label.length > maxLength) {
+  if (!content && label && maxLength && label.length > maxLength) {
     content = label;
   }
 
@@ -19,5 +19,9 @@ export const Tooltip: React.FC<ChipTooltipProps> = props => {
     return children;
   }
 
-  return <BaseTooltip content={content}>{children}</BaseTooltip>;
+  return (
+    <BaseTooltip placement={TooltipPlacement.bottom} content={content}>
+      {children}
+    </BaseTooltip>
+  );
 };
