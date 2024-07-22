@@ -83,7 +83,7 @@ const Container = styled.div<BadgeProps & Required<Pick<BadgeProps, 'size'>>>`
 `;
 
 export const Badge: React.FC<BadgeProps> = props => {
-  const {children, size = SizeTokenValue.Large, ...rest} = props;
+  const {children, size = SizeTokenValue.Medium, ...rest} = props;
 
   return (
     <Container {...rest} size={size}>

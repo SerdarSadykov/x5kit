@@ -14,3 +14,14 @@ export type BadgeProps = {
   variant?: BadgeVariant;
   hasStroke?: boolean;
 } & PropsWithChildren & Pick<CSSProperties, 'color' | 'backgroundColor' | 'borderColor'>;
+
+
+export enum BadgeDotSize {
+  xs = 'xs',
+  s = 's',
+  m = 'm',
+  l = 'l',
+}
+export type BadgeDotProps = {
+  size: BadgeDotSize;
+} & Omit<BadgeProps, 'children' | 'size' | 'color'>;
