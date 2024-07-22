@@ -34,7 +34,6 @@ const meta = {
     },
   },
   args: {
-    hasStroke: true,
     size: BadgeDotSize.l,
     borderColor: theme.colors.grey[5],
   },

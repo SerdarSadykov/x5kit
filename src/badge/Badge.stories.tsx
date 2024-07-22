@@ -29,12 +29,6 @@ const commonArgTypes: ArgTypes = {
     description: 'Обводка',
   },
 
-  color: {
-    type: 'string',
-    control: 'color',
-    description: 'Цвет текста',
-  },
-
   backgroundColor: {
     type: 'string',
     control: 'color',
@@ -69,6 +63,12 @@ const meta = {
       control: 'select',
       options: [SizeTokenValue.Small, SizeTokenValue.Medium, SizeTokenValue.Large],
       description: 'Размер',
+    },
+
+    color: {
+      type: 'string',
+      control: 'color',
+      description: 'Цвет текста',
     },
 
     ...commonArgTypes,
