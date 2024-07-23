@@ -52,6 +52,12 @@ export const Button: React.FC<ButtonStoryProps> = ({
 };
 
 const commonArgTypes: ArgTypes = {
+  tooltip: {
+    type: 'string',
+    control: 'text',
+    description: 'Tooltip',
+  },
+
   variant: {
     type: 'ButtonVariant' as never,
     control: 'select',

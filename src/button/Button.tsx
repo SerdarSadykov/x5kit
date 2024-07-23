@@ -6,6 +6,7 @@ import {Loader} from './Loader';
 import {ButtonProps, ButtonStyles, ButtonVariant, IconButtonProps} from './types';
 import {Content} from './Content';
 import {forwardRef} from 'react';
+import {Tooltip} from 'tooltip';
 
 export const buttonVariantStyle: Record<ButtonVariant, ButtonStyles['style']> = {
   [ButtonVariant.primary]: {
@@ -283,6 +284,7 @@ const IconButtonComponent = styled(ButtonComponent)(props => iconButtonSize[prop
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     children,
+    tooltip,
     startAdornment,
     endAdornment,
     style,
@@ -301,7 +303,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     style: style ?? buttonVariantStyle[variant],
   };
 
-  return (
+  const child = (
     <ButtonComponent ref={ref} {...rest} {...buttonStyles}>
       <Loader {...buttonStyles} />
 
@@ -312,11 +314,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       {endAdornment}
     </ButtonComponent>
   );
+
+  if (tooltip) {
+    return <Tooltip content={tooltip}>{child}</Tooltip>;
+  }
+
+  return child;
 });
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
   const {
     children,
+    tooltip,
     style,
     loading,
 
@@ -333,10 +342,16 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props,
     style: style ?? buttonVariantStyle[variant],
   };
 
-  return (
+  const child = (
     <IconButtonComponent ref={ref} {...rest} {...buttonStyles}>
       <Loader {...buttonStyles} />
       {!loading && children}
     </IconButtonComponent>
   );
+
+  if (tooltip) {
+    return <Tooltip content={tooltip}>{child}</Tooltip>;
+  }
+
+  return child;
 });

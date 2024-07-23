@@ -30,6 +30,8 @@ export type ButtonStyles = {
 } & Pick<CSSProperties, 'width' | 'justifyContent'>;
 
 export type ButtonProps = {
+  tooltip?: boolean;
+
   startAdornment?: ReactNode; // startIcon
   endAdornment?: ReactNode; // endIcon
 
