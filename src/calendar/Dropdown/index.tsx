@@ -26,7 +26,7 @@ const DropdownButton = styled.button<DropdownButtonStyle>`
 
   ${theme.typography.p1}
 
-  &:hover {
+  :hover {
     border-color: ${theme.colors.grey[40]};
   }
 
@@ -71,7 +71,7 @@ const ListItem = styled.button<ListItemStyle>`
 
   ${theme.typography.p1}
 
-  &:hover {
+  :hover {
     color: ${theme.colors.grey[100]};
     background-color: ${theme.colors.grey[20]};
   }

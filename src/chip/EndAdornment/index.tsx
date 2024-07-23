@@ -17,11 +17,11 @@ export const Button = styled.button`
   line-height: 0;
   color: ${theme.colors.grey[60]};
 
-  &:hover {
+  :hover {
     color: ${theme.colors.grey[80]};
   }
 
-  &:active {
+  :active {
     color: ${theme.colors.grey[60]};
   }
 `;

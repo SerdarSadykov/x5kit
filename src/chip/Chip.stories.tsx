@@ -14,7 +14,7 @@ const Icon = styled.div`
   width: 16px;
   height: 16px;
 
-  &::after {
+  ::after {
     content: '';
     display: block;
     width: 6px;

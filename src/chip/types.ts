@@ -9,14 +9,18 @@ export enum ChipVariant {
   filled = 'filled',
 }
 
-export type ChipProps = {
-  label?: string;
+export type ChipStyles = {
+  size: SizeTokenValue;
+  variant: ChipVariant;
 
-  size?: SizeTokenValue;
-  variant?: ChipVariant;
   disabled?: boolean;
   checked?: boolean;
   error?: boolean;
+  isButton?: boolean;
+};
+
+export type ChipProps = {
+  label?: string;
 
   startAdornment?: ReactNode; // icon
   endAdornment?: ReactNode; // icon
@@ -28,7 +32,8 @@ export type ChipProps = {
   maxLengthFunc?: (label: string) => string;
 
   // onChange -> onClick
-} & QA
+} & Partial<Omit<ChipStyles, 'isButton'>>
+  & QA
   & PropsWithChildren
   & Pick<CSSProperties, 'whiteSpace' | 'maxWidth'>
   & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;

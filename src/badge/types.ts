@@ -9,11 +9,14 @@ export enum BadgeVariant {
   disabled = 'disabled',
 }
 
-export type BadgeProps = {
-  size?: number | SizeTokenValue;
-  variant?: BadgeVariant;
+export type BadgeStyles = {
+  size: SizeTokenValue;
+  variant: BadgeVariant;
   hasStroke?: boolean;
-} & PropsWithChildren & Pick<CSSProperties, 'color' | 'backgroundColor' | 'borderColor'>;
+
+} & Pick<CSSProperties, 'color' | 'backgroundColor' | 'borderColor'>;
+
+export type BadgeProps = Partial<BadgeStyles> & PropsWithChildren;
 
 
 export enum BadgeDotSize {

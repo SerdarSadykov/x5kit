@@ -20,7 +20,7 @@ const Container = styled.div<Omit<DayProps, 'date' | 'tooltipContent'>>`
   user-select: none;
   cursor: ${props => (props.isDisabled ? 'default' : 'pointer')};
 
-  &::before {
+  ::before {
     content: '';
     position: absolute;
     top: 2px;

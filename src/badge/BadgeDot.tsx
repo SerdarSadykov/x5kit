@@ -24,16 +24,9 @@ const Container = styled.div<BadgeDotProps & Required<Pick<BadgeDotProps, 'size'
   outline-width: 2px;
   border-radius: 50%;
 
-  ${({size}) => {
-    const minWidth = typeof size === 'number' ? size : sizeWidth[size];
+  ${({variant, size, hasStroke, color, backgroundColor, borderColor = theme.colors.grey[10]}) => {
+    const minWidth = sizeWidth[size];
 
-    return {
-      minWidth,
-      minHeight: minWidth,
-    };
-  }}
-
-  ${({variant, hasStroke, color, backgroundColor, borderColor = theme.colors.grey[10]}) => {
     switch (variant) {
       case BadgeVariant.accent:
         backgroundColor ??= theme.colors.accent[90];
@@ -56,6 +49,9 @@ const Container = styled.div<BadgeDotProps & Required<Pick<BadgeDotProps, 'size'
       color,
       backgroundColor,
       outlineColor: hasStroke ? borderColor : 'transparent',
+      
+      minWidth,
+      minHeight: minWidth,
     };
   }}
 `;

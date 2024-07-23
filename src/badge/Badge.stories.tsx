@@ -38,7 +38,7 @@ const commonArgTypes: ArgTypes = {
   borderColor: {
     type: 'string',
     control: 'color',
-    description: 'Цвет фона',
+    description: 'Цвет границы',
   },
 };
 

@@ -1,14 +1,70 @@
-import {CSSProperties, forwardRef} from 'react';
-import styled from '@emotion/styled';
+import {forwardRef} from 'react';
+import styled, {CSSObject} from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
 import {EndAdornment} from './EndAdornment';
 import {Content} from './Content';
 import {Tooltip} from './Tooltip';
-import {ChipProps, ChipVariant} from './types';
+import {ChipProps, ChipStyles, ChipVariant} from './types';
 
-const Container = styled.div<Pick<ChipProps, 'size' | 'disabled'> & {isButton: boolean}>`
+const variantStyle = {
+  [ChipVariant.filled]: {
+    default: {
+      backgroundColor: theme.colors.grey[20],
+      borderColor: theme.colors.grey[20],
+    },
+
+    hover: {
+      backgroundColor: theme.colors.grey[30],
+      borderColor: theme.colors.grey[30],
+    },
+
+    active: {
+      backgroundColor: theme.colors.accent[20],
+      borderColor: theme.colors.accent[20],
+    },
+
+    error: {
+      backgroundColor: theme.colors.red[20],
+      borderColor: theme.colors.red[20],
+    },
+
+    checked: {
+      backgroundColor: theme.colors.accent[20],
+      borderColor: theme.colors.accent[20],
+    },
+  },
+
+  [ChipVariant.outlined]: {
+    default: {
+      backgroundColor: 'none',
+      borderColor: theme.colors.grey[30],
+    },
+
+    hover: {
+      backgroundColor: theme.colors.grey[20],
+      borderColor: theme.colors.grey[30],
+    },
+
+    active: {
+      backgroundColor: theme.colors.accent[20],
+      borderColor: theme.colors.accent[30],
+    },
+
+    error: {
+      backgroundColor: 'none',
+      borderColor: theme.colors.red[30],
+    },
+
+    checked: {
+      backgroundColor: theme.colors.accent[20],
+      borderColor: theme.colors.accent[30],
+    },
+  },
+};
+
+const Container = styled.div<ChipStyles>`
   display: flex;
   align-items: flex-start;
   box-sizing: border-box;
@@ -18,73 +74,40 @@ const Container = styled.div<Pick<ChipProps, 'size' | 'disabled'> & {isButton: b
   border-width: 1px;
   border-style: solid;
 
+  :hover {
+    ${props => variantStyle[props.variant].hover}
+  }
+
+  :active {
+    ${props => variantStyle[props.variant].active}
+  }
+
   ${theme.typography.p2}
 
   ${props => {
+    const variantProps = variantStyle[props.variant];
     const isSmall = props.size == SizeTokenValue.Small;
-    let cursor: CSSProperties['cursor'];
 
-    if (props.disabled) {
-      cursor = 'not-allowed';
-    } else if (props.isButton) {
-      cursor = 'pointer';
-    }
-
-    return {
-      cursor,
+    let resultProps: CSSObject = {
       padding: isSmall ? '2px 6px' : 8,
       minHeight: isSmall ? 20 : 32,
     };
-  }}
-`;
-
-const FilledContainer = styled(Container)<Pick<ChipProps, 'checked' | 'error'>>`
-  &:hover {
-    background-color: ${theme.colors.grey[30]};
-    border-color: ${theme.colors.grey[30]};
-  }
-
-  ${props => {
-    let backgroundColor = theme.colors.grey[20];
 
     if (props.error) {
-      backgroundColor = theme.colors.red[20];
+      resultProps = {...resultProps, ...variantProps.error};
     } else if (props.checked) {
-      backgroundColor = theme.colors.accent[20];
+      resultProps = {...resultProps, ...variantProps.checked};
+    } else {
+      resultProps = {...resultProps, ...variantProps.default};
     }
 
-    return {
-      backgroundColor,
-      borderColor: backgroundColor,
-    };
-  }}
-`;
-
-const OutlinedContainer = styled(Container)<Pick<ChipProps, 'checked' | 'error'>>`
-  &:hover {
-    background-color: ${theme.colors.grey[20]};
-    border-color: ${theme.colors.grey[30]};
-  }
-
-  ${props => {
-    if (props.error) {
-      return {
-        backgroundColor: 'none',
-        borderColor: theme.colors.red[30],
-      };
+    if (props.disabled) {
+      resultProps.cursor = 'not-allowed';
+    } else if (props.isButton) {
+      resultProps.cursor = 'pointer';
     }
 
-    if (props.checked) {
-      return {
-        backgroundColor: theme.colors.accent[20],
-        borderColor: theme.colors.accent[30],
-      };
-    }
-
-    return {
-      backgroundColor: 'none',
-      borderColor: theme.colors.grey[30],
-    };
+    return resultProps;
   }}
 `;
 
@@ -103,6 +126,7 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
   const componentProps = {
     ref,
     size,
+    variant,
 
     disabled: props.disabled,
     checked: props.checked,
@@ -112,17 +136,15 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
     onClick: props.disabled ? undefined : onClick,
   };
 
-  const Component = variant === ChipVariant.outlined ? OutlinedContainer : FilledContainer;
-
   return (
     <Tooltip {...newProps}>
-      <Component {...componentProps}>
+      <Container {...componentProps}>
         {startAdornment}
 
         <Content {...newProps} />
 
         <EndAdornment {...newProps} />
-      </Component>
+      </Container>
     </Tooltip>
   );
 });

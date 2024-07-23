@@ -17,11 +17,11 @@ export const InputButton = styled.button<Pick<InputStyles, 'isSmall' | 'isDisabl
   border-radius: 4px;
   line-height: 0;
 
-  &:hover {
+  :hover {
     background-color: ${theme.colors.grey[20]};
   }
 
-  &:active {
+  :active {
     background-color: ${theme.colors.grey[30]};
   }
 

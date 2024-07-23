@@ -39,7 +39,7 @@ const InputContainer = styled.div<InputStyles>`
     };
   }}
 
-  &:hover::after {
+  :hover::after {
     ${({isDisabled, isFocused}) => {
       if (isDisabled || isFocused) {
         return;
@@ -52,7 +52,7 @@ const InputContainer = styled.div<InputStyles>`
     }}
   }
 
-  &::after {
+  ::after {
     content: '';
     position: absolute;
     display: block;
