@@ -1,12 +1,12 @@
+import {forwardRef} from 'react';
 import styled, {CSSObject} from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
+import {Tooltip} from 'tooltip';
 
 import {Loader} from './Loader';
-import {ButtonProps, ButtonStyles, ButtonVariant, IconButtonProps} from './types';
 import {Content} from './Content';
-import {forwardRef} from 'react';
-import {Tooltip} from 'tooltip';
+import {ButtonProps, ButtonStyles, ButtonVariant, IconButtonProps} from './types';
 
 export const buttonVariantStyle: Record<ButtonVariant, ButtonStyles['style']> = {
   [ButtonVariant.primary]: {
@@ -96,6 +96,52 @@ export const buttonVariantStyle: Record<ButtonVariant, ButtonStyles['style']> = 
     },
     disabled: {
       color: theme.colors.grey[40],
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+    },
+  },
+
+  [ButtonVariant.inner]: {
+    default: {
+      color: theme.colors.grey[40],
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+    },
+    hover: {
+      color: theme.colors.grey[40],
+      backgroundColor: theme.colors.grey[80],
+      borderColor: theme.colors.grey[80],
+    },
+    active: {
+      color: theme.colors.grey[40],
+      backgroundColor: theme.colors.grey[60],
+      borderColor: theme.colors.grey[60],
+    },
+    disabled: {
+      color: theme.colors.grey[60],
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+    },
+  },
+
+  [ButtonVariant.innerInput]: {
+    default: {
+      color: theme.colors.grey[60],
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+    },
+    hover: {
+      color: theme.colors.grey[60],
+      backgroundColor: theme.colors.grey[30],
+      borderColor: theme.colors.grey[30],
+    },
+    active: {
+      color: theme.colors.grey[40],
+      backgroundColor: theme.colors.grey[40],
+      borderColor: theme.colors.grey[40],
+    },
+    disabled: {
+      color: theme.colors.grey[60],
       backgroundColor: 'transparent',
       borderColor: 'transparent',
     },
@@ -209,6 +255,16 @@ const buttonSize: Record<SizeTokenValue, CSSObject> = {
     minHeight: 32,
     padding: '4px 8px',
   },
+
+  [SizeTokenValue.XSmall]: {
+    minHeight: 24,
+    padding: '4px',
+  },
+
+  [SizeTokenValue.XXSmall]: {
+    minHeight: 16,
+    padding: 0,
+  },
 };
 
 const iconButtonSize: Record<SizeTokenValue, CSSObject> = {
@@ -229,6 +285,18 @@ const iconButtonSize: Record<SizeTokenValue, CSSObject> = {
     minWidth: 32,
     padding: 4,
   },
+
+  [SizeTokenValue.XSmall]: {
+    minHeight: 24,
+    minWidth: 24,
+    padding: 4,
+  },
+
+  [SizeTokenValue.XXSmall]: {
+    minHeight: 16,
+    minWidth: 16,
+    padding: 0,
+  },
 };
 
 const ButtonComponent = styled.button<ButtonStyles>`
@@ -243,15 +311,29 @@ const ButtonComponent = styled.button<ButtonStyles>`
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+  text-decoration: none;
 
-  ${({width, justifyContent, size, style}) => ({
+  ${({
     width,
     justifyContent,
+    size,
+    style,
 
-    ...style.default,
-    ...buttonSize[size],
-    ...theme.typography.p1,
-  })}
+    fontSize = theme.typography.p1.fontSize,
+    lineHeight = theme.typography.p1.lineHeight,
+  }) => {
+    return {
+      width,
+      justifyContent,
+
+      ...style.default,
+      ...buttonSize[size],
+      ...theme.typography.p1,
+
+      fontSize,
+      lineHeight,
+    };
+  }}
 
   :hover {
     ${props => props.style.hover}
@@ -274,6 +356,10 @@ const ButtonComponent = styled.button<ButtonStyles>`
     box-shadow: 0px 0px 3px 2px ${theme.colors.accent[70]};
   }
 
+  :visited {
+    ${props => props.style.default}
+  }
+
   &[disabled] {
     ${props => props.style.disabled}
   }
@@ -281,14 +367,16 @@ const ButtonComponent = styled.button<ButtonStyles>`
 
 const IconButtonComponent = styled(ButtonComponent)(props => iconButtonSize[props.size]);
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+const BaseButton = forwardRef<
+  HTMLButtonElement,
+  ButtonProps & {component: typeof ButtonComponent | typeof IconButtonComponent}
+>((props, ref) => {
   const {
     children,
     tooltip,
-    startAdornment,
-    endAdornment,
     style,
     loading,
+    component: Component,
 
     variant = ButtonVariant.primary,
     size = SizeTokenValue.Large,
@@ -304,15 +392,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   };
 
   const child = (
-    <ButtonComponent ref={ref} {...rest} {...buttonStyles}>
+    <Component ref={ref} {...rest} {...buttonStyles}>
       <Loader {...buttonStyles} />
-
-      {startAdornment}
-
-      <Content>{children}</Content>
-
-      {endAdornment}
-    </ButtonComponent>
+      {children}
+    </Component>
   );
 
   if (tooltip) {
@@ -322,36 +405,26 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   return child;
 });
 
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
-  const {
-    children,
-    tooltip,
-    style,
-    loading,
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const {children, startAdornment, endAdornment} = props;
 
-    variant = ButtonVariant.primary,
-    size = SizeTokenValue.Large,
+  return (
+    <BaseButton ref={ref} component={ButtonComponent} {...props}>
+      {startAdornment}
 
-    ...rest
-  } = props;
+      <Content>{children}</Content>
 
-  const buttonStyles: ButtonStyles = {
-    variant,
-    size,
-    loading,
-    style: style ?? buttonVariantStyle[variant],
-  };
-
-  const child = (
-    <IconButtonComponent ref={ref} {...rest} {...buttonStyles}>
-      <Loader {...buttonStyles} />
-      {!loading && children}
-    </IconButtonComponent>
+      {endAdornment}
+    </BaseButton>
   );
+});
 
-  if (tooltip) {
-    return <Tooltip content={tooltip}>{child}</Tooltip>;
-  }
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
+  const {children, loading} = props;
 
-  return child;
+  return (
+    <BaseButton ref={ref} component={IconButtonComponent} {...props}>
+      {!loading && children}
+    </BaseButton>
+  );
 });

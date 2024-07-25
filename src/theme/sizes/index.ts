@@ -1,7 +1,9 @@
 export enum SizeTokenValue {
-  Small = 'small',
-  Medium = 'medium',
   Large = 'large',
+  Medium = 'medium',
+  Small = 'small',
+  XSmall = 'XSmall',
+  XXSmall = 'XXSmall',
 }
 
 export const zIndex = {

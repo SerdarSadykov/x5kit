@@ -22,7 +22,7 @@ export const MoreHorizontal: IconComponent = forwardRef((props, ref) => {
 
   return (
     <SVG ref={ref} name="MoreHorizontal" {...props}>
-      {size === SizeTokenValue.Small ? smallIcon : largeIcon}
+      {!size || size === SizeTokenValue.Large || size === SizeTokenValue.Medium ? largeIcon : smallIcon}
     </SVG>
   );
 });

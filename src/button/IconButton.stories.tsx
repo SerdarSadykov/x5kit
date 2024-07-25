@@ -46,13 +46,13 @@ export const IconButton: React.FC<IconButtonStoryProps> = ({
 
   return (
     <BaseIconButton {...resultProps}>
-      <EditOn size={props.size === SizeTokenValue.Small ? SizeTokenValue.Small : SizeTokenValue.Medium} />
+      <EditOn size={props.size === SizeTokenValue.Large ? SizeTokenValue.Medium : props.size} />
     </BaseIconButton>
   );
 };
 
 const meta = {
-  title: 'IconButton',
+  title: 'Button',
   component: IconButton,
   parameters: {
     layout: 'centered',

@@ -1,11 +1,11 @@
+import {CSSProperties} from 'react';
 import type {ArgTypes, Meta} from '@storybook/react';
 
 import {SizeTokenValue} from 'theme';
+import {ChevronDown, Done} from 'icons';
 
 import {Button as BaseButton, buttonVariantStyle} from './Button';
 import {ButtonProps, ButtonVariant} from './types';
-import {ChevronDown, Done} from 'icons';
-import {CSSProperties} from 'react';
 
 type ButtonStoryProps = {
   color: string;
@@ -70,6 +70,8 @@ const commonArgTypes: ArgTypes = {
       ButtonVariant.dangerSecondary,
       ButtonVariant.dangerOutlined,
       ButtonVariant.dangerText,
+      ButtonVariant.inner,
+      ButtonVariant.innerInput,
     ],
     description: 'Вариант',
   },
@@ -77,8 +79,34 @@ const commonArgTypes: ArgTypes = {
   size: {
     type: 'SizeTokenValue' as never,
     control: 'select',
-    options: [SizeTokenValue.Small, SizeTokenValue.Medium, SizeTokenValue.Large],
+    options: [
+      SizeTokenValue.Large,
+      SizeTokenValue.Medium,
+      SizeTokenValue.Small,
+      SizeTokenValue.XSmall,
+      SizeTokenValue.XXSmall,
+    ],
     description: 'Размер',
+  },
+
+  as: {
+    type: 'React.ElementType' as never,
+    control: 'select',
+    options: ['button', 'a'],
+    description: 'Элемент',
+  },
+
+  href: {
+    type: 'string',
+    control: 'text',
+    description: 'Ссылка',
+  },
+
+  target: {
+    type: 'HTMLAttributeAnchorTarget' as never,
+    control: 'select',
+    options: ['_self', '_blank'],
+    description: 'Target',
   },
 
   disabled: {
@@ -97,10 +125,20 @@ const commonArgTypes: ArgTypes = {
     description: 'Ширина',
   },
 
+  fontSize: {
+    type: 'string',
+    control: 'text',
+  },
+
+  lineHeight: {
+    type: 'string',
+    control: 'text',
+  },
+
   justifyContent: {
     type: 'string',
     control: 'select',
-    options: ['flex-start', 'flex-end', 'center', 'space-between'] as CSSProperties['justifyContent'][]
+    options: ['flex-start', 'flex-end', 'center', 'space-between'] as CSSProperties['justifyContent'][],
   },
 
   color: {

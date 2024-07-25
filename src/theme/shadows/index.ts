@@ -6,8 +6,8 @@ const medium =
 const large =
   '0px 24px 38px rgba(80, 86, 94, 0.04), 0px 9px 46px rgba(80, 86, 94, 0.04), 0px 11px 15px rgba(80, 86, 94, 0.1)';
 
-export const shadows: Record<SizeTokenValue, string> = {
-  [SizeTokenValue.Small]: small,
-  [SizeTokenValue.Medium]: medium,
+export const shadows: Omit<Record<SizeTokenValue, string>, 'XSmall' | 'XXSmall'> = {
   [SizeTokenValue.Large]: large,
+  [SizeTokenValue.Medium]: medium,
+  [SizeTokenValue.Small]: small,
 } as const;
