@@ -1,7 +1,8 @@
 import {forwardRef, MouseEventHandler} from 'react';
 import styled from '@emotion/styled';
 
-import {theme} from 'theme';
+import {SizeTokenValue, theme} from 'theme';
+import {Loader} from 'loader';
 
 import {LinkProps, LinkStyles, LinkVariant} from './types';
 
@@ -54,7 +55,11 @@ const variantBehavior = {
 };
 
 const BaseLinkComponent = styled.a<LinkStyles>`
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
   text-decoration-skip-ink: none;
+  vertical-align: bottom;
   font-family: ${theme.typography.p1.fontFamily};
 
   ${props => props.behavior.default}
@@ -126,9 +131,11 @@ const PseudoLinkComponent = styled(BaseLinkComponent)`
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   const {
+    children,
     disabled,
     behavior,
     pseudolink,
+    loading,
 
     variant = LinkVariant.accent,
     qa = 'link',
@@ -153,7 +160,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
     ...rest,
 
     ref,
-    variant,
     disabled,
     onClickCapture,
 
@@ -164,5 +170,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
 
   const Component = pseudolink ? PseudoLinkComponent : LinkComponent;
 
-  return <Component {...linkStyles} />;
+  return (
+    <Component {...linkStyles}>
+      {loading && <Loader color="inherit" size={SizeTokenValue.Small} />}
+      {children}
+    </Component>
+  );
 });

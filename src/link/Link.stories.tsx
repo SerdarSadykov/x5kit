@@ -2,14 +2,9 @@ import type {Meta} from '@storybook/react';
 
 import {Link as BaseLink} from './Link';
 import {LinkProps, LinkVariant} from './types';
+import {theme} from 'theme';
 
-type LinkStoryProps = {
-  color: string;
-  backgroundColor: string;
-  borderColor: string;
-} & LinkProps;
-
-export const Link: React.FC<LinkStoryProps> = props => {
+export const Link: React.FC<LinkProps> = props => {
   const onClick = props.onClick ? () => alert('onClick') : undefined;
 
   const resultProps = {
@@ -18,7 +13,13 @@ export const Link: React.FC<LinkStoryProps> = props => {
     onClick,
   };
 
-  return <BaseLink {...resultProps} />;
+  return (
+    <div style={theme.typography.p2}>
+      {'Ссылка используется в тексте. '}
+      <BaseLink {...resultProps} />
+      {' связывает веб-страницы'}
+    </div>
+  );
 };
 
 const meta = {
@@ -33,12 +34,6 @@ const meta = {
       type: 'string',
       control: 'text',
       description: 'Контент',
-    },
-
-    tooltip: {
-      type: 'string',
-      control: 'text',
-      description: 'Tooltip',
     },
 
     variant: {
@@ -79,22 +74,6 @@ const meta = {
     loading: {
       type: 'boolean',
       control: 'boolean',
-    },
-
-    fontSize: {
-      type: 'string',
-      control: 'text',
-    },
-
-    lineHeight: {
-      type: 'string',
-      control: 'text',
-    },
-
-    color: {
-      type: 'string',
-      control: 'color',
-      description: 'Цвет текста',
     },
 
     onClick: {

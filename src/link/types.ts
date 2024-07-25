@@ -12,6 +12,7 @@ export type LinkStyles = {
   disabled?: boolean;
   pseudolink?: boolean;
   visitable?: boolean;
+  loading?: boolean;
 
   behavior: {
     default: CSSObject;
