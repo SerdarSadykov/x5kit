@@ -1,4 +1,5 @@
-import {CSSProperties, DOMAttributes, PropsWithChildren, ReactNode} from 'react';
+import {DOMAttributes, PropsWithChildren, ReactNode} from 'react';
+import {CSSObject} from '@emotion/react';
 
 import {QA} from 'common';
 import {SizeTokenValue} from 'theme';
@@ -35,5 +36,5 @@ export type ChipProps = {
 } & Partial<Omit<ChipStyles, 'isButton'>>
   & QA
   & PropsWithChildren
-  & Pick<CSSProperties, 'whiteSpace' | 'maxWidth'>
+  & Pick<CSSObject, 'whiteSpace' | 'maxWidth'>
   & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;

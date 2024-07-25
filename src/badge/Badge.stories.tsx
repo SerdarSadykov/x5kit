@@ -40,6 +40,8 @@ const commonArgTypes: ArgTypes = {
     control: 'color',
     description: 'Цвет границы',
   },
+
+  qa: {type: 'string', control: 'text'},
 };
 
 const meta = {

@@ -1,4 +1,5 @@
-import {CSSProperties, PropsWithChildren} from 'react';
+import {PropsWithChildren} from 'react';
+import {CSSObject} from '@emotion/react';
 
 import {SizeTokenValue} from 'theme';
 
@@ -14,7 +15,7 @@ export type BadgeStyles = {
   variant: BadgeVariant;
   hasStroke?: boolean;
 
-} & Pick<CSSProperties, 'color' | 'backgroundColor' | 'borderColor'>;
+} & Pick<CSSObject, 'color' | 'backgroundColor' | 'borderColor'>;
 
 export type BadgeProps = Partial<BadgeStyles> & PropsWithChildren;
 

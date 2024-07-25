@@ -8,7 +8,7 @@ import {Loader} from './Loader';
 import {Content} from './Content';
 import {ButtonProps, ButtonStyles, ButtonVariant, IconButtonProps} from './types';
 
-export const buttonVariantStyle: Record<ButtonVariant, ButtonStyles['style']> = {
+export const variantBehavior: Record<ButtonVariant, ButtonStyles['behavior']> = {
   [ButtonVariant.primary]: {
     default: {
       color: theme.colors.white,
@@ -317,7 +317,7 @@ const ButtonComponent = styled.button<ButtonStyles>`
     width,
     justifyContent,
     size,
-    style,
+    behavior,
 
     fontSize = theme.typography.p1.fontSize,
     lineHeight = theme.typography.p1.lineHeight,
@@ -326,7 +326,7 @@ const ButtonComponent = styled.button<ButtonStyles>`
       width,
       justifyContent,
 
-      ...style.default,
+      ...behavior.default,
       ...buttonSize[size],
       ...theme.typography.p1,
 
@@ -336,11 +336,11 @@ const ButtonComponent = styled.button<ButtonStyles>`
   }}
 
   :hover {
-    ${props => props.style.hover}
+    ${props => props.behavior.hover}
   }
 
   :active {
-    ${props => props.style.active}
+    ${props => props.behavior.active}
   }
 
   :focus-visible::after {
@@ -357,11 +357,11 @@ const ButtonComponent = styled.button<ButtonStyles>`
   }
 
   :visited {
-    ${props => props.style.default}
+    ${props => props.behavior.default}
   }
 
   &[disabled] {
-    ${props => props.style.disabled}
+    ${props => props.behavior.disabled}
   }
 `;
 
@@ -374,25 +374,28 @@ const BaseButton = forwardRef<
   const {
     children,
     tooltip,
-    style,
-    loading,
+    behavior,
     component: Component,
 
     variant = ButtonVariant.primary,
     size = SizeTokenValue.Large,
+    qa = 'btn',
 
     ...rest
   } = props;
 
-  const buttonStyles: ButtonStyles = {
-    variant,
+  const buttonStyles = {
+    ...rest,
+
+    ref,
     size,
-    loading,
-    style: style ?? buttonVariantStyle[variant],
+    behavior: behavior ?? variantBehavior[variant],
+
+    'data-qa': qa,
   };
 
   const child = (
-    <Component ref={ref} {...rest} {...buttonStyles}>
+    <Component {...buttonStyles}>
       <Loader {...buttonStyles} />
       {children}
     </Component>

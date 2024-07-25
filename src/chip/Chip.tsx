@@ -8,7 +8,7 @@ import {Content} from './Content';
 import {Tooltip} from './Tooltip';
 import {ChipProps, ChipStyles, ChipVariant} from './types';
 
-const variantStyle = {
+const variantBehavior = {
   [ChipVariant.filled]: {
     default: {
       backgroundColor: theme.colors.grey[20],
@@ -75,17 +75,17 @@ const Container = styled.div<ChipStyles>`
   border-style: solid;
 
   :hover {
-    ${props => variantStyle[props.variant].hover}
+    ${props => variantBehavior[props.variant].hover}
   }
 
   :active {
-    ${props => variantStyle[props.variant].active}
+    ${props => variantBehavior[props.variant].active}
   }
 
   ${theme.typography.p2}
 
   ${props => {
-    const variantProps = variantStyle[props.variant];
+    const variantProps = variantBehavior[props.variant];
     const isSmall = props.size == SizeTokenValue.Small;
 
     let resultProps: CSSObject = {

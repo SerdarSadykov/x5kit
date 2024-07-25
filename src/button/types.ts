@@ -1,7 +1,8 @@
-import {AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, PropsWithChildren, ReactNode} from 'react';
+import {AnchorHTMLAttributes, ButtonHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
 
 import {QA} from 'common';
 import {SizeTokenValue} from 'theme';
+import {CSSObject} from '@emotion/react';
 
 export enum ButtonVariant {
   primary = 'primary',
@@ -18,22 +19,20 @@ export enum ButtonVariant {
   dangerText = 'dangerText',
 }
 
-type ColorProps = Pick<CSSProperties, 'color' | 'backgroundColor' | 'borderColor'>;
-
 export type ButtonStyles = {
-  variant: ButtonVariant;
   size: SizeTokenValue;
   loading?: boolean;
 
-  style: {
-    default: ColorProps;
-    hover: ColorProps;
-    active: ColorProps;
-    disabled: ColorProps;
+  behavior: {
+    default: CSSObject;
+    hover: CSSObject;
+    active: CSSObject;
+    disabled: CSSObject;
   };
-} & Pick<CSSProperties, 'width' | 'justifyContent' | 'fontSize' | 'lineHeight'>;
+} & Pick<CSSObject, 'width' | 'justifyContent' | 'fontSize' | 'lineHeight'>;
 
 export type ButtonProps = {
+  variant?: ButtonVariant;
   tooltip?: boolean;
 
   startAdornment?: ReactNode; // startIcon

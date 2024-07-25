@@ -142,6 +142,8 @@ const meta = {
       type: '() => void' as never,
       control: 'boolean',
     },
+
+    qa: {type: 'string', control: 'text'},
   },
   args: {
     label: 'Label',

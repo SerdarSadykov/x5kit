@@ -1,10 +1,10 @@
-import {CSSProperties} from 'react';
 import type {ArgTypes, Meta} from '@storybook/react';
+import {CSSObject} from '@emotion/react';
 
 import {SizeTokenValue} from 'theme';
 import {ChevronDown, Done} from 'icons';
 
-import {Button as BaseButton, buttonVariantStyle} from './Button';
+import {Button as BaseButton, variantBehavior} from './Button';
 import {ButtonProps, ButtonVariant} from './types';
 
 type ButtonStoryProps = {
@@ -33,19 +33,19 @@ export const Button: React.FC<ButtonStoryProps> = ({
     onClick,
     variant,
 
-    style: {...buttonVariantStyle[variant]},
+    behavior: {...variantBehavior[variant]},
   };
 
   if (color) {
-    resultProps.style.default.color = color;
+    resultProps.behavior.default.color = color;
   }
 
   if (backgroundColor) {
-    resultProps.style.default.backgroundColor = backgroundColor;
+    resultProps.behavior.default.backgroundColor = backgroundColor;
   }
 
   if (borderColor) {
-    resultProps.style.default.borderColor = borderColor;
+    resultProps.behavior.default.borderColor = borderColor;
   }
 
   return <BaseButton {...resultProps} />;
@@ -138,7 +138,7 @@ const commonArgTypes: ArgTypes = {
   justifyContent: {
     type: 'string',
     control: 'select',
-    options: ['flex-start', 'flex-end', 'center', 'space-between'] as CSSProperties['justifyContent'][],
+    options: ['flex-start', 'flex-end', 'center', 'space-between'] as CSSObject['justifyContent'][],
   },
 
   color: {
@@ -163,6 +163,8 @@ const commonArgTypes: ArgTypes = {
     type: 'MouseEventHandler<HTMLButtonElement>' as never,
     control: 'boolean',
   },
+
+  qa: {type: 'string', control: 'text'},
 };
 
 const meta = {

@@ -104,6 +104,8 @@ const meta = {
       control: 'boolean',
       description: 'Использовать портал для рендера',
     },
+
+    qa: {type: 'string', control: 'text'},
   },
   args: {
     content: `Контент всплывающей подсказки в несколько строк.

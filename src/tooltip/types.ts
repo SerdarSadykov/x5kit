@@ -1,4 +1,5 @@
-import {CSSProperties, ReactElement, ReactNode} from 'react';
+import {ReactElement, ReactNode} from 'react';
+import {CSSObject} from '@emotion/react';
 import {UseHoverProps} from '@floating-ui/react';
 
 import {QA} from 'common';
@@ -30,4 +31,4 @@ export type TooltipProps = {
   setIsOpen?: (newIsOpen: boolean) => void;
 
   isPortal?: boolean;
-} & QA & Pick<UseHoverProps, 'delay'> & Pick<CSSProperties, 'color' | 'backgroundColor' | 'whiteSpace'>;
+} & QA & Pick<UseHoverProps, 'delay'> & Pick<CSSObject, 'color' | 'backgroundColor' | 'whiteSpace'>;

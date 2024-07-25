@@ -112,6 +112,8 @@ const commonArgTypes: ArgTypes = {
     type: 'boolean',
     control: 'boolean',
   },
+
+  qa: {type: 'string', control: 'text'},
 };
 
 const meta = {

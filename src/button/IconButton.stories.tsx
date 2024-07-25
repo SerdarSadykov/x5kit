@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react';
 import {SizeTokenValue} from 'theme';
 import {EditOn} from 'icons';
 
-import {IconButton as BaseIconButton, buttonVariantStyle} from './Button';
+import {IconButton as BaseIconButton, variantBehavior} from './Button';
 import ButtonStory from './Button.stories';
 import {IconButtonProps, ButtonVariant} from './types';
 
@@ -29,7 +29,7 @@ export const IconButton: React.FC<IconButtonStoryProps> = ({
     onClick,
     variant,
 
-    style: {...buttonVariantStyle[variant]},
+    style: {...variantBehavior[variant]},
   };
 
   if (color) {
