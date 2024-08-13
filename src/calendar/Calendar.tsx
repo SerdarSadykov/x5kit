@@ -1,4 +1,4 @@
-import  {ReactNode, createContext, useContext, useEffect, useState} from 'react';
+import {ReactNode, createContext, useContext, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
 import {Day, Month, endOfMonth, setMonth, startOfMonth} from 'date-fns';
 import {ru} from 'date-fns/locale';
@@ -27,7 +27,7 @@ export const Container = styled.div`
   border-radius: ${theme.spaces.x4}px;
   box-sizing: border-box;
 
-${theme.typography.p2}
+  ${theme.typography.p2}
 `;
 
 const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
@@ -158,7 +158,7 @@ export const Calendar: React.FC<CalendarProps> = ({value, onChange, ...props}) =
   const override = {
     mode: CalendarMode.single,
 
-    value: [value ? startOfDay(value): undefined, undefined],
+    value: [value ? startOfDay(value) : undefined, undefined],
 
     onChange: newValue => onChange(newValue[0]),
   } as BaseCalendarProps;

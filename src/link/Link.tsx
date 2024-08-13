@@ -60,6 +60,8 @@ const BaseLinkComponent = styled.a<LinkStyles>`
   align-items: center;
   text-decoration-skip-ink: none;
   vertical-align: bottom;
+  cursor: pointer;
+  user-select: none;
   font-family: ${theme.typography.p1.fontFamily};
 
   ${props => props.behavior.default}

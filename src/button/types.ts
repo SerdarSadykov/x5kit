@@ -1,8 +1,9 @@
 import {AnchorHTMLAttributes, ButtonHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
+import {CSSObject} from '@emotion/react';
 
 import {QA} from 'common';
 import {SizeTokenValue} from 'theme';
-import {CSSObject} from '@emotion/react';
+import {TooltipProps} from 'tooltip';
 
 export enum ButtonVariant {
   primary = 'primary',
@@ -33,11 +34,12 @@ export type ButtonStyles = {
 
 export type ButtonProps = {
   variant?: ButtonVariant;
-  tooltip?: boolean;
+  tooltip?: TooltipProps['content'];
 
   startAdornment?: ReactNode; // startIcon
   endAdornment?: ReactNode; // endIcon
-  as: React.ElementType;
+
+  as?: React.ElementType;
 
   // equated?: boolean; определяется на основе typeof childred === string
   // mode?: keyof typeof buttonModes === variant inner | innerInput

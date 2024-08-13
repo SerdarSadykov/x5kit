@@ -24,5 +24,5 @@ export type LinkStyles = {
 };
 
 export type LinkProps = {
-  variant: LinkVariant;
+  variant?: LinkVariant;
 } & QA & Partial<LinkStyles> & AnchorHTMLAttributes<HTMLAnchorElement>;

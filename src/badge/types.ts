@@ -15,7 +15,8 @@ export type BadgeStyles = {
   variant: BadgeVariant;
   hasStroke?: boolean;
 
-} & Pick<CSSObject, 'color' | 'backgroundColor' | 'borderColor'>;
+  color?: string;
+} & Pick<CSSObject, 'backgroundColor' | 'borderColor'>;
 
 export type BadgeProps = Partial<BadgeStyles> & PropsWithChildren;
 

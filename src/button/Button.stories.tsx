@@ -1,3 +1,4 @@
+import {ButtonHTMLAttributes} from 'react';
 import type {ArgTypes, Meta} from '@storybook/react';
 import {CSSObject} from '@emotion/react';
 
@@ -94,6 +95,12 @@ const commonArgTypes: ArgTypes = {
     control: 'select',
     options: ['button', 'a'],
     description: 'Элемент',
+  },
+
+  type: {
+    type: 'string',
+    control: 'select',
+    options: ['button', 'submit', 'reset'] as ButtonHTMLAttributes<HTMLButtonElement>['type'][],
   },
 
   href: {
