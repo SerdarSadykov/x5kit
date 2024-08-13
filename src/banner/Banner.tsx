@@ -1,11 +1,11 @@
 import styled, {CSSObject} from '@emotion/styled';
 
 import {theme} from 'theme';
-import {getQAAttribute} from 'common';
 
 import {Content} from './Content';
 import {Icon} from './Icon';
 import {BannerProps, BannerStyles, BannerVariant} from './types';
+import {CloseButton} from './CloseButton';
 
 const variantProps: Record<BannerVariant, CSSObject> = {
   [BannerVariant.defaultBlue]: {
@@ -41,13 +41,13 @@ const Container = styled.div<BannerStyles>`
   padding: 12px;
   border-radius: 8px;
   border: 1px solid transparent;
+  box-sizing: border-box;
 
   ${({variant, maxWidth, color = theme.colors.grey[100], ...props}) => {
     const typeProp = variantProps[variant];
 
     return {
       ...theme.typography.p1,
-      ...variantProps[variant],
 
       color,
       maxWidth,
@@ -65,6 +65,7 @@ export const Banner: React.FC<BannerProps> = props => {
     action,
     actionNextLine,
     title,
+    onClose,
 
     variant = BannerVariant.defaultBlue,
     qa = 'banner',
@@ -82,6 +83,7 @@ export const Banner: React.FC<BannerProps> = props => {
     <Container data-qa={qa} {...bannerStyles}>
       <Icon {...iconProps} />
       <Content {...contentProps} />
+      <CloseButton onClose={onClose} />
     </Container>
   );
 };

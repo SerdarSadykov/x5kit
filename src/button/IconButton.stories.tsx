@@ -29,19 +29,19 @@ export const IconButton: React.FC<IconButtonStoryProps> = ({
     onClick,
     variant,
 
-    style: {...variantBehavior[variant]},
+    behavior: {...variantBehavior[variant]},
   };
 
   if (color) {
-    resultProps.style.default.color = color;
+    resultProps.behavior.default.color = color;
   }
 
   if (backgroundColor) {
-    resultProps.style.default.backgroundColor = backgroundColor;
+    resultProps.behavior.default.backgroundColor = backgroundColor;
   }
 
   if (borderColor) {
-    resultProps.style.default.borderColor = borderColor;
+    resultProps.behavior.default.borderColor = borderColor;
   }
 
   return (

@@ -27,6 +27,5 @@ export type BannerProps = {
   action?: BannerAction | ReactNode;
   actionNextLine?: boolean;
 
-  // message: string
-  // onClose?: () => void
+  onClose?: () => void
 } & Partial<BannerStyles> & QA & PropsWithChildren;

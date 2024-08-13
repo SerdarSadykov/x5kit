@@ -1,19 +1,22 @@
-import type {Meta} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react';
 
+import {SizeTokenValue, theme} from 'theme';
+import {Download} from 'icons';
 import {Tooltip} from 'tooltip';
 import {Button} from 'button';
 
 import {Banner as BaseBanner} from './Banner';
 import {BannerProps, BannerVariant} from './types';
-import {SizeTokenValue, theme} from 'theme';
-import {Download} from 'icons';
 
-type BannerStoryProps = BannerProps & {
+type BannerStoryProps = Omit<BannerProps, 'onClose'> & {
   actionText?: string;
   actionHref?: string;
+  onClose?: boolean;
 };
 
 export const Banner: React.FC<BannerStoryProps> = ({children, ...props}) => {
+  const onClose = props.onClose ? () => alert('onClose') : undefined;
+
   const action = props.actionText && {
     text: props.actionText,
     href: props.actionHref,
@@ -30,6 +33,8 @@ export const Banner: React.FC<BannerStoryProps> = ({children, ...props}) => {
 
   const resultProps = {
     ...props,
+
+    onClose,
     action,
   };
 
@@ -133,11 +138,34 @@ const meta = {
       control: 'color',
       description: 'Цвет границы',
     },
+
+    onClose: {
+      type: 'MouseEventHandler<HTMLButtonElement>' as never,
+      control: 'boolean',
+    },
   },
   args: {
-    children: 'An example of a very long message in a banner. We recommend using a maximum of 5 lines',
-    maxWidth: '584px',
+    children: 'Simple message ',
   },
 } satisfies Meta<typeof Banner>;
+
+export const WithAction: StoryObj<typeof Banner> = {
+  args: {
+    children: 'У вашей команды не собираются метрики по Проектированию, потому что отсутствует ссылка на Базу знаний ',
+    maxWidth: '513px',
+    actionText: 'Текст ссылки',
+    variant: BannerVariant.warning,
+    onClose: true,
+  },
+};
+
+export const WithActionNewLine: StoryObj<typeof Banner> = {
+  args: {
+    ...WithAction.args,
+
+    actionText: 'Исправить',
+    actionNextLine: true,
+  },
+};
 
 export default meta;
