@@ -52,7 +52,7 @@ export const useDropdown = (props: DropdownProps) => {
 
   useClickAway(() => {
     setIsOpen(false);
-  }, targetRef);
+  }, targetRef, floating.refs.floating);
 
   useEffect(() => {
     setFloating?.(floating);

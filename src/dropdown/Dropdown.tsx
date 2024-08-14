@@ -12,7 +12,7 @@ const Container = styled.div<Pick<DropdownProps, 'width' | 'zIndex' | 'isOpen' |
     if (isOpen || !isMounted) {
       return {
         zIndex,
-        width: width === 'target' ? undefined : width,
+        width: width !== 'target' ? width : undefined,
       };
     }
 
