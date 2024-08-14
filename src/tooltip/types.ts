@@ -2,33 +2,17 @@ import {ReactElement, ReactNode} from 'react';
 import {CSSObject} from '@emotion/react';
 import {UseHoverProps} from '@floating-ui/react';
 
+import {Placement} from 'theme';
 import {QA} from 'common';
-
-export enum TooltipPlacement {
-  top = 'top',
-  right = 'right',
-  bottom = 'bottom',
-  left = 'left',
-  topStart = 'top-start',
-  topEnd = 'top-end',
-  rightStart = 'right-start',
-  rightEnd = 'right-end',
-  bottomStart = 'bottom-start',
-  bottomEnd = 'bottom-end',
-  leftStart = 'left-start',
-  leftEnd = 'left-end',
-}
 
 export type TooltipProps = {
   children: ReactElement;
   content: ReactNode;
 
-  width?: number;
-  zIndex?: number;
-  placement?: TooltipPlacement;
+  placement?: Placement;
 
   isOpen?: boolean;
   setIsOpen?: (newIsOpen: boolean) => void;
 
   isPortal?: boolean;
-} & QA & Pick<UseHoverProps, 'delay'> & Pick<CSSObject, 'color' | 'backgroundColor' | 'whiteSpace'>;
+} & QA & Pick<UseHoverProps, 'delay'> & Pick<CSSObject, 'width' | 'zIndex' | 'color' | 'backgroundColor' | 'whiteSpace'>;

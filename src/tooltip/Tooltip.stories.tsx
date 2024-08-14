@@ -1,9 +1,10 @@
 import type {Meta} from '@storybook/react';
 
 import {Help, Calendar} from 'icons';
+import {Placement} from 'theme';
 
 import {Tooltip as BaseTooltip} from './Tooltip';
-import {TooltipPlacement, TooltipProps} from './types';
+import {TooltipProps} from './types';
 
 export const Tooltip: React.FC<TooltipProps> = props => {
   const resultProps = {
@@ -56,21 +57,21 @@ const meta = {
     },
 
     placement: {
-      type: 'TooltipPlacement' as never,
+      type: 'Placement' as never,
       control: 'select',
       options: [
-        TooltipPlacement.top,
-        TooltipPlacement.right,
-        TooltipPlacement.bottom,
-        TooltipPlacement.left,
-        TooltipPlacement.topStart,
-        TooltipPlacement.topEnd,
-        TooltipPlacement.rightStart,
-        TooltipPlacement.rightEnd,
-        TooltipPlacement.bottomStart,
-        TooltipPlacement.bottomEnd,
-        TooltipPlacement.leftStart,
-        TooltipPlacement.leftEnd,
+        Placement.top,
+        Placement.right,
+        Placement.bottom,
+        Placement.left,
+        Placement.topStart,
+        Placement.topEnd,
+        Placement.rightStart,
+        Placement.rightEnd,
+        Placement.bottomStart,
+        Placement.bottomEnd,
+        Placement.leftStart,
+        Placement.leftEnd,
       ],
       description: 'Ширина',
     },

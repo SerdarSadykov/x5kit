@@ -28,11 +28,11 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
     setIsOpen(newIsOpen);
 
     if (newIsOpen) {
-      popper.update?.();
+      floating.update?.();
     }
   };
 
-  const popper = useFloating({
+  const floating = useFloating({
     onOpenChange,
     placement: 'bottom',
     middleware: [offset(10)],
@@ -42,7 +42,7 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
   const context: DatepickerContextProps = {
     ...props,
 
-    popper,
+    floating,
     isOpen,
     referenceDate,
     setIsOpen: onOpenChange,

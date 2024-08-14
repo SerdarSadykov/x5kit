@@ -1,14 +1,13 @@
-import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode, Ref, RefCallback, RefObject} from 'react';
+import {ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode, Ref, RefCallback} from 'react';
 import {MaskInputOptions} from 'maska';
 
 import {SizeTokenValue} from 'theme';
+import {CSSObject} from '@emotion/react';
 
 type ReactComponentProp = React.FC<InputStyles & Pick<InputProps, 'error'>>;
 
 export type InputProps = {
   size?: SizeTokenValue;
-
-  width?: number | string;
 
   filled?: boolean;
   focused?: boolean;
@@ -39,7 +38,7 @@ export type InputProps = {
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-} & Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'disabled' | 'required' | 'readOnly' | 'autoFocus' | 'autoComplete'>;
+} & Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'disabled' | 'required' | 'readOnly' | 'autoFocus' | 'autoComplete'> & Pick<CSSObject, 'width'>;
 
 export type InputStyles = {
   isDisabled?: boolean;

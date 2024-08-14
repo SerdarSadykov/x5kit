@@ -1,6 +1,7 @@
 import {ReactElement} from 'react';
 
-import {Tooltip as BaseTooltip, TooltipPlacement} from 'tooltip';
+import {Placement} from 'theme';
+import {Tooltip as BaseTooltip} from 'tooltip';
 
 import {ChipProps} from '../types';
 
@@ -20,7 +21,7 @@ export const Tooltip: React.FC<ChipTooltipProps> = props => {
   }
 
   return (
-    <BaseTooltip placement={TooltipPlacement.bottom} content={content}>
+    <BaseTooltip placement={Placement.bottom} content={content}>
       {children}
     </BaseTooltip>
   );

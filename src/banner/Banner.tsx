@@ -1,6 +1,6 @@
 import styled, {CSSObject} from '@emotion/styled';
 
-import {theme} from 'theme';
+import {SizeTokenValue, theme} from 'theme';
 
 import {Content} from './Content';
 import {Icon} from './Icon';
@@ -34,6 +34,26 @@ const variantProps: Record<BannerVariant, CSSObject> = {
   },
 };
 
+const sizeProps: Omit<Record<SizeTokenValue, CSSObject>, 'XSmall' | 'XXSmall'> = {
+  [SizeTokenValue.Large]: {
+    ...theme.typography.p1,
+
+    gap: 8,
+  },
+
+  [SizeTokenValue.Medium]: {
+    ...theme.typography.p1,
+
+    gap: 8,
+  },
+
+  [SizeTokenValue.Small]: {
+    ...theme.typography.p3,
+
+    gap: 4,
+  },
+}
+
 const Container = styled.div<BannerStyles>`
   display: flex;
   align-items: flex-start;
@@ -43,11 +63,12 @@ const Container = styled.div<BannerStyles>`
   border: 1px solid transparent;
   box-sizing: border-box;
 
-  ${({variant, maxWidth, color = theme.colors.grey[100], ...props}) => {
+  ${({variant, size, maxWidth, color = theme.colors.grey[100], ...props}) => {
     const typeProp = variantProps[variant];
+    const sizeProp = sizeProps[size];
 
     return {
-      ...theme.typography.p1,
+      ...sizeProp,
 
       color,
       maxWidth,
@@ -68,12 +89,13 @@ export const Banner: React.FC<BannerProps> = props => {
     onClose,
 
     variant = BannerVariant.defaultBlue,
+    size = SizeTokenValue.Medium,
     qa = 'banner',
 
     ...rest
   } = props;
 
-  const bannerStyles = {...rest, variant};
+  const bannerStyles = {...rest, variant, size};
 
   const iconProps = {variant, icon};
 

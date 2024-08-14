@@ -20,7 +20,6 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     content,
     width,
     whiteSpace,
-    qa,
 
     isPortal = true,
     zIndex = theme.sizes.zIndex.tooltip,
@@ -28,7 +27,7 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     backgroundColor = theme.colors.grey[90],
   } = props;
 
-  const {isMounted, popper, interactions, arrowRef, styles, child} = useTooltip(props);
+  const {isMounted, getQA, floating, interactions, arrowRef, styles, child} = useTooltip(props);
 
   if (!isMounted) {
     return child;
@@ -37,11 +36,11 @@ export const Tooltip: React.FC<TooltipProps> = props => {
   const containerProps = {
     ...interactions.getFloatingProps(),
 
-    ref: popper.refs.setFloating,
+    ref: floating.refs.setFloating,
 
     style: {
       ...styles,
-      ...popper.floatingStyles,
+      ...floating.floatingStyles,
 
       width,
       whiteSpace,
@@ -50,6 +49,8 @@ export const Tooltip: React.FC<TooltipProps> = props => {
       color: color,
       backgroundColor: backgroundColor,
     },
+
+    'data-qa': getQA(),
   };
 
   const arrowProps = {
@@ -57,7 +58,7 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     height: 4,
 
     ref: arrowRef,
-    context: popper.context,
+    context: floating.context,
     fill: backgroundColor,
   };
 

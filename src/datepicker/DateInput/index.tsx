@@ -83,7 +83,7 @@ const inputComponent: React.FC<InputInternalProps> = props => {
 
 export const DateInput: React.FC = () => {
   const context = useContext(DatepickerContext);
-  const {isOpen, setIsOpen, size, value, disabled, readOnly, popper, endAdornment: parentEndAdornment} = context;
+  const {isOpen, setIsOpen, size, value, disabled, readOnly, floating, endAdornment: parentEndAdornment} = context;
 
   const endAdornment = (
     <>
@@ -107,7 +107,7 @@ export const DateInput: React.FC = () => {
     value: value[0] || value[1] ? 'filled' : '',
     onChange: () => {},
 
-    containerRef: popper.refs.setReference,
+    containerRef: floating.refs.setReference,
   };
 
   return <Input {...inputProps} />;

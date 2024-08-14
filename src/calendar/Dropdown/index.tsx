@@ -125,13 +125,13 @@ const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSe
 };
 
 export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpen, setIsOpen, width}) => {
-  const popper = useFloating({placement: 'bottom-start', middleware: [flip()]});
+  const floating = useFloating({placement: 'bottom-start', middleware: [flip()]});
 
   const onToggle = () => {
     setIsOpen(!isOpen);
 
     if (!isOpen) {
-      popper.update?.();
+      floating.update?.();
     }
   };
 
@@ -160,12 +160,12 @@ export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpe
 
   return (
     <Container onClick={onClickContainer}>
-      <DropdownButton ref={popper.refs.setReference} isOpen={isOpen} onClick={onToggle}>
+      <DropdownButton ref={floating.refs.setReference} isOpen={isOpen} onClick={onToggle}>
         {value.name}
         <Chevron size={SizeTokenValue.Small} />
       </DropdownButton>
 
-      <List ref={popper.refs.setFloating} width={width} hidden={!isOpen} style={popper.floatingStyles}>
+      <List ref={floating.refs.setFloating} width={width} hidden={!isOpen} style={floating.floatingStyles}>
         {listItems}
       </List>
     </Container>

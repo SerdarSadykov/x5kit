@@ -1,8 +1,9 @@
 import {PropsWithChildren, ReactNode} from 'react';
 import {CSSObject} from '@emotion/react';
 
+import {SizeTokenValue} from 'theme';
 import {QA} from 'common';
-import {LinkProps} from 'link/types';
+import {LinkProps} from 'link';
 
 export enum BannerVariant {
   defaultBlue = 'defaultBlue',
@@ -14,6 +15,7 @@ export enum BannerVariant {
 
 export type BannerStyles = {
   variant: BannerVariant;
+  size: SizeTokenValue;
   color?: string;
 } & Pick<CSSObject, 'backgroundColor' | 'borderColor' | 'maxWidth'>;
 

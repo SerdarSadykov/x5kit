@@ -36,25 +36,26 @@ export const useTooltip = (props: TooltipProps) => {
 
   const arrowRef = useRef(null);
 
-  const popper = useFloating({
+  const floating = useFloating({
+    placement,
+
     open: isOpen,
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
 
-    placement: placement,
     middleware: [offset(8), !placement ? autoPlacement() : flip(), shift(), arrow({element: arrowRef})],
   });
 
   const interactions = useInteractions([
-    useHover(popper.context, {move: false, delay}),
-    useDismiss(popper.context)
+    useHover(floating.context, {move: false, delay}),
+    useDismiss(floating.context)
   ]);
 
-  const {isMounted, styles} = useTransitionStyles(popper.context);
+  const {isMounted, styles} = useTransitionStyles(floating.context);
 
-  const ref = useMergeRefs([popper.refs.setReference, children['ref']]);
+  const ref = useMergeRefs([floating.refs.setReference, children['ref']]);
 
   const child = cloneElement(children, interactions.getReferenceProps({...children.props, ref}));
-
-  return {isMounted, getQA, popper, interactions, arrowRef, styles, child};
+  
+  return {isMounted, getQA, floating, interactions, arrowRef, styles, child};
 };

@@ -1,15 +1,10 @@
-import {PropsWithChildren} from 'react';
 import styled from '@emotion/styled';
 import {keyframes} from '@emotion/react';
 
-import {QA, getQAAttribute} from 'common';
-import {theme, SizeTokenValue, ColorTokenValue} from 'theme';
+import {getQAAttribute} from 'common';
+import {theme, SizeTokenValue} from 'theme';
 
-type LoaderProps = {
-  size?: SizeTokenValue | number;
-  color?: ColorTokenValue;
-} & QA &
-  PropsWithChildren;
+import {LoaderProps} from './types';
 
 const progressKeyframe = keyframes`
   0% {

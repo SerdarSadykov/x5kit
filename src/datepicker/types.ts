@@ -29,5 +29,5 @@ export type RangeDatepickerProps = {
 export type DatepickerContextProps = {
   isOpen: boolean;
   setIsOpen: (newIsOpen: boolean) => void;
-  popper: UseFloatingReturn;
+  floating: UseFloatingReturn;
 } & BaseDatepickerProps & Required<Pick<BaseDatepickerProps, 'referenceDate'>>;

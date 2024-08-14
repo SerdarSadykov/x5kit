@@ -11,10 +11,10 @@ const Container = styled.div`
 `;
 
 export const Calendar: React.FC = () => {
-  const {value, mode, popper, calendarProps, onChange, isOpen, setIsOpen} = useContext(DatepickerContext);
+  const {value, mode, floating, calendarProps, onChange, isOpen, setIsOpen} = useContext(DatepickerContext);
 
-  const dismiss = useDismiss(popper.context);
-  const popperI = useInteractions([dismiss]);
+  const dismiss = useDismiss(floating.context);
+  const floatingI = useInteractions([dismiss]);
 
   if (!isOpen) {
     return null;
@@ -37,10 +37,10 @@ export const Calendar: React.FC = () => {
   };
 
   const containerProps = {
-    ...popperI.getFloatingProps(),
+    ...floatingI.getFloatingProps(),
 
-    style: popper.floatingStyles,
-    ref: popper.refs.setFloating,
+    style: floating.floatingStyles,
+    ref: floating.refs.setFloating,
   };
 
   return (
