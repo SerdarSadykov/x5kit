@@ -2,14 +2,18 @@ import {useEffect, RefObject} from 'react';
 
 export const useClickAway = (handler: EventListener, ...refs: Array<RefObject<Element>>): void => {
   useEffect(() => {
-    const listener = (event: MouseEvent) => {
+    const listener = (e: MouseEvent) => {
+      if (!(e.target instanceof Element)) {
+        return;
+      }
+
       for (const ref of refs) {
-        if (!ref.current || ref.current.contains(event.target as Node)) {
+        if (!ref.current || ref.current.contains(e.target)) {
           return;
         }
       }
 
-      handler(event);
+      handler(e);
     };
 
     document.addEventListener('click', listener, true);
