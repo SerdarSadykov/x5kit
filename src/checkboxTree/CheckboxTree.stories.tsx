@@ -9,13 +9,21 @@ export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
 
   const onChange: CheckboxTreeProps['onChange'] = newValue => {
     setValues(newValue);
+
+    if (props.onChange as unknown) {
+      alert('onChange console.log');
+      console.log(newValue);
+    }
   };
+
+  const toggleOpened = props.toggleOpened ? value => alert(value) : undefined;
 
   const resultProps: CheckboxTreeProps = {
     ...props,
-    values,
 
+    values,
     onChange,
+    toggleOpened,
   };
 
   return <BaseCheckboxTree {...resultProps} />;
@@ -503,6 +511,18 @@ const meta = {
     options: {
       type: 'CheckboxTreeOptionValue[] | undefined' as never,
       control: 'object',
+    },
+
+    opened: {
+      type: 'CheckboxTreeOptionValue[]' as never,
+      control: 'object',
+      description: 'Раскрытые пункты',
+    },
+
+    toggleOpened: {
+      type: '(value: CheckboxTreeOptionValue) => void' as never,
+      control: 'boolean',
+      description: 'Раскрыть/раскрыть пункт',
     },
 
     qa: {type: 'string', control: 'text'},

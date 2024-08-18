@@ -21,7 +21,7 @@ export const useParentItem = (props: ItemProps) => {
       return true;
     }
 
-    const allValues = getValues(option);
+    const allValues = childs.flatMap(getValues);
     const isChildsChecked = values.findIndex(value => allValues.includes(value)) !== -1;
 
     return isChildsChecked ? 'halfOn' : false;

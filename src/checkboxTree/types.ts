@@ -10,8 +10,8 @@ export type CheckboxTreeOption = {
   value: CheckboxTreeOptionValue;
   childs?: CheckboxTreeOption[];
 
-  // isVisible?: boolean;
-  // parent?: CheckboxTreeOption
+  // isVisible?: boolean; removed
+  // parent?: CheckboxTreeOption removed
 } & Omit<CheckboxProps, 'label' | 'value' | 'checked'>;
 
 export type CheckboxTreeProps = {
@@ -25,7 +25,7 @@ export type CheckboxTreeProps = {
   opened?: CheckboxTreeOptionValue[];
   toggleOpened?: (value: CheckboxTreeOptionValue) => void;
 
-  // onlyUserSelected?: boolean;
-  // searchStr?: string;
-  // showNotFound?: boolean;
+  // onlyUserSelected?: boolean; removed
+  // searchStr?: string; removed
+  // showNotFound?: boolean; removed
 } & QA & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
