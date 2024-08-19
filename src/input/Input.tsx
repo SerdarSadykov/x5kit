@@ -108,12 +108,12 @@ const useInput = (props: InputProps): InputInternalProps => {
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
     setFocused(!props.readOnly);
 
-    props.inputProps?.onFocus?.(e);
+    props.onFocus?.(e);
   };
 
   const onBlur: FocusEventHandler<HTMLInputElement> = e => {
     setFocused(false);
-    props.inputProps?.onBlur?.(e);
+    props.onBlur?.(e);
   };
 
   return {
@@ -141,6 +141,7 @@ const useInput = (props: InputProps): InputInternalProps => {
       required: props.required,
       autoFocus: props.autoFocus,
       autoComplete: props.autoComplete,
+      onClick: props.onClick,
 
       onFocus,
       onBlur,

@@ -12,6 +12,11 @@ const Container = styled.div`
   :last-child {
     margin-bottom: 0;
   }
+
+  mark {
+    color: ${theme.colors.accent[80]};
+    background-color: transparent;
+  }
 `;
 
 const CheckboxContainer = styled.div`
@@ -56,7 +61,7 @@ const ParentItem: React.FC<ItemProps> = props => {
   return (
     <Container>
       <CheckboxContainer>
-        <Button onClick={onToggle}>
+        <Button type="button" onClick={onToggle}>
           <Icon size={SizeTokenValue.Small} />
         </Button>
 
@@ -73,14 +78,14 @@ export const Item: React.FC<ItemProps> = props => {
     return <ParentItem {...props} />;
   }
 
-  const {option, values} = props;
+  const {option, value} = props;
 
-  const checked = values.includes(option.value);
+  const checked = value.includes(option.value);
 
   const onChange: CheckboxProps['onChange'] = e => {
-    const newValues = checked ? values.filter(value => value !== option.value) : [...values, option.value];
+    const newValues = checked ? value.filter(value => value !== option.value) : [...value, option.value];
 
-    props.onChange(newValues, e);
+    props.onChange(newValues, option, e);
   };
 
   const optionProps = {...option, checked, onChange};

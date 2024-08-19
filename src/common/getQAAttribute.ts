@@ -4,10 +4,8 @@ export type QA = {
 
 export type RequiredQA = Required<QA>;
 
-export type GetQA = (subName?: string, state?: string[]) => string;
-
-export const getQAAttribute = (rootName: string): GetQA => {
-  return (subName, state) => {
+export const getQAAttribute = (rootName: string) => {
+  return (subName?: string, state?: string[]): string => {
     let name = rootName;
 
     if (subName) {

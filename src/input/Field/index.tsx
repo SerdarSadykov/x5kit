@@ -6,7 +6,7 @@ import {theme} from 'theme';
 
 import type {InputInternalProps, InputStyles} from '../types';
 
-const InputComponent = styled.input<InputStyles>`
+export const FieldComponent = styled.input<InputStyles>`
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -93,7 +93,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 
   return (
     <>
-      <InputComponent {...componentProsp} />
+      <FieldComponent {...componentProsp} />
       {placeHolder}
     </>
   );
@@ -113,5 +113,5 @@ export const Field: React.FC<InputInternalProps> = props => {
     onInput: props.onChange,
   };
 
-  return <InputComponent {...componentProsp} />;
+  return <FieldComponent {...componentProsp} />;
 };

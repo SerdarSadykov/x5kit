@@ -1,4 +1,4 @@
-import {ChangeEvent, HTMLAttributes} from 'react';
+import {ChangeEvent, HTMLAttributes, ReactNode} from 'react';
 
 import {QA} from 'common';
 import {CheckboxProps} from 'checkbox/types';
@@ -6,7 +6,7 @@ import {CheckboxProps} from 'checkbox/types';
 export type CheckboxTreeOptionValue = string | number;
 
 export type CheckboxTreeOption = {
-  label: string;
+  label: ReactNode;
   value: CheckboxTreeOptionValue;
   childs?: CheckboxTreeOption[];
 
@@ -14,10 +14,13 @@ export type CheckboxTreeOption = {
   // parent?: CheckboxTreeOption removed
 } & Omit<CheckboxProps, 'label' | 'value' | 'checked'>;
 
-export type CheckboxTreeProps = {
-  options: CheckboxTreeOption[];
-  values: CheckboxTreeOptionValue[] | undefined;
-  onChange: (values: CheckboxTreeOptionValue[], event: ChangeEvent<HTMLInputElement>) => void;
+export type CheckboxTreeOnChange<T = CheckboxTreeOption> =
+  (value: CheckboxTreeOptionValue[], target: T, event: ChangeEvent<HTMLInputElement>) => void;
+
+export type CheckboxTreeProps<T extends CheckboxTreeOption = CheckboxTreeOption> = {
+  options: T[];
+  value: CheckboxTreeOptionValue[] | undefined;
+  onChange: CheckboxTreeOnChange<T>;
 
   disabled?: boolean;
   readOnly?: boolean;

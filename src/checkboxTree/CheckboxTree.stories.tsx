@@ -5,10 +5,10 @@ import {CheckboxTree as BaseCheckboxTree} from './CheckboxTree';
 import {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
 
 export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
-  const [values, setValues] = useState<CheckboxTreeOptionValue[]>();
+  const [value, setValue] = useState<CheckboxTreeOptionValue[]>();
 
   const onChange: CheckboxTreeProps['onChange'] = newValue => {
-    setValues(newValue);
+    setValue(newValue);
 
     if (props.onChange as unknown) {
       alert('onChange console.log');
@@ -16,12 +16,12 @@ export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
     }
   };
 
-  const toggleOpened = props.toggleOpened ? value => alert(value) : undefined;
+  const toggleOpened = props.toggleOpened ? toggleValue => alert(toggleValue) : undefined;
 
   const resultProps: CheckboxTreeProps = {
     ...props,
 
-    values,
+    value,
     onChange,
     toggleOpened,
   };
@@ -504,7 +504,7 @@ const meta = {
     },
 
     onChange: {
-      type: '(values: CheckboxTreeOptionValue[], event: ChangeEvent<HTMLInputElement>) => void' as never,
+      type: '(value: CheckboxTreeOptionValue[], event: ChangeEvent<HTMLInputElement>) => void' as never,
       control: 'boolean',
     },
 

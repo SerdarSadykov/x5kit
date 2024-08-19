@@ -1,28 +1,25 @@
-import {useState} from 'react';
-import styled from '@emotion/styled';
+import {forwardRef, useState} from 'react';
 
 import {Item} from './Item';
 import {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
 
-const Container = styled.div``;
-
-export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
-  const {options, disabled, readOnly, onChange, values = []} = props;
+export const CheckboxTree = forwardRef<HTMLDivElement, CheckboxTreeProps>((props, ref) => {
+  const {options, disabled, readOnly, onChange, value = []} = props;
 
   const [openedValue, toggleOpenedValue] = useState<CheckboxTreeOptionValue[]>([]);
 
   let toggleOpened = props.toggleOpened;
 
-  toggleOpened ??= (value: CheckboxTreeOptionValue) => {
-    const newToggled = openedValue.includes(value)
-      ? openedValue.filter(item => item !== value)
-      : [...openedValue, value];
+  toggleOpened ??= (toggleValue: CheckboxTreeOptionValue) => {
+    const newToggled = openedValue.includes(toggleValue)
+      ? openedValue.filter(item => item !== toggleValue)
+      : [...openedValue, toggleValue];
 
     toggleOpenedValue(newToggled);
   };
 
   const itemProps = {
-    values,
+    value,
     onChange,
     toggleOpened,
 
@@ -33,5 +30,5 @@ export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
     <Item key={option.value} option={{disabled, readOnly, ...option}} {...itemProps} />
   ));
 
-  return <Container>{child}</Container>;
-};
+  return <div ref={ref}>{child}</div>;
+});

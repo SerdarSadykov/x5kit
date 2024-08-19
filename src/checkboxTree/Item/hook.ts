@@ -4,7 +4,7 @@ import {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from '..
 
 export type ItemProps = {
   option: CheckboxTreeOption;
-  values: CheckboxTreeOptionValue[];
+  value: CheckboxTreeOptionValue[];
 }
   & Required<Pick<CheckboxTreeProps, 'onChange' | 'opened' | 'toggleOpened'>>;
 
@@ -13,16 +13,16 @@ const getValues = (option: CheckboxTreeOption): CheckboxTreeOptionValue[] => {
 };
 
 export const useParentItem = (props: ItemProps) => {
-  const {option, opened, toggleOpened, values} = props;
+  const {option, opened, toggleOpened, value} = props;
   const {childs = [], ...optionProps} = option;
 
   const checked = ((): CheckboxProps['checked'] => {
-    if (values.includes(option.value)) {
+    if (value.includes(option.value)) {
       return true;
     }
 
     const allValues = childs.flatMap(getValues);
-    const isChildsChecked = values.findIndex(value => allValues.includes(value)) !== -1;
+    const isChildsChecked = value.findIndex(value => allValues.includes(value)) !== -1;
 
     return isChildsChecked ? 'halfOn' : false;
   })();
@@ -33,12 +33,12 @@ export const useParentItem = (props: ItemProps) => {
 
   const onChange: CheckboxProps['onChange'] = e => {
     const allValues = getValues(option);
-    const newValues = checked ? values.filter(value => !allValues.includes(value)) : [...values, ...allValues];
+    const newValues = checked ? value.filter(value => !allValues.includes(value)) : [...value, ...allValues];
 
-    props.onChange(newValues, e);
+    props.onChange(newValues, option, e);
   };
 
-  const onOptionChange: ItemProps['onChange'] = (newValues, e) => {
+  const onOptionChange: ItemProps['onChange'] = (newValues, target, e) => {
     const newValueExcept = newValues.filter(value => value !== option.value);
 
     const allValues = childs.flatMap(getValues);
@@ -46,11 +46,11 @@ export const useParentItem = (props: ItemProps) => {
 
     const resultValues = allChildsChecked ? [...newValueExcept, option.value] : newValueExcept;
 
-    props.onChange(resultValues, e);
+    props.onChange(resultValues, target, e);
   };
 
   const itemProps = {
-    values,
+    value,
     opened,
     toggleOpened,
     onChange: onOptionChange,

@@ -36,7 +36,7 @@ export const EndAdornment: React.FC<ChipProps> = ({endAdornment, onDelete}) => {
     return (
       <>
         {endAdornment}
-        <Button onClickCapture={onClick}>
+        <Button type="button" onClickCapture={onClick}>
           <Close size={SizeTokenValue.Small} />
         </Button>
       </>
