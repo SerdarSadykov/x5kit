@@ -98,6 +98,13 @@ const meta = {
       description: 'Тип',
     },
 
+    size: {
+      type: 'SizeTokenValue' as never,
+      control: 'select',
+      options: [SizeTokenValue.Medium, SizeTokenValue.XSmall],
+      description: 'Размер',
+    },
+
     actionText: {
       type: 'BannerAction | ReactNode' as never,
       control: 'text',
@@ -114,6 +121,11 @@ const meta = {
       type: 'boolean',
       control: 'boolean',
       description: 'Расположение кнопки',
+    },
+
+    width: {
+      type: 'string',
+      control: 'text',
     },
 
     maxWidth: {

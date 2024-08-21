@@ -4,8 +4,18 @@ import {CheckboxTree, CheckboxTreeProps} from 'checkboxTree';
 
 import {SelectItemsProps} from '../SelectItems';
 import {SelectOption} from '../types';
+import {theme} from 'theme';
 
-const Container = styled.div``;
+const Container = styled.div`
+  flex-grow: 1;
+
+  label {
+    :hover {
+      background-color: ${theme.colors.grey[10]};
+      cursor: pointer;
+    }
+  }
+`;
 
 export const SelectMultipleItems: React.FC<SelectItemsProps> = props => {
   const onChange: CheckboxTreeProps['onChange'] = (newValues, target, e) => {
@@ -13,9 +23,8 @@ export const SelectMultipleItems: React.FC<SelectItemsProps> = props => {
   };
 
   const treeProps = {
+    ...props,
     onChange,
-    options: props.options,
-    value: props.value,
   };
 
   return (

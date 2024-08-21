@@ -34,7 +34,7 @@ const variantProps: Record<BannerVariant, CSSObject> = {
   },
 };
 
-const sizeProps: Omit<Record<SizeTokenValue, CSSObject>, 'XSmall' | 'XXSmall'> = {
+const sizeProps: Omit<Record<SizeTokenValue, CSSObject>, 'XXSmall'> = {
   [SizeTokenValue.Large]: {
     ...theme.typography.p1,
 
@@ -48,22 +48,31 @@ const sizeProps: Omit<Record<SizeTokenValue, CSSObject>, 'XSmall' | 'XXSmall'> =
   },
 
   [SizeTokenValue.Small]: {
+    ...theme.typography.p1,
+
+    gap: 8,
+  },
+
+  [SizeTokenValue.XSmall]: {
     ...theme.typography.p3,
 
+    alignItems: 'center',
+    padding: 8,
     gap: 4,
   },
-}
+};
 
 const Container = styled.div<BannerStyles>`
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 8px;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid transparent;
   box-sizing: border-box;
 
-  ${({variant, size, maxWidth, color = theme.colors.grey[100], ...props}) => {
+  ${({variant, size, width, maxWidth, color = theme.colors.grey[100], ...props}) => {
     const typeProp = variantProps[variant];
     const sizeProp = sizeProps[size];
 
@@ -71,6 +80,7 @@ const Container = styled.div<BannerStyles>`
       ...sizeProp,
 
       color,
+      width,
       maxWidth,
 
       backgroundColor: props.backgroundColor ?? typeProp.backgroundColor,

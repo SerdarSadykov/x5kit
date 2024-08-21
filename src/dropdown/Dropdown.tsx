@@ -7,11 +7,13 @@ import {theme} from 'theme';
 import {useDropdown} from './hook';
 import {DropdownProps} from './types';
 
-const Container = styled.div<Pick<DropdownProps, 'width' | 'zIndex' | 'isOpen' | 'isMounted'>>`
-  ${({isOpen, isMounted, zIndex, width = 248}) => {
+const Container = styled.div<Pick<DropdownProps, 'width' | 'height' | 'maxHeight' | 'zIndex' | 'isOpen' | 'isMounted'>>`
+  ${({isOpen, isMounted, zIndex, height, maxHeight, width = 248}) => {
     if (isOpen || !isMounted) {
       return {
         zIndex,
+        height,
+        maxHeight,
         width: width !== 'target' ? width : undefined,
       };
     }
@@ -27,12 +29,13 @@ const Container = styled.div<Pick<DropdownProps, 'width' | 'zIndex' | 'isOpen' |
 `;
 
 export const DropdownContent = styled.div`
+  max-height: 100%;
   border-radius: 8px;
   box-shadow: ${theme.shadows.medium};
 `;
 
 export const Dropdown: React.FC<DropdownProps> = props => {
-  const {children, isOpen, width, zIndex, isPortal, isMounted, qa = 'dropdown'} = props;
+  const {children, isOpen, width, height, maxHeight, zIndex, isPortal, isMounted, qa = 'dropdown'} = props;
 
   const {interactions, floating} = useDropdown(props);
 
@@ -49,6 +52,8 @@ export const Dropdown: React.FC<DropdownProps> = props => {
     isOpen,
     isMounted,
     width,
+    height,
+    maxHeight,
     zIndex,
 
     style: floating.floatingStyles,

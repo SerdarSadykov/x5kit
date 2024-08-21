@@ -11,16 +11,20 @@ import styled from '@emotion/styled';
 
 import {DropdownContent} from 'dropdown';
 import {LoaderItem} from 'loader';
-import {theme} from 'theme';
+import {SizeTokenValue, theme} from 'theme';
 
 import {SelectContext} from '../Select';
 import {SelectItems, SelectItemsProps} from '../SelectItems';
 import {Hint} from '../Hint';
 import {SelectInternalValue, SelectOption, SelectState} from '../types';
 
-const Container = styled(DropdownContent)``;
+const Container = styled(DropdownContent)`
+  display: flex;
+  flex-direction: column;
+`;
 
-const NotFound = styled.div`
+const Empty = styled.div`
+  padding: 12px;
   color: ${theme.colors.grey[40]};
 
   ${theme.typography.p1};
@@ -34,16 +38,20 @@ export const SelectList: React.FC = () => {
   const {options, value, onChange, multiple, state, getQA, hint, header, footer, searching, notFound} =
     useContext(SelectContext);
 
-    const isFiltred = state === SelectState.filtred;
-
   if (state === SelectState.loading) {
-    const child = searching ?? <LoaderItem>Поиск совпадений</LoaderItem>;
+    const child = searching ?? (
+      <Empty>
+        <LoaderItem size={SizeTokenValue.Small}>Поиск совпадений</LoaderItem>
+      </Empty>
+    );
 
     return <Container>{child}</Container>;
   }
 
+  const isFiltred = state === SelectState.filtred;
+
   if (isFiltred && !options.filtred.length) {
-    const child = notFound ?? <NotFound>Ничего не найдено</NotFound>;
+    const child = notFound ?? <Empty>Ничего не найдено</Empty>;
 
     return <Container>{child}</Container>;
   }

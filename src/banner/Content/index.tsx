@@ -11,6 +11,8 @@ type ContentProps = Pick<BannerProps, 'children' | 'title' | 'action' | 'actionN
 const Container = styled.div<Pick<ContentProps, 'actionNextLine'>>`
   display: flex;
   min-width: 0;
+  justify-content: space-between;
+  flex-grow: 1;
 
   ${props => ({
     gap: props.actionNextLine ? 4 : 8,

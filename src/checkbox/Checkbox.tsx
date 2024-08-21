@@ -5,7 +5,7 @@ import {Icon} from './Icon';
 import {Label} from './Label';
 import {CheckboxProps, CheckboxStyles} from './types';
 
-const Container = styled.label<CheckboxStyles>`
+const Container = styled.label`
   position: relative;
   display: block;
 `;
@@ -16,7 +16,7 @@ const Content = styled.div`
   gap: 8px;
 `;
 
-const Input = styled.input<CheckboxStyles>`
+const Input = styled.input`
   position: absolute;
   visibility: hidden;
   left: 0;
@@ -27,7 +27,18 @@ const Input = styled.input<CheckboxStyles>`
 `;
 
 export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
-  const {startAdornment, children, label, error, checked, readOnly, hasLabel, qa = 'checkbox', ...rest} = props;
+  const {
+    startAdornment,
+    children,
+    label,
+    error,
+    checked,
+    disabled,
+    readOnly,
+    hasLabel,
+    qa = 'checkbox',
+    ...rest
+  } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,8 +46,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     checked,
     readOnly,
     error,
-
-    disabled: props.disabled,
+    disabled,
 
     hasLabel: hasLabel ?? (!!label || !!children),
   };
@@ -49,13 +59,19 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     type: 'checkbox',
     checked: checked === true,
 
-    onChange: readOnly ? undefined : props.onChange,
+    onChange: props.onChange,
   };
 
-  const iconProps = {
-    inputRef,
-    ...styles,
+  const containerProps = {
+    ref,
+    readOnly,
+    error,
+    disabled,
+
+    'data-qa': qa,
   };
+
+  const iconProps = {...styles, inputRef};
 
   const labelProps = {
     ...styles,
@@ -65,7 +81,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
   };
 
   return (
-    <Container ref={ref} data-qa={qa}>
+    <Container {...containerProps}>
       <Input {...inputProps} />
       <Content>
         {startAdornment}

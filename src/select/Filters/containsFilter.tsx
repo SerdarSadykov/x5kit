@@ -34,6 +34,7 @@ const callback: SelectFilter['callback'] = async (query, options) => {
     if (newLabel || newChilds.length) {
       newOptions.push({
         ...option,
+
         label: newLabel ?? label,
         childs: newChilds,
       });

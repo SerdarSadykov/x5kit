@@ -1,9 +1,8 @@
 import {forwardRef} from 'react';
 
 import {SizeTokenValue} from 'theme';
-import {IconComponent} from 'icons/types';
 
-import {IconProps} from '../types';
+import {IconProps, IconComponent} from '../types';
 
 import {SVG} from './SVG';
 

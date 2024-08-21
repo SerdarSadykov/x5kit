@@ -17,10 +17,10 @@ export type SelectOption = {
   childs?: SelectOption[];
 } & CheckboxTreeOption;
 
-export type HandleOptionClick = (event, option: SelectOption) => void;
-
-export type RenderOptionFn = {
-  (option: SelectOption, isActive: boolean, onClick: HandleOptionClick): ReactNode;
+export type SelectItemProps = {
+  option: SelectOption;
+  checked: boolean; // isActive
+  onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
 export type SelectListOnChange =
@@ -85,6 +85,7 @@ export type SelectProps = {
   dropdownProps?: Partial<DropdownProps>;
 
   listComponent?: React.FC;
+  itemComponent?: React.FC<SelectItemProps>;
 
   multiple?: boolean;
 

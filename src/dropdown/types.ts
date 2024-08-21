@@ -18,4 +18,4 @@ export type DropdownProps = {
   isMounted?: boolean;
 
   setFloating?: (floating: UseFloatingReturn) => void;
-} & QA & Pick<CSSProperties, 'zIndex'> & Pick<UseFloatingOptions, 'middleware'>;
+} & QA & Pick<CSSProperties, 'zIndex' | 'height' | 'maxHeight'> & Pick<UseFloatingOptions, 'middleware'>;

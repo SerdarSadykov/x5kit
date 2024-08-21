@@ -17,7 +17,7 @@ export type BannerStyles = {
   variant: BannerVariant;
   size: SizeTokenValue;
   color?: string;
-} & Pick<CSSObject, 'backgroundColor' | 'borderColor' | 'maxWidth'>;
+} & Pick<CSSObject, 'backgroundColor' | 'borderColor' | 'width' | 'maxWidth'>;
 
 export type BannerAction = {text: ReactNode;} & Partial<LinkProps>;
 

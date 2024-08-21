@@ -55,6 +55,7 @@ export const useInputValue = () => {
         console.log(e);
       } finally {
         setState(SelectState.filtred);
+        console.log('sss');
       }
     };
 

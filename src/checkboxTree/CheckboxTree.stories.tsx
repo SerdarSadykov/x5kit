@@ -83,6 +83,7 @@ const options: CheckboxTreeProps['options'] = [
       {
         label: 'Австрия',
         value: 'AT',
+        readOnly: true,
       },
       {
         label: 'Азербайджан',

@@ -56,6 +56,12 @@ const meta = {
   argTypes: {
     ...inputStory['commonArgTypes'],
 
+    hint: {
+      type: 'string',
+      control: 'text',
+      description: 'Подсказка',
+    },
+
     // whiteSpace: {
     //   type: 'string',
     //   control: 'select',
@@ -75,11 +81,9 @@ const meta = {
     qa: {type: 'string', control: 'text'},
   },
   args: {
-    options: treeOptions,
+    options: options,
 
     label: 'Выберите варианты',
-
-    multiple: true,
   },
 } satisfies Meta<typeof Select>;
 

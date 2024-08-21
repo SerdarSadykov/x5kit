@@ -68,6 +68,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
 
     targetRef: ref,
     isPortal: true,
+    height: 304,
     qa: getQA('dropdown'),
 
     ...baseDropdownProps,
