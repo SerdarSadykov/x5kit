@@ -12,6 +12,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     value,
     onChange,
     multiple,
+    showChips,
     filter,
     listComponent,
 
@@ -36,6 +37,8 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
   const [options, setOptions] = useState<SelectContextProps['options']>(() => ({all: [], filtred: []}));
   const getQA = getQAAttribute(qa);
 
+  const onClear = () => onChange([]);
+
   useEffect(() => {
     setOptions({all: baseOptions, filtred: []});
   }, [baseOptions]);
@@ -49,7 +52,9 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
 
     value,
     onChange,
+    onClear,
     multiple,
+    showChips,
     filter,
     isOpen,
     setIsOpen,

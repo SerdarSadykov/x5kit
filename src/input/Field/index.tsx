@@ -13,6 +13,7 @@ export const FieldComponent = styled.input<InputStyles>`
   padding: 0;
   outline: none;
   border: none;
+  background-color: transparent;
 
   ${theme.typography.p1}
 

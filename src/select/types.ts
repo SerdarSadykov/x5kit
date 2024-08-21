@@ -13,9 +13,10 @@ export type SelectValue = SelectSingleValue | SelectMultipleValue | undefined;
 export type SelectInternalValue = SelectSingleValue[];
 
 export type SelectOption = {
+  label: string;
   icon?: ReactNode;
   childs?: SelectOption[];
-} & CheckboxTreeOption;
+} & Omit<CheckboxTreeOption, 'label'>;;
 
 export type SelectItemProps = {
   option: SelectOption;
@@ -24,7 +25,7 @@ export type SelectItemProps = {
 };
 
 export type SelectListOnChange =
-  (value: SelectValue, target: SelectOption, event: ChangeEvent<HTMLInputElement>) => void;
+  (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
 
 // export interface SelectListProps extends QA {
 //   id?: string;
@@ -88,6 +89,7 @@ export type SelectProps = {
   itemComponent?: React.FC<SelectItemProps>;
 
   multiple?: boolean;
+  showChips?: boolean;
 
   // name?: string;
   // size?: SizeTokenValue;
@@ -128,6 +130,8 @@ export type SelectContextProps = {
   setState: (state: SelectState) => void;
 
   getQA: ReturnType<typeof getQAAttribute>;
-} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'filter'>
+
+  onClear: () => void;
+} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'showChips' | 'filter'>
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen'>
   & SelectListProps;

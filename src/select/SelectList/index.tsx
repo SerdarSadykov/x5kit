@@ -35,7 +35,7 @@ const getValues = (option: SelectOption): SelectInternalValue => {
 };
 
 export const SelectList: React.FC = () => {
-  const {options, value, onChange, multiple, state, getQA, hint, header, footer, searching, notFound} =
+  const {options, value, onChange, multiple, setIsOpen, state, getQA, hint, header, footer, searching, notFound} =
     useContext(SelectContext);
 
   if (state === SelectState.loading) {
@@ -60,6 +60,7 @@ export const SelectList: React.FC = () => {
     value,
     onChange,
     multiple,
+    setIsOpen,
     options: isFiltred ? options.filtred : options.all,
     opened: isFiltred ? options.filtred.flatMap(getValues) : undefined,
     qa: getQA('list'),

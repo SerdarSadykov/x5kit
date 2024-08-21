@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import type {ArgTypes, Meta} from '@storybook/react';
+import type {ArgTypes, Meta, StoryObj} from '@storybook/react';
 
 import {SizeTokenValue} from 'theme';
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
@@ -155,5 +155,14 @@ const meta = {
     width: '248px',
   },
 } as Meta<typeof Input>;
+
+export const MasketInput: StoryObj<typeof Input> = {
+  args: {
+    label: 'Label',
+    caption: 'hint',
+    width: '248px',
+    mask: '+7 (###) ### ## ##',
+  },
+};
 
 export default meta;

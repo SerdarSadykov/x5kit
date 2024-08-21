@@ -22,10 +22,14 @@ export const Select: React.FC<SelectProps> = props => {
     value: value as never,
     onChange,
 
-    filter: containsFilter
+    filter: containsFilter,
   };
 
-  return <BaseSelect {...resultProps} />;
+  return (
+    <div style={{display: 'flex', width: 400}}>
+      <BaseSelect {...resultProps} />
+    </div>
+  );
 };
 
 const options: SelectOption[] = [
@@ -62,6 +66,12 @@ const meta = {
       description: 'Подсказка',
     },
 
+    showChips: {
+      type: 'boolean',
+      control: 'boolean',
+      description: 'Названия выбранных элементов вместо кол-ва',
+    },
+
     // whiteSpace: {
     //   type: 'string',
     //   control: 'select',
@@ -81,7 +91,9 @@ const meta = {
     qa: {type: 'string', control: 'text'},
   },
   args: {
-    options: options,
+    options,
+    // options: treeOptions,
+    multiple: true,
 
     label: 'Выберите варианты',
   },

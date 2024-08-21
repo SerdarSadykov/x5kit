@@ -4,9 +4,10 @@ import {RequiredQA} from 'common';
 import {theme} from 'theme';
 import {CheckboxTreeProps} from 'checkboxTree';
 
-import {SelectMultipleItems} from '../SelectMultipleItems';
+import {SelectItemsMultiple} from '../SelectItemsMultiple';
 import {SelectItem} from '../SelectItem';
-import {SelectOption, SelectProps} from '../types';
+import {SelectContextProps, SelectOption, SelectProps} from '../types';
+import {ChangeEventHandler, MouseEventHandler} from 'react';
 
 const Container = styled.div`
   padding: 8px 0;
@@ -24,20 +25,27 @@ const Container = styled.div`
 export type SelectItemsProps = {
   options: SelectOption[];
 } & RequiredQA &
-  Pick<SelectProps, 'value' | 'onChange' | 'multiple'> &
+  Pick<SelectContextProps, 'value' | 'onChange' | 'multiple' | 'setIsOpen'> &
   Pick<CheckboxTreeProps, 'opened'>;
 
 export const SelectItems: React.FC<SelectItemsProps> = props => {
   if (props.multiple) {
-    return <SelectMultipleItems {...props} />;
+    return <SelectItemsMultiple {...props} />;
   }
+
+  const onChange = (option: SelectOption): ChangeEventHandler<HTMLInputElement> => {
+    return e => {
+      props.onChange([option.value], option, e);
+      props.setIsOpen(false);
+    };
+  };
 
   const child = props.options.map(option => (
     <SelectItem
       key={option.value}
       option={option}
       checked={props.value.includes(option.value)}
-      onChange={e => props.onChange(option.value, option, e)}
+      onChange={onChange(option)}
     />
   ));
 

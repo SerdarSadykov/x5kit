@@ -7,7 +7,11 @@ import {SelectOption} from '../types';
 import {theme} from 'theme';
 
 const Container = styled.div`
+  padding: 8px 0;
+  overflow: auto;
   flex-grow: 1;
+
+  ${theme.scroll}
 
   label {
     :hover {
@@ -17,7 +21,7 @@ const Container = styled.div`
   }
 `;
 
-export const SelectMultipleItems: React.FC<SelectItemsProps> = props => {
+export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
   const onChange: CheckboxTreeProps['onChange'] = (newValues, target, e) => {
     return props.onChange(newValues, target as SelectOption, e);
   };

@@ -1,12 +1,15 @@
-import {FocusEventHandler, ForwardedRef, useContext, useRef, useState} from 'react';
+import {FocusEventHandler, ForwardedRef, useContext, useEffect, useRef, useState} from 'react';
 
 import {InputProps} from 'input';
 
 import {SelectContext} from '../Select';
 import {SelectSingleValue, SelectState} from '../types';
+import {findOptionByLabel, findOptions} from './utils';
 
-export const useInputValue = () => {
-  const {options, setOptions, setState, filter} = useContext(SelectContext);
+export const useInputValue = (props: Pick<InputProps, 'onBlur'>) => {
+  const context = useContext(SelectContext);
+  const {value, options, setOptions, setState, filter, multiple} = context;
+
   const [inputValue, setInputValue] = useState('');
 
   const timeout = useRef<ReturnType<typeof setTimeout>>();
@@ -55,23 +58,71 @@ export const useInputValue = () => {
         console.log(e);
       } finally {
         setState(SelectState.filtred);
-        console.log('sss');
       }
     };
 
     timeout.current = setTimeout(request, filter.delay ?? 500);
   };
 
-  return {inputValue, onChange};
+  const onBlur: FocusEventHandler<HTMLInputElement> = e => {
+    props.onBlur?.(e);
+
+    setOptions({all: options.all, filtred: []});
+    setState(SelectState.default);
+
+    if (multiple) {
+      setInputValue('');
+      return;
+    }
+
+    if (!inputValue) {
+      context.onClear();
+
+      return;
+    }
+
+    const sameLabelOption = findOptionByLabel(options.all, inputValue.toLowerCase());
+    if (sameLabelOption && !sameLabelOption.disabled && !sameLabelOption.readOnly) {
+      if (value.includes(sameLabelOption.value)) {
+        return;
+      }
+
+      context.onChange([sameLabelOption.value]);
+      return;
+    }
+
+    if (value.length) {
+      context.onClear();
+    }
+
+    setInputValue('');
+  };
+
+  useEffect(() => {
+    if (multiple) {
+      return;
+    }
+
+    const selectedLabel = findOptions(options.all, value)[0]?.label;
+    setInputValue(selectedLabel ?? '');
+  }, [value]);
+
+  return {inputValue, onChange, onBlur};
 };
 
 export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: ForwardedRef<HTMLInputElement>) => {
-  const {setIsOpen, value, filter} = useContext(SelectContext);
-  const {inputValue, onChange} = useInputValue();
+  const context = useContext(SelectContext);
+
+  const {inputValue, onChange, onBlur} = useInputValue(props);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
-    setIsOpen(true);
+    context.setIsOpen(true);
     props.onFocus?.(e);
+  };
+
+  const onClearClick: InputProps['onClearClick'] = e => {
+    context.onClear();
+    props.onClearClick?.(e);
   };
 
   const inputProps = {
@@ -80,13 +131,15 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
     ref,
     onChange,
     onFocus,
+    onBlur,
+    onClearClick,
 
     value: inputValue,
 
-    filled: !!inputValue || !!value.length,
+    filled: !!inputValue || !!context.value.length,
 
-    readOnly: !filter,
+    readOnly: !context.filter,
   } as InputProps;
 
-  return inputProps;
+  return {inputProps, multiple: context.multiple};
 };
