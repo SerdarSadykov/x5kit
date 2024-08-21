@@ -17,9 +17,9 @@ export enum SpaceTokenName {
 
 export type SpaceJoinArgs = SpaceTokenName[];
 
-export interface SpaceTokenRecord extends Record<SpaceTokenName, SpaceTokenValue> {
+export type SpaceTokenRecord = {
   join: (...args: SpaceJoinArgs) => string;
-}
+} & Record<SpaceTokenName, SpaceTokenValue>;
 
 export const spaces: SpaceTokenRecord = {
   [SpaceTokenName.x0]: 0,

@@ -31,6 +31,10 @@ export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
 
 const options: CheckboxTreeProps['options'] = [
   {
+    label: 'Столицы',
+    value: 'capitalies',
+  },
+  {
     label: 'Страны',
     value: 'countries',
 
@@ -41,8 +45,29 @@ const options: CheckboxTreeProps['options'] = [
 
         childs: [
           {
-            label: 'Москва',
-            value: 'mow',
+            label: 'Москва и область',
+            value: 'mow-obl',
+            childs: [
+              {
+                label: 'Москва',
+                value: 'mow',
+              },
+              {
+                label: 'Область',
+                value: 'obl',
+
+                childs: [
+                  {
+                    label: 'Щелково',
+                    value: 'shelkovo',
+                  },
+                  {
+                    label: 'Серпухов',
+                    value: 'serpuhov',
+                  },
+                ],
+              }
+            ]
           },
           {
             label: 'Санкт-Петербург',
@@ -53,6 +78,7 @@ const options: CheckboxTreeProps['options'] = [
       {
         label: 'Австралия',
         value: 'AU',
+        disabled: true,
       },
       {
         label: 'Австрия',
@@ -65,22 +91,6 @@ const options: CheckboxTreeProps['options'] = [
       {
         label: 'Аландские острова',
         value: 'AX',
-      },
-      {
-        label: 'Габон',
-        value: 'GA',
-      },
-      {
-        label: 'Гаити',
-        value: 'HT',
-      },
-      {
-        label: 'Гайана',
-        value: 'GY',
-      },
-      {
-        label: 'Гамбия',
-        value: 'GM',
       },
       {
         label: 'Гренада',
@@ -99,26 +109,6 @@ const options: CheckboxTreeProps['options'] = [
         value: 'GE',
       },
       {
-        label: 'Гуам',
-        value: 'GU',
-      },
-      {
-        label: 'Иордания',
-        value: 'JO',
-      },
-      {
-        label: 'Ирак',
-        value: 'IQ',
-      },
-      {
-        label: 'Иран',
-        value: 'IR',
-      },
-      {
-        label: 'Ирландия',
-        value: 'IE',
-      },
-      {
         label: 'Исландия',
         value: 'IS',
       },
@@ -133,14 +123,6 @@ const options: CheckboxTreeProps['options'] = [
       {
         label: 'Йемен',
         value: 'YE',
-      },
-      {
-        label: 'Кабо-Верде',
-        value: 'CV',
-      },
-      {
-        label: 'Казахстан',
-        value: 'KZ',
       },
     ],
   },
@@ -166,18 +148,6 @@ const options: CheckboxTreeProps['options'] = [
         value: 1,
       },
       {
-        label: 'Абдулино',
-        value: 2,
-      },
-      {
-        label: 'Абинск',
-        value: 3,
-      },
-      {
-        label: 'Агидель',
-        value: 4,
-      },
-      {
         label: 'Агрыз',
         value: 5,
       },
@@ -192,26 +162,6 @@ const options: CheckboxTreeProps['options'] = [
       {
         label: 'Азов',
         value: 8,
-      },
-      {
-        label: 'Ак-Довурак',
-        value: 9,
-      },
-      {
-        label: 'Аксай',
-        value: 10,
-      },
-      {
-        label: 'Алагир',
-        value: 11,
-      },
-      {
-        label: 'Алапаевск',
-        value: 12,
-      },
-      {
-        label: 'Алатырь',
-        value: 13,
       },
       {
         label: 'Алдан',
@@ -232,130 +182,6 @@ const options: CheckboxTreeProps['options'] = [
       {
         label: 'Александровск',
         value: 18,
-      },
-      {
-        label: 'Алексеевка',
-        value: 19,
-      },
-      {
-        label: 'Алексин',
-        value: 20,
-      },
-      {
-        label: 'Алзамай',
-        value: 21,
-      },
-      {
-        label: 'Алупка',
-        value: 22,
-      },
-      {
-        label: 'Алушта',
-        value: 23,
-      },
-      {
-        label: 'Альметьевск',
-        value: 24,
-      },
-      {
-        label: 'Амурск',
-        value: 25,
-      },
-      {
-        label: 'Анадырь',
-        value: 26,
-      },
-      {
-        label: 'Анапа',
-        value: 27,
-      },
-      {
-        label: 'Ангарск',
-        value: 28,
-      },
-      {
-        label: 'Андреаполь',
-        value: 29,
-      },
-      {
-        label: 'Анжеро-Судженск',
-        value: 30,
-      },
-      {
-        label: 'Анива',
-        value: 31,
-      },
-      {
-        label: 'Апатиты',
-        value: 32,
-      },
-      {
-        label: 'Апрелевка',
-        value: 33,
-      },
-      {
-        label: 'Ардатов',
-        value: 37,
-      },
-      {
-        label: 'Ардон',
-        value: 38,
-      },
-      {
-        label: 'Арзамас',
-        value: 39,
-      },
-      {
-        label: 'Аркадак',
-        value: 40,
-      },
-      {
-        label: 'Армавир',
-        value: 41,
-      },
-      {
-        label: 'Армянск',
-        value: 42,
-      },
-      {
-        label: 'Арсеньев',
-        value: 43,
-      },
-      {
-        label: 'Арск',
-        value: 44,
-      },
-      {
-        label: 'Артём',
-        value: 45,
-      },
-      {
-        label: 'Артёмовск',
-        value: 46,
-      },
-      {
-        label: 'Артёмовский',
-        value: 47,
-      },
-      {
-        label: 'Архангельск',
-        value: 48,
-      },
-      {
-        label: 'Асбест',
-        value: 49,
-      },
-      {
-        label: 'Асино',
-        value: 50,
-      },
-      {
-        label: 'Астрахань',
-        value: 51,
-      },
-      {
-        label: 'Аткарск',
-        value: 52,
       },
       {
         label: 'Ахтубинск',

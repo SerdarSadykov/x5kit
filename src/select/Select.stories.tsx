@@ -3,9 +3,11 @@ import type {Meta} from '@storybook/react';
 
 import inputStory from 'input/Input.stories';
 
+import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
+
 import {Select as BaseSelect} from './Select';
-import {SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
 import {containsFilter} from './Filters';
+import {SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
 
 export const Select: React.FC<SelectProps> = props => {
   const [value, setValue] = useState<SelectValue>([]);
@@ -42,6 +44,8 @@ const options: SelectOption[] = [
   {label: 'Ovcharenko', value: 'ovcharenko', disabled: false},
 ];
 
+const treeOptions = CheckboxTreeStory.args.options;
+
 const meta = {
   title: 'Select',
   component: Select,
@@ -71,7 +75,7 @@ const meta = {
     qa: {type: 'string', control: 'text'},
   },
   args: {
-    options,
+    options: treeOptions,
 
     label: 'Выберите варианты',
 

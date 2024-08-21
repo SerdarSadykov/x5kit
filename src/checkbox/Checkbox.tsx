@@ -27,7 +27,7 @@ const Input = styled.input<CheckboxStyles>`
 `;
 
 export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
-  const {children, label, error, checked, readOnly, hasLabel, qa = 'checkbox', ...rest} = props;
+  const {startAdornment, children, label, error, checked, readOnly, hasLabel, qa = 'checkbox', ...rest} = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -68,6 +68,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     <Container ref={ref} data-qa={qa}>
       <Input {...inputProps} />
       <Content>
+        {startAdornment}
         <Icon {...iconProps} />
         <Label {...labelProps} />
       </Content>

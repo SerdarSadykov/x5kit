@@ -14,7 +14,7 @@ export type SelectInternalValue = SelectSingleValue[];
 
 export type SelectOption = {
   icon?: ReactNode;
-  childs?: SelectOption;
+  childs?: SelectOption[];
 } & CheckboxTreeOption;
 
 export type HandleOptionClick = (event, option: SelectOption) => void;

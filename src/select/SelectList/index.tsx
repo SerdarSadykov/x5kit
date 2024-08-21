@@ -16,7 +16,7 @@ import {theme} from 'theme';
 import {SelectContext} from '../Select';
 import {SelectItems, SelectItemsProps} from '../SelectItems';
 import {Hint} from '../Hint';
-import {SelectState} from '../types';
+import {SelectInternalValue, SelectOption, SelectState} from '../types';
 
 const Container = styled(DropdownContent)``;
 
@@ -26,9 +26,15 @@ const NotFound = styled.div`
   ${theme.typography.p1};
 `;
 
+const getValues = (option: SelectOption): SelectInternalValue => {
+  return option.childs ? [option.value, ...option.childs.flatMap(getValues)] : [option.value];
+};
+
 export const SelectList: React.FC = () => {
   const {options, value, onChange, multiple, state, getQA, hint, header, footer, searching, notFound} =
     useContext(SelectContext);
+
+    const isFiltred = state === SelectState.filtred;
 
   if (state === SelectState.loading) {
     const child = searching ?? <LoaderItem>Поиск совпадений</LoaderItem>;
@@ -36,7 +42,7 @@ export const SelectList: React.FC = () => {
     return <Container>{child}</Container>;
   }
 
-  if (state === SelectState.filtred && !options.filtred.length) {
+  if (isFiltred && !options.filtred.length) {
     const child = notFound ?? <NotFound>Ничего не найдено</NotFound>;
 
     return <Container>{child}</Container>;
@@ -46,7 +52,8 @@ export const SelectList: React.FC = () => {
     value,
     onChange,
     multiple,
-    options: state === SelectState.filtred ? options.filtred : options.all,
+    options: isFiltred ? options.filtred : options.all,
+    opened: isFiltred ? options.filtred.flatMap(getValues) : undefined,
     qa: getQA('list'),
   };
 

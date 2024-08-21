@@ -18,12 +18,16 @@ export const CheckboxTree = forwardRef<HTMLDivElement, CheckboxTreeProps>((props
     toggleOpenedValue(newToggled);
   };
 
+  const hasChildsInDepth = options.findIndex(option => !!option.childs?.length) !== -1;
+
   const itemProps = {
     value,
     onChange,
     toggleOpened,
+    hasChildsInDepth,
 
     opened: props.opened ?? openedValue,
+    depth: 0,
   };
 
   const child = options.map(option => (

@@ -7,31 +7,24 @@ import {Checkbox, CheckboxProps} from 'checkbox';
 import {ItemProps, useParentItem} from './hook';
 
 const Container = styled.div`
-  margin-bottom: 12px;
-
-  :last-child {
-    margin-bottom: 0;
-  }
-
   mark {
     color: ${theme.colors.accent[80]};
     background-color: transparent;
   }
 `;
 
-const CheckboxContainer = styled.div`
-  display: flex;
-  gap: 8px;
-`;
-
-const ChildsContainer = styled.div`
-  padding: 12px 0 0 48px;
+const CheckboxContainer = styled.div<Pick<ItemProps, 'depth'>>`
+  label {
+    padding: 6px 12px;
+    padding-left: ${props => props.depth * 24 + 12}px;
+  }
 `;
 
 const Button = styled.button`
   width: 16px;
   height: 20px;
   padding: 0;
+  flex-shrink: 0;
   box-sizing: border-box;
   outline: none;
   border: 0;
@@ -46,29 +39,36 @@ const Button = styled.button`
   }
 `;
 
+const ButtonPlaceholder = styled.div`
+  width: 16px;
+  flex-shrink: 0;
+`;
+
 const ParentItem: React.FC<ItemProps> = props => {
   const {disabled, readOnly} = props.option;
-  const {option, childs, isOpen, itemProps, checkboxProps, onToggle} = useParentItem(props);
+  const {option, childs, isOpen, itemProps, checkboxProps, onToggle, depth} = useParentItem(props);
 
-  const items = childs.map(child => (
-    <Item key={`${option.value}-${child.value}`} option={{disabled, readOnly, ...child}} {...itemProps} />
-  ));
+  const items =
+    isOpen &&
+    childs.map(child => (
+      <Item key={`${option.value}-${child.value}`} option={{disabled, readOnly, ...child}} {...itemProps} />
+    ));
 
   const Icon = isOpen ? ChevronDown : ChevronRight;
 
-  const children = isOpen && <ChildsContainer>{items}</ChildsContainer>;
+  const startAdornment = (
+    <Button type="button" onClickCapture={onToggle}>
+      <Icon size={SizeTokenValue.Small} />
+    </Button>
+  );
 
   return (
     <Container>
-      <CheckboxContainer>
-        <Button type="button" onClick={onToggle}>
-          <Icon size={SizeTokenValue.Small} />
-        </Button>
-
-        <Checkbox {...checkboxProps} />
+      <CheckboxContainer depth={depth}>
+        <Checkbox {...checkboxProps} startAdornment={startAdornment} />
       </CheckboxContainer>
 
-      {children}
+      {items}
     </Container>
   );
 };
@@ -78,7 +78,7 @@ export const Item: React.FC<ItemProps> = props => {
     return <ParentItem {...props} />;
   }
 
-  const {option, value} = props;
+  const {option, value, depth, hasChildsInDepth} = props;
 
   const checked = value.includes(option.value);
 
@@ -88,11 +88,15 @@ export const Item: React.FC<ItemProps> = props => {
     props.onChange(newValues, option, e);
   };
 
-  const optionProps = {...option, checked, onChange};
+  const startAdornment = hasChildsInDepth || depth > 0 ? <ButtonPlaceholder /> : undefined;
+
+  const optionProps = {...option, checked, onChange, startAdornment};
 
   return (
     <Container>
-      <Checkbox {...optionProps} />
+      <CheckboxContainer depth={depth}>
+        <Checkbox {...optionProps} />
+      </CheckboxContainer>
     </Container>
   );
 };

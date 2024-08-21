@@ -1,19 +1,30 @@
 import {CheckboxProps} from 'checkbox/types';
 
 import {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from '../types';
+import {MouseEventHandler} from 'react';
 
 export type ItemProps = {
   option: CheckboxTreeOption;
   value: CheckboxTreeOptionValue[];
+  depth: number;
+  hasChildsInDepth: boolean;
 }
   & Required<Pick<CheckboxTreeProps, 'onChange' | 'opened' | 'toggleOpened'>>;
 
-const getValues = (option: CheckboxTreeOption): CheckboxTreeOptionValue[] => {
-  return option.childs ? [option.value, ...option.childs.flatMap(getValues)] : [option.value];
+const getValues = (options: CheckboxTreeOption[], enabledOnly: boolean): CheckboxTreeOptionValue[] => {
+  const traverse = (option: CheckboxTreeOption) => {
+    if (enabledOnly && (option.disabled || option.readOnly)) {
+      return [];
+    }
+
+    return option.childs ? [option.value, ...option.childs.flatMap(traverse)] : [option.value];
+  };
+
+  return options.flatMap(traverse);
 };
 
 export const useParentItem = (props: ItemProps) => {
-  const {option, opened, toggleOpened, value} = props;
+  const {option, opened, toggleOpened, value, depth} = props;
   const {childs = [], ...optionProps} = option;
 
   const checked = ((): CheckboxProps['checked'] => {
@@ -21,30 +32,48 @@ export const useParentItem = (props: ItemProps) => {
       return true;
     }
 
-    const allValues = childs.flatMap(getValues);
-    const isChildsChecked = value.findIndex(value => allValues.includes(value)) !== -1;
+    const childValues = getValues(childs, false);
+    const isAnyChildChecked = value.findIndex(value => childValues.includes(value)) !== -1;
 
-    return isChildsChecked ? 'halfOn' : false;
+    return isAnyChildChecked ? 'halfOn' : false;
   })();
 
   const isOpen = opened.includes(option.value);
 
-  const onToggle = () => toggleOpened(option.value);
+  const hasChildsInDepth = childs.findIndex(item => !!item.childs?.length) !== -1;
 
-  const onChange: CheckboxProps['onChange'] = e => {
-    const allValues = getValues(option);
-    const newValues = checked ? value.filter(value => !allValues.includes(value)) : [...value, ...allValues];
-
-    props.onChange(newValues, option, e);
+  const onToggle: MouseEventHandler = e => {
+    e.stopPropagation();
+    e.preventDefault();
+    toggleOpened(option.value);
   };
 
-  const onOptionChange: ItemProps['onChange'] = (newValues, target, e) => {
-    const newValueExcept = newValues.filter(value => value !== option.value);
+  const onChange: CheckboxProps['onChange'] = e => {
+    const childValues = getValues(childs, false);
 
-    const allValues = childs.flatMap(getValues);
-    const allChildsChecked = allValues.findIndex(value => !newValues.includes(value)) === -1;
+    let newValue: CheckboxTreeOptionValue[] = [];
 
-    const resultValues = allChildsChecked ? [...newValueExcept, option.value] : newValueExcept;
+    if (checked) {
+      newValue = value.filter(value => value !== option.value && !childValues.includes(value));
+    } else {
+      const childEnabledValues = getValues(childs, true);
+
+      newValue = [...value, ...childEnabledValues];
+
+      if (childValues.length === childEnabledValues.length) {
+        newValue.push(option.value);
+      }
+    }
+
+    props.onChange(newValue, option, e);
+  };
+
+  const onOptionChange: ItemProps['onChange'] = (newValue, target, e) => {
+    const newValueExceptThis = newValue.filter(value => value !== option.value);
+
+    const allChildsChecked = getValues(childs, false).findIndex(value => !newValue.includes(value)) === -1;
+
+    const resultValues = allChildsChecked ? [...newValueExceptThis, option.value] : newValueExceptThis;
 
     props.onChange(resultValues, target, e);
   };
@@ -53,7 +82,9 @@ export const useParentItem = (props: ItemProps) => {
     value,
     opened,
     toggleOpened,
+    hasChildsInDepth,
     onChange: onOptionChange,
+    depth: depth + 1,
   };
 
   const checkboxProps = {...optionProps, checked, onChange};
@@ -65,5 +96,6 @@ export const useParentItem = (props: ItemProps) => {
     itemProps,
     checkboxProps,
     onToggle,
+    depth,
   };
 };

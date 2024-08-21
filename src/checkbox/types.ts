@@ -15,4 +15,5 @@ export type CheckboxStyles = {
 
 export type CheckboxProps = {
   label?: ReactNode;
+  startAdornment?: ReactNode;
 } & QA & PropsWithChildren & CheckboxStyles & Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>;

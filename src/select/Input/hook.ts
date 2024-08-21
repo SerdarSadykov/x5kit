@@ -73,18 +73,12 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
     props.onFocus?.(e);
   };
 
-  const onBlur: FocusEventHandler<HTMLInputElement> = e => {
-    setIsOpen(false);
-    props.onBlur?.(e);
-  };
-
   const inputProps = {
     ...props,
 
     ref,
     onChange,
     onFocus,
-    onBlur,
 
     value: inputValue,
 

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import {RequiredQA} from 'common';
+import {CheckboxTreeProps} from 'checkboxTree';
 
 import {SelectMultipleItems} from '../SelectMultipleItems';
 import {SelectOption, SelectProps} from '../types';
@@ -13,7 +14,7 @@ const ListItem = styled.div`
 
 export type SelectItemsProps = {
   options: SelectOption[];
-} & RequiredQA & Pick<SelectProps, 'value' | 'onChange' | 'multiple'>;
+} & RequiredQA & Pick<SelectProps, 'value' | 'onChange' | 'multiple'> & Pick<CheckboxTreeProps, 'opened'>;
 
 export const SelectItems: React.FC<SelectItemsProps> = props => {
   if (props.multiple) {
