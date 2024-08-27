@@ -52,12 +52,14 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
   };
 
   const inputProps = {
-    ref: inputRef,
-
     ...rest,
 
+    readOnly,
+    error,
+    disabled,
     type: 'checkbox',
     checked: checked === true,
+    ref: inputRef,
 
     onChange: props.onChange,
   };

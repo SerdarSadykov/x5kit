@@ -6,6 +6,8 @@ import {theme} from 'theme';
 import {CheckboxProps, CheckboxStyles} from '../types';
 
 const Container = styled.div<CheckboxStyles>`
+  min-width: 0;
+  word-wrap: break-word;
   user-select: none;
   color: ${props => theme.colors.grey[props.disabled ? 40 : 100]};
 

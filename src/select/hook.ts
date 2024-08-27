@@ -14,6 +14,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     multiple,
     showChips,
     filter,
+    virtualize,
     listComponent,
 
     hint,
@@ -43,6 +44,18 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     setOptions({all: baseOptions, filtred: []});
   }, [baseOptions]);
 
+  const dropdownProps: Omit<DropdownProps, 'children'> & Pick<SelectContextProps, 'maxHeight'> = {
+    isOpen,
+    setIsOpen,
+
+    targetRef: ref,
+    isPortal: true,
+    maxHeight: 304,
+    qa: getQA('dropdown'),
+
+    ...baseDropdownProps,
+  };
+
   const context: SelectContextProps = {
     state,
     setState,
@@ -58,6 +71,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     filter,
     isOpen,
     setIsOpen,
+    virtualize,
 
     hint,
     header,
@@ -65,18 +79,9 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     searching,
     notFound,
     itemComponent,
-  };
 
-  const dropdownProps: Omit<DropdownProps, 'children'> = {
-    isOpen,
-    setIsOpen,
-
-    targetRef: ref,
-    isPortal: true,
-    height: 304,
-    qa: getQA('dropdown'),
-
-    ...baseDropdownProps,
+    height: dropdownProps.height,
+    maxHeight: dropdownProps.maxHeight,
   };
 
   const inputProps = {

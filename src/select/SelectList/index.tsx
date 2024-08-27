@@ -1,12 +1,4 @@
-// import React, {Fragment, useEffect, MouseEvent, Children, ReactNode} from 'react';
-// import {ListCheckedItem} from '../ListCheckedItem';
-// import {ListItem} from '../ListItem';
-// import {useScrollStyles} from '../Scroll';
-//import {StyledSelectMenu} from './styles';
-// import {getQAAttribute, QA} from 'common';
-// import {CheckboxTree} from 'checkboxTree';
-
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import styled from '@emotion/styled';
 
 import {DropdownContent} from 'dropdown';
@@ -14,14 +6,9 @@ import {LoaderItem} from 'loader';
 import {SizeTokenValue, theme} from 'theme';
 
 import {SelectContext} from '../Select';
-import {SelectItems, SelectItemsProps} from '../SelectItems';
+import {SelectItems} from '../SelectItems';
 import {Hint} from '../Hint';
-import {SelectInternalValue, SelectOption, SelectState} from '../types';
-
-const Container = styled(DropdownContent)`
-  display: flex;
-  flex-direction: column;
-`;
+import {SelectState, SelectItemsProps} from '../types';
 
 const Empty = styled.div`
   padding: 12px;
@@ -30,48 +17,67 @@ const Empty = styled.div`
   ${theme.typography.p1};
 `;
 
-const getValues = (option: SelectOption): SelectInternalValue => {
-  return option.childs ? [option.value, ...option.childs.flatMap(getValues)] : [option.value];
-};
-
 export const SelectList: React.FC = () => {
-  const {options, value, onChange, multiple, setIsOpen, state, getQA, hint, header, footer, searching, notFound} =
-    useContext(SelectContext);
+  const context = useContext(SelectContext);
+  const {state, hint} = context;
+
+  const [clientWidth, setClientWidth] = useState<number>();
 
   if (state === SelectState.loading) {
-    const child = searching ?? (
+    const child = context.searching ?? (
       <Empty>
         <LoaderItem size={SizeTokenValue.Small}>Поиск совпадений</LoaderItem>
       </Empty>
     );
 
-    return <Container>{child}</Container>;
+    return <DropdownContent>{child}</DropdownContent>;
   }
 
   const isFiltred = state === SelectState.filtred;
 
-  if (isFiltred && !options.filtred.length) {
-    const child = notFound ?? <Empty>Ничего не найдено</Empty>;
-
-    return <Container>{child}</Container>;
+  if (isFiltred && !context.options.filtred.length) {
+    const child = context.notFound ?? <Empty>Ничего не найдено</Empty>;
+    return <DropdownContent>{child}</DropdownContent>;
   }
 
-  const selectItemsProps: SelectItemsProps = {
-    value,
-    onChange,
-    multiple,
-    setIsOpen,
-    options: isFiltred ? options.filtred : options.all,
-    opened: isFiltred ? options.filtred.flatMap(getValues) : undefined,
-    qa: getQA('list'),
+  const options = isFiltred ? context.options.filtred : context.options.all;
+  if (!options.length) {
+    const child = context.empty ?? <Empty>Ничего не найдено</Empty>;
+    return <DropdownContent>{child}</DropdownContent>;
+  }
+
+  const ref = (e: HTMLDivElement | null) => {
+    if (!e?.clientWidth) {
+      return;
+    }
+
+    setClientWidth(e.clientWidth);
   };
 
+  const selectItemsProps: SelectItemsProps = {
+    state,
+    options,
+    clientWidth,
+    value: context.value,
+    onChange: context.onChange,
+    multiple: context.multiple,
+    setIsOpen: context.setIsOpen,
+    height: context.height,
+    maxHeight: context.maxHeight,
+    virtualize: context.virtualize && options.length > 20,
+    qa: context.getQA('list'),
+  };
+
+  const Component = context.itemsComponent ?? SelectItems;
+
+  const child = !!clientWidth && <Component {...selectItemsProps} />;
+
   return (
-    <Container>
+    <DropdownContent ref={ref}>
       {hint && <Hint>{hint}</Hint>}
-      {header}
-      <SelectItems {...selectItemsProps} />
-      {footer}
-    </Container>
+      {context.header}
+      {child}
+      {context.footer}
+    </DropdownContent>
   );
 };

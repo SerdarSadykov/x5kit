@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import type {Meta} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react';
 
 import inputStory from 'input/Input.stories';
 
@@ -32,23 +32,21 @@ export const Select: React.FC<SelectProps> = props => {
   );
 };
 
-const options: SelectOption[] = [
-  {label: 'Davletshin', value: 'davletshin', disabled: false},
-  {label: 'Andreev', value: 'andreev', disabled: false},
-  {label: 'Glebov', value: 'glebov', disabled: false},
-  {label: 'Sevostyanov', value: 'sevostyanov', disabled: false},
-  {label: 'Uvarova', value: 'uvarova', disabled: true},
-  {label: 'Okulov', value: 'okulov', disabled: false},
-  {label: 'Antipin', value: 'antipin', disabled: false},
-  {label: 'Kuzmina', value: 'kuzmina', disabled: false},
-  {label: 'Korotkikh', value: 'korotkikh', disabled: true},
-  {label: 'Shiganova', value: 'shiganova', disabled: false},
-  {label: 'Shorova', value: 'shorova', disabled: false},
-  {label: 'Shevkun', value: 'shevkun', disabled: true},
-  {label: 'Ovcharenko', value: 'ovcharenko', disabled: false},
+const getOptions = (i): SelectOption[] => [
+  {label: `Andreev0Andreev0AndraaaAA${i}`, value: `davletshin${i}`, disabled: false},
+  {label: `Andreev0A ndreev 0An draa aAA ndreev 0An draa aAA ndreev 0An draa aAA ndreev 0An draa aAA${i}`, value: `andreev${i}`, disabled: false},
+  {label: `Glebov${i}`, value: `glebov${i}`, disabled: false},
+  {label: `Sevostyanov${i}`, value: `sevostyanov${i}`, disabled: false},
+  {label: `Uvarova${i}`, value: `uvarova${i}`, disabled: true},
+  {label: `Okulov${i}`, value: `okulov${i}`, disabled: false},
+  {label: `Antipin${i}`, value: `antipin${i}`, disabled: false},
+  {label: `Kuzmina${i}`, value: `kuzmina${i}`, disabled: false},
+  {label: `Korotkikh${i}`, value: `korotkikh${i}`, disabled: true},
+  {label: `Shiganova${i}`, value: `shiganova${i}`, disabled: false},
+  {label: `Shorova${i}`, value: `shorova${i}`, disabled: false},
+  {label: `Shevkun${i}`, value: `shevkun${i}`, disabled: true},
+  {label: `Ovcharenko${i}`, value: `ovcharenko${i}`, disabled: false},
 ];
-
-const treeOptions = CheckboxTreeStory.args.options;
 
 const meta = {
   title: 'Select',
@@ -91,12 +89,33 @@ const meta = {
     qa: {type: 'string', control: 'text'},
   },
   args: {
-    options,
-    // options: treeOptions,
+    options: getOptions(0),
     multiple: true,
 
     label: 'Выберите варианты',
   },
 } satisfies Meta<typeof Select>;
+
+export const SelectTree: StoryObj<typeof Select> = {
+  args: {
+    options: CheckboxTreeStory.args.options,
+    multiple: true,
+
+    label: 'Выберите варианты',
+  },
+};
+
+export const SelectVirtualized: StoryObj<typeof Select> = {
+  // argTypes: {
+  //   options: undefined,
+  // },
+  args: {
+    options: Array(500).fill(1).flatMap((_, i) => getOptions(i)),
+    multiple: true,
+    virtualize: true,
+
+    label: 'Выберите варианты',
+  },
+};
 
 export default meta;

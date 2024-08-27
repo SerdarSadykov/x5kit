@@ -7,16 +7,20 @@ import {LoaderItemProps} from './types';
 
 export const Container = styled.div`
   display: flex;
-  align-items: 'center';
-  padding: 6px 12px;
+  align-items: center;
+  gap: 8px;
   color: ${theme.colors.grey[40]};
+
+  ${theme.typography.p1compact};
 `;
 
-export const Content = styled.div(theme.typography.p3);
+export const LoaderItem: React.FC<LoaderItemProps> = ({children, size, color, qa, ...props}) => {
+  const loaderProps = {size, color};
 
-export const LoaderItem: React.FC<LoaderItemProps> = ({children, size}) => (
-  <Container>
-    <Loader size={size} />
-    <Content>{children}</Content>
-  </Container>
-);
+  return (
+    <Container data-qa={qa} {...props}>
+      <Loader {...loaderProps} />
+      <div>{children}</div>
+    </Container>
+  );
+};

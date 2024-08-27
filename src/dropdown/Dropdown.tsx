@@ -29,9 +29,10 @@ const Container = styled.div<Pick<DropdownProps, 'width' | 'height' | 'maxHeight
 `;
 
 export const DropdownContent = styled.div`
-  max-height: 100%;
+  height: 100%;
   border-radius: 8px;
   box-shadow: ${theme.shadows.medium};
+  background-color: ${theme.colors.white};
 `;
 
 export const Dropdown: React.FC<DropdownProps> = props => {

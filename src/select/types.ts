@@ -4,7 +4,8 @@ import {Placement, SizeTokenValue} from 'theme';
 import {InputProps} from 'input';
 import {getQAAttribute, QA, RequiredQA} from 'common';
 import {DropdownProps} from 'dropdown';
-import {CheckboxTreeOption, CheckboxTreeOptionValue} from 'checkboxTree';
+import {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from 'checkboxTree';
+import {VariableSizeListProps} from 'react-window';
 
 export type SelectSingleValue = CheckboxTreeOptionValue;
 export type SelectMultipleValue = SelectSingleValue[];
@@ -18,11 +19,27 @@ export type SelectOption = {
   childs?: SelectOption[];
 } & Omit<CheckboxTreeOption, 'label'>;;
 
+export type SelectItemsProps = {
+  options: SelectOption[];
+  clientWidth: number | undefined;
+} & RequiredQA &
+  Pick<
+    SelectContextProps,
+    | 'state'
+    | 'value'
+    | 'onChange'
+    | 'multiple'
+    | 'sort'
+    | 'setIsOpen'
+    | 'height'
+    | 'maxHeight'
+    | 'virtualize'
+  >;
+
 export type SelectItemProps = {
   option: SelectOption;
   checked: boolean; // isActive
-  onChange: ChangeEventHandler<HTMLInputElement>;
-};
+} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'>;
 
 export type SelectListOnChange =
   (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
@@ -70,9 +87,13 @@ export type SelectListProps = {
   hint?: ReactNode;
   header?: ReactNode;
   footer?: ReactNode;
-  searching: ReactNode;
-  notFound: ReactNode;
-  itemComponent?: React.FC;
+
+  searching?: ReactNode;
+  notFound?: ReactNode;
+  empty?: ReactNode;
+
+  itemsComponent?: React.FC<SelectItemsProps>;
+  itemComponent?: React.FC<SelectItemProps>;
 };
 
 export type SelectProps = {
@@ -86,10 +107,13 @@ export type SelectProps = {
   dropdownProps?: Partial<DropdownProps>;
 
   listComponent?: React.FC;
-  itemComponent?: React.FC<SelectItemProps>;
 
   multiple?: boolean;
   showChips?: boolean;
+
+  virtualize?: VariableSizeListProps | boolean;
+
+  sort?: (a: SelectOption, b: SelectOption) => number;
 
   // name?: string;
   // size?: SizeTokenValue;
@@ -132,6 +156,8 @@ export type SelectContextProps = {
   getQA: ReturnType<typeof getQAAttribute>;
 
   onClear: () => void;
-} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'showChips' | 'filter'>
-  & Pick<DropdownProps, 'isOpen' | 'setIsOpen'>
+
+} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'sort' | 'showChips' | 'filter' | 'virtualize'>
+  & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
+  & Required<Pick<DropdownProps, 'maxHeight'>>
   & SelectListProps;
