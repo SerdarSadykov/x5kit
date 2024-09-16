@@ -1,4 +1,5 @@
 import {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
+import {CSSObject} from '@emotion/react';
 
 import {QA} from 'common';
 
@@ -11,7 +12,7 @@ export type CheckboxStyles = {
   error?: boolean;
 
   hasLabel?: boolean;
-};
+} & Pick<CSSObject, 'whiteSpace'>;
 
 export type CheckboxProps = {
   label?: ReactNode;

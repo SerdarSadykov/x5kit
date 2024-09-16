@@ -26,8 +26,8 @@ export const Button = styled.button`
   }
 `;
 
-export const EndAdornment: React.FC<ChipProps> = ({endAdornment, onDelete}) => {
-  if (onDelete) {
+export const EndAdornment: React.FC<ChipProps> = ({endAdornment, onDelete, disabled}) => {
+  if (onDelete && !disabled) {
     const onClick: MouseEventHandler = e => {
       e.stopPropagation();
       onDelete();

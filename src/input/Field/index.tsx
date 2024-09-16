@@ -21,10 +21,11 @@ export const FieldComponent = styled.input<InputStyles>`
     background-color: ${theme.colors.accent[10]};
   }
 
-  ${({isSmall, isFocused, isFilled, isLabeled}) => ({
+  ${({isSmall, isFocused, isFilled, isLabeled, readOnly}) => ({
     minHeight: isSmall ? 32 : 48,
     paddingTop: isFilled && isLabeled && !isSmall ? 14 : 0,
     textOverflow: !isFocused ? 'ellipsis' : undefined,
+    cursor: readOnly ? 'default' : undefined,
   })}
 `;
 

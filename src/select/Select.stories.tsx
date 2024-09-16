@@ -1,8 +1,9 @@
 import {useState} from 'react';
 import type {Meta, StoryObj} from '@storybook/react';
 
-import inputStory from 'input/Input.stories';
+import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 
+import inputStory from 'input/Input.stories';
 import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 
 import {Select as BaseSelect} from './Select';
@@ -12,6 +13,10 @@ import {SelectListOnChange, SelectOption, SelectProps, SelectValue} from './type
 export const Select: React.FC<SelectProps> = props => {
   const [value, setValue] = useState<SelectValue>([]);
 
+  const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
+  const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
+  const filter = typeof props.filter === 'boolean' ? (props.filter ? containsFilter : undefined) : props.filter;
+
   const onChange: SelectListOnChange = newValue => {
     setValue(newValue);
   };
@@ -19,10 +24,12 @@ export const Select: React.FC<SelectProps> = props => {
   const resultProps: SelectProps = {
     ...props,
 
-    value: value as never,
     onChange,
+    startAdornment,
+    endAdornment,
+    filter,
 
-    filter: containsFilter,
+    value: value as never,
   };
 
   return (
@@ -32,9 +39,37 @@ export const Select: React.FC<SelectProps> = props => {
   );
 };
 
+type FetchedItem = {
+  id: string;
+  title: string;
+};
+
+export const SelectFetch: React.FC<SelectProps> = props => {
+  const [options, setOptions] = useState<SelectOption[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const onFocus = () => {
+    setIsLoading(true);
+    fetch('https://jsonplaceholder.org/posts')
+      .then<FetchedItem[]>(resp => resp.json())
+      .then(resp => {
+        const newOptions = resp.map<SelectOption>(item => ({
+          label: item.title,
+          value: item.id,
+        }));
+
+        setOptions(newOptions);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  return <Select {...props} options={options} onFocus={onFocus} loading={isLoading} />;
+};
+
 const getOptions = (i): SelectOption[] => [
-  {label: `Andreev0Andreev0AndraaaAA${i}`, value: `davletshin${i}`, disabled: false},
-  {label: `Andreev0A ndreev 0An draa aAA ndreev 0An draa aAA ndreev 0An draa aAA ndreev 0An draa aAA${i}`, value: `andreev${i}`, disabled: false},
+  {label: `Andreev${i}`, value: `davletshin${i}`, disabled: false},
   {label: `Glebov${i}`, value: `glebov${i}`, disabled: false},
   {label: `Sevostyanov${i}`, value: `sevostyanov${i}`, disabled: false},
   {label: `Uvarova${i}`, value: `uvarova${i}`, disabled: true},
@@ -64,9 +99,20 @@ const meta = {
       description: 'Подсказка',
     },
 
-    showChips: {
+    filter: {
+      type: 'SelectFilter',
+      control: 'boolean',
+      description: 'Колбэк поиска',
+    },
+
+    multiple: {
       type: 'boolean',
       control: 'boolean',
+    },
+
+    showChips: {
+      type: 'number',
+      control: 'number',
       description: 'Названия выбранных элементов вместо кол-ва',
     },
 
@@ -76,21 +122,20 @@ const meta = {
     //   options: ['pre', 'pre-wrap', 'pre-line'],
     // },
 
-    // startAdornment: {
-    //   type: 'boolean',
-    //   control: 'boolean',
-    // },
+    startAdornment: {
+      type: 'boolean',
+      control: 'boolean',
+    },
 
-    // endAdornment: {
-    //   type: 'boolean',
-    //   control: 'boolean',
-    // },
+    endAdornment: {
+      type: 'boolean',
+      control: 'boolean',
+    },
 
     qa: {type: 'string', control: 'text'},
   },
   args: {
     options: getOptions(0),
-    multiple: true,
 
     label: 'Выберите варианты',
   },
@@ -106,12 +151,15 @@ export const SelectTree: StoryObj<typeof Select> = {
 };
 
 export const SelectVirtualized: StoryObj<typeof Select> = {
-  // argTypes: {
-  //   options: undefined,
-  // },
+  argTypes: {
+    options: {
+      control: false,
+    },
+  },
   args: {
-    options: Array(500).fill(1).flatMap((_, i) => getOptions(i)),
-    multiple: true,
+    options: Array(500)
+      .fill(1)
+      .flatMap((_, i) => getOptions(i)),
     virtualize: true,
 
     label: 'Выберите варианты',

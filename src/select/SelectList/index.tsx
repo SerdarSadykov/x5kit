@@ -23,7 +23,7 @@ export const SelectList: React.FC = () => {
 
   const [clientWidth, setClientWidth] = useState<number>();
 
-  if (state === SelectState.loading) {
+  if (state === SelectState.searching) {
     const child = context.searching ?? (
       <Empty>
         <LoaderItem size={SizeTokenValue.Small}>Поиск совпадений</LoaderItem>
@@ -34,16 +34,15 @@ export const SelectList: React.FC = () => {
   }
 
   const isFiltred = state === SelectState.filtred;
+  const options = isFiltred ? context.options.filtred : context.options.all;
 
-  if (isFiltred && !context.options.filtred.length) {
+  if (isFiltred && !options.length) {
     const child = context.notFound ?? <Empty>Ничего не найдено</Empty>;
     return <DropdownContent>{child}</DropdownContent>;
   }
 
-  const options = isFiltred ? context.options.filtred : context.options.all;
-  if (!options.length) {
-    const child = context.empty ?? <Empty>Ничего не найдено</Empty>;
-    return <DropdownContent>{child}</DropdownContent>;
+  if (!options.length && !context.header && !context.footer) {
+    return null;
   }
 
   const ref = (e: HTMLDivElement | null) => {
@@ -65,6 +64,8 @@ export const SelectList: React.FC = () => {
     height: context.height,
     maxHeight: context.maxHeight,
     virtualize: context.virtualize && options.length > 20,
+    whiteSpace: context.whiteSpace,
+    itemComponent: context.itemComponent,
     qa: context.getQA('list'),
   };
 

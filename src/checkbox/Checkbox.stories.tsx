@@ -1,5 +1,6 @@
 import {ChangeEventHandler, useState} from 'react';
 import type {Meta} from '@storybook/react';
+import {CSSObject} from '@emotion/react';
 
 import {Link} from 'link';
 
@@ -74,6 +75,12 @@ const meta = {
       options: [false, true, 'halfOn'],
     },
 
+    whiteSpace: {
+      type: 'string',
+      control: 'select',
+      options: ['pre', 'pre-wrap', 'pre-line', 'nowrap'] as Array<CSSObject['whiteSpace']>,
+    },
+
     disabled: {
       type: 'boolean',
       control: 'boolean',
@@ -98,7 +105,6 @@ const meta = {
   },
   args: {
     label: 'Label',
-    maxLength: 25,
   },
 } satisfies Meta<typeof Checkbox>;
 

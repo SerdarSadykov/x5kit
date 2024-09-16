@@ -1,4 +1,4 @@
-import React, {MouseEventHandler, ChangeEventHandler, ReactNode, ChangeEvent} from 'react';
+import React, {MouseEventHandler, ChangeEventHandler, ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
 
 import {Placement, SizeTokenValue} from 'theme';
 import {InputProps} from 'input';
@@ -6,6 +6,7 @@ import {getQAAttribute, QA, RequiredQA} from 'common';
 import {DropdownProps} from 'dropdown';
 import {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from 'checkboxTree';
 import {VariableSizeListProps} from 'react-window';
+import {CSSObject} from '@emotion/react';
 
 export type SelectSingleValue = CheckboxTreeOptionValue;
 export type SelectMultipleValue = SelectSingleValue[];
@@ -17,7 +18,7 @@ export type SelectOption = {
   label: string;
   icon?: ReactNode;
   childs?: SelectOption[];
-} & Omit<CheckboxTreeOption, 'label'>;;
+} & PropsWithChildren & Omit<CheckboxTreeOption, 'label'>;;
 
 export type SelectItemsProps = {
   options: SelectOption[];
@@ -29,17 +30,18 @@ export type SelectItemsProps = {
     | 'value'
     | 'onChange'
     | 'multiple'
-    | 'sort'
     | 'setIsOpen'
     | 'height'
     | 'maxHeight'
     | 'virtualize'
-  >;
+    | 'whiteSpace'
+  >
+  & Pick<SelectListProps, 'itemComponent'>;
 
 export type SelectItemProps = {
   option: SelectOption;
   checked: boolean; // isActive
-} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'>;
+} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> & Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
 
 export type SelectListOnChange =
   (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
@@ -79,18 +81,17 @@ export type SelectFilter = {
 
 export enum SelectState {
   default = 'default',
-  loading = 'loading',
+  searching = 'searching',
   filtred = 'filtred',
 }
 
-export type SelectListProps = {
+type SelectListProps = {
   hint?: ReactNode;
   header?: ReactNode;
   footer?: ReactNode;
 
   searching?: ReactNode;
   notFound?: ReactNode;
-  empty?: ReactNode;
 
   itemsComponent?: React.FC<SelectItemsProps>;
   itemComponent?: React.FC<SelectItemProps>;
@@ -109,11 +110,9 @@ export type SelectProps = {
   listComponent?: React.FC;
 
   multiple?: boolean;
-  showChips?: boolean;
+  showChips?: number;
 
   virtualize?: VariableSizeListProps | boolean;
-
-  sort?: (a: SelectOption, b: SelectOption) => number;
 
   // name?: string;
   // size?: SizeTokenValue;
@@ -137,6 +136,7 @@ export type SelectProps = {
   // onClearFilterClick?: MouseEventHandler;
   // onClearClick?: MouseEventHandler;
 } & QA
+  & Pick<CSSObject, 'whiteSpace'>
   & Omit<InputProps, 'value' | 'onChange'>
   & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>
   & SelectListProps;
@@ -157,7 +157,7 @@ export type SelectContextProps = {
 
   onClear: () => void;
 
-} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'sort' | 'showChips' | 'filter' | 'virtualize'>
+} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'disabled' | 'readOnly' | 'showChips' | 'filter' | 'virtualize' | 'whiteSpace'>
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
   & Required<Pick<DropdownProps, 'maxHeight'>>
   & SelectListProps;

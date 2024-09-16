@@ -1,19 +1,22 @@
-import {memo} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
-import {ListProps, VariableSizeList, VariableSizeListProps} from 'react-window';
+import {VariableSizeList, VariableSizeListProps} from 'react-window';
 
 import {theme} from 'theme';
 
-import {SelectItemsMultiple} from '../SelectItemsMultiple';
-import {getItem} from './SelectItem';
 import {SelectItemsProps} from '../types';
 
-const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight'>>`
+import {SelectItemsMultiple} from './SelectItemsMultiple';
+import {getItem, getVirtualizedItem} from './SelectItem';
+import {getItemSize} from './utils';
+
+const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
   padding: 8px 0;
+  overflow: auto;
 
   ${theme.scroll}
 
-  ${props => ({height: props.height, maxHeight: props.maxHeight})}
+  ${props => ({height: props.height, maxHeight: props.maxHeight, whiteSpace: props.whiteSpace})}
 
   mark {
     color: ${theme.colors.accent[80]};
@@ -22,40 +25,31 @@ const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight'>>`
 `;
 
 const Virtualized: React.FC<SelectItemsProps> = props => {
-  if (props.multiple) {
-    return <SelectItemsMultiple {...props} />;
-  }
+  const ref = useRef<VariableSizeList>(null);
+  const {options, height, maxHeight} = props;
 
-  const {clientWidth, height, maxHeight} = props;
+  const itemSize = typeof props.virtualize === 'object' ? props.virtualize.itemSize : getItemSize(props);
 
-  const options = props.sort ? props.options.sort(props.sort) : props.options;
-
-  const itemSize: VariableSizeListProps['itemSize'] = index => {
-    if (!clientWidth) {
-      return 32;
-    }
-
-    const labelLength = props.options[index].label.length + 12;
-
-    return 20 * Math.ceil((8.625 * labelLength) / clientWidth) + 12;
-  };
-
-  const Item: ListProps<SelectItemsProps>['children'] = ({index, style}) => {
-    const child = getItem(options[index], props);
-
-    return <div style={style}>{child}</div>;
-  };
-
-  const listProps: VariableSizeListProps = {
+  const listProps = {
     itemSize,
+    ref,
 
-    children: Item,
+    children: getVirtualizedItem,
     itemCount: options.length,
     height: height ?? maxHeight,
     width: '100%',
+    itemData: props,
+  } as VariableSizeListProps;
+
+  const containerProps = {
+    height,
+    maxHeight,
+    whiteSpace: props.whiteSpace,
   };
 
-  const containerProps = {height, maxHeight};
+  useEffect(() => {
+    ref.current?.resetAfterIndex(0);
+  }, [options]);
 
   return (
     <Container {...containerProps}>
@@ -65,19 +59,23 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
 };
 
 export const SelectItems = memo<SelectItemsProps>(props => {
-  if (props.multiple) {
-    return <SelectItemsMultiple {...props} />;
+  if (!props.itemComponent) {
+    if (props.multiple) {
+      return <SelectItemsMultiple {...props} />;
+    }
+
+    if (props.virtualize) {
+      return <Virtualized {...props} />;
+    }
   }
 
-  if (props.virtualize) {
-    return <Virtualized {...props} />;
-  }
+  const child = props.options.map(option => getItem(option, props));
 
-  const options = props.sort ? props.options.sort(props.sort) : props.options;
-
-  const child = options.map(option => getItem(option, props));
-
-  const containerProps = {height: props.height, maxHeight: props.maxHeight};
+  const containerProps = {
+    height: props.height,
+    maxHeight: props.maxHeight,
+    whiteSpace: props.whiteSpace,
+  };
 
   return <Container {...containerProps}>{child}</Container>;
 });

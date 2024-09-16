@@ -1,40 +1,37 @@
-import {ChangeEventHandler, useCallback} from 'react';
+import {ChangeEventHandler, useCallback, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 import {ListProps, VariableSizeList, VariableSizeListProps} from 'react-window';
 
 import {theme} from 'theme';
 import {Checkbox} from 'checkbox';
 import {CheckboxTree, CheckboxTreeProps} from 'checkboxTree';
+import {SelectOption, SelectItemsProps, SelectState} from 'select/types';
 
-import {SelectOption, SelectItemsProps, SelectInternalValue, SelectState} from '../types';
+import {getItemSize, getValues} from '../utils';
 
-const Container = styled.div`
+const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
   padding: 8px 0;
+  overflow: auto;
+  text-overflow: ellipsis;
 
   ${theme.scroll}
+
+  ${props => ({height: props.height, maxHeight: props.maxHeight, whiteSpace: props.whiteSpace})}
 
   * {
     ${theme.scroll}
   }
 
   label {
+    padding: 6px 12px;
+    padding-left: 12px;
+
     :hover {
       background-color: ${theme.colors.grey[10]};
       cursor: pointer;
     }
   }
 `;
-
-const CheckboxContainer = styled.div`
-  label {
-    padding: 6px 12px;
-    padding-left: 12px;
-  }
-`;
-
-const getValues = (option: SelectOption): SelectInternalValue => {
-  return option.childs ? [option.value, ...option.childs.flatMap(getValues)] : [option.value];
-};
 
 const VirtualizedItem: ListProps<SelectItemsProps>['children'] = ({data, index, style}) => {
   const option = data.options[index];
@@ -47,41 +44,38 @@ const VirtualizedItem: ListProps<SelectItemsProps>['children'] = ({data, index, 
     data.onChange(newValues, option, e);
   };
 
-  const optionProps = {...option, checked, onChange, key: option.value};
+  const optionProps = {...option, checked, onChange};
 
   return (
-    <CheckboxContainer style={style}>
+    <div style={style}>
       <Checkbox {...optionProps} />
-    </CheckboxContainer>
+    </div>
   );
 };
 
 const Virtualized: React.FC<SelectItemsProps> = props => {
-  const {clientWidth, height, maxHeight} = props;
+  const ref = useRef<VariableSizeList>(null);
 
-  const options = props.sort ? props.options.sort(props.sort) : props.options;
+  const {options, height, maxHeight} = props;
 
-  const itemSize: VariableSizeListProps['itemSize'] = index => {
-    if (!clientWidth) {
-      return 32;
-    }
+  const itemSize = typeof props.virtualize === 'object' ? props.virtualize.itemSize : getItemSize(props);
 
-    const labelLength = options[index].label.length + 12;
-
-    return 20 * Math.ceil((8.625 * labelLength) / (clientWidth - 24)) + 12;
-  };
-
-  const listProps: VariableSizeListProps = {
+  const listProps = {
     itemSize,
+    ref,
 
     itemData: props,
     itemCount: options.length,
     children: VirtualizedItem,
     height: height ?? maxHeight,
     width: '100%',
-  };
+  } as VariableSizeListProps;
 
   const containerProps = {height, maxHeight};
+
+  useEffect(() => {
+    ref.current?.resetAfterIndex(0);
+  }, [options]);
 
   return (
     <Container {...containerProps}>
@@ -92,8 +86,8 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
 
 export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
   if (props.virtualize) {
-    const hasPropsWithChilds = props.options.findIndex(option => !!option.childs?.length) !== -1;
-    if (!hasPropsWithChilds) {
+    const isTree = props.options.findIndex(option => !!option.childs?.length) !== -1;
+    if (!isTree) {
       return <Virtualized {...props} />;
     }
   }
@@ -104,12 +98,11 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
   );
 
   const opened = props.state === SelectState.filtred ? props.options.flatMap(getValues) : undefined;
-  const options = props.sort ? props.options.sort(props.sort) : props.options;
 
   const treeProps = {
-    options,
     opened,
     onChange,
+    options: props.options,
     value: props.value,
   };
 

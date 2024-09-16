@@ -1,16 +1,11 @@
-import {forwardRef, ReactNode, useContext, useEffect, useState} from 'react';
+import {forwardRef} from 'react';
 import styled from '@emotion/styled';
 
-import {SizeTokenValue, theme} from 'theme';
-import {Close} from 'icons';
-import {Chip, ChipVariant} from 'chip';
+import {theme} from 'theme';
 import {Input as BaseInput, InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
 
-import {SelectContext} from '../Select';
-import {SelectOption} from '../types';
-
 import {useInput} from './hook';
-import {findOptions} from './utils';
+import {Chips} from './Chips';
 
 const Container = styled.div`
   position: relative;
@@ -39,80 +34,12 @@ const InputComponent = styled.input`
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: ${props => (props.readOnly ? 'default' : undefined)};
 
   ${theme.typography.p1}
 `;
 
-const ChipContainer = styled.div<Pick<InputProps, 'disabled' | 'readOnly'>>`
-  display: flex;
-  padding: 2px;
-  border-radius: 2px;
-  align-items: center;
-
-  div {
-    padding: 0 4px;
-  }
-
-  button {
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: 0;
-    border-radius: 1px;
-    cursor: pointer;
-    color: ${theme.colors.grey[40]};
-    background-color: transparent;
-
-    :hover {
-      background-color: ${theme.colors.grey[60]};
-    }
-  }
-
-  ${props => {
-    const disabled = props.disabled || props.readOnly;
-
-    return {
-      ...theme.typography.p2,
-
-      color: disabled ? theme.colors.grey[40] : theme.colors.white,
-      backgroundColor: theme.colors.grey[disabled ? 20 : 70],
-      pointerEvents: disabled ? 'none' : undefined,
-    };
-  }}
-`;
-
 const InputChips: InputProps['inputComponent'] = props => {
-  const {value, options, onClear, showChips, onChange} = useContext(SelectContext);
-  const [labels, setLabels] = useState<SelectOption[]>([]);
-
-  let child: ReactNode;
-
-  if (showChips) {
-    child = labels.map(option => {
-      const onDelete = () => {
-        onChange(value.filter(item => item !== option.value));
-      };
-
-      return (
-        <Chip key={option.value} variant={ChipVariant.filled} size={SizeTokenValue.Small} onDelete={onDelete}>
-          {option.label}
-        </Chip>
-      );
-    });
-  } else if (value.length) {
-    child = (
-      <ChipContainer disabled={props.disabled}>
-        <div>{value.length}</div>
-
-        <button type="button" onClick={onClear}>
-          <Close size={SizeTokenValue.Small} />
-        </button>
-      </ChipContainer>
-    );
-  }
-
   const inputProps = {
     ...props.inputProps,
 
@@ -121,17 +48,11 @@ const InputChips: InputProps['inputComponent'] = props => {
     onInput: props.onChange,
   };
 
-  useEffect(() => {
-    if (showChips) {
-      setLabels(findOptions(options.all, value));
-    }
-  }, [value]);
-
   return (
     <Container>
       <Label {...props} />
       <FieldComponent as="div" {...props.style}>
-        {child}
+        <Chips />
         <InputComponent {...inputProps} />
       </FieldComponent>
     </Container>

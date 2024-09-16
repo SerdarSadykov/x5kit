@@ -36,6 +36,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     disabled,
     readOnly,
     hasLabel,
+    whiteSpace,
     qa = 'checkbox',
     ...rest
   } = props;
@@ -47,6 +48,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     readOnly,
     error,
     disabled,
+    whiteSpace,
 
     hasLabel: hasLabel ?? (!!label || !!children),
   };

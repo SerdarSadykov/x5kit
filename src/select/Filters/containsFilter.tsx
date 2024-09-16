@@ -15,12 +15,12 @@ const callback: SelectFilter['callback'] = async (query, options) => {
       continue;
     }
 
-    let newLabel: ReactNode;
+    let children: ReactNode;
     const startIndex = label.toLowerCase().indexOf(query.toLowerCase());
 
     if (startIndex !== -1) {
       const endIndex = startIndex + query.length;
-      newLabel = (
+      children = (
         <>
           {label.slice(0, startIndex)}
           <mark>{label.slice(startIndex, endIndex)}</mark>
@@ -31,11 +31,11 @@ const callback: SelectFilter['callback'] = async (query, options) => {
 
     const newChilds = await callback(query, option.childs ?? []);
 
-    if (newLabel || newChilds.length) {
+    if (children || newChilds.length) {
       newOptions.push({
         ...option,
 
-        label: newLabel ?? label,
+        children,
         childs: newChilds,
       });
     }
