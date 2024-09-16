@@ -8,7 +8,7 @@ import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
-import {SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
+import {SelectFilter, SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
 
 export const Select: React.FC<SelectProps> = props => {
   const [value, setValue] = useState<SelectValue>([]);
@@ -41,8 +41,13 @@ export const Select: React.FC<SelectProps> = props => {
 
 type FetchedItem = {
   id: string;
-  title: string;
+  comment: string;
 };
+
+const convertResp = (item: FetchedItem): SelectOption => ({
+  label: item.comment,
+  value: item.id,
+});
 
 export const SelectFetch: React.FC<SelectProps> = props => {
   const [options, setOptions] = useState<SelectOption[]>([]);
@@ -50,22 +55,25 @@ export const SelectFetch: React.FC<SelectProps> = props => {
 
   const onFocus = () => {
     setIsLoading(true);
-    fetch('https://jsonplaceholder.org/posts')
+    fetch('https://jsonplaceholder.org/comments')
       .then<FetchedItem[]>(resp => resp.json())
-      .then(resp => {
-        const newOptions = resp.map<SelectOption>(item => ({
-          label: item.title,
-          value: item.id,
-        }));
-
-        setOptions(newOptions);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .then(resp => setOptions(resp.slice(10).map(convertResp)))
+      .finally(() => setIsLoading(false));
   };
 
-  return <Select {...props} options={options} onFocus={onFocus} loading={isLoading} />;
+  const filter: SelectFilter = {
+    callback: query =>
+      new Promise(res => {
+        setTimeout(() => {
+          fetch(`https://jsonplaceholder.org/comments`)
+            .then<FetchedItem[]>(resp => resp.json())
+            .then(items => items.filter(item => item.comment.includes(query)))
+            .then(resp => res(resp.map(convertResp)));
+        }, 1000);
+      }),
+  };
+
+  return <Select {...props} options={options} onFocus={onFocus} loading={isLoading} filter={filter} />;
 };
 
 const getOptions = (i): SelectOption[] => [
