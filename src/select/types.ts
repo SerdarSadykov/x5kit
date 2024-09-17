@@ -1,12 +1,11 @@
-import React, {MouseEventHandler, ChangeEventHandler, ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
+import React, {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
+import {CSSObject} from '@emotion/react';
+import {VariableSizeListProps} from 'react-window';
 
-import {Placement, SizeTokenValue} from 'theme';
 import {InputProps} from 'input';
 import {getQAAttribute, QA, RequiredQA} from 'common';
 import {DropdownProps} from 'dropdown';
-import {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from 'checkboxTree';
-import {VariableSizeListProps} from 'react-window';
-import {CSSObject} from '@emotion/react';
+import {CheckboxTreeOption, CheckboxTreeOptionValue} from 'checkboxTree';
 
 export type SelectSingleValue = CheckboxTreeOptionValue;
 export type SelectMultipleValue = SelectSingleValue[];
@@ -23,8 +22,8 @@ export type SelectOption = {
 export type SelectItemsProps = {
   options: SelectOption[];
   clientWidth: number | undefined;
-} & RequiredQA &
-  Pick<
+} & RequiredQA
+  & Pick<
     SelectContextProps,
     | 'state'
     | 'value'
@@ -36,7 +35,7 @@ export type SelectItemsProps = {
     | 'virtualize'
     | 'whiteSpace'
   >
-  & Pick<SelectListProps, 'itemComponent'>;
+  & Pick<SelectComponents, 'item'>;
 
 export type SelectItemProps = {
   option: SelectOption;
@@ -45,34 +44,6 @@ export type SelectItemProps = {
 
 export type SelectListOnChange =
   (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
-
-// export interface SelectListProps extends QA {
-//   id?: string;
-//   items: SelectOption[];
-//   selected: SelectValue;
-//   multiple?: boolean;
-//   highlighted?: boolean;
-//   noWrap?: boolean;
-//   footer?: ReactNode;
-//   header?: ReactNode;
-//   hint?: string;
-//   inputValue?: string;
-//   renderOption?: RenderOptionFn;
-//   onChange: SelectListPropsOnChange;
-// }
-
-//
-// export interface SelectChipProps extends Pick<SelectProps, 'size' | 'disabled' | 'onClearClick'> {
-//   count: number;
-// }
-
-
-// export type SelectAdornmentProps = {
-//   clearable: boolean;
-//   opened: boolean;
-//   size: SizeTokenValue;
-//   onClick: MouseEventHandler;
-// };
 
 export type SelectFilter = {
   callback: (query: string, options: SelectOption[]) => Promise<SelectOption[]>;
@@ -85,7 +56,7 @@ export enum SelectState {
   filtred = 'filtred',
 }
 
-type SelectListProps = {
+type SelectComponents = {
   hint?: ReactNode;
   header?: ReactNode;
   footer?: ReactNode;
@@ -93,8 +64,9 @@ type SelectListProps = {
   searching?: ReactNode;
   notFound?: ReactNode;
 
-  itemsComponent?: React.FC<SelectItemsProps>;
-  itemComponent?: React.FC<SelectItemProps>;
+  list?: React.FC;
+  items?: React.FC<SelectItemsProps>;
+  item?: React.FC<SelectItemProps>;
 };
 
 export type SelectProps = {
@@ -107,39 +79,17 @@ export type SelectProps = {
 
   dropdownProps?: Partial<DropdownProps>;
 
-  listComponent?: React.FC;
-
   multiple?: boolean;
   showChips?: number;
 
   virtualize?: VariableSizeListProps | boolean;
 
-  // name?: string;
-  // size?: SizeTokenValue;
-  // label?: string;
-  // options: SelectOption[];
-  // value: SelectValue;
+  components?: SelectComponents;
   // noWrap?: boolean;
-  // disabled?: boolean;
-
-  // inputProps?: Omit<InputProps, 'value' | 'onChange'>;
-
-  // filter?: string;
-  // inputClasses?: Record<'root', string>;
-  // isOpen?: boolean;
-  // preMatching?: boolean;
-
-  // placement?: Placement;
-  // dropdownWidth?: DropdownProps['width'];
-  // onOpen?: (opened: boolean) => void;
-  // onFilterChange?: ChangeEventHandler<HTMLInputElement>;
-  // onClearFilterClick?: MouseEventHandler;
-  // onClearClick?: MouseEventHandler;
 } & QA
   & Pick<CSSObject, 'whiteSpace'>
   & Omit<InputProps, 'value' | 'onChange'>
-  & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>
-  & SelectListProps;
+  & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
 
 export type SelectInternalOptions = {
   all: SelectOption[];
@@ -157,7 +107,6 @@ export type SelectContextProps = {
 
   onClear: () => void;
 
-} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'disabled' | 'readOnly' | 'showChips' | 'filter' | 'virtualize' | 'whiteSpace'>
+} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'disabled' | 'readOnly' | 'showChips' | 'filter' | 'virtualize' | 'whiteSpace' | 'components'>
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
-  & Required<Pick<DropdownProps, 'maxHeight'>>
-  & SelectListProps;
+  & Required<Pick<DropdownProps, 'maxHeight'>>;

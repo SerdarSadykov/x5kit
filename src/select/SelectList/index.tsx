@@ -19,12 +19,12 @@ const Empty = styled.div`
 
 export const SelectList: React.FC = () => {
   const context = useContext(SelectContext);
-  const {state, hint} = context;
+  const {state, components} = context;
 
   const [clientWidth, setClientWidth] = useState<number>();
 
   if (state === SelectState.searching) {
-    const child = context.searching ?? (
+    const child = components?.searching ?? (
       <Empty>
         <LoaderItem size={SizeTokenValue.Small}>Поиск совпадений</LoaderItem>
       </Empty>
@@ -37,11 +37,11 @@ export const SelectList: React.FC = () => {
   const options = isFiltred ? context.options.filtred : context.options.all;
 
   if (isFiltred && !options.length) {
-    const child = context.notFound ?? <Empty>Ничего не найдено</Empty>;
+    const child = components?.notFound ?? <Empty>Ничего не найдено</Empty>;
     return <DropdownContent>{child}</DropdownContent>;
   }
 
-  if (!options.length && !context.header && !context.footer) {
+  if (!options.length && !components?.header && !components?.footer) {
     return null;
   }
 
@@ -52,6 +52,8 @@ export const SelectList: React.FC = () => {
 
     setClientWidth(e.clientWidth);
   };
+
+  const Component = components?.items ?? SelectItems;
 
   const selectItemsProps: SelectItemsProps = {
     state,
@@ -65,20 +67,18 @@ export const SelectList: React.FC = () => {
     maxHeight: context.maxHeight,
     virtualize: context.virtualize && options.length > 20,
     whiteSpace: context.whiteSpace,
-    itemComponent: context.itemComponent,
+    item: components?.item,
     qa: context.getQA('list'),
   };
-
-  const Component = context.itemsComponent ?? SelectItems;
 
   const child = !!clientWidth && <Component {...selectItemsProps} />;
 
   return (
     <DropdownContent ref={ref}>
-      {hint && <Hint>{hint}</Hint>}
-      {context.header}
+      {components?.hint && <Hint>{components.hint}</Hint>}
+      {components?.header}
       {child}
-      {context.footer}
+      {components?.footer}
     </DropdownContent>
   );
 };

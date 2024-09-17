@@ -7,7 +7,7 @@ import {theme} from 'theme';
 import {SelectItemsProps} from '../types';
 
 import {SelectItemsMultiple} from './SelectItemsMultiple';
-import {getItem, getVirtualizedItem} from './SelectItem';
+import {Item} from './SelectItem';
 import {getItemSize} from './utils';
 
 const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
@@ -26,26 +26,22 @@ const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'wh
 
 const Virtualized: React.FC<SelectItemsProps> = props => {
   const ref = useRef<VariableSizeList>(null);
-  const {options, height, maxHeight} = props;
+  const {options, height, maxHeight, whiteSpace, virtualize} = props;
 
-  const itemSize = typeof props.virtualize === 'object' ? props.virtualize.itemSize : getItemSize(props);
+  const itemSize = typeof virtualize === 'object' ? virtualize.itemSize : getItemSize(props);
+
+  const containerProps = {height, maxHeight, whiteSpace};
 
   const listProps = {
-    itemSize,
     ref,
+    itemSize,
 
-    children: getVirtualizedItem,
-    itemCount: options.length,
     height: height ?? maxHeight,
     width: '100%',
+    itemCount: options.length,
     itemData: props,
+    children: Item,
   } as VariableSizeListProps;
-
-  const containerProps = {
-    height,
-    maxHeight,
-    whiteSpace: props.whiteSpace,
-  };
 
   useEffect(() => {
     ref.current?.resetAfterIndex(0);
@@ -59,17 +55,15 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
 };
 
 export const SelectItems = memo<SelectItemsProps>(props => {
-  if (!props.itemComponent) {
-    if (props.multiple) {
-      return <SelectItemsMultiple {...props} />;
-    }
-
-    if (props.virtualize) {
-      return <Virtualized {...props} />;
-    }
+  if (props.multiple && !props.item) {
+    return <SelectItemsMultiple {...props} />;
   }
 
-  const child = props.options.map(option => getItem(option, props));
+  if (props.virtualize) {
+    return <Virtualized {...props} />;
+  }
+
+  const child = props.options.map((option, index) => <Item key={option.value} index={index} data={props} />);
 
   const containerProps = {
     height: props.height,

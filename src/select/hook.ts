@@ -18,15 +18,8 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     filter,
     virtualize,
     whiteSpace,
-    listComponent,
-
-    hint,
-    header,
-    footer,
-    searching,
-    notFound,
-    itemComponent,
-    itemsComponent,
+    components,
+  
     isOpen = isOpenValue,
     setIsOpen = setIsOpenValue,
 
@@ -80,13 +73,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     virtualize,
     whiteSpace,
 
-    hint,
-    header,
-    footer,
-    searching,
-    notFound,
-    itemComponent,
-    itemsComponent,
+    components,
 
     height: dropdownProps.height,
     maxHeight: dropdownProps.maxHeight,
@@ -100,5 +87,5 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     ref,
   };
 
-  return {listComponent, inputProps, context, dropdownProps};
+  return {inputProps, context, dropdownProps};
 };

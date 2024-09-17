@@ -1,11 +1,11 @@
-import {CSSProperties, memo} from 'react';
+import React, {memo} from 'react';
 import styled from '@emotion/styled';
+import {ListChildComponentProps} from 'react-window';
 
 import {theme} from 'theme';
 
 import {CheckboxProps} from 'checkbox';
-import {SelectItemProps, SelectItemsProps, SelectOption} from 'select/types';
-import {ListProps} from 'react-window';
+import {SelectItemProps, SelectItemsProps} from 'select/types';
 
 const Container = styled.label`
   position: relative;
@@ -54,21 +54,20 @@ const SelectItem = memo<SelectItemProps>(props => {
   );
 });
 
-export const getItem = (option: SelectOption, props: SelectItemsProps, style?: CSSProperties) => {
-  const Component = props.itemComponent ?? SelectItem;
+type ItemProps = Omit<ListChildComponentProps<SelectItemsProps>, 'style'> & Pick<SelectItemProps, 'style'>;
+
+export const Item: React.FC<ItemProps> = ({data, index, style}) => {
+  const option = data.options[index];
+  const Component = data.item ?? SelectItem;
 
   return (
     <Component
       key={option.value}
       option={option}
-      checked={props.value.includes(option.value)}
-      onChange={props.onChange}
-      setIsOpen={props.setIsOpen}
       style={style}
+      checked={data.value.includes(option.value)}
+      onChange={data.onChange}
+      setIsOpen={data.setIsOpen}
     />
   );
-};
-
-export const getVirtualizedItem: ListProps<SelectItemsProps>['children'] = ({data, index, style}) => {
-  return getItem(data.options[index], data, style);
 };
