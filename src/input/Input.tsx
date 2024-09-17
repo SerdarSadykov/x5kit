@@ -17,7 +17,7 @@ const Container = styled.div<Pick<InputInternalProps, 'width'>>`
   }
 `;
 
-const InputContainer = styled.div<InputStyles>`
+export const InputContainer = styled.div<InputStyles>`
   position: relative;
   display: flex;
   align-items: center;
@@ -102,7 +102,7 @@ const InputContainer = styled.div<InputStyles>`
   }
 `;
 
-const useInput = (props: InputProps): InputInternalProps => {
+export const useInput = (props: InputProps): InputInternalProps => {
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
@@ -121,6 +121,7 @@ const useInput = (props: InputProps): InputInternalProps => {
 
     style: {
       isDisabled: props.disabled,
+      isReadOnly: props.readOnly,
       isUnborder: props.unborder,
       isLoading: props.loading,
       isLabeled: !!props.label,

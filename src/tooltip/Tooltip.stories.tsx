@@ -43,7 +43,6 @@ const meta = {
       description: 'Ширина',
     },
 
-
     whiteSpace: {
       type: 'string',
       control: 'select',

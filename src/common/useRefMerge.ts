@@ -1,6 +1,6 @@
-import {ForwardedRef, useEffect, useRef} from 'react';
+import {Ref, useEffect, useRef} from 'react';
 
-export const useRefMerge = <T>(baseRef?: ForwardedRef<T>) => {
+export const useRefMerge = <T>(baseRef?: Ref<T>) => {
   const innerRef = useRef<T>(null);
 
   const ref = baseRef && typeof baseRef !== 'function' ? baseRef : innerRef;

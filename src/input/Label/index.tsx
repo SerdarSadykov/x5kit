@@ -5,7 +5,7 @@ import {theme} from 'theme';
 import {Asterisk} from '../Asterisk';
 import type {InputInternalProps, InputStyles} from '../types';
 
-const Container = styled.div<InputStyles>`
+export const LabelComponent = styled.div<InputStyles>`
   position: absolute;
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@ const Container = styled.div<InputStyles>`
 
     return {
       top: 0,
-      height: '100%',
+      height: isSmall ? 32 : 48,
       fontSize: theme.spaces.x8,
     };
   }}
@@ -72,11 +72,11 @@ export const Label: React.FC<InputInternalProps> = ({error, label, required, sty
   }
 
   return (
-    <Container {...style}>
+    <LabelComponent {...style}>
       <div>
         <label>{label}</label>
         {required && <Asterisk />}
       </div>
-    </Container>
+    </LabelComponent>
   );
 };

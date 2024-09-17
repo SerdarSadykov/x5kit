@@ -11,9 +11,11 @@ export const FieldComponent = styled.input<InputStyles>`
   width: 100%;
   box-sizing: border-box;
   padding: 0;
+  margin: 0;
   outline: none;
   border: none;
   background-color: transparent;
+  vertical-align: top;
 
   ${theme.typography.p1}
 
@@ -83,7 +85,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     </Placeholder>
   );
 
-  const componentProsp = {
+  const componentProps = {
     ...inputProps,
     ...style,
 
@@ -95,7 +97,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 
   return (
     <>
-      <FieldComponent {...componentProsp} />
+      <FieldComponent {...componentProps} />
       {placeHolder}
     </>
   );
@@ -106,7 +108,7 @@ export const Field: React.FC<InputInternalProps> = props => {
     return <MaskedField {...props} />;
   }
 
-  const componentProsp = {
+  const componentProps = {
     ...props.inputProps,
     ...props.style,
 
@@ -115,5 +117,5 @@ export const Field: React.FC<InputInternalProps> = props => {
     onInput: props.onChange,
   };
 
-  return <FieldComponent {...componentProsp} />;
+  return <FieldComponent {...componentProps} />;
 };

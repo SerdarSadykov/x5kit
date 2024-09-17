@@ -4,14 +4,14 @@ import {MaskInputOptions} from 'maska';
 import {SizeTokenValue} from 'theme';
 import {CSSObject} from '@emotion/react';
 
-type ReactComponentProp = React.FC<InputStyles & Pick<InputProps, 'error'>>;
+type ReactComponentProp<T> = React.FC<InputStyles & Pick<InputProps<T>, 'error'>>;
 
-type InputBaseProps = Pick<
-  InputHTMLAttributes<HTMLInputElement>,
+type InputBaseProps<T> = Pick<
+  InputHTMLAttributes<T>,
   'type' | 'disabled' | 'required' | 'readOnly' | 'autoFocus' | 'autoComplete' | 'onFocus' | 'onBlur' | 'onClick' | 'onChange'
 >;
 
-export type InputProps = {
+export type InputProps<T = HTMLInputElement> = {
   size?: SizeTokenValue;
 
   filled?: boolean;
@@ -21,8 +21,8 @@ export type InputProps = {
   error?: boolean | string;
   absoluteCaption?: boolean | string;
 
-  label?: string | ReactComponentProp;
-  caption?: string | ReactComponentProp;
+  label?: string | ReactComponentProp<T>;
+  caption?: string | ReactComponentProp<T>;
 
   value: string | undefined;
 
@@ -35,17 +35,18 @@ export type InputProps = {
 
   containerRef?: Ref<HTMLDivElement>;
 
-  inputProps?: InputHTMLAttributes<HTMLInputElement> & {ref?: RefCallback<HTMLInputElement>;};
-  inputComponent?: React.FC<InputInternalProps>;
+  inputProps?: InputHTMLAttributes<T> & {ref?: RefCallback<T>;};
+  inputComponent?: React.FC<InputInternalProps<T>>;
 
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-} & InputBaseProps & Pick<CSSObject, 'width'>;
+} & InputBaseProps<T> & Pick<CSSObject, 'width'>;
 
 export type InputStyles = {
   isDisabled?: boolean;
+  isReadOnly?: boolean;
   isFilled?: boolean;
   isFocused: boolean;
   isUnborder?: boolean;
@@ -57,6 +58,6 @@ export type InputStyles = {
   isAbsoluteCaption: boolean;
 };
 
-export type InputInternalProps = InputProps & {
+export type InputInternalProps<T = HTMLInputElement> = InputProps<T> & {
   style: InputStyles;
 };
