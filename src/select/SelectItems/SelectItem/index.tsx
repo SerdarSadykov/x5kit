@@ -12,6 +12,7 @@ const Container = styled.label`
   display: block;
   padding: 6px 12px;
   word-wrap: break-word;
+  box-sizing: border-box;
 
   ${theme.typography.p1compact};
 

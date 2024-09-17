@@ -98,6 +98,10 @@ const ChipsMultiple: React.FC = () => {
 export const Chips: React.FC = () => {
   const {value, onClear, showChips, disabled, readOnly} = useContext(SelectContext);
 
+  if (!value.length) {
+    return null;
+  }
+
   if (showChips && showChips > 0) {
     return <ChipsMultiple />;
   }

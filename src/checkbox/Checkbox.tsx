@@ -63,7 +63,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     checked: checked === true,
     ref: inputRef,
 
-    onChange: props.onChange,
+    onChange: !readOnly && !disabled ? props.onChange : undefined,
   };
 
   const containerProps = {

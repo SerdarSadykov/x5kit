@@ -29,6 +29,8 @@ export const Select: React.FC<SelectProps> = props => {
     endAdornment,
     filter,
 
+    dropdownProps: {width: 'target'},
+
     value: value as never,
   };
 

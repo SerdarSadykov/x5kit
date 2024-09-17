@@ -21,6 +21,9 @@ export const SelectList: React.FC = () => {
   const context = useContext(SelectContext);
   const {state, components} = context;
 
+  const isFiltred = state === SelectState.filtred;
+  const options = isFiltred ? context.options.filtred : context.options.all;
+
   const [clientWidth, setClientWidth] = useState<number>();
 
   if (state === SelectState.searching) {
@@ -33,9 +36,6 @@ export const SelectList: React.FC = () => {
     return <DropdownContent>{child}</DropdownContent>;
   }
 
-  const isFiltred = state === SelectState.filtred;
-  const options = isFiltred ? context.options.filtred : context.options.all;
-
   if (isFiltred && !options.length) {
     const child = components?.notFound ?? <Empty>Ничего не найдено</Empty>;
     return <DropdownContent>{child}</DropdownContent>;
@@ -46,11 +46,13 @@ export const SelectList: React.FC = () => {
   }
 
   const ref = (e: HTMLDivElement | null) => {
-    if (!e?.clientWidth) {
-      return;
-    }
-
-    setClientWidth(e.clientWidth);
+    setTimeout(() => {
+      if (!e?.clientWidth) {
+        return;
+      }
+  
+      setClientWidth(e.clientWidth);  
+    })
   };
 
   const Component = components?.items ?? SelectItems;
