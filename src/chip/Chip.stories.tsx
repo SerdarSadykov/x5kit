@@ -30,7 +30,7 @@ export const Chip: React.FC<ChipProps> = props => {
 
   const onClick = props.onClick ? () => alert('onClick') : undefined;
   const onDelete = props.onDelete ? () => alert('onDelete') : undefined;
-  const maxLengthFunc = props.maxLengthFunc ? (label: string) => label.slice(0, 3) + '...' + label.slice(7) : undefined;
+  const maxLengthFunc = props.maxLengthFunc ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4) : undefined;
 
   const resultProps = {
     ...props,

@@ -4,8 +4,6 @@ import {MaskInputOptions} from 'maska';
 import {SizeTokenValue} from 'theme';
 import {CSSObject} from '@emotion/react';
 
-type ReactComponentProp<T> = React.FC<InputStyles & Pick<InputProps<T>, 'error'>>;
-
 type InputBaseProps<T> = Pick<
   InputHTMLAttributes<T>,
   'type' | 'disabled' | 'required' | 'readOnly' | 'autoFocus' | 'autoComplete' | 'onFocus' | 'onBlur' | 'onClick' | 'onChange'
@@ -18,11 +16,11 @@ export type InputProps<T = HTMLInputElement> = {
   focused?: boolean;
   unborder?: boolean;
   loading?: boolean;
-  error?: boolean | string;
-  absoluteCaption?: boolean | string;
+  absoluteCaption?: boolean;
+  error?: boolean | ReactNode;
 
-  label?: string | ReactComponentProp<T>;
-  caption?: string | ReactComponentProp<T>;
+  caption?: ReactNode;
+  label?: string | React.FC<InputStyles & Pick<InputProps<T>, 'error'>>;
 
   value: string | undefined;
 

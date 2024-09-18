@@ -1,4 +1,4 @@
-import {DOMAttributes, PropsWithChildren, ReactNode} from 'react';
+import {AnchorHTMLAttributes, HTMLAttributes, PropsWithChildren, ReactNode} from 'react';
 import {CSSObject} from '@emotion/react';
 
 import {QA} from 'common';
@@ -37,4 +37,5 @@ export type ChipProps = {
   & QA
   & PropsWithChildren
   & Pick<CSSObject, 'whiteSpace' | 'maxWidth'>
-  & Pick<DOMAttributes<HTMLDivElement>, 'onClick'>;
+  & Pick<HTMLAttributes<HTMLDivElement>, 'onClick'>
+  & Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'target'>;

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {Caption} from './Caption';
+import {InputCaption} from './InputCaption';
 import {EndAdornment} from './EndAdornment';
 
 import {InputComponent} from './InputComponent';
@@ -166,7 +166,7 @@ export const Input = forwardRef<HTMLDivElement, InputProps>((props, ref) => {
         <EndAdornment {...inputProps} />
       </InputContainer>
 
-      <Caption {...inputProps} />
+      <InputCaption {...inputProps} />
     </Container>
   );
 });
