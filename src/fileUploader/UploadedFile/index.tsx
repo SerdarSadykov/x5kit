@@ -11,7 +11,7 @@ import {FileItem, UploadedFilesProps} from 'fileUploader/types';
 const UploadedFile: React.FC<UploadedFileProps> = props => {
   const {item} = props;
 
-  const {isLoading, isHidden, onClick, onDelete} = useUploadedFile(props);
+  const {isHidden, isError, isLoading, onClick, onDelete} = useUploadedFile(props);
 
   if (isHidden) {
     return null;
@@ -33,6 +33,7 @@ const UploadedFile: React.FC<UploadedFileProps> = props => {
     label: item.name,
     tooltip: item.tooltip,
     href: item.url,
+    error: isError,
 
     maxLength: props.maxLabelLength,
     maxLengthFunc: props.maxLabelLengthFunc,

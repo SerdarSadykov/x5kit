@@ -11,16 +11,17 @@ export const useUploadedFile = (props: UploadedFileProps) => {
   const status = item.status;
   const disabled = props.disabled || item.disabled;
 
-  const isLoading = [FileItemStatus.loading, FileItemStatus.removing].includes(status);
-
   const isHidden = status === FileItemStatus.removed;
+  const isError = status === FileItemStatus.error;
+
+  const isLoading = [FileItemStatus.loading, FileItemStatus.removing].includes(status);
 
   const isDeletable = !isLoading
     && !disabled
     && !!props.onDelete
-    && [FileItemStatus.initial, FileItemStatus.loaded].includes(status);
+    && [FileItemStatus.initial, FileItemStatus.loaded, FileItemStatus.error].includes(status);
 
-  const isClickable = !disabled && !!props.onClick;
+  const isClickable = !disabled && (!!props.onClick || !!item.url);
 
   const onClick: MouseEventHandler = e => {
     e.stopPropagation();
@@ -31,8 +32,9 @@ export const useUploadedFile = (props: UploadedFileProps) => {
   const onDelete = () => props.onDelete?.(item);
 
   return {
-    isLoading,
     isHidden,
+    isError,
+    isLoading,
 
     onClick: isClickable ? onClick : undefined,
     onDelete: isDeletable ? onDelete : undefined,

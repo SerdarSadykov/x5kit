@@ -9,6 +9,7 @@ export enum FileItemStatus {
   loaded = 'loaded',
   removing = 'removing',
   removed = 'removed',
+  error = 'error',
 }
 
 export type FileItem = {

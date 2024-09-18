@@ -4,11 +4,38 @@ import {FileUploader as BaseFileUploader} from './FileUploader';
 import {FileItem, FileItemStatus, FileUploaderProps} from './types';
 import {useState} from 'react';
 
+const defaultValue: FileItem[] = [
+  {
+    id: '1s0',
+    name: 'File_unknown.doc',
+    size: 100,
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: FileItemStatus.initial,
+  },
+  {
+    id: '2s0',
+    name: 'File_03.dic',
+    size: 100,
+    status: FileItemStatus.error,
+  },
+  {
+    id: '3s0',
+    name: 'File_disabled.dic',
+    size: 100,
+    disabled: true,
+    status: FileItemStatus.loaded,
+  },
+];
+
 export const FileUploader: React.FC<FileUploaderProps> = props => {
-  const [items, setItems] = useState<FileItem[]>([]);
+  const [items, setItems] = useState<FileItem[]>(defaultValue);
   
-  const onClick = props.onClick ? (item: FileItem) => alert(`onClick ${item.name}`) : undefined;
-  const onDelete = props.onDelete ? (item: FileItem) => alert(`onDelete ${item.name}`) : undefined;
+  const onClick = props.onClick ? (file: FileItem) => alert(`onClick ${file.name}`) : undefined;
+  const onDelete = props.onDelete ? (file: FileItem) => {
+    const newItems = items.filter(item => item.id !== file.id);
+
+    setItems(newItems);
+  } : undefined;
 
   const maxLabelLengthFunc = props.maxLabelLengthFunc 
     ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4) 
@@ -21,7 +48,6 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
       status: FileItemStatus.loading,
       name: item.name,
       size: item.size,
-      // url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     }));
 
     setItems([...items, ...newFiles]);
@@ -47,7 +73,7 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
   };
 
   return (
-    <div>
+    <div style={{width: 540}}>
       <BaseFileUploader {...resultProps} />
     </div>
   );
