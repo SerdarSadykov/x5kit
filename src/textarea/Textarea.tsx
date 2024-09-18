@@ -3,7 +3,7 @@ import styled, {CSSObject} from '@emotion/styled';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
 import {theme} from 'theme';
-import {Caption, InputProps, InputStyles, Label, useInput} from 'input';
+import {InputCaption, InputProps, InputStyles, Label, useInput} from 'input';
 
 import {TextareaProps} from './types';
 
@@ -136,7 +136,7 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>((props, ref) =
         <Label {...inputProps} />
       </LabelContainer>
 
-      <Caption {...inputProps} />
+      <InputCaption {...inputProps} />
     </Container>
   );
 });
