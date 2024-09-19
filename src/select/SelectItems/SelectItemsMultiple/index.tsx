@@ -62,7 +62,6 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
 
   const listProps = {
     itemSize,
-    ref,
 
     itemData: props,
     itemCount: options.length,
@@ -79,7 +78,7 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
 
   return (
     <Container {...containerProps}>
-      <VariableSizeList {...listProps} />
+      <VariableSizeList ref={ref} {...listProps} />
     </Container>
   );
 };

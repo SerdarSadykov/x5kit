@@ -58,14 +58,13 @@ export const Dropdown: React.FC<DropdownProps> = props => {
     zIndex,
 
     style: floating.floatingStyles,
-    ref: floating.refs.setFloating,
 
     'data-qa': qa,
   };
 
   return (
     <Wrapper>
-      <Container {...containerProps} />
+      <Container ref={floating.refs.setFloating} {...containerProps} />
     </Wrapper>
   );
 };

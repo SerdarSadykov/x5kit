@@ -1,4 +1,5 @@
 export enum SizeTokenValue {
+  XLarge = 'XLarge',
   Large = 'large',
   Medium = 'medium',
   Small = 'small',

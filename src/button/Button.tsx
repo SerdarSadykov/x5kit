@@ -387,7 +387,6 @@ const BaseButton = forwardRef<
   const buttonStyles = {
     ...rest,
 
-    ref,
     size,
     behavior: behavior ?? variantBehavior[variant],
 
@@ -395,7 +394,7 @@ const BaseButton = forwardRef<
   };
 
   const child = (
-    <Component {...buttonStyles}>
+    <Component ref={ref} {...buttonStyles}>
       <Loader {...buttonStyles} />
       {children}
     </Component>

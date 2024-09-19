@@ -28,14 +28,13 @@ export const Dropdown: React.FC<DropdownProps> = props => {
   };
 
   const buttonProps = {
-    ref,
     onClick,
     endAdornment,
   };
 
   return (
     <>
-      <Button {...buttonProps}>Создать отчер</Button>
+      <Button ref={ref} {...buttonProps}>Создать отчет</Button>
       <BaseDropdown {...resultProps}>
         <DropdownContent>asdasdasdsa</DropdownContent>
       </BaseDropdown>

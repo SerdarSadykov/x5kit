@@ -13,8 +13,7 @@ const Container = styled.div`
 export const Calendar: React.FC = () => {
   const {value, mode, floating, calendarProps, onChange, isOpen, setIsOpen} = useContext(DatepickerContext);
 
-  const dismiss = useDismiss(floating.context);
-  const floatingI = useInteractions([dismiss]);
+  const floatingI = useInteractions([useDismiss(floating.context)]);
 
   if (!isOpen) {
     return null;
@@ -40,11 +39,10 @@ export const Calendar: React.FC = () => {
     ...floatingI.getFloatingProps(),
 
     style: floating.floatingStyles,
-    ref: floating.refs.setFloating,
   };
 
   return (
-    <Container {...containerProps}>
+    <Container ref={floating.refs.setFloating} {...containerProps}>
       <BaseCalendar {...props} />
     </Container>
   );

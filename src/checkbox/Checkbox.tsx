@@ -61,13 +61,11 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     disabled,
     type: 'checkbox',
     checked: checked === true,
-    ref: inputRef,
 
     onChange: !readOnly && !disabled ? props.onChange : undefined,
   };
 
   const containerProps = {
-    ref,
     readOnly,
     error,
     disabled,
@@ -85,8 +83,8 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
   };
 
   return (
-    <Container {...containerProps}>
-      <Input {...inputProps} />
+    <Container ref={ref} {...containerProps}>
+      <Input ref={inputRef} {...inputProps} />
       <Content>
         {startAdornment}
         <Icon {...iconProps} />

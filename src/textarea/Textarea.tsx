@@ -123,14 +123,13 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>((props, ref) =
 
     onMouseMove,
 
-    ref: inputRef,
     value: props.value,
     onInput: props.onChange,
   } as TextareaProps;
 
   return (
     <Container ref={ref} {...textareaStyles}>
-      <ReactTextareaAutosize {...textareaProps} />
+      <ReactTextareaAutosize ref={inputRef} {...textareaProps} />
 
       <LabelContainer ref={labelRef}>
         <Label {...inputProps} />

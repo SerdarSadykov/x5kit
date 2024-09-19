@@ -161,7 +161,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   const linkStyles = {
     ...rest,
 
-    ref,
     disabled,
     onClickCapture,
 
@@ -173,7 +172,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   const Component = pseudolink ? PseudoLinkComponent : LinkComponent;
 
   return (
-    <Component {...linkStyles}>
+    <Component ref={ref} {...linkStyles}>
       {loading && <Loader color="inherit" size={SizeTokenValue.Small} />}
       {children}
     </Component>

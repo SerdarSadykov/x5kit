@@ -36,8 +36,6 @@ export const Tooltip: React.FC<TooltipProps> = props => {
   const containerProps = {
     ...interactions.getFloatingProps(),
 
-    ref: floating.refs.setFloating,
-
     style: {
       ...styles,
       ...floating.floatingStyles,
@@ -57,7 +55,6 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     width: 8,
     height: 4,
 
-    ref: arrowRef,
     context: floating.context,
     fill: backgroundColor,
   };
@@ -68,10 +65,10 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     <>
       {child}
       <Wrapper>
-        <Container {...containerProps}>
+        <Container ref={floating.refs.setFloating} {...containerProps}>
           {content}
 
-          <FloatingArrow {...arrowProps} />
+          <FloatingArrow ref={arrowRef} {...arrowProps} />
         </Container>
       </Wrapper>
     </>

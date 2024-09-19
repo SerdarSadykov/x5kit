@@ -48,15 +48,13 @@ export const useDropdown = (props: DropdownProps) => {
     elements: {reference: targetRef.current},
   });
 
+  setFloating?.(floating);
+
   const interactions = useInteractions([useDismiss(floating.context)]);
 
   useClickAway(() => {
     setIsOpen(false);
   }, targetRef, floating.refs.floating);
-
-  useEffect(() => {
-    setFloating?.(floating);
-  }, [floating]);
 
   return {interactions, floating};
 };

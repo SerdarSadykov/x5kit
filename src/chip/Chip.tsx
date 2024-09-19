@@ -129,7 +129,6 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
   const newProps = {maxLength, size, variant, ...props};
 
   const componentProps = {
-    ref,
     size,
     variant,
 
@@ -147,7 +146,7 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
 
   return (
     <Tooltip {...newProps}>
-      <Container {...componentProps}>
+      <Container ref={ref} {...componentProps}>
         {startAdornment}
 
         <Content {...newProps} />
