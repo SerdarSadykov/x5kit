@@ -243,22 +243,22 @@ export const variantBehavior: Record<ButtonVariant, ButtonStyles['behavior']> = 
 const buttonSize: Record<SizeTokenValue, CSSObject> = {
   [SizeTokenValue.Large]: {
     minHeight: 48,
-    padding: '12px 16px',
+    padding: '11px 15px',
   },
 
   [SizeTokenValue.Medium]: {
     minHeight: 40,
-    padding: '8px 12px',
+    padding: '7px 11px',
   },
 
   [SizeTokenValue.Small]: {
     minHeight: 32,
-    padding: '4px 8px',
+    padding: '3px 7px',
   },
 
   [SizeTokenValue.XSmall]: {
     minHeight: 24,
-    padding: '4px',
+    padding: '3px',
   },
 
   [SizeTokenValue.XXSmall]: {

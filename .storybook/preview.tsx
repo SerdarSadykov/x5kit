@@ -1,7 +1,7 @@
 import React from 'react';
 import type {Preview} from '@storybook/react';
 
-import {ThemeProvider} from 'theme';
+import {ThemeProvider} from 'themeProvider';
 
 const preview: Preview = {
   decorators: [

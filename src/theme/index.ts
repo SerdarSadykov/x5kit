@@ -14,5 +14,4 @@ export * from './shadows';
 export * from './sizes';
 export * from './spaces';
 export * from './typography';
-export * from './provider';
 export * from './placements';

@@ -7,19 +7,30 @@ import {theme} from 'theme';
 import {CheckboxProps} from 'checkbox';
 import {SelectItemProps, SelectItemsProps} from 'select/types';
 
-const Container = styled.label`
+const Container = styled.label<Pick<CheckboxProps, 'checked'>>`
   position: relative;
   display: block;
   padding: 6px 12px;
   word-wrap: break-word;
   box-sizing: border-box;
+  user-select: none;
 
   ${theme.typography.p1compact};
 
   :hover {
     background-color: ${theme.colors.grey[10]};
+    color: ${theme.colors.grey[100]};
     cursor: pointer;
   }
+
+  ${props => {
+    if (props.checked) {
+      return {
+        color: theme.colors.white,
+        backgroundColor: theme.colors.accent[90],
+      };
+    }
+  }}
 
   input {
     position: absolute;
@@ -48,7 +59,7 @@ const SelectItem = memo<SelectItemProps>(props => {
   const inputProps = {name, value, checked, onChange, type: 'radio'};
 
   return (
-    <Container style={style}>
+    <Container style={style} checked={checked}>
       <input {...inputProps} />
       {children ?? label}
     </Container>
