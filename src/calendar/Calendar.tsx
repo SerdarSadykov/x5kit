@@ -6,7 +6,7 @@ import {ru} from 'date-fns/locale';
 import {RequiredQA, getQAAttribute, startOfDay} from 'common';
 import {theme} from 'theme';
 
-import Block from './Block';
+import {Block} from './Block';
 import {DropdownItem} from './Dropdown';
 import {
   CalendarContextProps,

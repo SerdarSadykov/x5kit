@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import {keyframes} from '@emotion/react';
 
-import {getQAAttribute} from 'common';
 import {theme, SizeTokenValue} from 'theme';
 
 import {LoaderProps} from './types';
@@ -68,15 +67,11 @@ const Rotation = styled.div<LoaderProps>`
 export const Loader: React.FC<LoaderProps> = props => {
   const {size = SizeTokenValue.Medium, color = theme.colors.accent[90], qa = 'loader'} = props;
 
-  const getQA = getQAAttribute(qa);
-
   return (
-    <Rotation data-qa={getQA('container')} size={size} color={color}>
+    <Rotation data-qa={qa} size={size} color={color}>
       <SVG viewBox="22 22 44 44">
         <Circle cx="44" cy="44" r="20" fill="none" strokeWidth="3.6" />
       </SVG>
     </Rotation>
   );
 };
-
-export default Loader;

@@ -1,5 +1,2 @@
 export * from './Loader'
-export * from './LoaderItem'
-// export * from './LoaderBlock'
-// export * from './LoaderIcon'
-// export * from './types'
+export * from './LoaderBlock'

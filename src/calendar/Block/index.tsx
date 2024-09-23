@@ -35,7 +35,7 @@ export type BlockProps = RequiredQA & {
   blockNumber: number;
 };
 
-const Block: React.FC<BlockProps> = ({qa, blockNumber}) => {
+export const Block: React.FC<BlockProps> = ({qa, blockNumber}) => {
   const getQA = getQAAttribute(qa);
   const context = useContext(CalendarContext);
   const viewDate = blockNumber > 0 ? addMonths(context.viewDate, blockNumber) : context.viewDate;
@@ -62,5 +62,3 @@ const Block: React.FC<BlockProps> = ({qa, blockNumber}) => {
     </Container>
   );
 };
-
-export default Block;

@@ -3,18 +3,19 @@ import styled from '@emotion/styled';
 import {theme} from 'theme';
 
 import {Loader} from './Loader';
-import {LoaderItemProps} from './types';
+import {LoaderBlockProps} from './types';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: ${theme.colors.grey[40]};
+  gap: 16px;
+  color: ${theme.colors.grey[100]};
 
-  ${theme.typography.p1compact};
+  ${theme.typography.p1};
 `;
 
-export const LoaderItem: React.FC<LoaderItemProps> = ({children, size, color, qa, ...props}) => {
+export const LoaderBlock: React.FC<LoaderBlockProps> = ({children, size, color, qa, ...props}) => {
   const loaderProps = {size, color};
 
   return (
