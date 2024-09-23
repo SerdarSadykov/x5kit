@@ -7,9 +7,6 @@ import {RadioStyles} from '../types';
 
 const Container = styled.div<RadioStyles>`
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-sizing: border-box;
   flex-shrink: 0;
   width: 16px;
@@ -18,8 +15,6 @@ const Container = styled.div<RadioStyles>`
   color: ${theme.colors.white};
   border: 1px solid ${theme.colors.grey[30]};
   cursor: pointer;
-
-  margin: ${props => (props.hasLabel ? '2px 0 0' : undefined)};
 
   :focus-visible::before {
     content: '';
@@ -46,9 +41,14 @@ const Container = styled.div<RadioStyles>`
     border-radius: 50%;
   }
 
-  ${({error, readOnly, disabled}) => {
+  ${({error, readOnly, disabled, hasLabel}) => {
+    const styles = {
+      margin: hasLabel ? '2px 0 0' : undefined,
+    };
+
     if (error) {
       return {
+        ...styles,
         borderColor: theme.colors.red[80],
         color: theme.colors.red[80],
         cursor: readOnly || disabled ? 'default' : 'pointer',
@@ -57,6 +57,7 @@ const Container = styled.div<RadioStyles>`
 
     if (readOnly) {
       return {
+        ...styles,
         backgroundColor: 'transparent',
         borderStyle: 'dashed',
         borderColor: theme.colors.grey[30],
@@ -67,11 +68,14 @@ const Container = styled.div<RadioStyles>`
 
     if (disabled) {
       return {
+        ...styles,
         backgroundColor: 'transparent',
         borderColor: theme.colors.grey[20],
         cursor: 'default',
       };
     }
+
+    return styles;
   }}
 `;
 

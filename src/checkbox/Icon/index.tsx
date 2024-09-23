@@ -2,9 +2,9 @@ import {KeyboardEventHandler, ReactNode, RefObject} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
-
-import {CheckboxProps, CheckboxStyles} from '../types';
 import {Done, Remove} from 'icons';
+
+import {CheckboxStyles} from '../types';
 
 const Container = styled.div<CheckboxStyles>`
   position: relative;
@@ -20,8 +20,6 @@ const Container = styled.div<CheckboxStyles>`
   border: 1px solid ${theme.colors.grey[30]};
   cursor: pointer;
 
-  margin: ${props => (props.hasLabel ? '2px 0 0' : undefined)};
-
   :focus-visible::after {
     content: '';
     display: block;
@@ -35,9 +33,14 @@ const Container = styled.div<CheckboxStyles>`
     box-shadow: 0px 0px 3px 2px ${theme.colors.accent[70]};
   }
 
-  ${({checked, error, readOnly, disabled}) => {
+  ${({hasLabel, checked, error, readOnly, disabled}) => {
+    const styles = {
+      margin: hasLabel ? '2px 0 0' : undefined,
+    };
+
     if (error) {
       return {
+        ...styles,
         borderColor: theme.colors.red[80],
         color: theme.colors.red[80],
         cursor: readOnly || disabled ? 'default' : 'pointer',
@@ -46,6 +49,7 @@ const Container = styled.div<CheckboxStyles>`
 
     if (readOnly) {
       return {
+        ...styles,
         backgroundColor: 'transparent',
         borderStyle: 'dashed',
         borderColor: theme.colors.grey[30],
@@ -57,6 +61,7 @@ const Container = styled.div<CheckboxStyles>`
     if (disabled) {
       if (checked) {
         return {
+          ...styles,
           backgroundColor: theme.colors.accent[20],
           borderColor: theme.colors.accent[20],
           cursor: 'default',
@@ -64,6 +69,7 @@ const Container = styled.div<CheckboxStyles>`
       }
 
       return {
+        ...styles,
         backgroundColor: 'transparent',
         borderColor: theme.colors.grey[20],
         cursor: 'default',
@@ -72,6 +78,7 @@ const Container = styled.div<CheckboxStyles>`
 
     if (checked) {
       return {
+        ...styles,
         backgroundColor: theme.colors.accent[90],
         borderColor: theme.colors.accent[90],
 
@@ -80,10 +87,12 @@ const Container = styled.div<CheckboxStyles>`
         },
       };
     }
+
+    return styles;
   }}
 `;
 
-export const Icon: React.FC<CheckboxProps & {inputRef: RefObject<HTMLInputElement>}> = ({inputRef, ...props}) => {
+export const Icon: React.FC<CheckboxStyles & {inputRef: RefObject<HTMLInputElement>}> = ({inputRef, ...props}) => {
   let children: ReactNode = null;
 
   switch (props.checked) {
@@ -100,8 +109,6 @@ export const Icon: React.FC<CheckboxProps & {inputRef: RefObject<HTMLInputElemen
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       inputRef.current?.click();
     }
-
-    props.onKeyDown?.(e);
   };
 
   const containerProps = {

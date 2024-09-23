@@ -1,9 +1,9 @@
-import {forwardRef} from 'react';
+import {forwardRef, useRef} from 'react';
 import styled from '@emotion/styled';
 
 import {Icon} from './Icon';
 import {Label} from './Label';
-import {RadioProps, RadioStyles} from './types';
+import {SwitchProps, SwitchStyles} from './types';
 
 const Container = styled.label`
   position: relative;
@@ -17,28 +17,56 @@ const Content = styled.div`
   gap: 8px;
 `;
 
-export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
+const Input = styled.input`
+  position: absolute;
+  visibility: hidden;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+`;
+
+export const Switch = forwardRef<HTMLLabelElement, SwitchProps>((props, ref) => {
   const {
     startAdornment,
     children,
     label,
     error,
+    checked,
     disabled,
     readOnly,
     hasLabel,
     whiteSpace,
-    qa = 'radio',
+    size,
 
+    qa = 'switch',
     ...rest
   } = props;
 
-  const styles: RadioStyles = {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const styles: SwitchStyles = {
+    size,
+    checked,
     readOnly,
     error,
     disabled,
     whiteSpace,
 
     hasLabel: hasLabel ?? (!!label || !!children),
+  };
+
+  const inputProps = {
+    ...rest,
+
+    readOnly,
+    error,
+    disabled,
+    type: 'checkbox',
+    checked: checked === true,
+
+    onChange: !readOnly && !disabled ? props.onChange : undefined,
   };
 
   const containerProps = {
@@ -49,6 +77,8 @@ export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
     'data-qa': qa,
   };
 
+  const iconProps = {...styles, inputRef};
+
   const labelProps = {
     ...styles,
 
@@ -58,9 +88,10 @@ export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
 
   return (
     <Container ref={ref} {...containerProps}>
+      <Input ref={inputRef} {...inputProps} />
       <Content>
         {startAdornment}
-        <Icon {...styles} inputProps={rest} />
+        <Icon {...iconProps} />
         <Label {...labelProps} />
       </Content>
     </Container>

@@ -5,6 +5,7 @@ import {SizeTokenValue, theme} from 'theme';
 
 import {SegmentedControlItem} from './SegmentedControlItem';
 import {SegmentedControlProps} from './types';
+import {getQAAttribute} from 'common';
 
 const Container = styled.div<Pick<SegmentedControlProps, 'size' | 'disabled' | 'readOnly' | 'width'>>`
   position: relative;
@@ -40,7 +41,8 @@ const Container = styled.div<Pick<SegmentedControlProps, 'size' | 'disabled' | '
 `;
 
 export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>((props, ref) => {
-  const {options, size, width, qa, ...restProps} = props;
+  const {options, size, width, qa = 'segmented', ...restProps} = props;
+  const getQA = getQAAttribute(qa);
 
   const children = options.map((props, index) => {
     const resultProps = {
@@ -48,6 +50,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
       ...props,
 
       checked: typeof restProps.value !== 'undefined' ? restProps.value === props.value : undefined,
+      qa: getQA('element'),
     };
 
     return <SegmentedControlItem key={`${index}-${props.value}`} {...resultProps} />;

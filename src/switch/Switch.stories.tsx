@@ -4,14 +4,15 @@ import {CSSObject} from '@emotion/react';
 
 import {Link} from 'link';
 
-import {Checkbox as BaseCheckbox} from './Checkbox';
-import {CheckboxProps, CheckboxState} from './types';
+import {Switch as BaseSwitch} from './Switch';
+import {SwitchProps, SwitchState} from './types';
+import {SizeTokenValue} from 'theme';
 
-export const Checkbox: React.FC<CheckboxProps> = props => {
-  const [checked, setChecked] = useState<CheckboxState>();
+export const Switch: React.FC<SwitchProps> = props => {
+  const [checked, setChecked] = useState<SwitchState>();
 
   const onChange: ChangeEventHandler<HTMLInputElement> = () => {
-    let newChecked: CheckboxState = false;
+    let newChecked: SwitchState = false;
 
     switch (checked) {
       case 'halfOn':
@@ -31,7 +32,7 @@ export const Checkbox: React.FC<CheckboxProps> = props => {
     }
   };
 
-  const resultProps: CheckboxProps = {
+  const resultProps: SwitchProps = {
     ...props,
 
     checked: props.checked ?? checked,
@@ -42,26 +43,26 @@ export const Checkbox: React.FC<CheckboxProps> = props => {
   return (
     <div>
       <div style={{marginBottom: 16}}>
-        <BaseCheckbox {...resultProps} />
+        <BaseSwitch {...resultProps} />
       </div>
       <div style={{marginBottom: 16}}>
-        <BaseCheckbox {...resultProps}>
+        <BaseSwitch {...resultProps}>
           {'Я согласен с '}
           <Link href="#" target="_blank">
             условиями оказания услуг
           </Link>
-        </BaseCheckbox>
+        </BaseSwitch>
       </div>
       <div style={{maxWidth: 280}}>
-        <BaseCheckbox {...resultProps}>Пример многострочного лейбла, на несколько строк</BaseCheckbox>
+        <BaseSwitch {...resultProps}>Пример многострочного лейбла, на несколько строк</BaseSwitch>
       </div>
     </div>
   );
 };
 
 const meta = {
-  title: 'Checkbox',
-  component: Checkbox,
+  title: 'Switch',
+  component: Switch,
   parameters: {
     layout: 'centered',
   },
@@ -77,6 +78,13 @@ const meta = {
       type: 'boolean | halfOn' as never,
       control: 'select',
       options: [false, true, 'halfOn'],
+    },
+
+    size: {
+      type: 'SizeTokenValue' as never,
+      control: 'select',
+      options: [SizeTokenValue.Large, SizeTokenValue.Small],
+      description: 'Размер',
     },
 
     whiteSpace: {
@@ -110,6 +118,6 @@ const meta = {
   args: {
     label: 'Label',
   },
-} satisfies Meta<typeof Checkbox>;
+} satisfies Meta<typeof Switch>;
 
 export default meta;

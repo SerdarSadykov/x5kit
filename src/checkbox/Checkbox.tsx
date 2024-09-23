@@ -7,7 +7,8 @@ import {CheckboxProps, CheckboxStyles} from './types';
 
 const Container = styled.label`
   position: relative;
-  display: block;
+  display: inline-block;
+  vertical-align: top;
 `;
 
 const Content = styled.div`
