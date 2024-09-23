@@ -96,10 +96,12 @@ export const Icon: React.FC<CheckboxProps & {inputRef: RefObject<HTMLInputElemen
       break;
   }
 
-  const onKeyDown: KeyboardEventHandler = e => {
+  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       inputRef.current?.click();
     }
+
+    props.onKeyDown?.(e);
   };
 
   const containerProps = {
