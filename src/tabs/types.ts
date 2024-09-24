@@ -1,5 +1,7 @@
 import {HTMLAttributes, MouseEvent, ReactNode} from 'react';
 
+import {QA} from 'common';
+
 export type TabValue = string | number;
 
 export type TabProps = {
@@ -13,4 +15,4 @@ export type TabProps = {
 export type TabsProps = {
   value: TabValue;
   onChange: (newValue: TabValue, e: MouseEvent<HTMLDivElement>) => void;
-} & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
+} & QA & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;

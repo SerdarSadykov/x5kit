@@ -2,24 +2,38 @@ import {forwardRef, MouseEventHandler, useLayoutEffect, WheelEventHandler} from 
 import styled from '@emotion/styled';
 
 import {useRefMerge} from 'common';
-import {theme} from 'theme';
+import {theme} from 'theme';;
 
+import {ArrowLeft, ArrowRight} from './Arrow';
 import {TabsProps} from './types';
 
 const Container = styled.div`
   position: relative;
   width: 100%;
+`;
+
+const Scroll = styled.div`
+  position: relative;
   overflow-x: auto;
   overflow-y: hidden;
+  padding: 0 24px;
 
   ${theme.scroll};
+
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  :hover::-webkit-scrollbar-thumb {
+    background-color: #cfd4dc;
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   align-items: flex-start;
   white-space: nowrap;
-  width: 100%;
+  width: fit-content;
   border-bottom: 1px solid ${theme.colors.grey[20]};
 
   ::after {
@@ -35,7 +49,7 @@ const Content = styled.div`
 `;
 
 export const Tabs: React.FC<TabsProps> = forwardRef<HTMLDivElement, TabsProps>((props, baseRef) => {
-  const {children, value, onChange} = props;
+  const {children, value, onChange, qa} = props;
 
   const ref = useRefMerge<HTMLDivElement>(baseRef);
 
@@ -80,8 +94,12 @@ export const Tabs: React.FC<TabsProps> = forwardRef<HTMLDivElement, TabsProps>((
   }, [value]);
 
   return (
-    <Container ref={ref} onClick={onClick} onWheel={onWheel}>
-      <Content>{children}</Content>
+    <Container data-qa={qa} onClick={onClick}>
+      <Scroll ref={ref} onWheel={onWheel}>
+        <Content>{children}</Content>
+      </Scroll>
+      <ArrowRight containerRef={ref} />
+      <ArrowLeft containerRef={ref} />
     </Container>
   );
 });
