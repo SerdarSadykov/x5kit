@@ -8,6 +8,4 @@ export type LoaderProps = {
   color?: ColorTokenValue;
 } & QA;
 
-export type LoaderBlockProps = LoaderProps
-  & PropsWithChildren
-  & HTMLAttributes<HTMLDivElement>;
+export type LoaderBlockProps = LoaderProps & HTMLAttributes<HTMLDivElement>;

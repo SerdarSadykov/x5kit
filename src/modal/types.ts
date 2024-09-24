@@ -7,11 +7,11 @@ export type ModalHeaderProps = {
   caption?: ReactNode;
   icon?: ReactNode;
   onClose?: () => void;
-} & PropsWithChildren & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLDivElement>;
 
 export type ModalContentProps = {
   noBorderScroll?: boolean;
-} & PropsWithChildren & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLDivElement>;
 
 export type ModalProps = {
   isOpen: boolean;

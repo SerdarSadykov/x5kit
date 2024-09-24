@@ -45,6 +45,6 @@ export type ButtonProps = {
   // mode?: keyof typeof buttonModes === variant inner | innerInput
 
   // type?: keyof typeof buttonTypes
-} & QA & Partial<ButtonStyles> & PropsWithChildren & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'color'>;
+} & QA & Partial<ButtonStyles> & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'color'>;
 
 export type IconButtonProps = Omit<ButtonProps, 'startAdornment' | 'endAdornment'>;
