@@ -6,7 +6,7 @@ import {getValueLabel} from 'select/utils';
 
 export const useReadonlyInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
   const context = useContext(SelectContext);
-  const {value, multiple, noWrap} = context;
+  const {value, options, multiple, noWrap} = context;
 
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -41,7 +41,7 @@ export const useReadonlyInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
   useEffect(() => {
     setInputValue(multiple ? '' : getValueLabel(context));
-  }, [multiple, value]);
+  }, [multiple, value, options]);
 
   return {inputProps, multiple, noWrap};
 };

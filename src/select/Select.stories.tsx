@@ -30,7 +30,10 @@ export type SelectStoryProps = {
 // };
 
 export const Select: React.FC<SelectStoryProps> = props => {
-  const [value, setValue] = useState<SelectValue>([]);
+  const [value, setValue] = useState<SelectValue>(() => {
+    const iVal = props.options[0]?.value;
+    return iVal ? [iVal] : [];
+  });
 
   const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
   const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
@@ -64,7 +67,7 @@ export const Select: React.FC<SelectStoryProps> = props => {
 
     value,
   } as SelectProps;
-
+  console.log(value);
   return (
     <div style={{display: 'flex', width: 400}}>
       <BaseSelect {...resultProps} />

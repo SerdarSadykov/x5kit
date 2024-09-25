@@ -16,7 +16,6 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     multiple,
     noWrap,
     isOpen,
-    state,
   } = context;
 
   const [inputValue, setInputValue] = useState('');
@@ -131,7 +130,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     //if closed and multiple, clear 
     //if closed and single, set label 
     setInputValue(multiple ? '' : getValueLabel(context));
-  }, [multiple, value, isOpen]);
+  }, [multiple, value, options, isOpen]);
 
   return {inputProps, multiple, noWrap};
 };
