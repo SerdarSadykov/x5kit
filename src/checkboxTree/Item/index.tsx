@@ -15,6 +15,7 @@ const Container = styled.div`
 
 const CheckboxContainer = styled.div<Pick<ItemProps, 'depth'>>`
   label {
+    display: block;
     padding: 6px 12px;
     padding-left: ${props => props.depth * 24 + 12}px;
   }

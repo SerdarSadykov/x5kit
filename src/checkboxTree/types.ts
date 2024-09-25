@@ -1,7 +1,8 @@
 import {ChangeEvent, HTMLAttributes, ReactNode} from 'react';
 
 import {QA} from 'common';
-import {CheckboxProps} from 'checkbox/types';
+import {TooltipProps} from 'tooltip';
+import {CheckboxProps} from 'checkbox';
 
 export type CheckboxTreeOptionValue = string | number;
 
@@ -9,6 +10,7 @@ export type CheckboxTreeOption = {
   label: ReactNode;
   value: CheckboxTreeOptionValue;
   childs?: CheckboxTreeOption[];
+  tooltip?: TooltipProps['content'];
 
   // isVisible?: boolean; removed
   // parent?: CheckboxTreeOption removed

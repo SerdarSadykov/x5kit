@@ -1,7 +1,9 @@
+import {useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 import {InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
+import {SelectContext} from 'select/Select';
 
 import {Chips} from '../Chips';
 
@@ -38,18 +40,29 @@ const InputComponent = styled.input`
 `;
 
 export const InputChips: InputProps['inputComponent'] = props => {
+  const {filter, value} = useContext(SelectContext);
+  const isReadOnly = !filter;
+  const isFilled = !!value.length || !!props.value;
+
+  const labelProps = {...props, style: {...props.style, isFilled}};
+
+  const componentProps = {...props.style, isFilled, isReadOnly};
+
   const inputProps = {
+    ...props.style,
     ...props.inputProps,
 
+    readOnly: isReadOnly,
     value: props.value,
     type: props.type,
     onInput: props.onChange,
+    isFilled: !!value.length,
   };
 
   return (
     <Container>
-      <Label {...props} />
-      <FieldComponent as="div" {...props.style}>
+      <Label {...labelProps} />
+      <FieldComponent as="div" {...componentProps}>
         <Chips />
         <InputComponent {...inputProps} />
       </FieldComponent>

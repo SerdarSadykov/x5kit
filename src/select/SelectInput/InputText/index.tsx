@@ -1,38 +1,18 @@
 import {useContext} from 'react';
-import styled from '@emotion/styled';
 
-import {InputProps, Label, FieldComponent} from 'input';
+import {InputProps, InputComponent} from 'input';
 import {SelectContext} from 'select/Select';
-
-const Container = styled.div`
-  position: relative;
-  flex-grow: 1;
-  height: 100%;
-
-  input:read-only {
-    cursor: default;
-  }
-`;
 
 export const InputText: InputProps['inputComponent'] = props => {
   const isReadOnly = !useContext(SelectContext).filter;
 
   const inputProps = {
-    ...props.style,
-    ...props.inputProps,
+    ...props,
 
-    isReadOnly,
+    inputProps: {...props.inputProps, readOnly: isReadOnly},
 
-    readOnly: isReadOnly,
-    value: props.value,
-    type: props.type,
-    onInput: props.onChange,
+    style: {...props.style, isReadOnly},
   };
 
-  return (
-    <Container>
-      <Label {...props} />
-      <FieldComponent {...inputProps} />
-    </Container>
-  );
+  return <InputComponent {...inputProps} />;
 };

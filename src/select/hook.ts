@@ -20,7 +20,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     virtualize,
     whiteSpace,
     components,
-  
+
     isOpen = isOpenValue,
     setIsOpen = setIsOpenValue,
 
@@ -83,6 +83,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
 
   const inputProps = {
     ...baseInputProps,
+
     disabled,
     readOnly,
     qa,

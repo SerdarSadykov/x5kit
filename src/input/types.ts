@@ -6,7 +6,18 @@ import {CSSObject} from '@emotion/react';
 
 type InputBaseProps<T> = Pick<
   InputHTMLAttributes<T>,
-  'type' | 'disabled' | 'required' | 'readOnly' | 'autoFocus' | 'autoComplete' | 'onFocus' | 'onBlur' | 'onClick' | 'onChange'
+  | 'type'
+  | 'disabled'
+  | 'required'
+  | 'readOnly'
+  | 'autoFocus'
+  | 'autoComplete'
+  | 'onFocus'
+  | 'onBlur'
+  | 'onClick'
+  | 'onInput'
+  | 'onChange'
+  | 'tabIndex'
 >;
 
 export type InputProps<T = HTMLInputElement> = {

@@ -2,12 +2,13 @@ import React, {memo} from 'react';
 import styled from '@emotion/styled';
 import {ListChildComponentProps} from 'react-window';
 
-import {theme} from 'theme';
+import {Placement, theme} from 'theme';
 
 import {CheckboxProps} from 'checkbox';
 import {SelectItemProps, SelectItemsProps} from 'select/types';
+import {Tooltip} from 'tooltip';
 
-const Container = styled.label<Pick<CheckboxProps, 'checked'>>`
+const Container = styled.label<Pick<CheckboxProps, 'checked' | 'disabled'>>`
   position: relative;
   display: block;
   padding: 6px 12px;
@@ -18,9 +19,17 @@ const Container = styled.label<Pick<CheckboxProps, 'checked'>>`
   ${theme.typography.p1compact};
 
   :hover {
-    background-color: ${theme.colors.grey[10]};
-    color: ${theme.colors.grey[100]};
-    cursor: pointer;
+    ${props => {
+      if (props.disabled) {
+        return;
+      }
+
+      return {
+        backgroundColor: theme.colors.grey[10],
+        color: theme.colors.grey[100],
+        cursor: 'pointer',
+      };
+    }}
   }
 
   ${props => {
@@ -28,6 +37,12 @@ const Container = styled.label<Pick<CheckboxProps, 'checked'>>`
       return {
         color: theme.colors.white,
         backgroundColor: theme.colors.accent[90],
+      };
+    }
+
+    if (props.disabled) {
+      return {
+        color: theme.colors.grey[40],
       };
     }
   }}
@@ -48,21 +63,37 @@ const SelectItem = memo<SelectItemProps>(props => {
     style,
     checked,
     option,
-    option: {name, label, value, children},
+    option: {name, label, value, disabled, children, tooltip},
   } = props;
 
   const onChange: CheckboxProps['onChange'] = e => {
+    if (disabled) {
+      return;
+    }
+
     props.onChange([option.value], option, e);
     props.setIsOpen(false);
   };
 
+  const containerProps = {style, checked, disabled};
+
   const inputProps = {name, value, checked, onChange, type: 'radio'};
 
-  return (
-    <Container style={style} checked={checked}>
+  const child = (
+    <Container {...containerProps}>
       <input {...inputProps} />
       {children ?? label}
     </Container>
+  );
+
+  if (!tooltip) {
+    return child;
+  }
+
+  return (
+    <Tooltip placement={Placement.right} content={tooltip}>
+      {child}
+    </Tooltip>
   );
 });
 

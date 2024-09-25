@@ -79,10 +79,10 @@ export const SelectFetch: React.FC<SelectProps> = props => {
 };
 
 const getOptions = (i): SelectOption[] => [
-  {label: `Andreev${i}`, value: `davletshin${i}`, disabled: false},
+  {label: `Andreev${i}`, value: `davletshin${i}`, disabled: false, tooltip: 'Вот такой тултип'},
   {label: `Glebov${i}`, value: `glebov${i}`, disabled: false},
   {label: `Sevostyanov${i}`, value: `sevostyanov${i}`, disabled: false},
-  {label: `Uvarova${i}`, value: `uvarova${i}`, disabled: true},
+  {label: `Uvarova${i}`, value: `uvarova${i}`, disabled: true, tooltip: 'Недоступно по причине'},
   {label: `Okulov${i}`, value: `okulov${i}`, disabled: false},
   {label: `Antipin${i}`, value: `antipin${i}`, disabled: true},
   {label: `Kuzmina${i}`, value: `kuzmina${i}`, disabled: false},
