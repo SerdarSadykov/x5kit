@@ -47,15 +47,14 @@ export const Tabs: React.FC<TabsStoryProps> = props => {
         <Tab value="three" disabled>
           <div>Tab 3</div>
         </Tab>
-        <Tab value="four" badge="15">
-          <div>Tab 4</div>
+        <Tab value="tl" badge="15" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+          Tab Link
         </Tab>
-        <Tab value="five">
-          <div>Tab 5</div>
+        <Tab value="tl2" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onClick={e => e.preventDefault()}>
+          Tab Link no redirect
         </Tab>
-        <Tab value="6">
-          <div>Таб с очень длинным названием, или нет</div>
-        </Tab>
+        <Tab value="five">Tab 5</Tab>
+        <Tab value="6">Таб с очень длинным названием, или нет</Tab>
       </BaseTabs>
     </div>
   );

@@ -1,4 +1,4 @@
-import {HTMLAttributes, MouseEvent, ReactNode} from 'react';
+import {AnchorHTMLAttributes, HTMLAttributes, MouseEvent, ReactNode} from 'react';
 
 import {QA} from 'common';
 
@@ -8,7 +8,7 @@ export type TabProps = {
   badge?: ReactNode;
   value: string;
   disabled?: boolean;
-} & HTMLAttributes<HTMLDivElement>;
+} & AnchorHTMLAttributes<HTMLDivElement>;
 
 export type TabsProps = {
   value: string;

@@ -1,4 +1,4 @@
-import {forwardRef, KeyboardEventHandler, MouseEventHandler, useContext} from 'react';
+import {ElementType, forwardRef, KeyboardEventHandler, MouseEventHandler, useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
@@ -14,6 +14,7 @@ const Container = styled.div<Pick<TabProps, 'disabled'> & {selected: boolean}>`
   gap: 8px;
   padding: 8px 16px;
   user-select: none;
+  text-decoration: none;
 
   ${theme.typography.p1}
 
@@ -100,6 +101,8 @@ export const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
     onKeyDown,
 
     'data-tab': value,
+
+    as: props.href ? 'a' as ElementType : undefined,
 
     tabIndex: disabled ? undefined : 0,
   };
