@@ -1,4 +1,4 @@
-import {PropsWithChildren} from 'react';
+import {HTMLAttributes, PropsWithChildren} from 'react';
 import {CSSObject} from '@emotion/react';
 
 import {SizeTokenValue} from 'theme';
@@ -18,8 +18,7 @@ export type BadgeStyles = {
   color?: string;
 } & Pick<CSSObject, 'backgroundColor' | 'borderColor'>;
 
-export type BadgeProps = Partial<BadgeStyles> & PropsWithChildren;
-
+export type BadgeProps = Partial<BadgeStyles> & PropsWithChildren & HTMLAttributes<HTMLDivElement>;
 
 export enum BadgeDotSize {
   xs = 'xs',

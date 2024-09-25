@@ -2,12 +2,12 @@ import {useContext, useState} from 'react';
 import styled from '@emotion/styled';
 
 import {DropdownContent} from 'dropdown';
-import {LoaderItem} from 'loader';
-import {SizeTokenValue, theme} from 'theme';
+import {theme} from 'theme';
 
 import {SelectContext} from '../Select';
 import {SelectItems} from '../SelectItems';
 import {Hint} from '../Hint';
+import {Loader} from '../Loader';
 import {SelectState, SelectItemsProps} from '../types';
 
 const Empty = styled.div`
@@ -29,7 +29,7 @@ export const SelectList: React.FC = () => {
   if (state === SelectState.searching) {
     const child = components?.searching ?? (
       <Empty>
-        <LoaderItem size={SizeTokenValue.Small}>Поиск совпадений</LoaderItem>
+        <Loader>Поиск совпадений</Loader>
       </Empty>
     );
 

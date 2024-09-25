@@ -1,20 +1,39 @@
-import {forwardRef, MouseEventHandler} from 'react';
+import {forwardRef, KeyboardEventHandler, MouseEventHandler, useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
+import {TabsValueContext} from '../Tabs';
 import {TabBadge} from '../TabBadge';
 import {TabProps} from '../types';
 
-const Container = styled.div<Pick<TabProps, 'disabled'>>`
+const Container = styled.div<Pick<TabProps, 'disabled'> & {selected: boolean}>`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
   user-select: none;
-  cursor: pointer;
 
   ${theme.typography.p1}
+
+  :focus-visible {
+    border: 0;
+    outline: none;
+  }
+
+  :focus-visible::after {
+    content: '';
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border-radius: 2px;
+    box-shadow: 0px 0px 3px 2px ${theme.colors.accent[70]};
+  }
 
   ${props => {
     if (props.disabled) {
@@ -24,6 +43,7 @@ const Container = styled.div<Pick<TabProps, 'disabled'>>`
     }
 
     return {
+      cursor: props.selected ? 'default' : 'pointer',
       color: theme.colors.grey[100],
 
       svg: {
@@ -40,21 +60,48 @@ const Container = styled.div<Pick<TabProps, 'disabled'>>`
 export const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
   const {children, label, icon, badge, value, disabled, ...rest} = props;
 
+  const selected = useContext(TabsValueContext) === value;
+
   const onClickCapture: MouseEventHandler<HTMLDivElement> = e => {
-    if (disabled) {
+    if (disabled || selected) {
       e.stopPropagation();
     }
 
     rest.onClickCapture?.(e);
   };
 
+  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
+    const target = e.target as HTMLDivElement | undefined;
+    const prev = target?.previousElementSibling as HTMLDivElement | undefined;
+    const next = target?.nextElementSibling as HTMLDivElement | undefined;
+
+    switch (e.code) {
+      case 'Enter':
+      case 'NumpadEnter':
+        target?.click?.();
+        break;
+      case 'ArrowLeft':
+        prev?.focus?.();
+        break;
+      case 'ArrowRight':
+        next?.focus?.();
+        break;
+    }
+
+    props.onKeyDown?.(e);
+  };
+
   const containerProps = {
     ...rest,
 
     disabled,
+    selected,
     onClickCapture,
+    onKeyDown,
 
     'data-tab': value,
+
+    tabIndex: disabled ? undefined : 0,
   };
 
   const badgeProps = {value, badge, disabled};
