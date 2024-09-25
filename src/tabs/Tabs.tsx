@@ -1,32 +1,15 @@
-import {forwardRef, MouseEventHandler, useLayoutEffect, WheelEventHandler} from 'react';
+import {createContext, forwardRef, MouseEventHandler, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 
-import {useRefMerge} from 'common';
-import {theme} from 'theme';;
+import {theme} from 'theme';
 
-import {ArrowLeft, ArrowRight} from './Arrow';
+import {Arrow} from './Arrow';
+import {Scrollable} from './Scrollable';
 import {TabsProps} from './types';
 
 const Container = styled.div`
   position: relative;
   width: 100%;
-`;
-
-const Scroll = styled.div`
-  position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0 24px;
-
-  ${theme.scroll};
-
-  ::-webkit-scrollbar-thumb {
-    background-color: transparent;
-  }
-
-  :hover::-webkit-scrollbar-thumb {
-    background-color: #cfd4dc;
-  }
 `;
 
 const Content = styled.div`
@@ -39,7 +22,7 @@ const Content = styled.div`
   ::after {
     content: '';
     position: absolute;
-    bottom: -1px;
+    bottom: 0;
     height: 2px;
     width: var(--width);
     left: var(--offset);
@@ -48,10 +31,12 @@ const Content = styled.div`
   }
 `;
 
-export const Tabs: React.FC<TabsProps> = forwardRef<HTMLDivElement, TabsProps>((props, baseRef) => {
-  const {children, value, onChange, qa} = props;
+export const TabsValueContext = createContext<string | null>(null);
 
-  const ref = useRefMerge<HTMLDivElement>(baseRef);
+export const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
+  const {children, value, onChange, arrows, qa} = props;
+
+  const scrollableRef = useRef<HTMLDivElement>(null);
 
   const onClick: MouseEventHandler<HTMLDivElement> = e => {
     let targetTab = e.target as HTMLDivElement | undefined;
@@ -69,37 +54,27 @@ export const Tabs: React.FC<TabsProps> = forwardRef<HTMLDivElement, TabsProps>((
     onChange(targetValue, e);
   };
 
-  const onWheel: WheelEventHandler<HTMLDivElement> = e => {
-    if (!ref.current) {
-      return;
-    }
+  useEffect(() => {
+    setTimeout(() => {
+      if (!scrollableRef.current) {
+        return;
+      }
 
-    const newScrollLeft = ref.current.scrollLeft + e.deltaY;
+      const currentTab = scrollableRef.current.querySelector<HTMLDivElement>(`[data-tab=${JSON.stringify(value)}]`);
 
-    ref.current.scrollLeft = newScrollLeft > 0 ? newScrollLeft : 0;
-  };
-
-  useLayoutEffect(() => {
-    if (!ref.current || typeof value === 'undefined') {
-      return;
-    }
-
-    const currentTab = ref.current.querySelector<HTMLDivElement>(`[data-tab=${JSON.stringify(String(value))}]`);
-    if (!currentTab) {
-      return;
-    }
-
-    ref.current.style.setProperty('--width', `${currentTab.clientWidth}px`);
-    ref.current.style.setProperty('--offset', `${currentTab.offsetLeft}px`);
-  }, [value]);
+      scrollableRef.current.style.setProperty('--width', `${currentTab?.clientWidth ?? 0}px`);
+      scrollableRef.current.style.setProperty('--offset', `${currentTab?.offsetLeft ?? 0}px`);
+    });
+  }, [value, arrows]);
 
   return (
-    <Container data-qa={qa} onClick={onClick}>
-      <Scroll ref={ref} onWheel={onWheel}>
-        <Content>{children}</Content>
-      </Scroll>
-      <ArrowRight containerRef={ref} />
-      <ArrowLeft containerRef={ref} />
-    </Container>
+    <TabsValueContext.Provider value={value}>
+      <Container ref={ref} data-qa={qa} onClick={onClick}>
+        <Scrollable ref={scrollableRef} value={value} arrows={arrows}>
+          <Content>{children}</Content>
+        </Scrollable>
+        {arrows && <Arrow scrollableRef={scrollableRef} />}
+      </Container>
+    </TabsValueContext.Provider>
   );
 });

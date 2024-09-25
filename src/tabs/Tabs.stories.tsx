@@ -6,16 +6,26 @@ import {SizeTokenValue} from 'theme';
 
 import {Tabs as BaseTabs} from './Tabs';
 import {Tab} from './Tab';
-import {TabsProps, TabValue} from './types';
+import {TabsProps} from './types';
 
-export const Tabs: React.FC<TabsProps> = props => {
-  const [value, setValue] = useState<TabValue>(props.value);
+type TabsStoryProps = {onChange: boolean} & Omit<TabsProps, 'onChange'>;
+
+export const Tabs: React.FC<TabsStoryProps> = props => {
+  const [value, setValue] = useState<string>(props.value);
+
+  const onChange = (newValue: string) => {
+    setValue(newValue);
+
+    if (props.onChange) {
+      alert(newValue);
+    }
+  };
 
   const resultProps: TabsProps = {
     ...props,
 
     value,
-    onChange: newValue => setValue(newValue),
+    onChange,
   };
 
   useEffect(() => {
@@ -25,13 +35,15 @@ export const Tabs: React.FC<TabsProps> = props => {
   return (
     <div style={{width: 600}}>
       <BaseTabs {...resultProps}>
-        <Tab value={1} icon={<Settings size={SizeTokenValue.Small} />}>
+        <Tab value="1" icon={<Settings size={SizeTokenValue.Small} />}>
           Хранение
         </Tab>
-        <Tab value={2} disabled badge="99+" icon={<AccountCircle size={SizeTokenValue.Small} />}>
-          Локальные поставщики
+        <Tab value="2" badge="99+" icon={<AccountCircle size={SizeTokenValue.Small} />}>
+          Локальные поставщики {value === '2' ? 'и внешние' : '...'}
         </Tab>
-        <Tab value="импорт" badge={22}>Импорт</Tab>
+        <Tab value="импорт" badge={22}>
+          Импорт
+        </Tab>
         <Tab value="three" disabled>
           <div>Tab 3</div>
         </Tab>
@@ -61,9 +73,20 @@ const meta = {
       type: 'string | number' as never,
       control: 'text',
     },
+
+    arrows: {
+      type: 'boolean',
+      control: 'boolean',
+      description: 'Показывать стрелки',
+    },
+
+    onChange: {
+      type: '(newValue: string, e: MouseEvent<HTMLDivElement>) => void' as never,
+      control: 'boolean',
+    },
   },
   args: {
-    value: 1,
+    value: '1',
   },
 } satisfies Meta<typeof Tabs>;
 

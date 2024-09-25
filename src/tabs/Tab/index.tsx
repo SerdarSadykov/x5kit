@@ -57,7 +57,7 @@ export const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
     'data-tab': value,
   };
 
-  const badgeProps = {badge, disabled};
+  const badgeProps = {value, badge, disabled};
 
   return (
     <Container ref={ref} {...containerProps}>
