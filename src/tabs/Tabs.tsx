@@ -31,7 +31,7 @@ const Content = styled.div`
   }
 `;
 
-export const TabsValueContext = createContext<string | null>(null);
+export const TabsValueContext = createContext<string | undefined>(undefined);
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
   const {children, value, onChange, arrows, qa} = props;

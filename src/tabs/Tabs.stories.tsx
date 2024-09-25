@@ -2,16 +2,18 @@ import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
 import {AccountCircle, Settings} from 'icons';
-import {SizeTokenValue} from 'theme';
+import {SizeTokenValue, theme} from 'theme';
 
-import {Tabs as BaseTabs} from './Tabs';
 import {Tab} from './Tab';
-import {TabsProps} from './types';
+import {Tabs as BaseTabs} from './Tabs';
+import {TabContext, TabList as BaseTabList} from './TabList';
+import {TabPanel} from './TabPanel';
+import {TabListProps, TabsProps} from './types';
 
 type TabsStoryProps = {onChange: boolean} & Omit<TabsProps, 'onChange'>;
 
 export const Tabs: React.FC<TabsStoryProps> = props => {
-  const [value, setValue] = useState<string>(props.value);
+  const [value, setValue] = useState<string | undefined>(props.value);
 
   const onChange = (newValue: string) => {
     setValue(newValue);
@@ -56,6 +58,49 @@ export const Tabs: React.FC<TabsStoryProps> = props => {
         <Tab value="five">Tab 5</Tab>
         <Tab value="6">Таб с очень длинным названием, или нет</Tab>
       </BaseTabs>
+    </div>
+  );
+};
+
+export const TabList: React.FC<TabsStoryProps> = props => {
+  const [value, setValue] = useState<string | undefined>(props.value);
+
+  const onChange: TabListProps['onChange'] = (newValue: string) => {
+    setValue(newValue);
+
+    if (props.onChange) {
+      alert(newValue);
+    }
+  };
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
+  return (
+    <div style={{width: 600}}>
+      <TabContext.Provider value={value}>
+        <BaseTabList onChange={onChange}>
+          <Tab value="1" icon={<Settings size={SizeTokenValue.Small} />}>
+            Первая
+          </Tab>
+          <Tab value="2" badge="99+" icon={<AccountCircle size={SizeTokenValue.Small} />}>
+            Вторая
+          </Tab>
+          <Tab value="Третья" badge={22}>
+            Треться
+          </Tab>
+        </BaseTabList>
+        <TabPanel value="1">
+          <div style={{paddingTop: 20, ...theme.typography.p1}}>Первая вкладка Первая вкладка Первая вкладка</div>
+        </TabPanel>
+        <TabPanel value="2">
+          <div style={{paddingTop: 20, ...theme.typography.p1}}>Вторая вкладка Вторая вкладка Вторая вкладка</div>
+        </TabPanel>
+        <TabPanel value="импорт">
+          <div style={{paddingTop: 20, ...theme.typography.p1}}>Третья</div>
+        </TabPanel>
+      </TabContext.Provider>
     </div>
   );
 };
