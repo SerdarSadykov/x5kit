@@ -23,6 +23,7 @@ export const useTooltip = (props: TooltipProps) => {
   const {
     children,
     placement,
+    enabled,
     qa = 'tooltip',
 
     delay = {open: 330, close: 100},
@@ -47,8 +48,8 @@ export const useTooltip = (props: TooltipProps) => {
   });
 
   const interactions = useInteractions([
-    useHover(floating.context, {move: false, delay}),
-    useDismiss(floating.context)
+    useHover(floating.context, {enabled, delay, move: false}),
+    useDismiss(floating.context, {enabled})
   ]);
 
   const {isMounted, styles} = useTransitionStyles(floating.context);

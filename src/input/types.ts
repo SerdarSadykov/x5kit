@@ -15,6 +15,7 @@ export type InputProps<T = HTMLInputElement> = {
   filled?: boolean;
   focused?: boolean;
   unborder?: boolean;
+  overflowTooltip?: boolean;
   loading?: boolean;
   absoluteCaption?: boolean;
   error?: boolean | ReactNode;
@@ -48,6 +49,7 @@ export type InputStyles = {
   isFilled?: boolean;
   isFocused: boolean;
   isUnborder?: boolean;
+  isOverflowTooltip?: boolean;
   isLoading?: boolean;
   isLabeled: boolean;
   isMasked: boolean;

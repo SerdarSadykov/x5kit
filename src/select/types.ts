@@ -69,25 +69,27 @@ type SelectComponents = {
   item?: React.FC<SelectItemProps>;
 };
 
-export type SelectProps = {
-  options: SelectOption[];
-
+type CommonProps = {
   value: SelectInternalValue;
   onChange: SelectListOnChange;
 
-  filter?: SelectFilter;
-
-  dropdownProps?: Partial<DropdownProps>;
-
   multiple?: boolean;
   showChips?: number;
+  noWrap?: boolean;
+
+  filter?: SelectFilter;
 
   virtualize?: VariableSizeListProps | boolean;
 
   components?: SelectComponents;
-  // noWrap?: boolean;
+} & Pick<InputProps, 'disabled' | 'readOnly'> & Pick<CSSObject, 'whiteSpace'>;
+
+export type SelectProps = {
+  options: SelectOption[];
+
+  dropdownProps?: Partial<DropdownProps>;
 } & QA
-  & Pick<CSSObject, 'whiteSpace'>
+  & CommonProps
   & Omit<InputProps, 'value' | 'onChange'>
   & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
 
@@ -106,7 +108,6 @@ export type SelectContextProps = {
   getQA: ReturnType<typeof getQAAttribute>;
 
   onClear: () => void;
-
-} & Pick<SelectProps, 'value' | 'onChange' | 'multiple' | 'disabled' | 'readOnly' | 'showChips' | 'filter' | 'virtualize' | 'whiteSpace' | 'components'>
+} & CommonProps
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
   & Required<Pick<DropdownProps, 'maxHeight'>>;

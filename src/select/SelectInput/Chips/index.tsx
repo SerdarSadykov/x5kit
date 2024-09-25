@@ -82,7 +82,7 @@ const ChipsMultiple: React.FC = () => {
 
   if (labels.length > showChips) {
     child.push(
-      <Chip key="rest" disabled>
+      <Chip key="rest" {...chipProps}>
         {`+${labels.length - showChips}`}
       </Chip>
     );

@@ -1,11 +1,9 @@
-import {forwardRef} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
-import {Input as BaseInput, InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
+import {InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
 
-import {useInput} from './hook';
-import {Chips} from './Chips';
+import {Chips} from '../Chips';
 
 const Container = styled.div`
   position: relative;
@@ -39,7 +37,7 @@ const InputComponent = styled.input`
   ${theme.typography.p1}
 `;
 
-const InputChips: InputProps['inputComponent'] = props => {
+export const InputChips: InputProps['inputComponent'] = props => {
   const inputProps = {
     ...props.inputProps,
 
@@ -58,11 +56,3 @@ const InputChips: InputProps['inputComponent'] = props => {
     </Container>
   );
 };
-
-export const Input = forwardRef<HTMLInputElement, Omit<InputProps, 'value' | 'onChange'>>((props, ref) => {
-  const {inputProps, multiple} = useInput(props, ref);
-
-  const inputComponent = multiple ? InputChips : undefined;
-
-  return <BaseInput inputComponent={inputComponent} {...inputProps} />;
-});

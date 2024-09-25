@@ -1,8 +1,9 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import {MaskInput} from 'maska';
 
 import {theme} from 'theme';
+import {Tooltip} from 'tooltip';
 
 import type {InputInternalProps, InputStyles} from '../types';
 
@@ -89,9 +90,10 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     ...inputProps,
     ...style,
 
-    value,
+    value: value ?? '',
+
     type: props.type,
-    onInput: props.onChange,
+    onChange: props.onChange,
   };
 
   return (
@@ -102,19 +104,38 @@ const MaskedField: React.FC<InputInternalProps> = props => {
   );
 };
 
-export const Field: React.FC<InputInternalProps> = props => {
-  if (props.style.isMasked) {
-    return <MaskedField {...props} />;
-  }
+const BasicField: React.FC<InputInternalProps> = props => {
+  const {value, style, inputProps} = props;
+
+  const ref = useRef<HTMLInputElement>(null);
 
   const componentProps = {
-    ...props.inputProps,
-    ...props.style,
+    ...inputProps,
+    ...style,
 
-    value: props.value,
     type: props.type,
-    onInput: props.onChange,
+    onChange: props.onChange,
+
+    value: value ?? '',
   };
 
-  return <FieldComponent {...componentProps} />;
+  const child = <FieldComponent ref={ref} {...componentProps} />;
+
+  if (!style.isOverflowTooltip) {
+    return child;
+  }
+
+  const hasTooltip = !style.isFocused && !!ref.current && ref.current.scrollWidth > ref.current.clientWidth;
+
+  return (
+    <Tooltip isPortal isOpen={hasTooltip ? undefined : false} content={value}>
+      {child}
+    </Tooltip>
+  );
+};
+
+export const Field: React.FC<InputInternalProps> = props => {
+  const Component = props.style.isMasked ? MaskedField : BasicField;
+
+  return <Component {...props} />;
 };

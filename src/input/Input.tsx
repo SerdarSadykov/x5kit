@@ -123,6 +123,7 @@ export const useInput = (props: InputProps): InputInternalProps => {
       isDisabled: props.disabled,
       isReadOnly: props.readOnly,
       isUnborder: props.unborder,
+      isOverflowTooltip: props.overflowTooltip,
       isLoading: props.loading,
       isLabeled: !!props.label,
       isMasked: !!props.mask,

@@ -2,7 +2,7 @@ import {createContext, forwardRef} from 'react';
 
 import {Dropdown} from 'dropdown';
 
-import {Input} from './Input';
+import {SelectInput} from './SelectInput';
 import {SelectList} from './SelectList';
 import {useSelect} from './hook';
 import {SelectContextProps, SelectProps} from './types';
@@ -16,7 +16,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>((props, baseRef)
 
   return (
     <SelectContext.Provider value={context}>
-      <Input ref={ref} {...inputProps} />
+      <SelectInput ref={ref} {...inputProps} />
 
       <Dropdown {...dropdownProps}>
         <List />

@@ -98,6 +98,12 @@ const commonArgTypes: ArgTypes = {
     control: 'boolean',
   },
 
+  overflowTooltip: {
+    type: 'boolean',
+    control: 'boolean',
+    description: 'Показывать тултип value при overflow',
+  },
+
   loading: {
     type: 'boolean',
     control: 'boolean',

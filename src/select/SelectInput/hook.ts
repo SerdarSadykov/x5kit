@@ -67,35 +67,35 @@ export const useInputValue = (props: Pick<InputProps, 'onBlur'>) => {
   const onBlur: FocusEventHandler<HTMLInputElement> = e => {
     props.onBlur?.(e);
 
-    // setOptions({all: options.all, filtred: []});
-    // setState(SelectState.default);
+    setOptions({all: options.all, filtred: []});
+    setState(SelectState.default);
 
-    // if (multiple) {
-    //   setInputValue('');
-    //   return;
-    // }
+    if (multiple) {
+      setInputValue('');
+      return;
+    }
 
-    // if (!inputValue) {
-    //   context.onClear();
+    if (!inputValue) {
+      context.onClear();
 
-    //   return;
-    // }
+      return;
+    }
 
-    // const sameLabelOption = findOptionByLabel(options.all, inputValue.toLowerCase());
-    // if (sameLabelOption && !sameLabelOption.disabled && !sameLabelOption.readOnly) {
-    //   if (value.includes(sameLabelOption.value)) {
-    //     return;
-    //   }
+    const sameLabelOption = findOptionByLabel(options.all, inputValue.toLowerCase());
+    if (sameLabelOption && !sameLabelOption.disabled && !sameLabelOption.readOnly) {
+      if (value.includes(sameLabelOption.value)) {
+        return;
+      }
 
-    //   context.onChange([sameLabelOption.value]);
-    //   return;
-    // }
+      context.onChange([sameLabelOption.value]);
+      return;
+    }
 
-    // if (value.length) {
-    //   context.onClear();
-    // }
+    if (value.length) {
+      context.onClear();
+    }
 
-    // setInputValue('');
+    setInputValue('');
   };
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export const useInputValue = (props: Pick<InputProps, 'onBlur'>) => {
       return;
     }
 
-    const selectedLabel = findOptions(options.all, value, 1)[0]?.label;
+    const selectedLabel = findOptions(options.all, value)[0]?.label;
     setInputValue(selectedLabel ?? '');
   }, [value]);
 
@@ -128,7 +128,6 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
   const inputProps = {
     ...props,
 
-    ref,
     onChange,
     onFocus,
     onBlur,
@@ -141,5 +140,10 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
     readOnly: !context.filter,
   } as InputProps;
 
-  return {inputProps, multiple: context.multiple};
+  return {
+    ref,
+    inputProps,
+    multiple: context.multiple,
+    noWrap: context.noWrap,
+  };
 };

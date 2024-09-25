@@ -47,7 +47,7 @@ type FetchedItem = {
 };
 
 const convertResp = (item: FetchedItem): SelectOption => ({
-  label: item.comment,
+  label: item.comment.slice(0, 60),
   value: item.id,
 });
 
@@ -90,7 +90,7 @@ const getOptions = (i): SelectOption[] => [
   {label: `Shiganova${i}`, value: `shiganova${i}`, disabled: false},
   {label: `Shorova${i}`, value: `shorova${i}`, disabled: false},
   {label: `Shevkun${i}`, value: `shevkun${i}`, disabled: true},
-  {label: `Ovcharenko${i}`, value: `ovcharenko${i}`, disabled: false},
+  {label: `Ovcharenko Ovcharenko Ovcharenko Ovcharenko${i}`, value: `ovcharenko${i}`, disabled: false},
 ];
 
 const meta = {
@@ -118,6 +118,12 @@ const meta = {
     multiple: {
       type: 'boolean',
       control: 'boolean',
+    },
+
+    noWrap: {
+      type: 'boolean',
+      control: 'boolean',
+      description: 'Не переносить текст'
     },
 
     showChips: {
