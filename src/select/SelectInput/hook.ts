@@ -116,6 +116,10 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
   const {inputValue, onChange, onBlur} = useInputValue(props);
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
+    if (context.disabled || context.readOnly) {
+      return;
+    }
+
     context.setIsOpen(true);
     props.onFocus?.(e);
   };
@@ -136,8 +140,7 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
     value: inputValue,
 
     filled: !!inputValue || !!context.value.length,
-
-    readOnly: !context.filter,
+    focused: context.isOpen,
   } as InputProps;
 
   return {
@@ -145,5 +148,6 @@ export const useInput = (props: Omit<InputProps, 'value' | 'onChange'>, ref: For
     inputProps,
     multiple: context.multiple,
     noWrap: context.noWrap,
+    isOpen: context.isOpen,
   };
 };

@@ -1,8 +1,6 @@
-import {useContext} from 'react';
 import styled from '@emotion/styled';
 
-import {InputProps, Label, FieldComponent} from 'input';
-import {SelectContext} from 'select/Select';
+import {InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
 
 const Container = styled.div`
   position: relative;
@@ -14,25 +12,29 @@ const Container = styled.div`
   }
 `;
 
-export const InputText: InputProps['inputComponent'] = props => {
-  const isReadOnly = !useContext(SelectContext).filter;
+const FieldComponent = styled(BaseFieldComponent)`
+  padding-top: 19px;
+`;
 
+export const InputTextNoWrap: InputProps['inputComponent'] = props => {
   const inputProps = {
     ...props.style,
     ...props.inputProps,
 
-    isReadOnly,
-
-    readOnly: isReadOnly,
     value: props.value,
     type: props.type,
     onInput: props.onChange,
+
+    readOnly: true,
+    isReadOnly: true,
   };
 
   return (
     <Container>
       <Label {...props} />
-      <FieldComponent {...inputProps} />
+      <FieldComponent as="div" tabIndex={0} {...inputProps}>
+        {props.value}
+      </FieldComponent>
     </Container>
   );
 };

@@ -38,7 +38,7 @@ export const EndAdornment: React.FC<InputInternalProps> = props => {
   const {
     endAdornment,
     onClearClick,
-    style: {isDisabled, isSmall, isLoading, isFilled},
+    style: {isDisabled, isReadOnly, isSmall, isLoading, isFilled},
   } = props;
 
   const iconSize = isSmall ? SizeTokenValue.Small : SizeTokenValue.Medium;
@@ -52,7 +52,7 @@ export const EndAdornment: React.FC<InputInternalProps> = props => {
     );
   }
 
-  if (!isDisabled && isFilled && onClearClick) {
+  if (!isDisabled && !isReadOnly && isFilled && onClearClick) {
     return (
       <>
         <InputButton onClick={onClearClick} isSmall={isSmall}>

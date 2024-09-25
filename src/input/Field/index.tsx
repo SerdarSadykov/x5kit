@@ -24,11 +24,12 @@ export const FieldComponent = styled.input<InputStyles>`
     background-color: ${theme.colors.accent[10]};
   }
 
-  ${({isSmall, isFocused, isFilled, isLabeled, readOnly}) => ({
+  ${({isSmall, isFocused, isFilled, isDisabled, isLabeled, isReadOnly}) => ({
     minHeight: isSmall ? 32 : 48,
     paddingTop: isFilled && isLabeled && !isSmall ? 14 : 0,
     textOverflow: !isFocused ? 'ellipsis' : undefined,
-    cursor: readOnly ? 'default' : undefined,
+    cursor: isReadOnly ? 'default' : undefined,
+    color: theme.colors.grey[isDisabled ? 40 : 100], 
   })}
 `;
 

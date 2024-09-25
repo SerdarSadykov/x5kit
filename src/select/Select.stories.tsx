@@ -84,7 +84,7 @@ const getOptions = (i): SelectOption[] => [
   {label: `Sevostyanov${i}`, value: `sevostyanov${i}`, disabled: false},
   {label: `Uvarova${i}`, value: `uvarova${i}`, disabled: true},
   {label: `Okulov${i}`, value: `okulov${i}`, disabled: false},
-  {label: `Antipin${i}`, value: `antipin${i}`, disabled: false},
+  {label: `Antipin${i}`, value: `antipin${i}`, disabled: true},
   {label: `Kuzmina${i}`, value: `kuzmina${i}`, disabled: false},
   {label: `Korotkikh${i}`, value: `korotkikh${i}`, disabled: true},
   {label: `Shiganova${i}`, value: `shiganova${i}`, disabled: false},
