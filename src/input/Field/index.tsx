@@ -107,6 +107,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 const BasicField: React.FC<InputInternalProps> = props => {
   const {value, style, inputProps} = props;
 
+  const [isOverflown, setIsOverflown] = useState<boolean>(false);
   const ref = useRef<HTMLInputElement>(null);
 
   const componentProps = {
@@ -121,14 +122,22 @@ const BasicField: React.FC<InputInternalProps> = props => {
 
   const child = <FieldComponent ref={ref} {...componentProps} />;
 
+  useEffect(() => {
+    if (!style.isOverflowTooltip || !ref.current) {
+      return;
+    }
+
+    setIsOverflown(ref.current.scrollWidth > ref.current.clientWidth);
+  }, [value, style.isOverflowTooltip]);
+
   if (!style.isOverflowTooltip) {
     return child;
   }
 
-  const hasTooltip = !style.isFocused && !!ref.current && ref.current.scrollWidth > ref.current.clientWidth;
+  const noTooltip = style.isFocused || !isOverflown ? false : undefined;
 
   return (
-    <Tooltip isPortal isOpen={hasTooltip ? undefined : false} content={value}>
+    <Tooltip isPortal isOpen={noTooltip} content={value}>
       {child}
     </Tooltip>
   );
