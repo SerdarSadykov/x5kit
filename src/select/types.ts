@@ -1,4 +1,4 @@
-import React, {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
+import React, {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes, UIEventHandler} from 'react';
 import {CSSObject} from '@emotion/react';
 import {VariableSizeListProps} from 'react-window';
 
@@ -34,6 +34,7 @@ export type SelectItemsProps = {
     | 'maxHeight'
     | 'virtualize'
     | 'whiteSpace'
+    | 'loadMore'
   >
   & Pick<SelectComponents, 'item'>;
 
@@ -49,8 +50,15 @@ export type SelectListProps = {
 export type SelectListOnChange =
   (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
 
-export type SelectFilter = {
-  callback: (query: string, options: SelectOption[]) => Promise<SelectOption[]>;
+export type LastResult = {
+  options: SelectOption[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} & Record<string, any>;
+
+export type LoadMore<T extends LastResult = LastResult> = (options: SelectOption[], lastResult?: T) => Promise<T>;
+
+export type SelectFilter<T extends LastResult = LastResult> = {
+  cb: (query: string, options: SelectOption[], lastResult?: T) => Promise<T>;
   delay?: number;
 };
 
@@ -58,6 +66,7 @@ export enum SelectState {
   default = 'default',
   searching = 'searching',
   filtred = 'filtred',
+  loadingMore = 'loadingMore',
 }
 
 type SelectComponents = {
@@ -84,14 +93,14 @@ type CommonProps = {
   filter?: SelectFilter;
 
   virtualize?: VariableSizeListProps | boolean;
-
-  onLoadMore?: () => Promise<SelectOption[]>;
 } & Pick<InputProps, 'disabled' | 'readOnly'> & Pick<CSSObject, 'whiteSpace'>;
 
 export type SelectProps = {
   options: SelectOption[];
 
   dropdownProps?: Partial<DropdownProps>;
+
+  onLoadMore?: LoadMore;
 } & QA
   & CommonProps
   & SelectListProps
@@ -102,14 +111,15 @@ export type SelectContextProps = {
   options: SelectOption[],
   filtred: SelectOption[],
 
-  setOptions: (options: SelectOption[]) => void;
-
   state: SelectState;
   setState: (state: SelectState, filtred?: SelectOption[]) => void;
 
   getQA: ReturnType<typeof getQAAttribute>;
 
   onClear: () => void;
+
+  loadMore: () => void;
+  filterOptions: (query: string) => void;
 } & CommonProps
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
   & Required<Pick<DropdownProps, 'maxHeight'>>;

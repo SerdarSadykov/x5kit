@@ -2,7 +2,7 @@ import {FocusEventHandler, useContext, useEffect, useRef, useState} from 'react'
 
 import {InputProps} from 'input';
 import {SelectContext} from 'select/Select';
-import {SelectSingleValue, SelectState} from 'select/types';
+import {SelectState} from 'select/types';
 import {findOptionByLabel, getValueLabel, } from 'select/utils';
 
 export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
@@ -10,7 +10,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
   const {
     value,
     options,
-    setOptions,
+    filterOptions,
     setState,
     filter,
     multiple,
@@ -31,41 +31,12 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
     setInputValue(newValue);
 
-    if (!newValue || !filter) {
+    if (!newValue) {
       setState(SelectState.default);
       return;
     }
 
-    const request = async () => {
-      try {
-        setState(SelectState.searching);
-
-        const newFiltred = await filter.callback(newValue, options);
-
-        const currentOptionValues = options.reduce(
-          (acc, option) => {
-            acc[option.value] = true;
-            return acc;
-          },
-          {} as Record<SelectSingleValue, true>
-        );
-
-        const newOptions = newFiltred.filter(option => !currentOptionValues[option.value]);
-
-        if (newOptions.length) {
-          setOptions([...options, ...newOptions]);
-        }
-
-        setState(SelectState.filtred, newFiltred);
-      } catch (e) {
-        setState(SelectState.default, []);
-
-        // eslint-disable-next-line  no-console
-        console.error(e);
-      }
-    };
-
-    timeout.current = setTimeout(request, filter.delay ?? 500);
+    timeout.current = setTimeout(() => filterOptions(newValue), filter?.delay ?? 500);
   };
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {

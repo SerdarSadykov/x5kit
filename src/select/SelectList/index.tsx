@@ -65,10 +65,12 @@ export const SelectList: React.FC<SelectListProps> = ({components}) => {
     onChange: context.onChange,
     multiple: context.multiple,
     setIsOpen: context.setIsOpen,
+    loadMore: context.loadMore,
     height: context.height,
     maxHeight: context.maxHeight,
     virtualize: context.virtualize && options.length > 20,
     whiteSpace: context.whiteSpace,
+
     item: components?.item,
     qa: context.getQA('list'),
   };

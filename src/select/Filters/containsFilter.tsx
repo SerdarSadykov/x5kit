@@ -29,7 +29,7 @@ const callback: SelectFilter['callback'] = async (query, options) => {
       );
     }
 
-    const newChilds = await callback(query, option.childs ?? []);
+    const newChilds = await callback(query, option.childs ?? [], undefined);
 
     if (children || newChilds.length) {
       newOptions.push({

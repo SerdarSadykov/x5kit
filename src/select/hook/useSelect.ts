@@ -1,9 +1,10 @@
-import {ForwardedRef, useEffect, useState} from 'react';
+import {ForwardedRef, useState} from 'react';
 
 import {getQAAttribute, useRefMerge} from 'common';
 import {DropdownProps} from 'dropdown';
 
-import {SelectContextProps, SelectProps, SelectState} from './types';
+import {useOptions} from './useOptions';
+import {SelectContextProps, SelectProps} from '../types';
 
 export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputElement> | undefined) => {
   const [isOpenValue, setIsOpenValue] = useState<boolean>(false);
@@ -20,6 +21,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     virtualize,
     whiteSpace,
     components,
+    onLoadMore,
 
     isOpen = isOpenValue,
     setIsOpen = setIsOpenValue,
@@ -32,24 +34,11 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
   } = props;
 
   const ref = useRefMerge<HTMLInputElement>(baseRef);
-  const [state, setStateValue] = useState<SelectState>(SelectState.default);
-  const [options, setOptions] = useState<SelectContextProps['options']>([]);
-  const [filtred, setFiltred] = useState<SelectContextProps['options']>([]);
   const getQA = getQAAttribute(qa);
 
+  const {options, filtred, state, setState, filterOptions, loadMore} = useOptions(baseOptions, filter, onLoadMore);
+
   const onClear = () => onChange([]);
-
-  const setState: SelectContextProps['setState'] = (state, filtred) => {
-    setStateValue(state);
-
-    if (filtred) {
-      setFiltred(filtred);
-    }
-  };
-
-  useEffect(() => {
-    setOptions(baseOptions);
-  }, [baseOptions]);
 
   const dropdownProps: Omit<DropdownProps, 'children'> & Pick<SelectContextProps, 'maxHeight'> = {
     isOpen,
@@ -70,7 +59,8 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     getQA,
 
     options,
-    setOptions,
+    loadMore,
+    filterOptions,
 
     filtred,
 

@@ -9,9 +9,9 @@ import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
 import {header, footer} from './SelectStory';
-import {SelectFilter, SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
+import {LastResult, LoadMore, SelectFilter, SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
 
-export const Select: React.FC<SelectStoryProps> = props => {
+export const Select: React.FC<SelectProps> = props => {
   const [value, setValue] = useState<SelectValue>(() => {
     const iVal = props.options[0]?.value;
     return iVal ? [iVal] : [];
@@ -28,9 +28,7 @@ export const Select: React.FC<SelectStoryProps> = props => {
   const resultProps = {
     ...props,
 
-    dropdownProps: {
-      maxHeight: props['dropdownProps.maxHeight'],
-    },
+    dropdownProps: props['dropdownProps.maxHeight'] ? {maxHeight: props['dropdownProps.maxHeight']} : undefined,
 
     components: {
       hint: props['components.hint'],
@@ -55,11 +53,11 @@ export const Select: React.FC<SelectStoryProps> = props => {
 
 type FetchedItem = {
   id: string;
-  comment: string;
+  title: string;
 };
 
 const convertResp = (item: FetchedItem): SelectOption => ({
-  label: `[${item.id}] ${item.comment.slice(0, 60)}`,
+  label: `[${item.id}] ${item.title.slice(0, 60)}`,
   value: item.id,
 });
 
@@ -68,15 +66,21 @@ export const SelectFetch: React.FC<SelectProps> = props => {
   const [options, setOptions] = useState<SelectOption[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const fetchItems = () => {
+    return fetch('https://jsonplaceholder.org/posts')
+      .then<FetchedItem[]>(resp => resp.json())
+      .then(items => items.map(convertResp));
+  };
+
   const onFocus = () => {
     if (options.length) {
       return;
     }
 
     setIsLoading(true);
-    fetch('https://jsonplaceholder.org/comments')
-      .then<FetchedItem[]>(resp => resp.json())
-      .then(resp => setOptions(resp.slice(10).map(convertResp)))
+
+    fetchItems()
+      .then(resp => setOptions(resp.slice(0, 10)))
       .finally(() => setIsLoading(false));
   };
 
@@ -84,14 +88,34 @@ export const SelectFetch: React.FC<SelectProps> = props => {
     setValue(newValue);
   };
 
-  const filter: SelectFilter = {
-    callback: query =>
+  const onLoadMore: LoadMore<{indx: number} & LastResult> = (_, lr) => {
+    setIsLoading(true);
+
+    return fetchItems()
+      .then(items => {
+        const indx = lr?.indx ?? 10;
+
+        const options = items.slice(indx ?? 0, indx + 10);
+        return {options, indx: indx + 10};
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const filter: SelectFilter<{indx: number} & LastResult> = {
+    cb: (query, _, lr) =>
       new Promise(res => {
+        setIsLoading(true);
+
         setTimeout(() => {
-          fetch(`https://jsonplaceholder.org/comments`)
-            .then<FetchedItem[]>(resp => resp.json())
-            .then(items => items.filter(item => item.comment.toLowerCase().startsWith(query.toLowerCase())))
-            .then(resp => res(resp.map(convertResp)));
+          const indx = lr?.indx ?? 0;
+
+          fetchItems()
+            .then(items => items.filter(item => item.label.toLowerCase().includes(query.toLowerCase())))
+            .then(items => {
+              const options = items.slice(indx ?? 0, indx + 10);
+              res({options, indx: indx + 10});
+            })
+            .finally(() => setIsLoading(false));
         }, 500);
       }),
   };
@@ -99,9 +123,7 @@ export const SelectFetch: React.FC<SelectProps> = props => {
   const resultProps = {
     ...props,
 
-    dropdownProps: {
-      maxHeight: props['dropdownProps.maxHeight'],
-    },
+    dropdownProps: props['dropdownProps.maxHeight'] ? {maxHeight: props['dropdownProps.maxHeight']} : undefined,
 
     components: {
       hint: props['components.hint'],
@@ -109,6 +131,7 @@ export const SelectFetch: React.FC<SelectProps> = props => {
       footer: props['components.footer'] ? footer : undefined,
     },
 
+    onLoadMore,
     options,
     onFocus,
     onChange,
