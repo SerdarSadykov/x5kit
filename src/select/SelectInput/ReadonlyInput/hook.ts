@@ -2,8 +2,7 @@ import {FocusEventHandler, useContext, useEffect, useState} from 'react';
 
 import {InputProps} from 'input';
 import {SelectContext} from 'select/Select';
-
-import {getValueLabel} from '../utils';
+import {getValueLabel} from 'select/utils';
 
 export const useReadonlyInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
   const context = useContext(SelectContext);
@@ -41,12 +40,7 @@ export const useReadonlyInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
   } as InputProps;
 
   useEffect(() => {
-    if (multiple) {
-      setInputValue('');
-      return;
-    }
-
-    setInputValue(getValueLabel(context));
+    setInputValue(multiple ? '' : getValueLabel(context));
   }, [multiple, value]);
 
   return {inputProps, multiple, noWrap};

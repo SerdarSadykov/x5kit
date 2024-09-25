@@ -47,7 +47,7 @@ type FetchedItem = {
 };
 
 const convertResp = (item: FetchedItem): SelectOption => ({
-  label: item.comment.slice(0, 60),
+  label: `[${item.id}] ${item.comment.slice(0, 60)}`,
   value: item.id,
 });
 
@@ -56,6 +56,10 @@ export const SelectFetch: React.FC<SelectProps> = props => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onFocus = () => {
+    if (options.length) {
+      return;
+    }
+
     setIsLoading(true);
     fetch('https://jsonplaceholder.org/comments')
       .then<FetchedItem[]>(resp => resp.json())
@@ -75,7 +79,7 @@ export const SelectFetch: React.FC<SelectProps> = props => {
       }),
   };
 
-  return <Select {...props} options={options} onFocus={onFocus} loading={isLoading} filter={filter} />;
+  return <BaseSelect {...props} options={options} onFocus={onFocus} loading={isLoading} filter={filter} />;
 };
 
 const getOptions = (i): SelectOption[] => [
@@ -123,7 +127,7 @@ const meta = {
     noWrap: {
       type: 'boolean',
       control: 'boolean',
-      description: 'Не переносить текст'
+      description: 'Не переносить текст',
     },
 
     showChips: {

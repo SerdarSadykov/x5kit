@@ -108,3 +108,13 @@ export type SelectContextProps = {
 } & CommonProps
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
   & Required<Pick<DropdownProps, 'maxHeight'>>;
+
+export type SingleSelectProps = {
+  value: SelectSingleValue | undefined;
+
+  onChange: (
+    value: SelectSingleValue | undefined,
+    target?: SelectOption,
+    event?: ChangeEvent<HTMLInputElement>,
+  ) => void;
+} & Omit<SelectProps, 'value' | 'onChange' | 'multiple'>;

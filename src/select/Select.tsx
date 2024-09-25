@@ -1,11 +1,11 @@
-import {createContext, forwardRef} from 'react';
+import {createContext, forwardRef, useCallback, useEffect, useState} from 'react';
 
 import {Dropdown} from 'dropdown';
 
 import {SelectInput} from './SelectInput';
 import {SelectList} from './SelectList';
 import {useSelect} from './hook';
-import {SelectContextProps, SelectProps} from './types';
+import {SelectContextProps, SelectProps, SingleSelectProps, SelectInternalValue, SelectListOnChange} from './types';
 
 export const SelectContext = createContext<SelectContextProps>({} as never);
 
@@ -23,4 +23,21 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>((props, baseRef)
       </Dropdown>
     </SelectContext.Provider>
   );
+});
+
+export const SingleSelect = forwardRef<HTMLInputElement, SingleSelectProps>((props, ref) => {
+  const [value, setValue] = useState<SelectInternalValue>([]);
+
+  const onChange = useCallback<SelectListOnChange>(
+    (value, target, event) => {
+      props.onChange(value[0], target, event);
+    },
+    [props.onChange]
+  );
+
+  useEffect(() => {
+    setValue(props.value ? [props.value] : []);
+  }, [props.value]);
+
+  return <Select ref={ref} {...props} value={value} onChange={onChange} />;
 });

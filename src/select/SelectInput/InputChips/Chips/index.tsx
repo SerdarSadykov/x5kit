@@ -7,9 +7,8 @@ import {SizeTokenValue, theme} from 'theme';
 import {Chip, ChipProps, ChipVariant} from 'chip';
 
 import {SelectContext} from 'select/Select';
+import {findOptions} from 'select/utils';
 import {SelectOption} from 'select/types';
-
-import {findOptions} from '../utils';
 
 const ChipContainer = styled.div<Pick<InputProps, 'disabled'>>`
   display: flex;

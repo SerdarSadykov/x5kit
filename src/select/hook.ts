@@ -46,7 +46,6 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
 
   useEffect(() => {
     setOptions(baseOptions);
-    setState(SelectState.default);
   }, [baseOptions]);
 
   const dropdownProps: Omit<DropdownProps, 'children'> & Pick<SelectContextProps, 'maxHeight'> = {

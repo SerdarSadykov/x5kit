@@ -3,8 +3,7 @@ import {FocusEventHandler, useContext, useEffect, useRef, useState} from 'react'
 import {InputProps} from 'input';
 import {SelectContext} from 'select/Select';
 import {SelectSingleValue, SelectState} from 'select/types';
-
-import {findOptionByLabel, getValueLabel, } from '../utils';
+import {findOptionByLabel, getValueLabel, } from 'select/utils';
 
 export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
   const context = useContext(SelectContext);
@@ -89,7 +88,6 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     if (multiple) {
       return;
     }
-
     if (!inputValue) {
       setInputValue(getValueLabel(context));
 
@@ -144,10 +142,6 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     }
 
     setState(SelectState.default);
-
-    if (multiple) {
-      setInputValue('');
-    }
   }, [isOpen, state, multiple]);
 
   return {inputProps, multiple, noWrap};

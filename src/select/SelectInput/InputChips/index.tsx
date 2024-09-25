@@ -5,7 +5,7 @@ import {theme} from 'theme';
 import {InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
 import {SelectContext} from 'select/Select';
 
-import {Chips} from '../Chips';
+import {Chips} from './Chips';
 
 const Container = styled.div`
   position: relative;
@@ -39,35 +39,16 @@ const InputComponent = styled.input`
   ${theme.typography.p1}
 `;
 
-const EditableChips: InputProps['inputComponent'] = props => {
-  const inputProps = {
-    ...props.style,
-    ...props.inputProps,
+export const InputChips: InputProps['inputComponent'] = props => {
+  const isReadOnly = !useContext(SelectContext).filter;
 
-    value: props.value,
-    type: props.type,
-    onInput: props.onChange,
-  };
-
-  return (
-    <Container>
-      <Label {...props} />
-      <FieldComponent as="div" {...props.style}>
-        <Chips />
-        <InputComponent {...inputProps} />
-      </FieldComponent>
-    </Container>
-  );
-};
-
-const ReadOnlyChips: InputProps['inputComponent'] = props => {
-  const componentProps = {...props.style, isReadOnly: true};
+  const componentProps = {...props.style, isReadOnly};
 
   const inputProps = {
     ...props.style,
     ...props.inputProps,
 
-    readOnly: true,
+    readOnly: isReadOnly,
     value: props.value,
     type: props.type,
     onInput: props.onChange,
@@ -82,12 +63,4 @@ const ReadOnlyChips: InputProps['inputComponent'] = props => {
       </FieldComponent>
     </Container>
   );
-};
-
-export const InputChips: InputProps['inputComponent'] = props => {
-  const {filter} = useContext(SelectContext);
-
-  const Component = filter ? EditableChips : ReadOnlyChips;
-
-  return <Component {...props} />;
 };
