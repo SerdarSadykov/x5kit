@@ -69,9 +69,9 @@ export const SelectFetch: React.FC<SelectProps> = props => {
         setTimeout(() => {
           fetch(`https://jsonplaceholder.org/comments`)
             .then<FetchedItem[]>(resp => resp.json())
-            .then(items => items.filter(item => item.comment.includes(query)))
+            .then(items => items.filter(item => item.comment.toLowerCase().startsWith(query.toLowerCase())))
             .then(resp => res(resp.map(convertResp)));
-        }, 1000);
+        }, 500);
       }),
   };
 

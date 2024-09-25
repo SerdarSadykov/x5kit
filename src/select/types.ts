@@ -93,17 +93,14 @@ export type SelectProps = {
   & Omit<InputProps, 'value' | 'onChange'>
   & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
 
-export type SelectInternalOptions = {
-  all: SelectOption[];
-  filtred: SelectOption[];
-};
-
 export type SelectContextProps = {
-  options: SelectInternalOptions,
-  setOptions: (options: SelectInternalOptions) => void;
+  options: SelectOption[],
+  filtred: SelectOption[],
+
+  setOptions: (options: SelectOption[]) => void;
 
   state: SelectState;
-  setState: (state: SelectState) => void;
+  setState: (state: SelectState, filtred?: SelectOption[]) => void;
 
   getQA: ReturnType<typeof getQAAttribute>;
 

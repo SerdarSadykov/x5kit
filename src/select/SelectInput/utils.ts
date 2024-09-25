@@ -1,7 +1,7 @@
 import {SelectContextProps, SelectInternalValue, SelectOption} from 'select/types';
 
 export const getValueLabel = (context: SelectContextProps): string => {
-  return findOptions(context.options.all, context.value)[0]?.label ?? '';
+  return findOptions(context.options, context.value)[0]?.label ?? '';
 }
 
 export const findOptions = (options: SelectOption[], value: SelectInternalValue): SelectOption[] => {

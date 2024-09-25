@@ -32,14 +32,21 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
   } = props;
 
   const ref = useRefMerge<HTMLInputElement>(baseRef);
-  const [state, setState] = useState<SelectState>(SelectState.default);
-  const [options, setOptions] = useState<SelectContextProps['options']>(() => ({all: [], filtred: []}));
+  const [state, setStateValue] = useState<SelectState>(SelectState.default);
+  const [options, setOptions] = useState<SelectContextProps['options']>([]);
+  const [filtred, setFiltred] = useState<SelectContextProps['options']>([]);
   const getQA = getQAAttribute(qa);
 
   const onClear = () => onChange([]);
 
+  const setState: SelectContextProps['setState'] = (state, filtred = []) => {
+    setStateValue(state);
+    setFiltred(filtred);
+  };
+
   useEffect(() => {
-    setOptions({all: baseOptions, filtred: []});
+    setOptions(baseOptions);
+    setState(SelectState.default);
   }, [baseOptions]);
 
   const dropdownProps: Omit<DropdownProps, 'children'> & Pick<SelectContextProps, 'maxHeight'> = {
@@ -58,8 +65,11 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     state,
     setState,
     getQA,
+
     options,
     setOptions,
+
+    filtred,
 
     value,
     onChange,

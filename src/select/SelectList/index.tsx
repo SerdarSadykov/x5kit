@@ -22,7 +22,7 @@ export const SelectList: React.FC = () => {
   const {state, components} = context;
 
   const isFiltred = state === SelectState.filtred;
-  const options = isFiltred ? context.options.filtred : context.options.all;
+  const options = isFiltred ? context.filtred : context.options;
 
   const [clientWidth, setClientWidth] = useState<number>();
 

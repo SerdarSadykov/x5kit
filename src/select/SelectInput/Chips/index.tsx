@@ -89,7 +89,7 @@ const ChipsMultiple: React.FC = () => {
   }
 
   useEffect(() => {
-    setLabels(findOptions(options.all, value));
+    setLabels(findOptions(options, value));
   }, [value]);
 
   return child;

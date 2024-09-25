@@ -15,6 +15,9 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     setState,
     filter,
     multiple,
+    noWrap,
+    isOpen,
+    state,
   } = context;
 
   const [inputValue, setInputValue] = useState('');
@@ -32,7 +35,6 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
     if (!newValue || !filter) {
       setState(SelectState.default);
-      setOptions({all: options.all, filtred: []});
       return;
     }
 
@@ -40,9 +42,9 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
       try {
         setState(SelectState.searching);
 
-        const filtred = await filter.callback(newValue, options.all);
+        const newFiltred = await filter.callback(newValue, options);
 
-        const currentOptionValues = options.all.reduce(
+        const currentOptionValues = options.reduce(
           (acc, option) => {
             acc[option.value] = true;
             return acc;
@@ -50,16 +52,18 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
           {} as Record<SelectSingleValue, true>
         );
 
-        const newOptions = filtred.filter(option => !currentOptionValues[option.value]);
+        const newOptions = newFiltred.filter(option => !currentOptionValues[option.value]);
 
-        const all = newOptions.length ? [...options.all, ...newOptions] : options.all;
+        if (newOptions.length) {
+          setOptions([...options, ...newOptions]);
+        }
 
-        setOptions({all, filtred});
+        setState(SelectState.filtred, newFiltred);
       } catch (e) {
+        setState(SelectState.default);
+
         // eslint-disable-next-line  no-console
         console.error(e);
-      } finally {
-        setState(SelectState.filtred);
       }
     };
 
@@ -73,6 +77,8 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
     setInputValue('');
 
+    setState(SelectState.default);
+
     context.setIsOpen(true);
     props.onFocus?.(e);
   };
@@ -80,11 +86,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
   const onBlur: FocusEventHandler<HTMLInputElement> = e => {
     props.onBlur?.(e);
 
-    setOptions({all: options.all, filtred: []});
-    setState(SelectState.default);
-
     if (multiple) {
-      setInputValue('');
       return;
     }
 
@@ -94,7 +96,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
       return;
     }
 
-    const sameLabelOption = findOptionByLabel(options.all, inputValue.toLowerCase());
+    const sameLabelOption = findOptionByLabel(options, inputValue.toLowerCase());
     if (sameLabelOption && !sameLabelOption.disabled && !sameLabelOption.readOnly) {
       // same value
       if (value.includes(sameLabelOption.value)) {
@@ -106,12 +108,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
       return;
     }
 
-    // not found, clear
-    if (value.length) {
-      context.onClear();
-    }
-
-    setInputValue('');
+    setInputValue(getValueLabel(context));
   };
 
   const onClearClick: InputProps['onClearClick'] = e => {
@@ -129,22 +126,29 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
     value: inputValue,
 
-    filled: !!inputValue || !!context.value.length,
+    filled: !!inputValue || !!value.length,
     focused: context.isOpen,
   } as InputProps;
 
   useEffect(() => {
     if (multiple) {
-      setInputValue('');
       return;
     }
 
     setInputValue(getValueLabel(context));
   }, [value]);
 
-  return {
-    inputProps,
-    multiple: context.multiple,
-    noWrap: context.noWrap,
-  };
+  useEffect(() => {
+    if (isOpen || state === SelectState.default) {
+      return;
+    }
+
+    setState(SelectState.default);
+
+    if (multiple) {
+      setInputValue('');
+    }
+  }, [isOpen, state, multiple]);
+
+  return {inputProps, multiple, noWrap};
 };

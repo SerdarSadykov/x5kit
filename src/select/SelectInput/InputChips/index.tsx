@@ -39,33 +39,55 @@ const InputComponent = styled.input`
   ${theme.typography.p1}
 `;
 
-export const InputChips: InputProps['inputComponent'] = props => {
-  const {filter, value} = useContext(SelectContext);
-  const isReadOnly = !filter;
-  const isFilled = !!value.length || !!props.value;
+const EditableChips: InputProps['inputComponent'] = props => {
+  const inputProps = {
+    ...props.style,
+    ...props.inputProps,
 
-  const labelProps = {...props, style: {...props.style, isFilled}};
+    value: props.value,
+    type: props.type,
+    onInput: props.onChange,
+  };
 
-  const componentProps = {...props.style, isFilled, isReadOnly};
+  return (
+    <Container>
+      <Label {...props} />
+      <FieldComponent as="div" {...props.style}>
+        <Chips />
+        <InputComponent {...inputProps} />
+      </FieldComponent>
+    </Container>
+  );
+};
+
+const ReadOnlyChips: InputProps['inputComponent'] = props => {
+  const componentProps = {...props.style, isReadOnly: true};
 
   const inputProps = {
     ...props.style,
     ...props.inputProps,
 
-    readOnly: isReadOnly,
+    readOnly: true,
     value: props.value,
     type: props.type,
     onInput: props.onChange,
-    isFilled: !!value.length,
   };
 
   return (
     <Container>
-      <Label {...labelProps} />
+      <Label {...props} />
       <FieldComponent as="div" {...componentProps}>
         <Chips />
         <InputComponent {...inputProps} />
       </FieldComponent>
     </Container>
   );
+};
+
+export const InputChips: InputProps['inputComponent'] = props => {
+  const {filter} = useContext(SelectContext);
+
+  const Component = filter ? EditableChips : ReadOnlyChips;
+
+  return <Component {...props} />;
 };
