@@ -91,8 +91,6 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     ...inputProps,
     ...style,
 
-    value: value ?? '',
-
     type: props.type,
     onChange: props.onChange,
   };
@@ -114,11 +112,6 @@ const BasicField: React.FC<InputInternalProps> = props => {
   const componentProps = {
     ...inputProps,
     ...style,
-
-    type: props.type,
-    onChange: props.onChange,
-
-    value: value ?? '',
   };
 
   const child = <FieldComponent ref={ref} {...componentProps} />;

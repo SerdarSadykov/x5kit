@@ -22,7 +22,7 @@ export const CloseButton: React.FC<Pick<BannerProps, 'onClose'>> = ({onClose}) =
 
   return (
     <Container>
-      <IconButton size={SizeTokenValue.XXSmall} variant={ButtonVariant.inner} onClick={onClose}>
+      <IconButton size={SizeTokenValue.XXSmall} variant={ButtonVariant.innerInput} onClick={onClose}>
         <Close size={SizeTokenValue.Small} />
       </IconButton>
     </Container>

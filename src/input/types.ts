@@ -8,8 +8,8 @@ type InputBaseProps<T> = Pick<
   InputHTMLAttributes<T>,
   | 'type'
   | 'disabled'
-  | 'required'
   | 'readOnly'
+  | 'required'
   | 'autoFocus'
   | 'autoComplete'
   | 'onFocus'

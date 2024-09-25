@@ -107,7 +107,6 @@ export const useInput = (props: InputProps): InputInternalProps => {
 
   const onFocus: FocusEventHandler<HTMLInputElement> = e => {
     setFocused(!props.readOnly);
-
     props.onFocus?.(e);
   };
 
@@ -138,12 +137,17 @@ export const useInput = (props: InputProps): InputInternalProps => {
     inputProps: {
       ...props.inputProps,
 
+      value: props.value ?? '',
+      type: props.type,
       disabled: props.disabled,
       readOnly: props.readOnly,
       required: props.required,
       autoFocus: props.autoFocus,
       autoComplete: props.autoComplete,
       onClick: props.onClick,
+      onInput: props.onInput,
+      onChange: props.onChange,
+      tabIndex: props.tabIndex,
 
       onFocus,
       onBlur,
