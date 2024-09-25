@@ -59,7 +59,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
         setState(SelectState.filtred, newFiltred);
       } catch (e) {
-        setState(SelectState.default);
+        setState(SelectState.default, []);
 
         // eslint-disable-next-line  no-console
         console.error(e);
@@ -76,7 +76,7 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
 
     setInputValue('');
 
-    setState(SelectState.default);
+    setState(SelectState.default, []);
 
     context.setIsOpen(true);
     props.onFocus?.(e);
@@ -85,18 +85,15 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
   const onBlur: FocusEventHandler<HTMLInputElement> = e => {
     props.onBlur?.(e);
 
-    if (multiple) {
-      return;
-    }
-    if (!inputValue) {
-      setInputValue(getValueLabel(context));
-
+    if (multiple || !inputValue) {
+      //if multiple, clear on closed
+      //if single, set cur value on closed
       return;
     }
 
     const sameLabelOption = findOptionByLabel(options, inputValue.toLowerCase());
     if (sameLabelOption && !sameLabelOption.disabled && !sameLabelOption.readOnly) {
-      // same value
+      // has same value
       if (value.includes(sameLabelOption.value)) {
         return;
       }
@@ -105,8 +102,6 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
       context.onChange([sameLabelOption.value]);
       return;
     }
-
-    setInputValue(getValueLabel(context));
   };
 
   const onClearClick: InputProps['onClearClick'] = e => {
@@ -129,20 +124,14 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
   } as InputProps;
 
   useEffect(() => {
-    if (multiple) {
+    if (isOpen) {
       return;
     }
 
-    setInputValue(getValueLabel(context));
-  }, [value]);
-
-  useEffect(() => {
-    if (isOpen || state === SelectState.default) {
-      return;
-    }
-
-    setState(SelectState.default);
-  }, [isOpen, state, multiple]);
+    //if closed and multiple, clear 
+    //if closed and single, set label 
+    setInputValue(multiple ? '' : getValueLabel(context));
+  }, [multiple, value, isOpen]);
 
   return {inputProps, multiple, noWrap};
 };

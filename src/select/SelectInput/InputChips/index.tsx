@@ -49,9 +49,6 @@ export const InputChips: InputProps['inputComponent'] = props => {
     ...props.inputProps,
 
     readOnly: isReadOnly,
-    value: props.value,
-    type: props.type,
-    onInput: props.onChange,
   };
 
   return (

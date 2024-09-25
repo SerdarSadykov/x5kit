@@ -3,14 +3,14 @@ import {forwardRef} from 'react';
 import {Input, InputProps} from 'input';
 
 import {InputChips} from '../InputChips';
-import {InputText} from '../InputText';
-import {InputTextNoWrap} from '../InputTextNoWrap';
+import {WrapInputEditable} from '../WrapInput';
+import {NoWrapInput} from '../NoWrapInput';
 import {useEditableInput} from './hook';
 
 export const EditableInput = forwardRef<HTMLInputElement, Omit<InputProps, 'value' | 'onChange'>>((props, ref) => {
   const {inputProps, multiple, noWrap} = useEditableInput(props);
 
-  let inputComponent = noWrap ? InputTextNoWrap : InputText;
+  let inputComponent = noWrap ? WrapInputEditable : NoWrapInput;
 
   if (multiple) {
     inputComponent = InputChips;

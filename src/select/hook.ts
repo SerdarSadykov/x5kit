@@ -39,9 +39,12 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
 
   const onClear = () => onChange([]);
 
-  const setState: SelectContextProps['setState'] = (state, filtred = []) => {
+  const setState: SelectContextProps['setState'] = (state, filtred) => {
     setStateValue(state);
-    setFiltred(filtred);
+
+    if (filtred) {
+      setFiltred(filtred);
+    }
   };
 
   useEffect(() => {
@@ -56,6 +59,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     isPortal: true,
     maxHeight: 304,
     qa: getQA('dropdown'),
+    width: 'target',
 
     ...baseDropdownProps,
   };

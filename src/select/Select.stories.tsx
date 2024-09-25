@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import type {Meta, StoryObj} from '@storybook/react';
 
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
@@ -9,8 +9,27 @@ import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
 import {SelectFilter, SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
+import {Button, ButtonVariant} from 'button';
+import {SizeTokenValue} from 'theme';
 
-export const Select: React.FC<SelectProps> = props => {
+export type SelectStoryProps = {
+  hint: string;
+  footer: boolean;
+  header: boolean;
+} & SelectProps;
+
+// const Header: React.FC = () => {
+//   return (
+//     <div style={{borderTop: '1px solid #ccc', padding: 15}}>
+//       {/* <Button size={SizeTokenValue.Small} value={ButtonVariant.outlined}>
+//         Отмена
+//       </Button>
+//       <Button size={SizeTokenValue.Small}>Применить</Button> */}
+//     </div>
+//   );
+// };
+
+export const Select: React.FC<SelectStoryProps> = props => {
   const [value, setValue] = useState<SelectValue>([]);
 
   const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
@@ -21,18 +40,30 @@ export const Select: React.FC<SelectProps> = props => {
     setValue(newValue);
   };
 
-  const resultProps: SelectProps = {
+  const components: SelectProps['components'] = {};
+
+  if (props.hint) {
+    components.hint = props.hint;
+  }
+
+  if (props.header) {
+    // components.header = <Header />;
+    // delete props.header;
+  }
+
+  const resultProps = {
     ...props,
 
     onChange,
     startAdornment,
     endAdornment,
     filter,
+    components: {
+      // header: <div />,
+    },
 
-    dropdownProps: {width: 'target'},
-
-    value: value as never,
-  };
+    value,
+  } as SelectProps;
 
   return (
     <div style={{display: 'flex', width: 400}}>
@@ -52,6 +83,7 @@ const convertResp = (item: FetchedItem): SelectOption => ({
 });
 
 export const SelectFetch: React.FC<SelectProps> = props => {
+  const [value, setValue] = useState<SelectValue>([]);
   const [options, setOptions] = useState<SelectOption[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -67,6 +99,10 @@ export const SelectFetch: React.FC<SelectProps> = props => {
       .finally(() => setIsLoading(false));
   };
 
+  const onChange: SelectListOnChange = newValue => {
+    setValue(newValue);
+  };
+
   const filter: SelectFilter = {
     callback: query =>
       new Promise(res => {
@@ -79,7 +115,22 @@ export const SelectFetch: React.FC<SelectProps> = props => {
       }),
   };
 
-  return <BaseSelect {...props} options={options} onFocus={onFocus} loading={isLoading} filter={filter} />;
+  const resultProps = {
+    ...props,
+
+    options,
+    onFocus,
+    onChange,
+    filter,
+    value,
+    loading: isLoading,
+  };
+
+  return (
+    <div style={{display: 'flex', width: 400}}>
+      <BaseSelect {...resultProps} />
+    </div>
+  );
 };
 
 const getOptions = (i): SelectOption[] => [
@@ -111,6 +162,16 @@ const meta = {
       type: 'string',
       control: 'text',
       description: 'Подсказка',
+    },
+
+    header: {
+      type: 'boolean',
+      control: 'boolean',
+    },
+
+    footer: {
+      type: 'boolean',
+      control: 'boolean',
     },
 
     filter: {
@@ -165,6 +226,7 @@ export const SelectTree: StoryObj<typeof Select> = {
   args: {
     options: CheckboxTreeStory.args.options,
     multiple: true,
+    filter: true,
 
     label: 'Выберите варианты',
   },
