@@ -88,8 +88,6 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     virtualize,
     whiteSpace,
 
-    components,
-
     height: dropdownProps.height,
     maxHeight: dropdownProps.maxHeight,
   };
@@ -102,5 +100,5 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     qa,
   };
 
-  return {ref, inputProps, context, dropdownProps};
+  return {ref, inputProps, context, dropdownProps, components};
 };

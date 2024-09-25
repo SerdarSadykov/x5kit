@@ -1,4 +1,4 @@
-import {AnchorHTMLAttributes, ButtonHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
+import {AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType, ReactNode} from 'react';
 import {CSSObject} from '@emotion/react';
 
 import {QA} from 'common';
@@ -39,7 +39,7 @@ export type ButtonProps = {
   startAdornment?: ReactNode; // startIcon
   endAdornment?: ReactNode; // endIcon
 
-  as?: React.ElementType;
+  as?: ElementType;
 
   // equated?: boolean; определяется на основе typeof childred === string
   // mode?: keyof typeof buttonModes === variant inner | innerInput

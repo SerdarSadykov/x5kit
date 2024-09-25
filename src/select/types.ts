@@ -42,6 +42,10 @@ export type SelectItemProps = {
   checked: boolean; // isActive
 } & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> & Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
 
+export type SelectListProps = {
+  components?: SelectComponents;
+};
+
 export type SelectListOnChange =
   (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
 
@@ -64,7 +68,7 @@ type SelectComponents = {
   searching?: ReactNode;
   notFound?: ReactNode;
 
-  list?: React.FC;
+  list?: React.FC<SelectListProps>;
   items?: React.FC<SelectItemsProps>;
   item?: React.FC<SelectItemProps>;
 };
@@ -81,7 +85,7 @@ type CommonProps = {
 
   virtualize?: VariableSizeListProps | boolean;
 
-  components?: SelectComponents;
+  onLoadMore?: () => Promise<SelectOption[]>;
 } & Pick<InputProps, 'disabled' | 'readOnly'> & Pick<CSSObject, 'whiteSpace'>;
 
 export type SelectProps = {
@@ -90,6 +94,7 @@ export type SelectProps = {
   dropdownProps?: Partial<DropdownProps>;
 } & QA
   & CommonProps
+  & SelectListProps
   & Omit<InputProps, 'value' | 'onChange'>
   & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
 

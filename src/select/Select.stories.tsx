@@ -8,26 +8,8 @@ import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
+import {header, footer} from './SelectStory';
 import {SelectFilter, SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
-import {Button, ButtonVariant} from 'button';
-import {SizeTokenValue} from 'theme';
-
-export type SelectStoryProps = {
-  hint: string;
-  footer: boolean;
-  header: boolean;
-} & SelectProps;
-
-// const Header: React.FC = () => {
-//   return (
-//     <div style={{borderTop: '1px solid #ccc', padding: 15}}>
-//       {/* <Button size={SizeTokenValue.Small} value={ButtonVariant.outlined}>
-//         Отмена
-//       </Button>
-//       <Button size={SizeTokenValue.Small}>Применить</Button> */}
-//     </div>
-//   );
-// };
 
 export const Select: React.FC<SelectStoryProps> = props => {
   const [value, setValue] = useState<SelectValue>(() => {
@@ -43,31 +25,27 @@ export const Select: React.FC<SelectStoryProps> = props => {
     setValue(newValue);
   };
 
-  const components: SelectProps['components'] = {};
-
-  if (props.hint) {
-    components.hint = props.hint;
-  }
-
-  if (props.header) {
-    // components.header = <Header />;
-    // delete props.header;
-  }
-
   const resultProps = {
     ...props,
+
+    dropdownProps: {
+      maxHeight: props['dropdownProps.maxHeight'],
+    },
+
+    components: {
+      hint: props['components.hint'],
+      header: props['components.header'] ? header : undefined,
+      footer: props['components.footer'] ? footer : undefined,
+    },
 
     onChange,
     startAdornment,
     endAdornment,
     filter,
-    components: {
-      // header: <div />,
-    },
 
     value,
   } as SelectProps;
-  console.log(value);
+
   return (
     <div style={{display: 'flex', width: 400}}>
       <BaseSelect {...resultProps} />
@@ -121,6 +99,16 @@ export const SelectFetch: React.FC<SelectProps> = props => {
   const resultProps = {
     ...props,
 
+    dropdownProps: {
+      maxHeight: props['dropdownProps.maxHeight'],
+    },
+
+    components: {
+      hint: props['components.hint'],
+      header: props['components.header'] ? header : undefined,
+      footer: props['components.footer'] ? footer : undefined,
+    },
+
     options,
     onFocus,
     onChange,
@@ -161,18 +149,18 @@ const meta = {
   argTypes: {
     ...inputStory['commonArgTypes'],
 
-    hint: {
+    'components.hint': {
       type: 'string',
       control: 'text',
       description: 'Подсказка',
     },
 
-    header: {
+    'components.header': {
       type: 'boolean',
       control: 'boolean',
     },
 
-    footer: {
+    'components.footer': {
       type: 'boolean',
       control: 'boolean',
     },
@@ -214,6 +202,12 @@ const meta = {
     endAdornment: {
       type: 'boolean',
       control: 'boolean',
+    },
+
+    'dropdownProps.maxHeight': {
+      type: 'number',
+      control: 'number',
+      description: 'Высота dropdown',
     },
 
     qa: {type: 'string', control: 'text'},

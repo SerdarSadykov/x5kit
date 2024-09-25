@@ -10,16 +10,16 @@ import {SelectContextProps, SelectProps, SingleSelectProps, SelectInternalValue,
 export const SelectContext = createContext<SelectContextProps>({} as never);
 
 export const Select = forwardRef<HTMLInputElement, SelectProps>((props, baseRef) => {
-  const {ref, inputProps, context, dropdownProps} = useSelect(props, baseRef);
+  const {ref, inputProps, context, dropdownProps, components} = useSelect(props, baseRef);
 
-  const List = context.components?.list || SelectList;
+  const List = components?.list || SelectList;
 
   return (
     <SelectContext.Provider value={context}>
       <SelectInput ref={ref} {...inputProps} />
 
       <Dropdown {...dropdownProps}>
-        <List />
+        <List components={components} />
       </Dropdown>
     </SelectContext.Provider>
   );

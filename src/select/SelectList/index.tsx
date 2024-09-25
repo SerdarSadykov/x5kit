@@ -8,7 +8,7 @@ import {SelectContext} from '../Select';
 import {SelectItems} from '../SelectItems';
 import {Hint} from '../Hint';
 import {Loader} from '../Loader';
-import {SelectState, SelectItemsProps} from '../types';
+import {SelectState, SelectItemsProps, SelectListProps} from '../types';
 
 const Empty = styled.div`
   padding: 12px;
@@ -17,9 +17,9 @@ const Empty = styled.div`
   ${theme.typography.p1};
 `;
 
-export const SelectList: React.FC = () => {
+export const SelectList: React.FC<SelectListProps> = ({components}) => {
   const context = useContext(SelectContext);
-  const {state, components} = context;
+  const {state} = context;
 
   const isFiltred = state === SelectState.filtred;
   const options = isFiltred ? context.filtred : context.options;
