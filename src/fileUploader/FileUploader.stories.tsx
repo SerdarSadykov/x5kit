@@ -43,7 +43,11 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
     ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4)
     : undefined;
 
-  const onDrop: FileUploaderProps['onDrop'] = accepteds => {
+  const onDrop: FileUploaderProps['onDrop'] = (accepteds, rejecteds) => {
+    if (rejecteds.length) {
+      alert(JSON.stringify(rejecteds));
+    }
+
     const newFiles = accepteds.map<FileItem>((item, indx) => ({
       id: items.length + indx + Math.floor(Math.random() * 1000),
       status: FileItemStatus.loading,

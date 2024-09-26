@@ -1,4 +1,4 @@
-import {ElementType, forwardRef, HTMLAttributes} from 'react';
+import {AnchorHTMLAttributes, ElementType, forwardRef, HTMLAttributes} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
@@ -6,7 +6,7 @@ import {theme} from 'theme';
 export type TypographyProps = {
   variant: keyof typeof theme.typography;
   as?: ElementType,
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLDivElement> & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 const Container = styled.div<Pick<TypographyProps, 'variant'>>(props => theme.typography[props.variant]);
 

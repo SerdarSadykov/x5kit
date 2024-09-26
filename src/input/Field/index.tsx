@@ -92,7 +92,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     ...style,
 
     type: props.type,
-    onChange: props.onChange,
+    onInput: props.onChange,
   };
 
   return (

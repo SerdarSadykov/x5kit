@@ -18,7 +18,7 @@ export const Snackbar: React.FC<SnackbarMessage> = props => {
       ]
     : undefined;
 
-  const actionsBottom: SnackbarMessage['actionsTop'] = props.actionsTop
+  const actionsBottom: SnackbarMessage['actionsTop'] = props.actionsBottom
     ? [
         {
           isLink: true,

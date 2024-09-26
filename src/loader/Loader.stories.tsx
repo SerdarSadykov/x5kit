@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta} from '@storybook/react';
 
 import {SizeTokenValue, theme} from 'theme';
 
@@ -50,6 +50,9 @@ const meta = {
     },
 
     qa: {type: 'string', control: 'text'},
+  },
+  args: {
+    children: 'Пояснительный текст...',
   },
 } as Meta<typeof Loader>;
 

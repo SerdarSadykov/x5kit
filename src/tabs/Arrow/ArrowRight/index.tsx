@@ -11,16 +11,23 @@ const ArrowRightComponent = styled(ArrowBase)`
   right: 0;
 
   &[data-active] {
-    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+    background: linear-gradient(
+      to left,
+      var(--arrow-start, rgba(255, 255, 255, 1)),
+      var(--arrow-center, rgba(255, 255, 255, 0.8))
+    );
   }
 
   ::after {
     right: 100%;
     border-radius: 10px 0 0 10px;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1) 70%);
+    background: linear-gradient(
+      to left,
+      var(--arrow-center, rgba(255, 255, 255, 0.8)),
+      var(--arrow-end, rgba(255, 255, 255, 0.1)) 70%
+    );
   }
 `;
-
 
 export const ArrowRight: React.FC<ArrowProps> = ({scrollableRef}) => {
   const ref = useRef<HTMLDivElement>(null);

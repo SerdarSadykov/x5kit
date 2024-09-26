@@ -11,13 +11,21 @@ const Component = styled(ArrowBase)`
   left: 0;
 
   &[data-active] {
-    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+    background: linear-gradient(
+      to right,
+      var(--arrow-start, rgba(255, 255, 255, 1)),
+      var(--arrow-center, rgba(255, 255, 255, 0.8))
+    );
   }
 
   ::after {
     left: 100%;
     border-radius: 0 10px 10px 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1) 70%);
+    background: linear-gradient(
+      to right,
+      var(--arrow-center, rgba(255, 255, 255, 0.8)),
+      var(--arrow-end, rgba(255, 255, 255, 0.1)) 70%
+    );
   }
 `;
 

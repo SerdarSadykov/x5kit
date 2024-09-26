@@ -29,12 +29,6 @@ export const Radio: React.FC<RadioProps> = props => {
             условиями оказания услуг
           </Link>
         </BaseRadio>
-        <BaseRadio {...resultProps} value="2">
-          {'Text label '}
-          <Link href="#" target="_blank">
-            условиями оказания услуг
-          </Link>
-        </BaseRadio>
       </div>
       <div style={{maxWidth: 280}}>
         <BaseRadio {...resultProps}>Пример многострочного лейбла, на несколько строк</BaseRadio>

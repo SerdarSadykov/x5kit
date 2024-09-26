@@ -12,7 +12,7 @@ export const Tooltip: React.FC<TooltipProps> = props => {
   };
 
   return (
-    <div>
+    <div style={{display: 'flex', gap: 16}}>
       <BaseTooltip {...resultProps}>
         <Help />
       </BaseTooltip>

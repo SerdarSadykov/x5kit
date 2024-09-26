@@ -49,7 +49,7 @@ const CloseButton: React.FC<Pick<ModalHeaderProps, 'onClose'>> = ({onClose}) => 
 
   return (
     <ButtonContainer>
-      <IconButton variant={ButtonVariant.inner} size={SizeTokenValue.Small} onClick={onClose}>
+      <IconButton variant={ButtonVariant.innerInput} size={SizeTokenValue.Small} onClick={onClose}>
         <Close />
       </IconButton>
     </ButtonContainer>

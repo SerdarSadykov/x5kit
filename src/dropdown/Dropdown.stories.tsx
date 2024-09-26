@@ -36,7 +36,11 @@ export const Dropdown: React.FC<DropdownProps> = props => {
     <>
       <Button ref={ref} {...buttonProps}>Создать отчет</Button>
       <BaseDropdown {...resultProps}>
-        <DropdownContent>asdasdasdsa</DropdownContent>
+        <DropdownContent>
+          <div style={{padding: 15, ...theme.typography.p2}}>
+            Описание текст форма
+          </div>
+        </DropdownContent>
       </BaseDropdown>
     </>
   );

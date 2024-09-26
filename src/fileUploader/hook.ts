@@ -17,7 +17,7 @@ export abstract class FileError extends Error {
 }
 
 export class MaxSizeError extends FileError {
-  protected defaultMessage = 'Файл превышает недопустимый размер';
+  protected defaultMessage = 'Файл превышает допустимый размер';
 }
 
 export class MinSizeError extends FileError {
@@ -29,7 +29,7 @@ export class MaxSizeAllError extends FileError {
 }
 
 export class MaxFilesError extends FileError {
-  protected defaultMessage = 'Некоторые файлы не загрузились. Вы можете загрузить до 10-ти файлов';
+  protected defaultMessage = 'Некоторые файлы не загрузились.';
 }
 
 export class FileTypeError extends FileError {
