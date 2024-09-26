@@ -5,11 +5,12 @@ import {Dropdown} from 'dropdown';
 import {SelectInput} from './SelectInput';
 import {SelectList} from './SelectList';
 import {useSelect} from './hook';
-import {SelectContextProps, SelectProps, SingleSelectProps, SelectInternalValue, SelectListOnChange} from './types';
+import {SelectContextProps, SelectProps, SingleSelectProps, SelectMultipleValue, SelectListOnChange} from './types';
 
 export const SelectContext = createContext<SelectContextProps>({} as never);
 
-export const Select = forwardRef<HTMLInputElement, SelectProps>((props, baseRef) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Select = forwardRef<HTMLInputElement, SelectProps<any>>((props, baseRef) => {
   const {ref, inputProps, context, dropdownProps, components} = useSelect(props, baseRef);
 
   const List = components?.list || SelectList;
@@ -26,7 +27,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>((props, baseRef)
 });
 
 export const SingleSelect = forwardRef<HTMLInputElement, SingleSelectProps>((props, ref) => {
-  const [value, setValue] = useState<SelectInternalValue>([]);
+  const [value, setValue] = useState<SelectMultipleValue>([]);
 
   const onChange = useCallback<SelectListOnChange>(
     (value, target, event) => {

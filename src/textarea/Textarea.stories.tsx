@@ -20,16 +20,12 @@ export const Textarea: React.FC<InputStoryProps> = props => {
     setValue(target.value);
   };
 
-  const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
-  const endAdornment = props.endAdornment ? <ArrowNavigationForward /> : undefined;
   const onClearClick = props.onClearClick ? () => setValue('') : undefined;
 
   const resultProps: TextareaProps = {
     ...props,
     value,
     onChange,
-    startAdornment,
-    endAdornment,
     onClearClick,
   };
 

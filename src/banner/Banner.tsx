@@ -34,7 +34,7 @@ const variantProps: Record<BannerVariant, CSSObject> = {
   },
 };
 
-const sizeProps: Omit<Record<SizeTokenValue, CSSObject>, 'XXSmall'> = {
+const sizeProps: Partial<Record<SizeTokenValue, CSSObject>> = {
   [SizeTokenValue.Large]: {
     ...theme.typography.p1,
 

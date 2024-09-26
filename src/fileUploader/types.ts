@@ -61,5 +61,3 @@ export type FileUploaderProps = {
   // renderPreviewsContent?: FC<DefaultPreviewsProps>;
   // onSelect?: (files: File[]) => void;
 } & QA & Omit<DropzoneOptions, 'onDrop' | 'onError'>;
-
-type s = DropzoneOptions[];

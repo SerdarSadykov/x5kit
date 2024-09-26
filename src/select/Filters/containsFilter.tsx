@@ -1,7 +1,7 @@
 import {ReactNode} from 'react';
-import {SelectFilter, SelectOption} from '../types';
+import {LastResult, SelectFilter, SelectOption} from '../types';
 
-const callback: SelectFilter['callback'] = async (query, options) => {
+const search = async (query: string, options: SelectOption[]) => {
   if (!query) {
     return [...options];
   }
@@ -29,7 +29,7 @@ const callback: SelectFilter['callback'] = async (query, options) => {
       );
     }
 
-    const newChilds = await callback(query, option.childs ?? [], undefined);
+    const newChilds = await search(query, option.childs ?? []);
 
     if (children || newChilds.length) {
       newOptions.push({
@@ -44,4 +44,7 @@ const callback: SelectFilter['callback'] = async (query, options) => {
   return newOptions;
 };
 
-export const containsFilter: SelectFilter = {callback, delay: 50};
+export const containsFilter: SelectFilter<LastResult> = {
+  delay: 50,
+  cb: (query, allOptions) => search(query, allOptions).then(options => ({options})),
+};

@@ -29,20 +29,21 @@ const defaultValue: FileItem[] = [
 
 export const FileUploader: React.FC<FileUploaderProps> = props => {
   const [items, setItems] = useState<FileItem[]>(defaultValue);
-  
+
   const onClick = props.onClick ? (file: FileItem) => alert(`onClick ${file.name}`) : undefined;
-  const onDelete = props.onDelete ? (file: FileItem) => {
-    const newItems = items.filter(item => item.id !== file.id);
+  const onDelete = props.onDelete
+    ? (file: FileItem) => {
+        const newItems = items.filter(item => item.id !== file.id);
 
-    setItems(newItems);
-  } : undefined;
-
-  const maxLabelLengthFunc = props.maxLabelLengthFunc 
-    ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4) 
+        setItems(newItems);
+      }
     : undefined;
-  
-  
-  const onDrop: FileUploaderProps['onDrop'] = (accepteds) => {
+
+  const maxLabelLengthFunc = props.maxLabelLengthFunc
+    ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4)
+    : undefined;
+
+  const onDrop: FileUploaderProps['onDrop'] = accepteds => {
     const newFiles = accepteds.map<FileItem>((item, indx) => ({
       id: items.length + indx + Math.floor(Math.random() * 1000),
       status: FileItemStatus.loading,
@@ -52,14 +53,14 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
 
     setItems([...items, ...newFiles]);
 
-    for(const indx in newFiles) {
+    for (const indx in newFiles) {
       setTimeout(() => {
         newFiles[indx].status = FileItemStatus.loaded;
 
         setItems([...items, ...newFiles]);
       }, 600 * +indx);
     }
-  }
+  };
 
   const resultProps = {
     ...props,
@@ -87,6 +88,18 @@ const meta = {
   },
 
   argTypes: {
+    maxSize: {
+      type: 'number',
+      control: 'number',
+      description: 'Максимальный размер каждого файлов',
+    },
+
+    maxSizeAll: {
+      type: 'number',
+      control: 'number',
+      description: 'Максимальный размер всех файлов',
+    },
+
     maxLabelLength: {
       type: 'number',
       control: 'number',
@@ -103,8 +116,14 @@ const meta = {
       control: 'boolean',
     },
 
+    caption: {
+      type: 'string',
+      control: 'text',
+      description: 'Подпись',
+    },
+
     error: {
-      type: 'boolean | string',
+      type: 'boolean | string' as never,
       control: 'text',
     },
 
@@ -119,22 +138,21 @@ const meta = {
     },
 
     title: {
-      type: 'ReactNode',
+      type: 'ReactNode' as never,
       control: 'text',
     },
 
     subTitle: {
-      type: 'ReactNode',
+      type: 'ReactNode' as never,
       control: 'text',
     },
 
     qa: {type: 'string', control: 'text'},
   },
   args: {
-    label: 'Label',
     maxLabelLength: 25,
     subTitle: 'Не более 10-ти файлов до 10 Mб каждый, jpg, png, pdf, doc или zip',
   },
-} satisfies Meta<typeof Chip>;
+} satisfies Meta<typeof FileUploader>;
 
 export default meta;

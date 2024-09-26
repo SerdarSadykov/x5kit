@@ -1,6 +1,6 @@
 import {VariableSizeListProps} from 'react-window';
 
-import {SelectInternalValue, SelectItemsProps, SelectOption} from 'select/types';
+import {SelectMultipleValue, SelectItemsProps, SelectOption} from 'select/types';
 
 export const getItemSize = (props: SelectItemsProps): VariableSizeListProps['itemSize'] => {
   return index => {
@@ -18,6 +18,6 @@ export const getItemSize = (props: SelectItemsProps): VariableSizeListProps['ite
   };
 };
 
-export const getValues = (option: SelectOption): SelectInternalValue => {
+export const getValues = (option: SelectOption): SelectMultipleValue => {
   return option.childs ? [option.value, ...option.childs.flatMap(getValues)] : [option.value];
 };

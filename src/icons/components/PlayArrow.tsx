@@ -25,7 +25,7 @@ export const PlayArrow: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
 
   return (
-    <SVG ref={ref} name="PlayArrow" name="PlayArrow" {...props}>
+    <SVG ref={ref} name="PlayArrow" {...props}>
       {!size || size === SizeTokenValue.Large || size === SizeTokenValue.Medium ? largeIcon : smallIcon}
     </SVG>
   );

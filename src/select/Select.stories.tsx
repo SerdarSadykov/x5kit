@@ -9,10 +9,20 @@ import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
 import {header, footer} from './SelectStory';
-import {LastResult, LoadMore, SelectFilter, SelectListOnChange, SelectOption, SelectProps, SelectValue} from './types';
+import {
+  LastResult,
+  LoadMore,
+  SelectFilter,
+  SelectMultipleValue,
+  SelectListOnChange,
+  SelectOption,
+  SelectProps,
+} from './types';
 
-export const Select: React.FC<SelectProps> = props => {
-  const [value, setValue] = useState<SelectValue>(() => {
+type SelectStoryProps = {filter: boolean} & Omit<SelectProps, 'filter'>;
+
+export const Select: React.FC<SelectStoryProps> = props => {
+  const [value, setValue] = useState<SelectMultipleValue>(() => {
     const iVal = props.options[0]?.value;
     return iVal ? [iVal] : [];
   });
@@ -61,8 +71,10 @@ const convertResp = (item: FetchedItem): SelectOption => ({
   value: item.id,
 });
 
-export const SelectFetch: React.FC<SelectProps> = props => {
-  const [value, setValue] = useState<SelectValue>([]);
+interface ReqLastResult extends LastResult {indx: number};
+
+export const SelectFetch: React.FC<SelectStoryProps> = props => {
+  const [value, setValue] = useState<SelectMultipleValue>([]);
   const [options, setOptions] = useState<SelectOption[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -88,7 +100,7 @@ export const SelectFetch: React.FC<SelectProps> = props => {
     setValue(newValue);
   };
 
-  const onLoadMore: LoadMore<{indx: number} & LastResult> = (_, lr) => {
+  const onLoadMore: LoadMore<ReqLastResult> = (_, lr) => {
     setIsLoading(true);
 
     return fetchItems()
@@ -101,24 +113,22 @@ export const SelectFetch: React.FC<SelectProps> = props => {
       .finally(() => setIsLoading(false));
   };
 
-  const filter: SelectFilter<{indx: number} & LastResult> = {
-    cb: (query, _, lr) =>
-      new Promise(res => {
-        setIsLoading(true);
+  const filterCb: SelectFilter<ReqLastResult>['cb'] = (query, _, lr) =>
+    new Promise(res => {
+      setIsLoading(true);
 
-        setTimeout(() => {
-          const indx = lr?.indx ?? 0;
+      setTimeout(() => {
+        const indx = lr?.indx ?? 0;
 
-          fetchItems()
-            .then(items => items.filter(item => item.label.toLowerCase().includes(query.toLowerCase())))
-            .then(items => {
-              const options = items.slice(indx ?? 0, indx + 10);
-              res({options, indx: indx + 10});
-            })
-            .finally(() => setIsLoading(false));
-        }, 500);
-      }),
-  };
+        fetchItems()
+          .then(items => items.filter(item => item.label.toLowerCase().includes(query.toLowerCase())))
+          .then(items => {
+            const options = items.slice(indx ?? 0, indx + 10);
+            res({options, indx: indx + 10});
+          })
+          .finally(() => setIsLoading(false));
+      }, 500);
+    });
 
   const resultProps = {
     ...props,
@@ -135,8 +145,8 @@ export const SelectFetch: React.FC<SelectProps> = props => {
     options,
     onFocus,
     onChange,
-    filter,
     value,
+    filter: {cb: filterCb},
     loading: isLoading,
   };
 
@@ -250,7 +260,7 @@ const meta = {
 
 export const SelectTree: StoryObj<typeof Select> = {
   args: {
-    options: CheckboxTreeStory.args.options,
+    options: CheckboxTreeStory.args.options as SelectOption[],
     multiple: true,
     filter: true,
 

@@ -1,23 +1,25 @@
-import React, {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes, UIEventHandler} from 'react';
+import React, {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
 import {CSSObject} from '@emotion/react';
 import {VariableSizeListProps} from 'react-window';
 
 import {InputProps} from 'input';
 import {getQAAttribute, QA, RequiredQA} from 'common';
 import {DropdownProps} from 'dropdown';
-import {CheckboxTreeOption, CheckboxTreeOptionValue} from 'checkboxTree';
+import {CheckboxTreeOption} from 'checkboxTree';
 
-export type SelectSingleValue = CheckboxTreeOptionValue;
+export type SelectSingleValue = string | number;
 export type SelectMultipleValue = SelectSingleValue[];
-export type SelectValue = SelectSingleValue | SelectMultipleValue | undefined;
-
-export type SelectInternalValue = SelectSingleValue[];
 
 export type SelectOption = {
   label: string;
   icon?: ReactNode;
   childs?: SelectOption[];
 } & PropsWithChildren & Omit<CheckboxTreeOption, 'label'>;;
+
+export type SelectItemProps = {
+  option: SelectOption;
+  checked: boolean; // isActive
+} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> & Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
 
 export type SelectItemsProps = {
   options: SelectOption[];
@@ -38,22 +40,19 @@ export type SelectItemsProps = {
   >
   & Pick<SelectComponents, 'item'>;
 
-export type SelectItemProps = {
-  option: SelectOption;
-  checked: boolean; // isActive
-} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> & Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
-
 export type SelectListProps = {
   components?: SelectComponents;
 };
-
 export type SelectListOnChange =
-  (value: SelectInternalValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
+  (value: SelectMultipleValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
+
+export type SelectSingleOnChange =
+  (value: SelectSingleValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
 
 export type LastResult = {
   options: SelectOption[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} & Record<string, any>;
+};
 
 export type LoadMore<T extends LastResult = LastResult> = (options: SelectOption[], lastResult?: T) => Promise<T>;
 
@@ -82,27 +81,27 @@ type SelectComponents = {
   item?: React.FC<SelectItemProps>;
 };
 
-type CommonProps = {
-  value: SelectInternalValue;
+type CommonProps<T extends LastResult = LastResult> = {
+  value: SelectMultipleValue;
   onChange: SelectListOnChange;
 
   multiple?: boolean;
   showChips?: number;
   noWrap?: boolean;
 
-  filter?: SelectFilter;
+  filter?: SelectFilter<T>;
 
   virtualize?: VariableSizeListProps | boolean;
 } & Pick<InputProps, 'disabled' | 'readOnly'> & Pick<CSSObject, 'whiteSpace'>;
 
-export type SelectProps = {
+export type SelectProps<T extends LastResult = LastResult> = {
   options: SelectOption[];
 
   dropdownProps?: Partial<DropdownProps>;
 
-  onLoadMore?: LoadMore;
+  onLoadMore?: LoadMore<T>;
 } & QA
-  & CommonProps
+  & CommonProps<T>
   & SelectListProps
   & Omit<InputProps, 'value' | 'onChange'>
   & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
@@ -124,12 +123,7 @@ export type SelectContextProps = {
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
   & Required<Pick<DropdownProps, 'maxHeight'>>;
 
-export type SingleSelectProps = {
+export type SingleSelectProps<T extends LastResult = LastResult> = {
   value: SelectSingleValue | undefined;
-
-  onChange: (
-    value: SelectSingleValue | undefined,
-    target?: SelectOption,
-    event?: ChangeEvent<HTMLInputElement>,
-  ) => void;
-} & Omit<SelectProps, 'value' | 'onChange' | 'multiple'>;
+  onChange: SelectSingleOnChange;
+} & Omit<SelectProps<T>, 'value' | 'onChange' | 'multiple'>;

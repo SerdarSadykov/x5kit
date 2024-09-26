@@ -4,7 +4,7 @@ import {SizeTokenValue, theme} from 'theme';
 
 import {BadgeProps, BadgeStyles, BadgeVariant} from './types';
 
-const sizeProps: Omit<Record<SizeTokenValue, CSSObject>, 'XSmall' | 'XXSmall'> = {
+const sizeProps: Partial<Record<SizeTokenValue, CSSObject>> = {
   [SizeTokenValue.Large]: {
     minWidth: 20,
     minHeight: 20,

@@ -240,7 +240,7 @@ export const variantBehavior: Record<ButtonVariant, ButtonStyles['behavior']> = 
   },
 };
 
-const buttonSize: Record<SizeTokenValue, CSSObject> = {
+const buttonSize: Partial<Record<SizeTokenValue, CSSObject>> = {
   [SizeTokenValue.Large]: {
     minHeight: 48,
     padding: '11px 15px',
@@ -267,7 +267,7 @@ const buttonSize: Record<SizeTokenValue, CSSObject> = {
   },
 };
 
-const iconButtonSize: Record<SizeTokenValue, CSSObject> = {
+const iconButtonSize: Partial<Record<SizeTokenValue, CSSObject>> = {
   [SizeTokenValue.Large]: {
     minHeight: 48,
     minWidth: 48,
