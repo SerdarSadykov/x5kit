@@ -7,9 +7,15 @@ import {IconProps} from './types';
 
 export const Icons = (props: IconProps) => {
   const childs = Object.entries(components).map(([key, Component]) => {
+    if (key === 'SVG') {
+      return null;
+    }
+
     return (
       <div key={key} style={{border: '1px solid #ccc', padding: 10, textAlign: 'center'}}>
-        <div><Component {...props} /></div>
+        <div>
+          <Component {...props} />
+        </div>
         <div>{key}</div>
       </div>
     );
