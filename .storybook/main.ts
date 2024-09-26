@@ -23,8 +23,8 @@ const config: StorybookConfig = {
   },
 
   typescript: {
-    reactDocgen: 'react-docgen',
-    check: false,
+    reactDocgen: 'react-docgen-typescript',
+    check: true,
   },
 
   swc: () => ({

@@ -24,7 +24,7 @@ export const Banner: React.FC<BannerStoryProps> = ({children, ...props}) => {
   };
 
   const buttonAction = props.actionText && (
-    <Button size={SizeTokenValue.Medium} onClick={() => alert('onClick')}>
+    <Button size={SizeTokenValue.Small} onClick={() => alert('onClick')}>
       {props.actionText}
     </Button>
   );

@@ -11,6 +11,7 @@ const preview: Preview = {
       </ThemeProvider>
     ),
   ],
+  tags: ['autodocs'],
 };
 
 export default preview;
