@@ -118,7 +118,7 @@ export type SelectContextProps = {
 
   onClear: () => void;
 
-  loadMore: () => void;
+  loadMore: (target: HTMLDivElement | undefined) => void;
   filterOptions: (query: string) => void;
 } & CommonProps
   & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>

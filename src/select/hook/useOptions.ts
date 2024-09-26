@@ -67,24 +67,32 @@ export const useOptions = (
     });
   };
 
-  const loadMore: SelectContextProps['loadMore'] = () => {
-    if (!onLoadMore || state === SelectState.loadingMore) {
+  const loadMore: SelectContextProps['loadMore'] = target => {
+    if (
+      !target ||
+      !onLoadMore ||
+      state === SelectState.loadingMore ||
+      !target.scrollTop ||
+      target.scrollTop + target.clientHeight < target.scrollHeight - 200
+    ) {
       return;
     }
 
-    if (state === SelectState.filtred && filter && lastQuery.current) {
-      filter.cb(lastQuery.current, options, lastFilterResult.current).then(newResult => {
-        insertOptions(newResult.options);
+    if (state === SelectState.filtred) {
+      if (filter && lastQuery.current) {
+        filter.cb(lastQuery.current, options, lastFilterResult.current).then(newResult => {
+          insertOptions(newResult.options);
 
-        setState(SelectState.filtred, [...filtred, ...newResult.options]);
+          setState(SelectState.filtred, [...filtred, ...newResult.options]);
 
-        lastFilterResult.current = newResult;
-      }).catch(e => {
-        setState(SelectState.default, []);
+          lastFilterResult.current = newResult;
+        }).catch(e => {
+          setState(SelectState.default, []);
 
-        // eslint-disable-next-line  no-console
-        console.error(e);
-      });
+          // eslint-disable-next-line  no-console
+          console.error(e);
+        });
+      }
 
       return;
     }
@@ -106,7 +114,16 @@ export const useOptions = (
 
   useEffect(() => {
     setOptions(baseOptions);
+
+    lastMoreResult.current = undefined;
   }, [baseOptions]);
 
-  return {options, filtred, state, setState, filterOptions, loadMore};
+  return {
+    options,
+    filtred,
+    state,
+    setState,
+    filterOptions,
+    loadMore,
+  };
 };

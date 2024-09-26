@@ -1,4 +1,4 @@
-import {ChangeEventHandler, useCallback, useEffect, useRef} from 'react';
+import {ChangeEventHandler, UIEventHandler, useCallback, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 import {ListProps, VariableSizeList, VariableSizeListProps} from 'react-window';
 
@@ -9,20 +9,9 @@ import {SelectOption, SelectItemsProps, SelectState} from 'select/types';
 
 import {getItemSize, getValues} from '../utils';
 
-const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
-  padding: 8px 0;
-  overflow: auto;
-  text-overflow: ellipsis;
-
-  ${theme.scroll}
-
-  ${props => ({height: props.height, maxHeight: props.maxHeight, whiteSpace: props.whiteSpace})}
-
-  * {
-    ${theme.scroll}
-  }
-
+const BaseContainer = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
   label {
+    display: block;
     padding: 6px 12px;
     padding-left: 12px;
 
@@ -30,6 +19,29 @@ const Container = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'wh
       background-color: ${theme.colors.grey[10]};
       cursor: pointer;
     }
+  }
+`;
+
+const Container = styled(BaseContainer)`
+  padding: 8px 0;
+  overflow: auto;
+  text-overflow: ellipsis;
+
+  ${theme.scroll}
+
+  ${props => ({height: props.height, maxHeight: props.maxHeight, whiteSpace: props.whiteSpace})}
+`;
+
+const VirtualizedContainer = styled(BaseContainer)`
+  padding: 8px 0;
+
+  > div {
+    overflow: auto;
+    text-overflow: ellipsis;
+
+    ${theme.scroll}
+
+    ${props => ({height: props.height, maxHeight: props.maxHeight, whiteSpace: props.whiteSpace})}
   }
 `;
 
@@ -54,14 +66,26 @@ const VirtualizedItem: ListProps<SelectItemsProps>['children'] = ({data, index, 
 };
 
 const Virtualized: React.FC<SelectItemsProps> = props => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const ref = useRef<VariableSizeList>(null);
 
   const {options, height, maxHeight} = props;
 
   const itemSize = typeof props.virtualize === 'object' ? props.virtualize.itemSize : getItemSize(props);
 
+  const onScroll = () => {
+    props.loadMore(containerRef.current?.children?.[0] as HTMLDivElement);
+  };
+
+  const containerProps = {
+    height,
+    maxHeight,
+    whiteSpace: props.whiteSpace,
+  };
+
   const listProps = {
     itemSize,
+    onScroll,
 
     itemData: props,
     itemCount: options.length,
@@ -70,16 +94,14 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
     width: '100%',
   } as VariableSizeListProps;
 
-  const containerProps = {height, maxHeight};
-
   useEffect(() => {
     ref.current?.resetAfterIndex(0);
   }, [options]);
 
   return (
-    <Container {...containerProps}>
+    <VirtualizedContainer ref={containerRef} {...containerProps}>
       <VariableSizeList ref={ref} {...listProps} />
-    </Container>
+    </VirtualizedContainer>
   );
 };
 
@@ -96,7 +118,18 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
     [props.onChange]
   );
 
+  const onScroll: UIEventHandler<HTMLDivElement> = e => {
+    props.loadMore(e.target as HTMLDivElement);
+  };
+
   const opened = props.state === SelectState.filtred ? props.options.flatMap(getValues) : undefined;
+
+  const containerProps = {
+    onScroll,
+    height: props.height,
+    maxHeight: props.maxHeight,
+    whiteSpace: props.whiteSpace,
+  };
 
   const treeProps = {
     opened,
@@ -104,8 +137,6 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
     options: props.options,
     value: props.value,
   };
-
-  const containerProps = {height: props.height, maxHeight: props.maxHeight};
 
   return (
     <Container {...containerProps}>

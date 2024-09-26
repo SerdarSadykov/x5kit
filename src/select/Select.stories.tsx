@@ -205,6 +205,12 @@ const meta = {
       description: 'Не переносить текст',
     },
 
+    virtualize: {
+      type: 'boolean',
+      control: 'boolean',
+      description: 'Виртуализация',
+    },
+
     showChips: {
       type: 'number',
       control: 'number',
