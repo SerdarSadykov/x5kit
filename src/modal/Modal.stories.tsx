@@ -27,8 +27,8 @@ export const Modal: React.FC<ModalStoryProps> = props => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLButtonElement>(null);
 
-  const onOpen = () => setIsOpen(true);
-  const onClose = props.onClose ? () => setIsOpen(false) : undefined;
+  const onToggle = () => setIsOpen(!isOpen);
+  const onClose = () => setIsOpen(false);
 
   const resultProps: ModalProps = {
     ...rest,
@@ -40,7 +40,7 @@ export const Modal: React.FC<ModalStoryProps> = props => {
 
   const modal = (
     <BaseModal {...resultProps}>
-      <ModalHeader caption={caption} onClose={onClose} icon={props.icon ? <AccountCircle /> : undefined}>
+      <ModalHeader caption={caption} onClose={props.onClose ? onClose : undefined} icon={props.icon ? <AccountCircle /> : undefined}>
         {title}
       </ModalHeader>
       <ModalContent noBorderScroll={noBorderScroll}>
@@ -57,12 +57,12 @@ export const Modal: React.FC<ModalStoryProps> = props => {
           </Button>
         </ModalFooterContent>
         <ModalFooterContent>
-          {onClose && (
-            <Button size={SizeTokenValue.Small} variant={ButtonVariant.outlined} onClick={onClose}>
+          {props.onClose && (
+            <Button size={SizeTokenValue.Small} variant={ButtonVariant.outlined} onClick={onToggle}>
               Отменить
             </Button>
           )}
-          <Button size={SizeTokenValue.Small}>Отправить</Button>
+          <Button size={SizeTokenValue.Small} onClick={onToggle}>Отправить</Button>
         </ModalFooterContent>
       </ModalFooter>
     </BaseModal>
@@ -70,7 +70,7 @@ export const Modal: React.FC<ModalStoryProps> = props => {
 
   return (
     <div style={{position: 'relative', color: theme.colors.grey[60]}}>
-      <Button onClick={onOpen} ref={ref}>
+      <Button onClick={onToggle} ref={ref}>
         Открыть
       </Button>
       {modal}

@@ -8,7 +8,7 @@ import badgeStory from './Badge.stories';
 import {BadgeDotSize, BadgeDotProps} from './types';
 
 export const BadgeDot: React.FC<BadgeDotProps> = props => (
-  <div style={{position: 'relative', color: theme.colors.grey[60]}}>
+  <div style={{position: 'relative', color: theme.colors.grey[60], display: 'inline-block'}}>
     <ShoppingCart />
     <div style={{position: 'absolute', top: 0, right: 0}}>
       <BaseBadgeDot {...props} />

@@ -26,6 +26,7 @@ export const Container = styled.div`
   box-shadow: ${theme.shadows.medium};
   border-radius: ${theme.spaces.x4}px;
   box-sizing: border-box;
+  width: fit-content;
 
   ${theme.typography.p2}
 `;

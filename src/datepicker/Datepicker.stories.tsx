@@ -48,7 +48,7 @@ const parseCalendarProps = (props: DatepickerStoryProps) => {
 
   const disabledDates = calendarProps.disabledDates ? (date: Date) => date.getDate() % 2 === 0 : undefined;
   const tooltips = calendarProps.tooltips ? ({date}: DayProps) => date.toDateString() : undefined;
-  console.log('tooltips', tooltips);
+
   return {
     ...calendarProps,
 

@@ -8,7 +8,6 @@ export const InputCaption: React.FC<InputInternalProps> = ({error, caption, styl
   const captionProps = {
     children,
 
-    disabled: style.isDisabled,
     error: style.isError,
     absolute: style.isAbsoluteCaption,
   }

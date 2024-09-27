@@ -12,6 +12,11 @@ const preview: Preview = {
     ),
   ],
   tags: ['autodocs'],
+  parameters: {
+    options: {
+      storySort: {order: ['All']},
+    }
+  }
 };
 
 export default preview;

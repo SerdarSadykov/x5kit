@@ -32,4 +32,4 @@ export type ModalProps = {
   // maxWidth?: string | number
   // minWidth?: string | number
   // showCloseButton?: boolean
-} & PropsWithChildren & Pick<UseFloatingOptions, 'middleware'>;
+} & PropsWithChildren & Pick<UseFloatingOptions, 'middleware'> & Pick<CSSProperties, 'zIndex'>;

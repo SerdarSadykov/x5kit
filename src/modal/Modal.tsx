@@ -1,6 +1,6 @@
-import React, {CSSProperties} from 'react';
+import React, {CSSProperties, HTMLAttributes} from 'react';
 import styled from '@emotion/styled';
-import {FloatingFocusManager, FloatingOverlay, FloatingPortal} from '@floating-ui/react';
+import {FloatingFocusManager, FloatingOverlay, FloatingOverlayProps, FloatingPortal} from '@floating-ui/react';
 
 import {SizeTokenValue, theme} from 'theme';
 
@@ -14,8 +14,8 @@ const Container = styled.div<Pick<ModalProps, 'size'>>`
   background-color: ${theme.colors.white};
   max-width: calc(100% - 40px);
   max-height: calc(100% - 40px);
-
   box-shadow: ${theme.shadows.medium};
+  z-index: ${theme.sizes.zIndex.modal};
 
   ${({size = SizeTokenValue.Medium}) => {
     let width = size;
@@ -39,12 +39,24 @@ const Container = styled.div<Pick<ModalProps, 'size'>>`
   }}
 `;
 
-const overlayStyles: CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
-  background: 'rgba(59, 64, 71, 0.6)',
+const overlayFixedProps: FloatingOverlayProps & HTMLAttributes<HTMLDivElement> = {
+  lockScroll: true,
+
+  style: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    background: 'rgba(59, 64, 71, 0.6)',
+    zIndex: theme.sizes.zIndex.modal,
+  } as CSSProperties,
+};
+
+const overlayDropdownProps: FloatingOverlayProps & HTMLAttributes<HTMLDivElement> = {
+  lockScroll: true,
+  style: {
+    zIndex: theme.sizes.zIndex.modal,
+  },
 };
 
 export const Modal: React.FC<ModalProps> = props => {
@@ -56,7 +68,7 @@ export const Modal: React.FC<ModalProps> = props => {
     return;
   }
 
-  const overlayProps = !hasTarget ? {lockScroll: true, style: overlayStyles} : undefined;
+  const overlayProps = hasTarget ? overlayDropdownProps : overlayFixedProps;
 
   const containerProps = {
     ...floatingI.getFloatingProps(),
