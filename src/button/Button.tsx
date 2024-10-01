@@ -136,7 +136,7 @@ export const variantBehavior: Record<ButtonVariant, ButtonStyles['behavior']> = 
       borderColor: theme.colors.grey[30],
     },
     active: {
-      color: theme.colors.grey[40],
+      color: theme.colors.grey[60],
       backgroundColor: theme.colors.grey[40],
       borderColor: theme.colors.grey[40],
     },
