@@ -47,7 +47,7 @@ const BadgeContainer = styled.div`
 `;
 
 export const Left: React.FC<SidebarMenuItemStyles & Partial<SidebarMenuItemProps>> = props => {
-  const {label, icon, badge, ...styles} = props;
+  const {icon, label, badge, ...styles} = props;
 
   return (
     <Container {...styles}>

@@ -64,6 +64,7 @@ const items: SidebarMenuItemProps[] = [
         label: 'Подраздел',
         disabled: true,
         href: '#sub3',
+        badge: 'off',
       },
     ],
   },

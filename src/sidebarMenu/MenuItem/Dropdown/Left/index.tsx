@@ -9,6 +9,8 @@ const Container = styled.div<SidebarMenuItemStyles>`
   align-items: center;
   gap: 8px;
 
+  ${theme.typography.p1compact};
+
   color: ${({isSelected, disabled}) => {
     if (disabled) {
       return theme.colors.grey[40];
@@ -18,16 +20,6 @@ const Container = styled.div<SidebarMenuItemStyles>`
   }};
 `;
 
-const Label = styled.div`
-  padding: 0 4px 0 0;
-
-  ${theme.typography.p1compact}
-`;
-
 export const Left: React.FC<SidebarMenuItemStyles & Partial<SidebarMenuItemProps>> = ({label, ...styles}) => {
-  return (
-    <Container {...styles}>
-      <Label>{label}</Label>
-    </Container>
-  );
+  return <Container {...styles}>{label}</Container>;
 };

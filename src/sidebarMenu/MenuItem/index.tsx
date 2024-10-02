@@ -117,7 +117,7 @@ const MenuItem: React.FC<SidebarMenuItemProps> = props => {
     );
   }
 
-  const leftProps = {...styles, icon, badge};
+  const leftProps = {...styles, badge, icon};
 
   if (!hasChilds || disabled) {
     return (

@@ -13,8 +13,8 @@ const Button = styled.button`
   width: 100%;
   padding: 4px;
   flex-shrink: 0;
-  cursor: pointer;
   background-color: transparent;
+  cursor: pointer;
 
   span {
     padding: 2px 4px 2px 0;
