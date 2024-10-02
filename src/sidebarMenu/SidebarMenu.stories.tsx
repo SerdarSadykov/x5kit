@@ -11,6 +11,10 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
   const [selected, setSelected] = useState<string>();
 
   const onChange: SidebarMenuProps['onChange'] = newSelected => {
+    if (newSelected.target === '_blank') {
+      return;
+    }
+
     setSelected(newSelected.id === selected ? undefined : newSelected.id);
 
     if (props.onChange) {
@@ -72,7 +76,6 @@ const items: SidebarMenuItemProps[] = [
     id: '3',
     label: 'Настройки',
     icon: <Settings />,
-    badge: 8,
     disabled: true,
     href: '#3',
     tooltip: 'Недоступный пункт меню',
@@ -106,6 +109,7 @@ const items: SidebarMenuItemProps[] = [
     label: 'Внутренняя ссылка',
     icon: <Link />,
     disabled: false,
+    badge: 8,
     href: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
 ];
