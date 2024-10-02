@@ -4,29 +4,44 @@ import styled from '@emotion/styled';
 import {theme} from 'theme';
 
 import {getMenuItem} from './MenuItem';
+import {ExpandButton} from './ExpandButton';
+import {useSidebarMenu} from './hook';
 import {SidebarMenuContextProps, SidebarMenuProps} from './types';
 
 const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  min-height: 100%;
   user-select: none;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: ${theme.colors.grey[10]};
+`;
+
+const Items = styled.div`
+  flex-grow: 1;
 
   ${theme.scroll};
 `;
 
-export const SidebarMenuContext = createContext<SidebarMenuContextProps>({selected: undefined});
+export const SidebarMenuContext = createContext({} as SidebarMenuContextProps);
 
-export const SidebarMenu: React.FC<SidebarMenuProps> = ({items, selected, onChange, qa, width = 228}) => {
-  const child = items.map(getMenuItem(0));
+export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
+  const {context, isExpanded} = useSidebarMenu(props);
+
+  const {items, qa} = props;
+
+  const child = items.map(getMenuItem);
+
+  const width = isExpanded ? (props.width ?? 228) : 56;
 
   return (
-    <SidebarMenuContext.Provider value={{selected, onChange}}>
+    <SidebarMenuContext.Provider value={context}>
       <Container data-qa={qa} style={{width}}>
-        {child}
+        <Items>{child}</Items>
+        <ExpandButton />
       </Container>
     </SidebarMenuContext.Provider>
   );

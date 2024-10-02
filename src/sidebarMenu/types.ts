@@ -5,7 +5,7 @@ import {QA} from 'common';
 export type SidebarMenuItemProps = {
   id: string;
 
-  label?: ReactNode;
+  label: ReactNode;
   icon?: ReactNode;
   badge?: ReactNode;
   tooltip?: ReactNode;
@@ -20,6 +20,14 @@ export type SidebarMenuProps = {
   items: SidebarMenuItemProps[];
   selected: string | undefined;
   onChange?: (newSelected: SidebarMenuItemProps) => void;
+  
+  isExpanded?: boolean;
+  setIsExpanded?: (newIsExpanded: boolean) => void;
 } & QA & Pick<CSSProperties, 'width'>;
 
-export type SidebarMenuContextProps = Pick<SidebarMenuProps, 'selected' | 'onChange' | 'width'>;
+export type SidebarMenuContextProps = {
+  onClick: (item: SidebarMenuItemProps) => MouseEventHandler<HTMLAnchorElement | HTMLDivElement>;
+  isSelected: (item: SidebarMenuItemProps) => boolean;
+} & Required<Pick<SidebarMenuProps, 'isExpanded' | 'setIsExpanded'>>;
+
+export type SidebarMenuItemStyles = {isSelected: boolean;} & Pick<SidebarMenuItemProps, 'disabled'>;

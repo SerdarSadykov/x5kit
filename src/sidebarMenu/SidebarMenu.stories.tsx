@@ -34,13 +34,13 @@ const items: SidebarMenuItemProps[] = [
     label: 'Пункт меню с очень длинным названием в две строки',
     icon: <List />,
     href: '#1',
+    tooltip: 'Команды',
   },
   {
     id: '2',
     label: 'Отчеты',
     icon: <List />,
     href: '#2',
-    badge: <Badge variant={BadgeVariant.red}>Custom</Badge>,
 
     childs: [
       {
@@ -74,6 +74,7 @@ const items: SidebarMenuItemProps[] = [
     badge: 8,
     disabled: true,
     href: '#3',
+    tooltip: 'Недоступный пункт меню',
   },
   {
     id: '4',
@@ -87,6 +88,7 @@ const items: SidebarMenuItemProps[] = [
     label: 'Профиль',
     icon: <AccountCircle />,
     disabled: false,
+    badge: <Badge variant={BadgeVariant.red}>on</Badge>,
     href: '#5',
   },
   {

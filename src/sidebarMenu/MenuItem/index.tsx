@@ -1,54 +1,142 @@
-import {MouseEventHandler, useContext, useState} from 'react';
+import {ElementType, useContext} from 'react';
+import styled from '@emotion/styled';
 
-import {MenuItemContent} from '../MenuItemContent';
+import {Placement, theme} from 'theme';
+import {Tooltip} from 'tooltip';
+
 import {SidebarMenuContext} from '../SidebarMenu';
-import {SidebarMenuItemProps} from '../types';
+import {SidebarMenuItemStyles, SidebarMenuItemProps} from '../types';
 
-type MenuItemProps = {level: number} & SidebarMenuItemProps;
+import {Left} from './Left';
+import {Dropdown} from './Dropdown';
+import {MenuItemChild} from './MenuItemChild';
+import {MenuItemBadge} from './MenuItemBadge';
+import {MenuItemArrow} from './MenuItemArrow';
 
-const isSelected = (item: SidebarMenuItemProps, selected: string | undefined): boolean => {
-  if (!selected) {
-    return false;
+const Container = styled.div<SidebarMenuItemStyles>`
+  position: relative;
+  display: block;
+  padding: 4px;
+  text-decoration: none;
+
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+
+  :before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 13px);
+    left: 4px;
+    width: 3px;
+    height: 26px;
+    border-radius: 0 20px 20px 0;
+    background-color: ${theme.colors.accent[90]};
+
+    display: ${props => (props.isSelected ? 'block' : 'none')};
   }
 
-  if (item.id === selected) {
-    return true;
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 12px 8px 12px 12px;
+    border-radius: 4px;
+
+    background-color: ${props => (props.isSelected ? theme.colors.white : undefined)};
   }
 
-  return !!item.childs && item.childs.findIndex(subItem => isSelected(subItem, selected)) !== -1;
-};
+  :hover > div {
+    background-color: ${props => (!props.isSelected ? theme.colors.grey[10] : undefined)};
+  }
+`;
 
-const MenuItem: React.FC<MenuItemProps> = props => {
-  const context = useContext(SidebarMenuContext);
+const DropdownWrapper = styled.div`
+  position: relative;
 
-  const {childs, level, href, target} = props;
+  > div:last-child {
+    display: none;
+    z-index: ${theme.sizes.zIndex.dropdown};
+  }
 
-  const isActive = isSelected(props, context.selected);
-
-  const onClick: MouseEventHandler<HTMLAnchorElement | HTMLDivElement> = e => {
-    if (context.onChange) {
-      if (href && (!target || target === '_self')) {
-        e.preventDefault();
-      }
-
-      context.onChange(props);
+  :hover {
+    > div:last-child {
+      display: block;
     }
 
-    props.onClick?.(e);
+    > div:first-child {
+      z-index: ${theme.sizes.zIndex.dropdown + 1};
+
+      > div {
+        background-color: ${theme.colors.white};
+        border-radius: 4px 0 0 4px;
+      }
+    }
+  }
+`;
+
+const MenuItem: React.FC<SidebarMenuItemProps> = props => {
+  const {isExpanded, isSelected, onClick} = useContext(SidebarMenuContext);
+
+  const {label, tooltip, icon, badge, disabled, childs, qa, href, target} = props;
+
+  const hasChilds = !!childs?.length;
+
+  const styles = {disabled, isSelected: isSelected(props)};
+
+  const anchorProps = !hasChilds && href ? {href, target, as: 'a' as ElementType} : undefined;
+
+  const containerProps = {
+    ...styles,
+    ...anchorProps,
+
+    'data-qa': qa,
   };
 
-  const contentProps = {isActive, onClick, ...props};
+  if (isExpanded) {
+    const leftProps = {...styles, label, icon};
 
-  const child = isActive ? childs?.map(getMenuItem(level + 1)) : undefined;
+    const child = styles.isSelected && childs?.map(item => <MenuItemChild key={item.id} {...item} />);
+
+    return (
+      <div>
+        <Container {...containerProps} onClick={onClick(props)}>
+          <div>
+            <Left {...leftProps} />
+            <MenuItemBadge {...styles} badge={badge} />
+            <MenuItemArrow {...styles} childs={childs} />
+          </div>
+        </Container>
+        {child}
+      </div>
+    );
+  }
+
+  const leftProps = {...styles, icon, badge};
+
+  if (!hasChilds || disabled) {
+    return (
+      <div>
+        <Tooltip placement={Placement.right} content={tooltip ?? label}>
+          <Container {...containerProps} onClick={onClick(props)}>
+            <div>
+              <Left {...leftProps} />
+            </div>
+          </Container>
+        </Tooltip>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <MenuItemContent {...contentProps} />
-      {child}
-    </div>
+    <DropdownWrapper>
+      <Container {...containerProps}>
+        <div>
+          <Left {...leftProps} />
+        </div>
+      </Container>
+      <Dropdown label={label} childs={childs} />
+    </DropdownWrapper>
   );
 };
 
-export const getMenuItem = (level: number) => (props: SidebarMenuItemProps) => (
-  <MenuItem {...props} key={props.id} level={level} />
-);
+export const getMenuItem = (item: SidebarMenuItemProps) => <MenuItem key={item.id} {...item} />;
