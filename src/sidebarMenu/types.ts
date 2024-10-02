@@ -23,7 +23,7 @@ export type SidebarMenuProps = {
   
   isExpanded?: boolean;
   setIsExpanded?: (newIsExpanded: boolean) => void;
-} & QA & Pick<CSSProperties, 'width'>;
+} & QA & Pick<CSSProperties, 'width' | 'zIndex'>;
 
 export type SidebarMenuContextProps = {
   onClick: (item: SidebarMenuItemProps) => MouseEventHandler<HTMLAnchorElement | HTMLDivElement>;

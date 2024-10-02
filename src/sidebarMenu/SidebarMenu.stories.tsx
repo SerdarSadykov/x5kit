@@ -21,7 +21,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
   const resultProps = {
     ...props,
 
-    selected,
+    selected: props.selected || selected,
     onChange,
   };
 

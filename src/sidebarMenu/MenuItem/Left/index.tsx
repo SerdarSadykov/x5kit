@@ -17,7 +17,7 @@ const Container = styled.div<SidebarMenuItemStyles>`
       return theme.colors.grey[40];
     }
 
-    return theme.colors.grey[60];
+    return theme.colors.grey[100];
   }};
 `;
 

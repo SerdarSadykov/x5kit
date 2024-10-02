@@ -1,7 +1,7 @@
 import {createContext} from 'react';
 import styled from '@emotion/styled';
 
-import {theme} from 'theme';
+import {theme, zIndex} from 'theme';
 
 import {getMenuItem} from './MenuItem';
 import {ExpandButton} from './ExpandButton';
@@ -35,11 +35,14 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
 
   const child = items.map(getMenuItem);
 
-  const width = isExpanded ? (props.width ?? 228) : 56;
+  const containerStyle = {
+    width: isExpanded ? (props.width ?? 228) : 56,
+    zIndex: props.zIndex ?? 1,
+  }
 
   return (
     <SidebarMenuContext.Provider value={context}>
-      <Container data-qa={qa} style={{width}}>
+      <Container data-qa={qa} style={containerStyle}>
         <Items>{child}</Items>
         <ExpandButton />
       </Container>

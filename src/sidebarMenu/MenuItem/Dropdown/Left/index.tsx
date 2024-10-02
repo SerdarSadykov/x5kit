@@ -14,7 +14,7 @@ const Container = styled.div<SidebarMenuItemStyles>`
       return theme.colors.grey[40];
     }
 
-    return isSelected ? theme.colors.accent[90] : theme.colors.grey[60];
+    return isSelected ? theme.colors.accent[90] : theme.colors.grey[100];
   }};
 `;
 

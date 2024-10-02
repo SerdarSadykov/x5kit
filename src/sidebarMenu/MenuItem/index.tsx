@@ -39,14 +39,20 @@ const Container = styled.div<SidebarMenuItemStyles>`
     align-items: center;
     justify-content: space-between;
     gap: 4px;
-    padding: 12px 8px 12px 12px;
+    padding: 12px;
     border-radius: 4px;
 
     background-color: ${props => (props.isSelected ? theme.colors.white : undefined)};
   }
 
   :hover > div {
-    background-color: ${props => (!props.isSelected ? theme.colors.grey[10] : undefined)};
+    background-color: ${props => (!props.isSelected ? theme.colors.grey[20] : undefined)};
+  }
+`;
+
+const ExpandedContainer = styled(Container)`
+  > div {
+    padding: 12px 8px 12px 12px;
   }
 `;
 
@@ -99,13 +105,13 @@ const MenuItem: React.FC<SidebarMenuItemProps> = props => {
 
     return (
       <div>
-        <Container {...containerProps} onClick={onClick(props)}>
+        <ExpandedContainer {...containerProps} onClick={onClick(props)}>
           <div>
             <Left {...leftProps} />
             <MenuItemBadge {...styles} badge={badge} />
             <MenuItemArrow {...styles} childs={childs} />
           </div>
-        </Container>
+        </ExpandedContainer>
         {child}
       </div>
     );
