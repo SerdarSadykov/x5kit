@@ -10,9 +10,8 @@ import {SidebarMenuContextProps, SidebarMenuProps} from './types';
 
 const Container = styled.div`
   position: absolute;
-  top: 0;
   left: 0;
-  min-height: 100%;
+  height: 100%;
   user-select: none;
   display: flex;
   flex-direction: column;
@@ -32,16 +31,23 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
   const {context, isExpanded} = useSidebarMenu(props);
 
   const containerStyle = {
+    top: props.top ?? 0,
     width: isExpanded ? (props.width ?? 228) : 56,
     zIndex: props.zIndex ?? 1,
-  }
+
+    ...props.style,
+  };
+
+  const itemsStyle = {
+    overflow: isExpanded ? 'visible auto' : 'visible',
+  };
 
   const child = props.items.map(getMenuItem);
 
   return (
     <SidebarMenuContext.Provider value={context}>
       <Container data-qa={props.qa} style={containerStyle}>
-        <Items>{child}</Items>
+        <Items style={itemsStyle}>{child}</Items>
         <ExpandButton />
       </Container>
     </SidebarMenuContext.Provider>

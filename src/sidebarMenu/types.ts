@@ -1,4 +1,4 @@
-import {AnchorHTMLAttributes, CSSProperties, MouseEventHandler, ReactNode} from 'react';
+import {AnchorHTMLAttributes, CSSProperties, HTMLAttributes, MouseEventHandler, ReactNode} from 'react';
 
 import {QA} from 'common';
 
@@ -23,7 +23,7 @@ export type SidebarMenuProps = {
   
   isExpanded?: boolean;
   setIsExpanded?: (newIsExpanded: boolean) => void;
-} & QA & Pick<CSSProperties, 'width' | 'zIndex'>;
+} & QA & Pick<CSSProperties, 'width' | 'zIndex' | 'top'> & Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
 
 export type SidebarMenuContextProps = {
   onClick: (item: SidebarMenuItemProps) => MouseEventHandler<HTMLAnchorElement | HTMLDivElement>;
