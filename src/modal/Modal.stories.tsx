@@ -10,7 +10,7 @@ import {ModalContent} from './ModalContent';
 import {ModalHeader} from './ModalHeader';
 import {ModalFooter, ModalFooterContent} from './ModalFooter';
 import {Modal as BaseModal} from './Modal';
-import {ModalProps} from './types';
+import type {ModalProps} from './types';
 
 type ModalStoryProps = {
   title: string;
@@ -40,7 +40,11 @@ export const Modal: React.FC<ModalStoryProps> = props => {
 
   const modal = (
     <BaseModal {...resultProps}>
-      <ModalHeader caption={caption} onClose={props.onClose ? onClose : undefined} icon={props.icon ? <AccountCircle /> : undefined}>
+      <ModalHeader
+        caption={caption}
+        onClose={props.onClose ? onClose : undefined}
+        icon={props.icon ? <AccountCircle /> : undefined}
+      >
         {title}
       </ModalHeader>
       <ModalContent noBorderScroll={noBorderScroll}>
@@ -62,7 +66,9 @@ export const Modal: React.FC<ModalStoryProps> = props => {
               Отменить
             </Button>
           )}
-          <Button size={SizeTokenValue.Small} onClick={onToggle}>Отправить</Button>
+          <Button size={SizeTokenValue.Small} onClick={onToggle}>
+            Отправить
+          </Button>
         </ModalFooterContent>
       </ModalFooter>
     </BaseModal>

@@ -1,9 +1,14 @@
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
-import {Check, Error, IconComponent, WarningOutline} from 'icons';
 
-import {SnackbarContentProps, SnackbarVariant} from '../types';
+import {Check, Error, WarningOutline} from 'icons';
+
+import {SnackbarVariant} from '../types';
+
+import type {IconComponent} from 'icons';
+
+import type {SnackbarContentProps} from '../types';
 
 const variantIcon: Record<SnackbarVariant, IconComponent | null> = {
   [SnackbarVariant.default]: null,
@@ -30,7 +35,6 @@ const Container = styled.div`
 
   ${theme.typography.h4}
 `;
-
 
 export const MessageIcon: React.FC<SnackbarContentProps> = ({message: {icon, variant}}) => {
   if (typeof icon !== 'undefined' && icon !== true) {

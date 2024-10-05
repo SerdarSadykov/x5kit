@@ -1,7 +1,7 @@
-import {HTMLAttributes, PropsWithChildren} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {HTMLAttributes, PropsWithChildren} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {SizeTokenValue} from 'theme';
+import type {SizeTokenValue} from 'theme';
 
 export enum BadgeVariant {
   red = 'red',

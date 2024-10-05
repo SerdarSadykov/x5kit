@@ -1,11 +1,17 @@
-import {CSSProperties, forwardRef, MouseEventHandler, useEffect, useRef} from 'react';
-import styled, {CSSObject} from '@emotion/styled';
+import {forwardRef, useEffect, useRef} from 'react';
+
+import styled from '@emotion/styled';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
 import {theme} from 'theme';
-import {InputCaption, InputProps, InputStyles, Label, useInput} from 'input';
 
-import {TextareaProps} from './types';
+import {InputCaption, Label, useInput} from 'input';
+
+import type {InputProps, InputStyles} from 'input';
+import type {CSSObject} from '@emotion/styled';
+import type {CSSProperties, MouseEventHandler} from 'react';
+
+import type {TextareaProps} from './types';
 
 type TextareaStyles = InputStyles & Pick<CSSProperties, 'width' | 'maxWidth' | 'minHeight' | 'maxHeight' | 'resize'>;
 
@@ -15,7 +21,7 @@ const Container = styled.div<TextareaStyles>`
   * {
     ${theme.typography.base}
   }
-  
+
   :hover textarea {
     ${({isDisabled, isFocused}) => {
       if (isDisabled || isFocused) {
@@ -44,7 +50,7 @@ const Container = styled.div<TextareaStyles>`
     ${props => {
       const styles: CSSObject = {
         ...theme.typography.p1,
-        
+
         resize: props.resize,
         width: props.width,
         maxWidth: props.maxWidth,
@@ -53,7 +59,7 @@ const Container = styled.div<TextareaStyles>`
 
         padding: props.isFilled ? '20px 12px 0' : '10px 12px 10px',
         cursor: props.isReadOnly ? 'default' : undefined,
-        
+
         borderWidth: 1,
         borderColor: theme.colors.grey[30],
         color: theme.colors.grey[props.isDisabled ? 40 : 100],
@@ -62,13 +68,13 @@ const Container = styled.div<TextareaStyles>`
       if (props.isError) {
         styles.borderWidth = 2;
         styles.borderColor = theme.colors.additional.red[80];
-      }else if (props.isDisabled) {
+      } else if (props.isDisabled) {
         styles.borderWidth = 1;
         styles.borderColor = theme.colors.grey[20];
-      }else if (props.isFocused) {
+      } else if (props.isFocused) {
         styles.borderWidth = 2;
         styles.borderColor = theme.colors.accent[90];
-      }else if (props.isUnborder) {
+      } else if (props.isUnborder) {
         styles.borderWidth = 0;
       }
 
@@ -88,7 +94,7 @@ const LabelContainer = styled.div`
 
 export const Textarea = forwardRef<HTMLDivElement, TextareaProps>((props, ref) => {
   const inputProps = useInput(props as InputProps);
-  
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
 
@@ -103,16 +109,16 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>((props, ref) =
   };
 
   const setLabelWidth = (width?: number) => {
-    if(!width || !labelRef.current){
+    if (!width || !labelRef.current) {
       return;
     }
 
     labelRef.current.style.width = `${width - 30}px`;
-  }
+  };
 
   const onMouseMove: MouseEventHandler = e => {
     setLabelWidth((e.target as HTMLTextAreaElement)?.clientWidth);
-  }
+  };
 
   useEffect(() => {
     setLabelWidth(inputRef.current?.clientWidth);

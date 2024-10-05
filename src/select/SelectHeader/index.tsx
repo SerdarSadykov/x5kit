@@ -1,5 +1,6 @@
-import {PropsWithChildren} from 'react';
 import styled from '@emotion/styled';
+
+import type {PropsWithChildren} from 'react';
 
 const Container = styled.div``;
 

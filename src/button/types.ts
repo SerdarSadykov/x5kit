@@ -1,9 +1,9 @@
-import {AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType, ReactNode} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType, ReactNode} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {QA} from 'common';
-import {SizeTokenValue} from 'theme';
-import {TooltipProps} from 'tooltip';
+import type {QA} from 'common';
+import type {SizeTokenValue} from 'theme';
+import type {TooltipProps} from 'tooltip';
 
 export enum ButtonVariant {
   primary = 'primary',
@@ -45,6 +45,9 @@ export type ButtonProps = {
   // mode?: keyof typeof buttonModes === variant inner | innerInput
 
   // type?: keyof typeof buttonTypes
-} & QA & Partial<ButtonStyles> & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'color'>;
+} & QA &
+  Partial<ButtonStyles> &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'color'>;
 
 export type IconButtonProps = Omit<ButtonProps, 'startAdornment' | 'endAdornment'>;

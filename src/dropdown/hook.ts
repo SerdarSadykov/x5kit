@@ -1,23 +1,14 @@
-import {useEffect} from 'react';
-import {
-  autoUpdate,
-  flip,
-  shift,
-  size,
-  useDismiss,
-  useFloating,
-  useInteractions,
-} from '@floating-ui/react';
+import {autoUpdate, flip, shift, size, useDismiss, useFloating, useInteractions} from '@floating-ui/react';
 
 import {Placement} from 'theme';
 import {useClickAway} from 'common';
 
-import {DropdownProps} from './types';
+import type {DropdownProps} from './types';
 
 const targetSize = size({
   apply({rects, elements}) {
     elements.floating.style.width = `${rects.reference.width}px`;
-  }
+  },
 });
 
 export const useDropdown = (props: DropdownProps) => {
@@ -27,12 +18,7 @@ export const useDropdown = (props: DropdownProps) => {
     setFloating,
     targetRef,
 
-    middleware = [
-      props.width === 'target' ? targetSize : undefined,
-
-      flip(),
-      shift(),
-    ],
+    middleware = [props.width === 'target' ? targetSize : undefined, flip(), shift()],
 
     placement = Placement.bottomStart,
   } = props;
@@ -52,9 +38,13 @@ export const useDropdown = (props: DropdownProps) => {
 
   const interactions = useInteractions([useDismiss(floating.context)]);
 
-  useClickAway(() => {
-    setIsOpen(false);
-  }, targetRef, floating.refs.floating);
+  useClickAway(
+    () => {
+      setIsOpen(false);
+    },
+    targetRef,
+    floating.refs.floating
+  );
 
   return {interactions, floating};
 };

@@ -3,17 +3,16 @@ import {offset, useFloating} from '@floating-ui/react';
 import {startOfToday} from 'date-fns';
 
 import {startOfDay} from 'common';
-import {CalendarMode, RangeCalendarValue} from 'calendar';
+
+import {CalendarMode} from 'calendar';
 
 import {DateInput} from './DateInput';
 import {Calendar} from './Calendar';
-import {
-  BaseDatepickerProps,
-  DatepickerProps,
-  RangeDatepickerProps,
-  DatepickerContextProps,
-  DEFAULT_FORMAT,
-} from './types';
+
+import {DEFAULT_FORMAT} from './types';
+
+import type {BaseDatepickerProps, DatepickerProps, RangeDatepickerProps, DatepickerContextProps} from './types';
+import type {RangeCalendarValue} from 'calendar';
 
 export const DatepickerContext = createContext<DatepickerContextProps>({} as never);
 

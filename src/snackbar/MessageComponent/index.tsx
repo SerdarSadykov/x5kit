@@ -7,7 +7,9 @@ import {ActionsBottom} from '../ActionsBottom';
 import {MessageContent} from '../MessageContent';
 import {MessageIcon} from '../MessageIcon';
 
-import {SnackbarContentProps, SnackbarMessageInner, SnackbarVariant} from '../types';
+import {SnackbarVariant} from '../types';
+
+import type {SnackbarContentProps, SnackbarMessageInner} from '../types';
 
 const variantShadow: Record<SnackbarVariant, string> = {
   [SnackbarVariant.default]: 'none',

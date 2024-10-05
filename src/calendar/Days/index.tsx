@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
-import {DayProps, getDayComponent} from './Day';
+import {getDayComponent} from './Day';
 import {useDays} from './hook';
+
+import type {DayProps} from './Day';
 
 export * from './utils';
 export * from './Day';

@@ -1,12 +1,17 @@
 import {forwardRef} from 'react';
-import styled, {CSSObject} from '@emotion/styled';
+
+import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Tooltip} from 'tooltip';
 
 import {Loader} from './Loader';
 import {Content} from './Content';
-import {ButtonProps, ButtonStyles, ButtonVariant, IconButtonProps} from './types';
+
+import {ButtonVariant} from './types';
+
+import type {ButtonProps, ButtonStyles, IconButtonProps} from './types';
+import type {CSSObject} from '@emotion/styled';
 
 export const variantBehavior: Record<ButtonVariant, ButtonStyles['behavior']> = {
   [ButtonVariant.primary]: {

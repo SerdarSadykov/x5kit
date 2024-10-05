@@ -1,9 +1,11 @@
-import {forwardRef, PropsWithChildren, useEffect, useRef, WheelEventHandler} from 'react';
+import {forwardRef, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {TabsProps} from '../types';
+import type {PropsWithChildren, WheelEventHandler} from 'react';
+
+import type {TabsProps} from '../types';
 
 const Container = styled.div`
   position: relative;
@@ -83,6 +85,8 @@ export const Scrollable = forwardRef<HTMLDivElement, ScrollableProps>(({children
     }
 
     ref.current.toggleAttribute('data-arrows', !!arrows && ref.current.scrollWidth > ref.current.clientWidth);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, arrows]);
 
   return (

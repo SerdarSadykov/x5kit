@@ -1,8 +1,9 @@
-import {InputHTMLAttributes, MouseEventHandler, ReactNode, Ref, RefCallback} from 'react';
-import {MaskInputOptions} from 'maska';
+import type {InputHTMLAttributes, MouseEventHandler, ReactNode, Ref, RefCallback} from 'react';
+import type {MaskInputOptions} from 'maska';
 
-import {SizeTokenValue} from 'theme';
-import {CSSObject} from '@emotion/react';
+import type {CSSObject} from '@emotion/react';
+
+import type {SizeTokenValue} from 'theme';
 
 type InputBaseProps<T> = Pick<
   InputHTMLAttributes<T>,
@@ -45,14 +46,15 @@ export type InputProps<T = HTMLInputElement> = {
 
   containerRef?: Ref<HTMLDivElement>;
 
-  inputProps?: InputHTMLAttributes<T> & {ref?: RefCallback<T>;};
+  inputProps?: InputHTMLAttributes<T> & {ref?: RefCallback<T>};
   inputComponent?: React.FC<InputInternalProps<T>>;
 
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-} & InputBaseProps<T> & Pick<CSSObject, 'width'>;
+} & InputBaseProps<T> &
+  Pick<CSSObject, 'width'>;
 
 export type InputStyles = {
   isDisabled?: boolean;

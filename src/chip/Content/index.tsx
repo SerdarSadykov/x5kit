@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import {ChipProps} from '../types';
+import type {ChipProps} from '../types';
 
 const Container = styled.div<Pick<ChipProps, 'whiteSpace' | 'maxWidth'>>(({maxWidth, whiteSpace}) => ({
   maxWidth,

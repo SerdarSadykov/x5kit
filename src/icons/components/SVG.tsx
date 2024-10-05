@@ -2,7 +2,7 @@ import {forwardRef} from 'react';
 
 import {SizeTokenValue} from 'theme';
 
-import {IconProps} from '../types';
+import type {IconProps} from '../types';
 
 export const SVG = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const {name, size = SizeTokenValue.Large, color = 'currentColor', ...restProps} = props;

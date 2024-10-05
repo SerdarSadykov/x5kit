@@ -1,4 +1,6 @@
-import {useEffect, RefObject} from 'react';
+import {useEffect} from 'react';
+
+import type {RefObject} from 'react';
 
 export const useClickAway = (handler: EventListener, ...refs: Array<RefObject<Element>>): void => {
   useEffect(() => {
@@ -21,6 +23,7 @@ export const useClickAway = (handler: EventListener, ...refs: Array<RefObject<El
     return () => {
       document.removeEventListener('click', listener);
     };
-  }, [handler]);
-}
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handler]);
+};

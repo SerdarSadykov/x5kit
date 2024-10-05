@@ -2,9 +2,14 @@ import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {ChevronDown, ChevronRight} from 'icons';
-import {Checkbox, CheckboxProps} from 'checkbox';
 
-import {ItemProps, useParentItem} from './hook';
+import {Checkbox} from 'checkbox';
+
+import {useParentItem} from './hook';
+
+import type {CheckboxProps} from 'checkbox';
+
+import type {ItemProps} from './hook';
 
 const Container = styled.div`
   mark {

@@ -1,9 +1,9 @@
-import {PropsWithChildren, ReactNode} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {PropsWithChildren, ReactNode} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {SizeTokenValue} from 'theme';
-import {QA} from 'common';
-import {LinkProps} from 'link';
+import type {SizeTokenValue} from 'theme';
+import type {QA} from 'common';
+import type {LinkProps} from 'link';
 
 export enum BannerVariant {
   defaultBlue = 'defaultBlue',
@@ -19,7 +19,7 @@ export type BannerStyles = {
   color?: string;
 } & Pick<CSSObject, 'backgroundColor' | 'borderColor' | 'width' | 'maxWidth'>;
 
-export type BannerAction = {text: ReactNode;} & Partial<LinkProps>;
+export type BannerAction = {text: ReactNode} & Partial<LinkProps>;
 
 export type BannerProps = {
   icon?: boolean | ReactNode;
@@ -29,5 +29,7 @@ export type BannerProps = {
   action?: BannerAction | ReactNode;
   actionNextLine?: boolean;
 
-  onClose?: () => void
-} & Partial<BannerStyles> & QA & PropsWithChildren;
+  onClose?: () => void;
+} & Partial<BannerStyles> &
+  QA &
+  PropsWithChildren;

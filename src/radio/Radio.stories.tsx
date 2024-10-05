@@ -1,10 +1,10 @@
 import type {Meta} from '@storybook/react';
-import {CSSObject} from '@emotion/react';
+import type {CSSObject} from '@emotion/react';
 
 import {Link} from 'link';
 
 import {Radio as BaseRadio} from './Radio';
-import {RadioProps} from './types';
+import type {RadioProps} from './types';
 
 export const Radio: React.FC<RadioProps> = props => {
   const resultProps: RadioProps = {
@@ -13,14 +13,14 @@ export const Radio: React.FC<RadioProps> = props => {
     name: 'radio_field',
   };
 
-  if(typeof props.checked !== 'undefined' || resultProps.onChange){
+  if (typeof props.checked !== 'undefined' || resultProps.onChange) {
     resultProps.onChange = e => alert(e.target.value);
   }
 
   return (
     <div>
       <div style={{marginBottom: 16}}>
-        <BaseRadio {...resultProps} value="0"/>
+        <BaseRadio {...resultProps} value="0" />
       </div>
       <div style={{marginBottom: 16}}>
         <BaseRadio {...resultProps} value="1">

@@ -1,9 +1,10 @@
 import {forwardRef} from 'react';
 
 import {SizeTokenValue} from 'theme';
-import {IconComponent} from 'icons/types';
 
 import {SVG} from './SVG';
+
+import type {IconComponent} from 'icons/types';
 
 const largeIcon = [
   <path
@@ -14,7 +15,7 @@ const largeIcon = [
     key="1"
     d="M3 20C3 19.4477 3.44772 19 4 19H20C20.5523 19 21 19.4477 21 20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20Z"
   />,
-]
+];
 
 const smallIcon = [
   <path
@@ -29,7 +30,7 @@ const smallIcon = [
     clipRule="evenodd"
     d="M1.935 13.5C1.935 13.188 2.18796 12.935 2.5 12.935H12.5C12.812 12.935 13.065 13.188 13.065 13.5C13.065 13.812 12.812 14.065 12.5 14.065H2.5C2.18796 14.065 1.935 13.812 1.935 13.5Z"
   />,
-]
+];
 
 export const Export: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
@@ -40,4 +41,3 @@ export const Export: IconComponent = forwardRef((props, ref) => {
     </SVG>
   );
 });
-

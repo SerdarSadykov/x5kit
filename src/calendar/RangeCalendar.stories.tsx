@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
-import {DayProps} from './Days';
+import type {DayProps} from './Days';
 import calendarMeta from './Calendar.stories';
 import {RangeCalendar as BaseRangeCalendar} from './Calendar';
-import {RangeCalendarProps, RangeCalendarValue} from './types';
+import type {RangeCalendarProps, RangeCalendarValue} from './types';
 
 type RangeComponentProps = {
   valueFrom: number;

@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 
 import {Icon} from './Icon';
 import {Label} from './Label';
-import {RadioProps, RadioStyles} from './types';
+
+import type {RadioProps, RadioStyles} from './types';
 
 const Container = styled.label`
   position: relative;

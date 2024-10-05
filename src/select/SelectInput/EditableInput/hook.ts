@@ -1,22 +1,15 @@
-import {FocusEventHandler, useContext, useEffect, useRef, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 
-import {InputProps} from 'input';
 import {SelectContext} from 'select/Select';
 import {SelectState} from 'select/types';
-import {findOptionByLabel, getValueLabel, } from 'select/utils';
+import {findOptionByLabel, getValueLabel} from 'select/utils';
+
+import type {InputProps} from 'input';
+import type {FocusEventHandler} from 'react';
 
 export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
   const context = useContext(SelectContext);
-  const {
-    value,
-    options,
-    filterOptions,
-    setState,
-    filter,
-    multiple,
-    noWrap,
-    isOpen,
-  } = context;
+  const {value, options, filterOptions, setState, filter, multiple, noWrap, isOpen} = context;
 
   const [inputValue, setInputValue] = useState('');
 
@@ -98,9 +91,9 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
       return;
     }
 
-    //if closed and multiple, clear 
-    //if closed and single, set label 
-    setInputValue(multiple ? '' : getValueLabel(context));
+    //if closed and multiple, clear
+    //if closed and single, set label
+    setInputValue(multiple ? '' : getValueLabel(options, value));
   }, [multiple, value, options, isOpen]);
 
   return {inputProps, multiple, noWrap};

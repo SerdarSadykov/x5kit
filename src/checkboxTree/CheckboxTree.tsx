@@ -1,7 +1,8 @@
 import {forwardRef, useState} from 'react';
 
 import {Item} from './Item';
-import {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
+
+import type {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
 
 export const CheckboxTree = forwardRef<HTMLDivElement, CheckboxTreeProps>((props, ref) => {
   const {options, disabled, readOnly, onChange, value = []} = props;

@@ -1,11 +1,12 @@
-import {ChangeEventHandler, useState} from 'react';
+import type {ChangeEventHandler} from 'react';
+import {useState} from 'react';
 import type {Meta} from '@storybook/react';
-import {CSSObject} from '@emotion/react';
+import type {CSSObject} from '@emotion/react';
 
 import {Link} from 'link';
 
 import {Checkbox as BaseCheckbox} from './Checkbox';
-import {CheckboxProps, CheckboxState} from './types';
+import type {CheckboxProps, CheckboxState} from './types';
 
 export const Checkbox: React.FC<CheckboxProps> = props => {
   const [checked, setChecked] = useState<CheckboxState>();

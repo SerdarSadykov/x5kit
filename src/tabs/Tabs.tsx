@@ -1,11 +1,13 @@
-import {createContext, forwardRef, MouseEventHandler, useEffect, useRef} from 'react';
+import {createContext, forwardRef, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
 import {Arrow} from './Arrow';
 import {Scrollable} from './Scrollable';
-import {TabsProps} from './types';
+
+import type {MouseEventHandler} from 'react';
+import type {TabsProps} from './types';
 
 const Container = styled.div`
   position: relative;

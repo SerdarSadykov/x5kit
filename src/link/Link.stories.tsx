@@ -1,8 +1,10 @@
 import type {Meta} from '@storybook/react';
 
-import {Link as BaseLink} from './Link';
-import {LinkProps, LinkVariant} from './types';
 import {theme} from 'theme';
+
+import {Link as BaseLink} from './Link';
+import type {LinkProps} from './types';
+import {LinkVariant} from './types';
 
 export const Link: React.FC<LinkProps> = props => {
   const onClick = props.onClick ? () => alert('onClick') : undefined;

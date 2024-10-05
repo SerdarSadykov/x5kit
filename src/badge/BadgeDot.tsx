@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {BadgeDotProps, BadgeDotSize, BadgeVariant} from './types';
+import {BadgeDotSize, BadgeVariant} from './types';
+
+import type {BadgeDotProps} from './types';
 
 const sizeWidth: Record<BadgeDotSize, number> = {
   [BadgeDotSize.l]: 12,
@@ -49,7 +51,7 @@ const Container = styled.div<BadgeDotProps & Required<Pick<BadgeDotProps, 'size'
       color,
       backgroundColor,
       outlineColor: hasStroke ? borderColor : 'transparent',
-      
+
       minWidth,
       minHeight: minWidth,
     };

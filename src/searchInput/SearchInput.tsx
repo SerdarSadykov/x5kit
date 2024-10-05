@@ -2,7 +2,7 @@ import {Search} from 'icons';
 import {SizeTokenValue} from 'theme';
 import {Input} from 'input';
 
-import {SearchInputProps} from './types';
+import type {SearchInputProps} from './types';
 
 export const SearchInput: React.FC<SearchInputProps> = props => {
   const startAdornment = (

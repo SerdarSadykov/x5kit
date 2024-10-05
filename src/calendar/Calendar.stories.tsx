@@ -3,7 +3,7 @@ import type {ArgTypes, Meta} from '@storybook/react';
 
 import {Calendar as BaseCalendar} from './Calendar';
 import type {CalendarProps, CalendarValue} from './types';
-import {DayProps} from './Days';
+import type {DayProps} from './Days';
 
 type CalendarStoryProps = {
   value: number;
@@ -128,7 +128,7 @@ const commonArgTypes: ArgTypes = {
   },
 
   qa: {type: 'string', control: 'text'},
-}
+};
 
 const meta = {
   commonArgTypes,
@@ -158,7 +158,7 @@ const meta = {
       control: 'boolean',
       description: 'Обработчик изменения',
     },
-  
+
     onChangeViewDate: {
       type: '(newViewDate: Date) => void' as never,
       control: 'boolean',

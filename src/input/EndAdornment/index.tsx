@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+
 import {Loader} from 'loader';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Close} from 'icons';
 
-import {InputInternalProps, InputStyles} from '../types';
+import type {InputInternalProps, InputStyles} from '../types';
 
 export const InputButton = styled.button<Pick<InputStyles, 'isSmall' | 'isDisabled'>>`
   flex-shrink: 0;

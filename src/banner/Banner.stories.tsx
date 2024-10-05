@@ -6,7 +6,8 @@ import {Tooltip} from 'tooltip';
 import {Button} from 'button';
 
 import {Banner as BaseBanner} from './Banner';
-import {BannerProps, BannerVariant} from './types';
+import type {BannerProps} from './types';
+import {BannerVariant} from './types';
 
 type BannerStoryProps = Omit<BannerProps, 'onClose'> & {
   actionText?: string;

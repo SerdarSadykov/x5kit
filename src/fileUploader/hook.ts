@@ -1,6 +1,8 @@
-import {DropzoneOptions, ErrorCode, useDropzone} from 'react-dropzone';
+import {ErrorCode, useDropzone} from 'react-dropzone';
 
-import {FileUploaderProps} from './types';
+import type {DropzoneOptions} from 'react-dropzone';
+
+import type {FileUploaderProps} from './types';
 
 export abstract class FileError extends Error {
   protected defaultMessage!: string;
@@ -8,7 +10,7 @@ export abstract class FileError extends Error {
   constructor(
     public readonly file: File,
     message?: string,
-    options?: ErrorOptions,
+    options?: ErrorOptions
   ) {
     super(message, options);
 

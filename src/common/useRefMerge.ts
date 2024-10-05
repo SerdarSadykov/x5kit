@@ -1,4 +1,6 @@
-import {Ref, useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
+
+import type {Ref} from 'react';
 
 export const useRefMerge = <T>(baseRef?: Ref<T>) => {
   const innerRef = useRef<T>(null);

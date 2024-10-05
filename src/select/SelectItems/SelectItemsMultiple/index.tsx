@@ -1,13 +1,21 @@
-import {ChangeEventHandler, UIEventHandler, useCallback, useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
-import {ListProps, VariableSizeList, VariableSizeListProps} from 'react-window';
+
+import {VariableSizeList} from 'react-window';
 
 import {theme} from 'theme';
 import {Checkbox} from 'checkbox';
-import {CheckboxTree, CheckboxTreeProps} from 'checkboxTree';
-import {SelectOption, SelectItemsProps, SelectState} from 'select/types';
+
+import {CheckboxTree} from 'checkboxTree';
+
+import {SelectState} from 'select/types';
 
 import {getItemSize, getValues} from '../utils';
+
+import type {SelectOption, SelectItemsProps} from 'select/types';
+import type {CheckboxTreeProps} from 'checkboxTree';
+import type {ListProps, VariableSizeListProps} from 'react-window';
+import type {ChangeEventHandler, UIEventHandler} from 'react';
 
 const BaseContainer = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
   label {
@@ -113,10 +121,9 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
     }
   }
 
-  const onChange = useCallback<CheckboxTreeProps['onChange']>(
-    (newValues, target, e) => props.onChange(newValues, target as SelectOption, e),
-    [props.onChange]
-  );
+  const onChange: CheckboxTreeProps['onChange'] = (newValues, target, e) => {
+    props.onChange(newValues, target as SelectOption, e);
+  };
 
   const onScroll: UIEventHandler<HTMLDivElement> = e => {
     props.loadMore(e.target as HTMLDivElement);

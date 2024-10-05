@@ -1,14 +1,17 @@
-import {memo, UIEventHandler, useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
-import {VariableSizeList, VariableSizeListProps} from 'react-window';
+
+import {VariableSizeList} from 'react-window';
 
 import {theme} from 'theme';
-
-import {SelectItemsProps} from '../types';
 
 import {SelectItemsMultiple} from './SelectItemsMultiple';
 import {Item} from './SelectItem';
 import {getItemSize} from './utils';
+
+import type {SelectItemsProps} from '../types';
+import type {VariableSizeListProps} from 'react-window';
+import type {UIEventHandler} from 'react';
 
 const BaseContainer = styled.div<Pick<SelectItemsProps, 'height' | 'maxHeight' | 'whiteSpace'>>`
   mark {

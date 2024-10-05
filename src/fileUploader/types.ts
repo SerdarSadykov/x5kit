@@ -1,7 +1,8 @@
-import React, {MouseEvent, MutableRefObject, ReactNode} from 'react';
-import {DropEvent, DropzoneOptions, DropzoneState} from 'react-dropzone';
+import type {MouseEvent, MutableRefObject, ReactNode} from 'react';
+import type React from 'react';
+import type {DropEvent, DropzoneOptions, DropzoneState} from 'react-dropzone';
 
-import {QA} from 'common';
+import type {QA} from 'common';
 
 export enum FileItemStatus {
   initial = 'initial',
@@ -60,4 +61,5 @@ export type FileUploaderProps = {
 
   // renderPreviewsContent?: FC<DefaultPreviewsProps>;
   // onSelect?: (files: File[]) => void;
-} & QA & Omit<DropzoneOptions, 'onDrop' | 'onError'>;
+} & QA &
+  Omit<DropzoneOptions, 'onDrop' | 'onError'>;

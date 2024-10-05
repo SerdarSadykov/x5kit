@@ -1,7 +1,8 @@
 import {createContext, forwardRef, useContext} from 'react';
 
 import {Tabs} from '../Tabs';
-import {TabListProps} from '../types';
+
+import type {TabListProps} from '../types';
 
 export const TabContext = createContext<string | undefined>(undefined);
 

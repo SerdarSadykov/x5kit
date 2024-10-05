@@ -16,8 +16,7 @@ import {
 
 import {getQAAttribute} from 'common';
 
-import {TooltipProps} from './types';
-
+import type {TooltipProps} from './types';
 
 export const useTooltip = (props: TooltipProps) => {
   const {
@@ -49,7 +48,7 @@ export const useTooltip = (props: TooltipProps) => {
 
   const interactions = useInteractions([
     useHover(floating.context, {enabled, delay, move: false}),
-    useDismiss(floating.context, {enabled})
+    useDismiss(floating.context, {enabled}),
   ]);
 
   const {isMounted, styles} = useTransitionStyles(floating.context);
@@ -57,6 +56,6 @@ export const useTooltip = (props: TooltipProps) => {
   const ref = useMergeRefs([floating.refs.setReference, children['ref']]);
 
   const child = cloneElement(children, interactions.getReferenceProps({...children.props, ref}));
-  
+
   return {isMounted, getQA, floating, interactions, arrowRef, styles, child};
 };

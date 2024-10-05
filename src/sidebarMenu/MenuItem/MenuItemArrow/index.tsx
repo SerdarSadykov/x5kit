@@ -2,7 +2,7 @@ import {SizeTokenValue} from 'theme';
 import {ArrowDown, ArrowUp} from 'icons';
 import {ButtonVariant, IconButton} from 'button';
 
-import {SidebarMenuItemStyles, SidebarMenuItemProps} from 'sidebarMenu/types';
+import type {SidebarMenuItemStyles, SidebarMenuItemProps} from 'sidebarMenu/types';
 
 type RightProps = SidebarMenuItemStyles & Pick<SidebarMenuItemProps, 'badge' | 'childs'>;
 

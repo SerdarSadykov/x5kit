@@ -5,7 +5,8 @@ import {FloatingArrow, FloatingPortal} from '@floating-ui/react';
 import {theme} from 'theme';
 
 import {useTooltip} from './hook';
-import {TooltipProps} from './types';
+
+import type {TooltipProps} from './types';
 
 const Container = styled.div`
   padding: 10px 12px;

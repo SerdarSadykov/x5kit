@@ -1,8 +1,11 @@
-import styled, {CSSObject} from '@emotion/styled';
+import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {BadgeProps, BadgeStyles, BadgeVariant} from './types';
+import {BadgeVariant} from './types';
+
+import type {BadgeProps, BadgeStyles} from './types';
+import type {CSSObject} from '@emotion/styled';
 
 const sizeProps: Partial<Record<SizeTokenValue, CSSObject>> = {
   [SizeTokenValue.Large]: {

@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 
 import {Icon} from './Icon';
 import {Label} from './Label';
-import {CheckboxProps, CheckboxStyles} from './types';
+
+import type {CheckboxProps, CheckboxStyles} from './types';
 
 const Container = styled.label`
   position: relative;

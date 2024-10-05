@@ -1,6 +1,8 @@
-import {Badge, BadgeProps, BadgeVariant} from 'badge';
+import {Badge, BadgeVariant} from 'badge';
 
-import {SidebarMenuItemStyles, SidebarMenuItemProps} from 'sidebarMenu/types';
+import type {BadgeProps} from 'badge';
+
+import type {SidebarMenuItemStyles, SidebarMenuItemProps} from 'sidebarMenu/types';
 
 type MenuItemBadgeProps = SidebarMenuItemStyles & Pick<SidebarMenuItemProps, 'badge'> & Pick<BadgeProps, 'hasStroke'>;
 

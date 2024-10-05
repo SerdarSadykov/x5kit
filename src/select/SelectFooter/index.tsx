@@ -1,7 +1,8 @@
-import {PropsWithChildren} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
+
+import type {PropsWithChildren} from 'react';
 
 const Container = styled.div`
   position: relative;

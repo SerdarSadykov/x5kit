@@ -6,7 +6,8 @@ import {Title} from './Title';
 import {Caption} from './Caption';
 import {UploadedFiles} from './UploadedFiles';
 import {useFileUploader} from './hook';
-import {FileUploaderProps} from './types';
+
+import type {FileUploaderProps} from './types';
 
 type DropzoneStyles = {
   isDisabled: boolean;
@@ -63,7 +64,7 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
     isDragActive: dzState.isDragActive,
     isError: !!props.error,
     isDisabled: !!props.disabled,
-  }
+  };
 
   return (
     <div data-qa={props.qa}>
@@ -77,5 +78,5 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
 
       <Caption {...captionProps} />
     </div>
-    )
-}
+  );
+};

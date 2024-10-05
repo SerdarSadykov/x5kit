@@ -4,7 +4,7 @@ import {SizeTokenValue, theme} from 'theme';
 
 import {Loader as BaseLoader} from './Loader';
 import {LoaderBlock as BaseLoaderBlock} from './LoaderBlock';
-import {LoaderBlockProps, LoaderProps} from './types';
+import type {LoaderBlockProps, LoaderProps} from './types';
 
 export const Loader: React.FC<LoaderProps> = props => {
   return (

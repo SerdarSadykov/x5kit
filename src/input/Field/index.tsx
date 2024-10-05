@@ -29,7 +29,7 @@ export const FieldComponent = styled.input<InputStyles>`
     paddingTop: isFilled && isLabeled && !isSmall ? 14 : 0,
     textOverflow: !isFocused ? 'ellipsis' : undefined,
     cursor: isReadOnly ? 'default' : undefined,
-    color: theme.colors.grey[isDisabled ? 40 : 100], 
+    color: theme.colors.grey[isDisabled ? 40 : 100],
   })}
 `;
 

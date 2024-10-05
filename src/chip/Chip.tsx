@@ -1,12 +1,18 @@
-import {ElementType, forwardRef} from 'react';
-import styled, {CSSObject} from '@emotion/styled';
+import {forwardRef} from 'react';
+
+import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
 import {EndAdornment} from './EndAdornment';
 import {Content} from './Content';
 import {Tooltip} from './Tooltip';
-import {ChipProps, ChipStyles, ChipVariant} from './types';
+
+import {ChipVariant} from './types';
+
+import type {ChipProps, ChipStyles} from './types';
+import type {CSSObject} from '@emotion/styled';
+import type {ElementType} from 'react';
 
 const variantBehavior = {
   [ChipVariant.filled]: {
@@ -75,7 +81,8 @@ const Container = styled.div<ChipStyles>`
   border-style: solid;
   text-decoration: none;
 
-  :link, :visited {
+  :link,
+  :visited {
     color: ${theme.colors.grey[100]};
   }
 
@@ -137,7 +144,7 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
     error: props.error,
     isButton: !!onClick,
 
-    as: props.href ? 'a' as ElementType : undefined,
+    as: props.href ? ('a' as ElementType) : undefined,
     href: props.href,
     target: props.target,
 

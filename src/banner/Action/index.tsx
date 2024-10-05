@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import {Link} from 'link';
 
-import {BannerProps} from '../types';
+import type {BannerProps} from '../types';
 
 const Container = styled.div`
   flex-shrink: 0;

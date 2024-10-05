@@ -3,7 +3,7 @@ import {keyframes} from '@emotion/react';
 
 import {theme, SizeTokenValue} from 'theme';
 
-import {LoaderProps} from './types';
+import type {LoaderProps} from './types';
 
 const progressKeyframe = keyframes`
   0% {

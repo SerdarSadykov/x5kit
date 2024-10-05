@@ -1,14 +1,16 @@
-import {ElementType, useContext} from 'react';
+import {useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
 import {SidebarMenuContext} from 'sidebarMenu/SidebarMenu';
-import {SidebarMenuItemStyles, SidebarMenuItemProps} from 'sidebarMenu/types';
 
 import {MenuItemBadge} from '../MenuItemBadge';
 
 import {Left} from './Left';
+
+import type {SidebarMenuItemStyles, SidebarMenuItemProps} from 'sidebarMenu/types';
+import type {ElementType} from 'react';
 
 const ChildContainer = styled.div<SidebarMenuItemStyles>`
   position: relative;

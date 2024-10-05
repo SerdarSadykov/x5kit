@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import {PropsWithChildren} from 'react';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Loader as BaseLoader} from 'loader';
+
+import type {PropsWithChildren} from 'react';
 
 export const Container = styled.div`
   display: flex;

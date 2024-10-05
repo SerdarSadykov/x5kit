@@ -1,15 +1,19 @@
-import {ButtonHTMLAttributes, MouseEventHandler, useContext} from 'react';
+import {useContext} from 'react';
 import styled from '@emotion/styled';
 import {startOfMonth, endOfMonth, addMonths, subMonths} from 'date-fns';
 
-import {getQAAttribute, RequiredQA} from 'common';
+import {getQAAttribute} from 'common';
+import {Tooltip} from 'tooltip';
 import {ChevronLeft, ChevronRight} from 'icons';
-import {SizeTokenValue, SpaceTokenName, theme} from 'theme';
+import {Placement, SizeTokenValue, SpaceTokenName, theme} from 'theme';
 import {CalendarContext} from 'calendar';
 import {BlockContext} from 'calendar/Block';
 
 import {HeaderDate} from './HeaderDate';
 import {HeaderDateDropdown} from './HeaderDateDropdown';
+
+import type {RequiredQA} from 'common';
+import type {ButtonHTMLAttributes, MouseEventHandler} from 'react';
 
 export * from './HeaderDateDropdown';
 
@@ -33,6 +37,10 @@ const ArrowButton = styled.button`
   color: ${props => theme.colors.grey[props.disabled ? 40 : 60]};
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 
+  :hover {
+    background-color: ${props => (props.disabled ? undefined : theme.colors.grey[20])};
+  }
+
   &[hidden] {
     display: block;
     visibility: hidden;
@@ -42,17 +50,21 @@ const ArrowButton = styled.button`
 
 const ArrowLeft: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   return (
-    <ArrowButton {...props}>
-      <ChevronLeft size={SizeTokenValue.Medium} />
-    </ArrowButton>
+    <Tooltip placement={Placement.bottom} content="Предыдущий месяц">
+      <ArrowButton {...props}>
+        <ChevronLeft size={SizeTokenValue.Medium} />
+      </ArrowButton>
+    </Tooltip>
   );
 };
 
 const ArrowRight: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
   return (
-    <ArrowButton {...props}>
-      <ChevronRight size={SizeTokenValue.Medium} />
-    </ArrowButton>
+    <Tooltip placement={Placement.bottom} content="Следующий месяц">
+      <ArrowButton {...props}>
+        <ChevronRight size={SizeTokenValue.Medium} />
+      </ArrowButton>
+    </Tooltip>
   );
 };
 

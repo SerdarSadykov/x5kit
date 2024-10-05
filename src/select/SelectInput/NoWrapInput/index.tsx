@@ -1,7 +1,9 @@
 import {useContext} from 'react';
 
-import {InputProps, InputComponent} from 'input';
+import {InputComponent} from 'input';
 import {SelectContext} from 'select/Select';
+
+import type {InputProps} from 'input';
 
 export const NoWrapInput: InputProps['inputComponent'] = props => {
   const isReadOnly = !useContext(SelectContext).filter;

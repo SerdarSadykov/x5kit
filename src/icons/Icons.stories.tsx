@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react';
 import {colors, SizeTokenValue} from 'theme';
 
 import * as components from './components';
-import {IconProps} from './types';
+import type {IconProps} from './types';
 
 export const Icons = (props: IconProps) => {
   const childs = Object.entries(components).map(([key, Component]) => {

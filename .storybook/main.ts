@@ -1,51 +1,21 @@
-import type {StorybookConfig} from '@storybook/react-webpack5';
-
-const path = require('path');
+import type {StorybookConfig} from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(ts|tsx)'],
+  stories: ['../src/**/*.stories.tsx'],
 
   addons: [
-    '@storybook/addon-webpack5-compiler-swc',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@chromatic-com/storybook',
     '@storybook/addon-interactions',
     '@storybook/manager-api',
-    '@storybook/theming'
+    '@storybook/theming',
   ],
 
-  framework: {
-    name: '@storybook/react-webpack5',
-    options: {
-      builder: {
-        useSWC: true,
-      },
-    },
-  },
+  framework: '@storybook/react-vite',
 
   typescript: {
     reactDocgen: 'react-docgen-typescript',
     check: true,
-  },
-
-  swc: () => ({
-    jsc: {
-      transform: {
-        react: {
-          runtime: 'automatic',
-        },
-      },
-    },
-  }),
-
-  webpackFinal: async config => {
-    config.resolve ??= {};
-    config.resolve.modules ??= [];
-
-    config.resolve.modules.push(path.resolve(__dirname, '../src'));
-
-    return config;
   },
 };
 export default config;

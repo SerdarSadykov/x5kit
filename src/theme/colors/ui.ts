@@ -1,4 +1,4 @@
-import {ColorTokenGroup, ColorTokenState} from './types';
+import type {ColorTokenGroup} from './types';
 
 export const ui = {
   grey: <ColorTokenGroup>{

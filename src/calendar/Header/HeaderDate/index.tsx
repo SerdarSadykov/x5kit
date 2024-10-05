@@ -1,13 +1,16 @@
 import {useContext} from 'react';
 import styled from '@emotion/styled';
-import {Month} from 'date-fns';
 
-import {HeaderDateType} from '../types';
-
-import {RequiredQA, getQAAttribute} from 'common';
+import {getQAAttribute} from 'common';
 import {theme} from 'theme';
 import {CalendarContext} from 'calendar/Calendar';
 import {BlockContext} from 'calendar/Block';
+
+import {HeaderDateType} from '../types';
+
+import type {RequiredQA} from 'common';
+
+import type {Month} from 'date-fns';
 
 const Container = styled.div`
   display: flex;

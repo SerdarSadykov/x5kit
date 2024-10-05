@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
-import {InputProps} from 'input';
-import React, {useContext, useEffect, useState} from 'react';
+
+import {useContext, useEffect, useState} from 'react';
 
 import {Close} from 'icons';
 import {SizeTokenValue, theme} from 'theme';
-import {Chip, ChipProps, ChipVariant} from 'chip';
+
+import {Chip, ChipVariant} from 'chip';
 
 import {SelectContext} from 'select/Select';
 import {findOptions} from 'select/utils';
-import {SelectOption} from 'select/types';
+
+import type {ChipProps} from 'chip';
+import type {InputProps} from 'input';
+import type {SelectOption} from 'select/types';
 
 const ChipContainer = styled.div<Pick<InputProps, 'disabled'>>`
   display: flex;
@@ -89,7 +93,7 @@ const ChipsMultiple: React.FC = () => {
 
   useEffect(() => {
     setLabels(findOptions(options, value));
-  }, [value]);
+  }, [options, value]);
 
   return child;
 };

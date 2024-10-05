@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 
 import {Icon} from './Icon';
 import {Label} from './Label';
-import {SwitchProps, SwitchStyles} from './types';
+
+import type {SwitchProps, SwitchStyles} from './types';
 
 const Container = styled.label`
   position: relative;

@@ -14,4 +14,4 @@ export const ModalFooterContent = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-`
+`;

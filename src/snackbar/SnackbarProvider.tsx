@@ -1,5 +1,8 @@
 import {forwardRef} from 'react';
-import {SnackbarProviderProps, SnackbarProvider as BaseSnackbarProvider, CustomContentProps} from 'notistack';
+
+import {SnackbarProvider as BaseSnackbarProvider} from 'notistack';
+
+import type {SnackbarProviderProps, CustomContentProps} from 'notistack';
 
 export const SnackbarContainer = forwardRef<HTMLDivElement, CustomContentProps>(({message, style}, ref) => (
   <div ref={ref} style={style}>

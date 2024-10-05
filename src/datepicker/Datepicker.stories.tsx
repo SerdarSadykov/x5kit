@@ -4,13 +4,13 @@ import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
 import {ArrowNavigationBackward} from 'icons';
-import {CalendarProps, CalendarValue, DayProps} from 'calendar';
+import type {CalendarProps, CalendarValue, DayProps} from 'calendar';
 
 import inputStory from 'input/Input.stories';
 import calendarStory from 'calendar/Calendar.stories';
 
 import {Datepicker as BaseDatepicker} from './Datepicker';
-import {DatepickerProps} from './types';
+import type {DatepickerProps} from './types';
 
 type DatepickerStoryProps = {
   startAdornment: boolean;

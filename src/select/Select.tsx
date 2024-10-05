@@ -5,7 +5,14 @@ import {Dropdown} from 'dropdown';
 import {SelectInput} from './SelectInput';
 import {SelectList} from './SelectList';
 import {useSelect} from './hook';
-import {SelectContextProps, SelectProps, SingleSelectProps, SelectMultipleValue, SelectListOnChange} from './types';
+
+import type {
+  SelectContextProps,
+  SelectProps,
+  SingleSelectProps,
+  SelectMultipleValue,
+  SelectListOnChange,
+} from './types';
 
 export const SelectContext = createContext<SelectContextProps>({} as never);
 
@@ -33,6 +40,8 @@ export const SingleSelect = forwardRef<HTMLInputElement, SingleSelectProps>((pro
     (value, target, event) => {
       props.onChange(value[0], target, event);
     },
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.onChange]
   );
 

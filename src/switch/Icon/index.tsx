@@ -1,9 +1,11 @@
-import {KeyboardEventHandler, RefObject} from 'react';
-import styled, {CSSObject} from '@emotion/styled';
+import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {SwitchStyles} from '../types';
+import type {KeyboardEventHandler, RefObject} from 'react';
+import type {CSSObject} from '@emotion/styled';
+
+import type {SwitchStyles} from '../types';
 
 const Container = styled.div<SwitchStyles>`
   position: relative;

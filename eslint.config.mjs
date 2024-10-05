@@ -1,65 +1,85 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-
-// "react-app",
-// "airbnb-typescript",
-// "plugin:react-hooks/recommended",
-// "plugin:prettier/recommended",
-// "plugin:jest-dom/recommended",
-// "prettier"
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import pluginImport from 'eslint-plugin-import';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import pluginReact from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
-  {languageOptions: {globals: globals.browser}},
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  pluginReactConfig,
   {
-    "rules": {
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-curly-newline": "off",
-      "react/display-name": "off",
-      "react/prop-types": "off",
-      "react/jsx-props-no-spreading": 0,
-      "@typescript-eslint/no-unused-vars": "warn",
-      // "import/no-anonymous-default-export": "off",
-      // "import/no-duplicates": ["error", {"considerQueryString": true}],
-      "no-console": [
-        "warn",
-        {
-          "allow": ["warn", "error"]
-        }
-      ],
-      "no-restricted-imports": [
-        "error",
-        {
-          "name": "reselect",
-          "message": "Please use @reduxjs/toolkit reselect instead."
-        }
-      ],
-      // "import/order": [
-      //   "warn",
-      //   {
-      //     "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-      //     "newlines-between": "always-and-inside-groups"
-      //   }
-      // ]
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 6,
+        project: 'tsconfig.json',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      }
     }
   },
-// "settings": {
-//   "import/resolver": {
-//     "node": {
-//       "paths": ["src"];
-//     },
-//     "react": {
-//       "version": "detect";
-//     }
-//   }
-// },
-// "parserOptions": {
-//   "ecmaVersion": 6,
-//     "project": "tsconfig.json";
-// }
-//   }
+
+  pluginJs.configs.recommended,
+
+  ...tseslint.configs.recommended,
+
+  pluginImport.flatConfigs.recommended,
+
+  eslintPluginPrettierRecommended,
+
+  pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat['jsx-runtime'],
+
+  {
+    plugins: {
+      'react-hooks': reactHooks,
+    },
+
+    'rules': {
+      ...reactHooks.configs.recommended.rules,
+
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-curly-newline': 'off',
+      'react/display-name': 'off',
+      'react/prop-types': 'off',
+      'react/jsx-props-no-spreading': 'off',
+
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      "@typescript-eslint/quotes": [
+        "error",
+        "single",
+        {
+          "avoidEscape": true,
+          "allowTemplateLiterals": true
+        }
+      ],
+
+      'no-console': 'error',
+
+      'import/no-nodejs-modules': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-default-export': 'error',
+      'import/no-duplicates': 'error',
+      'import/order': [
+        'warn',
+        {
+          'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'type'],
+          'newlines-between': 'always-and-inside-groups'
+        }
+      ]
+    },
+    'settings': {
+      'import/resolver': {
+        'typescript': {
+          'project': 'tsconfig.json',
+        },
+        'node': {
+          'project': 'tsconfig.json',
+        },
+      },
+      'react': {
+        'version': 'detect',
+      },
+    },
+  },
 ];

@@ -2,10 +2,13 @@ import {useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
-import {InputProps, Label, FieldComponent as BaseFieldComponent} from 'input';
+
+import {Label, FieldComponent as BaseFieldComponent} from 'input';
 import {SelectContext} from 'select/Select';
 
 import {Chips} from './Chips';
+
+import type {InputProps} from 'input';
 
 const Container = styled.div`
   position: relative;

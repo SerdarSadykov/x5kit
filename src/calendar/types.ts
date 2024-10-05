@@ -1,9 +1,9 @@
-import {Day, FormatOptions} from 'date-fns';
+import type {Day, FormatOptions} from 'date-fns';
 
-import {QA} from 'common';
+import type {QA} from 'common';
 
-import {DayProps} from './Days/Day';
-import {DropdownItem} from './Dropdown';
+import type {DayProps} from './Days/Day';
+import type {DropdownItem} from './Dropdown/types';
 
 export enum CalendarMode {
   single = 'single',

@@ -86,4 +86,4 @@ export const iconNames = {
   VisibilityOff: 'visibility / off',
   Warning: 'warning / solid',
   WarningOutline: 'warning / outline',
-}
+};

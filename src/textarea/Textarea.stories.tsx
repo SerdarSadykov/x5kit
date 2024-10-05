@@ -4,7 +4,7 @@ import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 import baseMeta from 'input/Input.stories';
 
 import {Textarea as BaseTextarea} from './Textarea';
-import {TextareaProps} from './types';
+import type {TextareaProps} from './types';
 
 type InputStoryProps = Omit<TextareaProps, 'onClearClick'> & {
   startAdornment: boolean;

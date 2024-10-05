@@ -4,7 +4,7 @@ import {SizeTokenValue} from 'theme';
 import {Close} from 'icons';
 import {ButtonVariant, IconButton} from 'button';
 
-import {BannerProps} from '../types';
+import type {BannerProps} from '../types';
 
 const Container = styled.div`
   display: flex;

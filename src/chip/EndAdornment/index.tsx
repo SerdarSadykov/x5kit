@@ -1,10 +1,11 @@
-import {MouseEventHandler} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Close} from 'icons';
 
-import {ChipProps} from '../types';
+import type {MouseEventHandler} from 'react';
+
+import type {ChipProps} from '../types';
 
 export const Button = styled.button`
   flex-shrink: 0;

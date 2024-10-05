@@ -4,7 +4,7 @@ import {Close} from 'icons';
 import {SizeTokenValue, theme} from 'theme';
 import {ButtonVariant, IconButton} from 'button';
 
-import {ModalHeaderProps} from '../types';
+import type {ModalHeaderProps} from '../types';
 
 const Container = styled.div`
   display: flex;

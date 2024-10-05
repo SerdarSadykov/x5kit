@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import {Download} from 'icons';
 import {Link} from 'link';
 
-import {FileUploaderProps} from '../types';
 import {theme} from 'theme';
+
+import type {FileUploaderProps} from '../types';
 
 type TitleStyles = Pick<FileUploaderProps, 'disabled'>;
 
@@ -19,11 +20,11 @@ const TitleContainer = styled.div<TitleStyles>`
 
   div {
     margin-bottom: 8px;
-    color: ${props => props.disabled ? theme.colors.grey[40] : theme.colors.accent[90]};
+    color: ${props => (props.disabled ? theme.colors.grey[40] : theme.colors.accent[90])};
   }
 
   a {
-    color: ${props => props.disabled ? theme.colors.grey[40] : theme.colors.accent[90]};
+    color: ${props => (props.disabled ? theme.colors.grey[40] : theme.colors.accent[90])};
   }
 `;
 
@@ -31,7 +32,7 @@ const SubTitleContainer = styled.div<TitleStyles>`
   padding-top: 8px;
   text-align: center;
   user-select: none;
-  color: ${props => props.disabled ? theme.colors.grey[40] : theme.colors.grey[60]};
+  color: ${props => (props.disabled ? theme.colors.grey[40] : theme.colors.grey[60])};
 
   ${theme.typography.p3}
 `;

@@ -1,6 +1,7 @@
 // for Select.stories.tsx
 
 import styled from '@emotion/styled';
+
 import {Button, ButtonVariant} from 'button';
 
 import {SizeTokenValue, theme} from 'theme';
@@ -33,7 +34,10 @@ const Header: React.FC = () => {
 };
 
 const Footer: React.FC = () => {
+  // eslint-disable-next-line  no-console
   const onCancel = () => console.log('cancel');
+
+  // eslint-disable-next-line  no-console
   const onConfirm = () => console.log('confirm');
 
   return (

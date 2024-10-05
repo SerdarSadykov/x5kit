@@ -3,8 +3,11 @@ import styled from '@emotion/styled';
 import {useDismiss, useInteractions} from '@floating-ui/react';
 
 import {theme} from 'theme';
-import {BaseCalendar, BaseCalendarProps, CalendarMode} from 'calendar';
+
+import {BaseCalendar, CalendarMode} from 'calendar';
 import {DatepickerContext} from 'datepicker';
+
+import type {BaseCalendarProps} from 'calendar';
 
 const Container = styled.div`
   z-index: ${theme.sizes.zIndex.dropdown};

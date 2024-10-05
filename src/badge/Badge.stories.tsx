@@ -4,7 +4,8 @@ import {SizeTokenValue, theme} from 'theme';
 import {ShoppingCart} from 'icons';
 
 import {Badge as BaseBadge} from './Badge';
-import {BadgeProps, BadgeVariant} from './types';
+import type {BadgeProps} from './types';
+import {BadgeVariant} from './types';
 
 export const Badge: React.FC<BadgeProps> = props => (
   <div style={{position: 'relative', color: theme.colors.grey[60]}}>

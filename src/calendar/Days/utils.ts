@@ -1,4 +1,6 @@
-import {CalendarContextProps, CalendarFreezeRange, BaseCalendarValue, CalendarMode} from 'calendar/types';
+import {CalendarFreezeRange, CalendarMode} from 'calendar/types';
+
+import type {CalendarContextProps, BaseCalendarValue} from 'calendar/types';
 
 export const getNewRange = (date: Date, context: CalendarContextProps): BaseCalendarValue => {
   const {

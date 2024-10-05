@@ -1,9 +1,9 @@
-import {ReactElement} from 'react';
-
 import {Placement} from 'theme';
 import {Tooltip as BaseTooltip} from 'tooltip';
 
-import {ChipProps} from '../types';
+import type {ReactElement} from 'react';
+
+import type {ChipProps} from '../types';
 
 type ChipTooltipProps = {children: ReactElement} & ChipProps;
 

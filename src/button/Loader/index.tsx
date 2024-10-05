@@ -1,7 +1,7 @@
 import {SizeTokenValue} from 'theme';
 import {Loader as BaseLoader} from 'loader';
 
-import {ButtonStyles} from '../types';
+import type {ButtonStyles} from '../types';
 
 export const Loader: React.FC<ButtonStyles> = props => {
   if (!props.loading) {

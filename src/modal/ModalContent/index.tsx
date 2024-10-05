@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {ModalContentProps} from '../types';
+import type {ModalContentProps} from '../types';
 
 const Container = styled.div`
   padding: 0 24px;

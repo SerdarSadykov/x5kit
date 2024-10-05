@@ -1,9 +1,10 @@
-import {MouseEventHandler} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {SwitchProps, SwitchStyles} from '../types';
+import type {MouseEventHandler} from 'react';
+
+import type {SwitchProps, SwitchStyles} from '../types';
 
 const Container = styled.div<SwitchStyles>`
   min-width: 0;
@@ -26,9 +27,9 @@ const Container = styled.div<SwitchStyles>`
     }
 
     return {
-        ...styles,
-        ...theme.typography.p1compact,
-      };
+      ...styles,
+      ...theme.typography.p1compact,
+    };
   }}
 `;
 

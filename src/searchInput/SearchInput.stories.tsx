@@ -6,7 +6,7 @@ import {ArrowNavigationForward} from 'icons';
 import inputStory from 'input/Input.stories';
 
 import {SearchInput as BaseInput} from './SearchInput';
-import {SearchInputProps} from './types';
+import type {SearchInputProps} from './types';
 
 type SearchInputStoryProps = Omit<SearchInputProps, 'onClearClick'> & {
   endAdornment: boolean;

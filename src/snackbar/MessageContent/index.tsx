@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {SnackbarContentProps, SnackbarMessageInner, SnackbarVariant} from '../types';
+import {SnackbarVariant} from '../types';
+
+import type {SnackbarContentProps, SnackbarMessageInner} from '../types';
 
 const variantColor: Record<SnackbarVariant, string> = {
   [SnackbarVariant.default]: theme.colors.white,

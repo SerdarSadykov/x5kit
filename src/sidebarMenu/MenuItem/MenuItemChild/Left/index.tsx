@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {SidebarMenuItemProps, SidebarMenuItemStyles} from 'sidebarMenu/types';
+import type {SidebarMenuItemProps, SidebarMenuItemStyles} from 'sidebarMenu/types';
 
 const Container = styled.div<SidebarMenuItemStyles>`
   display: flex;

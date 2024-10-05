@@ -1,9 +1,10 @@
-import {MouseEventHandler} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {RadioProps, RadioStyles} from '../types';
+import type {MouseEventHandler} from 'react';
+
+import type {RadioProps, RadioStyles} from '../types';
 
 const Container = styled.div<RadioStyles>`
   min-width: 0;
@@ -14,11 +15,11 @@ const Container = styled.div<RadioStyles>`
 
   ${theme.typography.p1compact}
 
-  ${(props) => {
+  ${props => {
     return {
       whiteSpace: props.whiteSpace,
       color: theme.colors.grey[props.disabled ? 40 : 100],
-    }
+    };
   }}
 `;
 

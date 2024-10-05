@@ -3,7 +3,8 @@ import {useContext} from 'react';
 import {Badge, BadgeVariant} from 'badge';
 
 import {TabsValueContext} from '../Tabs';
-import {TabProps} from '../types';
+
+import type {TabProps} from '../types';
 
 export const TabBadge: React.FC<Pick<TabProps, 'value' | 'badge' | 'disabled'>> = ({value, badge, disabled}) => {
   const curValue = useContext(TabsValueContext);

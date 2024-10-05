@@ -5,7 +5,8 @@ import {SizeTokenValue, theme} from 'theme';
 import {Done} from 'icons';
 
 import {Chip as BaseChip} from './Chip';
-import {ChipProps, ChipVariant} from './types';
+import type {ChipProps} from './types';
+import {ChipVariant} from './types';
 
 const Icon = styled.div`
   display: flex;
@@ -30,7 +31,9 @@ export const Chip: React.FC<ChipProps> = props => {
 
   const onClick = props.onClick ? () => alert('onClick') : undefined;
   const onDelete = props.onDelete ? () => alert('onDelete') : undefined;
-  const maxLengthFunc = props.maxLengthFunc ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4) : undefined;
+  const maxLengthFunc = props.maxLengthFunc
+    ? (label: string) => label.slice(0, 3) + '...' + label.slice(-4)
+    : undefined;
 
   const resultProps = {
     ...props,

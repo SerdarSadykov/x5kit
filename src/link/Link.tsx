@@ -1,10 +1,13 @@
-import {forwardRef, MouseEventHandler} from 'react';
+import {forwardRef} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Loader} from 'loader';
 
-import {LinkProps, LinkStyles, LinkVariant} from './types';
+import {LinkVariant} from './types';
+
+import type {LinkProps, LinkStyles} from './types';
+import type {MouseEventHandler} from 'react';
 
 const variantBehavior = {
   [LinkVariant.accent]: {

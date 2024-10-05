@@ -1,9 +1,11 @@
 import {useContext, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 
-import {InputProps, Label, FieldComponent} from 'input';
+import {Label, FieldComponent} from 'input';
 import {SelectContext} from 'select/Select';
-import {SelectProps} from 'select/types';
+
+import type {InputProps} from 'input';
+import type {SelectProps} from 'select/types';
 
 const Container = styled.div<Pick<SelectProps, 'isOpen'>>`
   position: relative;

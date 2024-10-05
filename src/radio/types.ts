@@ -1,7 +1,7 @@
-import {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {QA} from 'common';
+import type {QA} from 'common';
 
 export type RadioStyles = {
   disabled?: boolean;
@@ -14,4 +14,7 @@ export type RadioStyles = {
 export type RadioProps = {
   label?: ReactNode;
   startAdornment?: ReactNode;
-} & QA & PropsWithChildren & RadioStyles & InputHTMLAttributes<HTMLInputElement>;
+} & QA &
+  PropsWithChildren &
+  RadioStyles &
+  InputHTMLAttributes<HTMLInputElement>;

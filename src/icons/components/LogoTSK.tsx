@@ -1,9 +1,10 @@
 import {forwardRef} from 'react';
 
 import {SizeTokenValue} from 'theme';
-import {IconComponent} from 'icons/types';
 
 import {SVG} from './SVG';
+
+import type {IconComponent} from 'icons/types';
 
 const largeIcon = [
   <path
@@ -15,7 +16,7 @@ const largeIcon = [
     key="3"
     d="M17.928 14.2227C15.404 11.9508 11.1701 12.8374 11.1701 12.8374C11.1701 13.7517 11.048 16.6608 13.3684 18.7942C15.8925 21.0661 20.1264 20.1656 20.1264 20.1656C20.1264 20.1656 20.4928 16.4807 17.928 14.2227Z"
   />,
-]
+];
 
 const smallIcon = [
   <path
@@ -27,7 +28,7 @@ const smallIcon = [
     key="3"
     d="M11.952 9.48174C10.2693 7.96713 7.44672 8.5582 7.44672 8.5582C7.44672 9.16773 7.3653 11.1072 8.9123 12.5294C10.595 14.044 13.4176 13.4437 13.4176 13.4437C13.4176 13.4437 13.6618 10.9871 11.952 9.48174Z"
   />,
-]
+];
 
 export const LogoTSK: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
@@ -38,4 +39,3 @@ export const LogoTSK: IconComponent = forwardRef((props, ref) => {
     </SVG>
   );
 });
-

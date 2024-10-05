@@ -4,7 +4,9 @@ import {startOfMonth, startOfToday, startOfWeek} from 'date-fns';
 import {CalendarContext} from 'calendar/Calendar';
 import {BlockContext} from 'calendar/Block';
 
-import {DayProps, getDayProps} from './Day';
+import {getDayProps} from './Day';
+
+import type {DayProps} from './Day';
 
 export const useDays = () => {
   const context = useContext(CalendarContext);

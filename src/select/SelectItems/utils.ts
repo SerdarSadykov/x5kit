@@ -1,6 +1,6 @@
-import {VariableSizeListProps} from 'react-window';
+import type {VariableSizeListProps} from 'react-window';
 
-import {SelectMultipleValue, SelectItemsProps, SelectOption} from 'select/types';
+import type {SelectMultipleValue, SelectItemsProps, SelectOption} from 'select/types';
 
 export const getItemSize = (props: SelectItemsProps): VariableSizeListProps['itemSize'] => {
   return index => {

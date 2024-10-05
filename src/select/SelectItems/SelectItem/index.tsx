@@ -1,12 +1,14 @@
-import React, {memo} from 'react';
+import {memo} from 'react';
 import styled from '@emotion/styled';
-import {ListChildComponentProps} from 'react-window';
 
 import {Placement, theme} from 'theme';
 
-import {CheckboxProps} from 'checkbox';
-import {SelectItemProps, SelectItemsProps} from 'select/types';
 import {Tooltip} from 'tooltip';
+
+import type {ListChildComponentProps} from 'react-window';
+
+import type {CheckboxProps} from 'checkbox';
+import type {SelectItemProps, SelectItemsProps} from 'select/types';
 
 const Container = styled.label<Pick<CheckboxProps, 'checked' | 'disabled'>>`
   position: relative;

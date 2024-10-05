@@ -1,12 +1,17 @@
 import {useContext, useState} from 'react';
-import {Month, setMonth, setYear} from 'date-fns';
 
-import {RequiredQA, getQAAttribute} from 'common';
+import {setMonth, setYear} from 'date-fns';
+
+import {getQAAttribute} from 'common';
 import {CalendarContext} from 'calendar';
-import {DropdownItem, DropdownOpenProps, DropdownProps} from 'calendar/Dropdown';
+
 import {BlockContext} from 'calendar/Block';
 
-import {HeaderDateType} from '../types';
+import type {DropdownItem, DropdownOpenProps, DropdownProps} from 'calendar/Dropdown/types';
+import type {RequiredQA} from 'common';
+import type {Month} from 'date-fns';
+
+import type {HeaderDateType} from '../types';
 
 export const useMonths = (): Omit<DropdownProps, keyof DropdownOpenProps> => {
   const {locale, months, onChangeViewDate} = useContext(CalendarContext);
@@ -54,4 +59,4 @@ export const useHeaderDateDropdown = ({qa}: RequiredQA) => {
   });
 
   return getDropdownProps;
-}
+};

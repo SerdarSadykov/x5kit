@@ -1,7 +1,7 @@
-import {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {QA} from 'common';
+import type {QA} from 'common';
 
 export type CheckboxState = boolean | 'halfOn';
 
@@ -17,4 +17,7 @@ export type CheckboxStyles = {
 export type CheckboxProps = {
   label?: ReactNode;
   startAdornment?: ReactNode;
-} & QA & PropsWithChildren & CheckboxStyles & Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>;
+} & QA &
+  PropsWithChildren &
+  CheckboxStyles &
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>;

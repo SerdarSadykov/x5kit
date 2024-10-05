@@ -8,7 +8,7 @@ import {Tab} from './Tab';
 import {Tabs as BaseTabs} from './Tabs';
 import {TabContext, TabList as BaseTabList} from './TabList';
 import {TabPanel} from './TabPanel';
-import {TabListProps, TabsProps} from './types';
+import type {TabListProps, TabsProps} from './types';
 
 type TabsStoryProps = {onChange: boolean} & Omit<TabsProps, 'onChange'>;
 

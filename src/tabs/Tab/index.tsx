@@ -1,11 +1,13 @@
-import {ElementType, forwardRef, KeyboardEventHandler, MouseEventHandler, useContext} from 'react';
+import {forwardRef, useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
 import {TabsValueContext} from '../Tabs';
 import {TabBadge} from '../TabBadge';
-import {TabProps} from '../types';
+
+import type {ElementType, KeyboardEventHandler, MouseEventHandler} from 'react';
+import type {TabProps} from '../types';
 
 const Container = styled.div<Pick<TabProps, 'disabled'> & {selected: boolean}>`
   position: relative;
@@ -102,7 +104,7 @@ export const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
 
     'data-tab': value,
 
-    as: props.href ? 'a' as ElementType : undefined,
+    as: props.href ? ('a' as ElementType) : undefined,
 
     tabIndex: disabled ? undefined : 0,
   };

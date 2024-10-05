@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
-import {CalendarContextProps, CalendarMode} from 'calendar/types';
 
-import {DayProps} from './types';
-import {getNewHoverDate, getNewRange} from '../utils';
+import {CalendarMode} from 'calendar/types';
+
 import {Tooltip} from 'tooltip';
+
+import {getNewHoverDate, getNewRange} from '../utils';
+
+import type {CalendarContextProps} from 'calendar/types';
+
+import type {DayProps} from './types';
 
 export * from './utils';
 export * from './types';

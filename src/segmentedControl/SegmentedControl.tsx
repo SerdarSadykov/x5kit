@@ -1,11 +1,15 @@
 import {forwardRef} from 'react';
-import styled, {CSSObject} from '@emotion/styled';
+
+import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {SegmentedControlItem} from './SegmentedControlItem';
-import {SegmentedControlProps} from './types';
 import {getQAAttribute} from 'common';
+
+import {SegmentedControlItem} from './SegmentedControlItem';
+
+import type {CSSObject} from '@emotion/styled';
+import type {SegmentedControlProps} from './types';
 
 const Container = styled.div<Pick<SegmentedControlProps, 'size' | 'disabled' | 'readOnly' | 'width'>>`
   position: relative;

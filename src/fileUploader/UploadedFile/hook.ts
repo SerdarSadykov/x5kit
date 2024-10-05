@@ -1,6 +1,8 @@
-import {MouseEventHandler} from 'react';
+import {FileItemStatus} from '../types';
 
-import {FileItem, FileItemStatus, FileUploaderProps} from '../types';
+import type {MouseEventHandler} from 'react';
+
+import type {FileItem, FileUploaderProps} from '../types';
 
 export type UploadedFileProps = {
   item: FileItem;
@@ -16,10 +18,11 @@ export const useUploadedFile = (props: UploadedFileProps) => {
 
   const isLoading = [FileItemStatus.loading, FileItemStatus.removing].includes(status);
 
-  const isDeletable = !isLoading
-    && !disabled
-    && !!props.onDelete
-    && [FileItemStatus.initial, FileItemStatus.loaded, FileItemStatus.error].includes(status);
+  const isDeletable =
+    !isLoading &&
+    !disabled &&
+    !!props.onDelete &&
+    [FileItemStatus.initial, FileItemStatus.loaded, FileItemStatus.error].includes(status);
 
   const isClickable = !disabled && (!!props.onClick || !!item.url);
 

@@ -1,6 +1,7 @@
 import {ArrowLeft} from './ArrowLeft';
 import {ArrowRight} from './ArrowRight';
-import {ArrowProps} from './types';
+
+import type {ArrowProps} from './types';
 
 export const Arrow: React.FC<ArrowProps> = props => (
   <div>

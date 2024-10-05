@@ -5,7 +5,7 @@ import {AccountCircle, Help, Link, List, Settings} from 'icons';
 import {Badge, BadgeVariant} from 'badge';
 
 import {SidebarMenu as BaseSidebarMenu} from './SidebarMenu';
-import {SidebarMenuItemProps, SidebarMenuProps} from './types';
+import type {SidebarMenuItemProps, SidebarMenuProps} from './types';
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
   const [selected, setSelected] = useState<string>();

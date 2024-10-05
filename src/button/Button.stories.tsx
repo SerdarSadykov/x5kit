@@ -1,12 +1,13 @@
-import {ButtonHTMLAttributes} from 'react';
+import type {ButtonHTMLAttributes} from 'react';
 import type {ArgTypes, Meta} from '@storybook/react';
-import {CSSObject} from '@emotion/react';
+import type {CSSObject} from '@emotion/react';
 
 import {SizeTokenValue} from 'theme';
 import {ChevronDown, Done} from 'icons';
 
 import {Button as BaseButton, variantBehavior} from './Button';
-import {ButtonProps, ButtonVariant} from './types';
+import type {ButtonProps} from './types';
+import {ButtonVariant} from './types';
 
 type ButtonStoryProps = {
   color: string;

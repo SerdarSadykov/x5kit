@@ -1,8 +1,10 @@
-import {PropsWithChildren, useState} from 'react';
+import {useState} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue} from 'theme';
 import {Banner} from 'banner';
+
+import type {PropsWithChildren} from 'react';
 
 const Container = styled.div`
   padding: 12px 12px 0;

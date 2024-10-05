@@ -1,10 +1,14 @@
-import {ForwardedRef, useState} from 'react';
+import {useState} from 'react';
 
 import {getQAAttribute, useRefMerge} from 'common';
-import {DropdownProps} from 'dropdown';
 
 import {useOptions} from './useOptions';
-import {SelectContextProps, SelectProps} from '../types';
+
+import type {ForwardedRef} from 'react';
+
+import type {DropdownProps} from 'dropdown';
+
+import type {SelectContextProps, SelectProps} from '../types';
 
 export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputElement> | undefined) => {
   const [isOpenValue, setIsOpenValue] = useState<boolean>(false);

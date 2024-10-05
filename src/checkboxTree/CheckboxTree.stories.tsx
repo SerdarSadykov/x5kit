@@ -2,7 +2,7 @@ import {useState} from 'react';
 import type {Meta} from '@storybook/react';
 
 import {CheckboxTree as BaseCheckboxTree} from './CheckboxTree';
-import {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
+import type {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
 
 export const CheckboxTree: React.FC<CheckboxTreeProps> = props => {
   const [value, setValue] = useState<CheckboxTreeOptionValue[]>();
@@ -66,8 +66,8 @@ const options: CheckboxTreeProps['options'] = [
                     value: 'serpuhov',
                   },
                 ],
-              }
-            ]
+              },
+            ],
           },
           {
             label: 'Санкт-Петербург',

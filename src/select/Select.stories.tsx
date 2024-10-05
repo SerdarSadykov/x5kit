@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import type {Meta, StoryObj} from '@storybook/react';
 
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
@@ -9,7 +9,7 @@ import CheckboxTreeStory from 'checkboxTree/CheckboxTree.stories';
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
 import {header, footer} from './SelectStory';
-import {
+import type {
   LastResult,
   LoadMore,
   SelectFilter,
@@ -71,7 +71,9 @@ const convertResp = (item: FetchedItem): SelectOption => ({
   value: item.id,
 });
 
-interface ReqLastResult extends LastResult {indx: number};
+interface ReqLastResult extends LastResult {
+  indx: number;
+}
 
 export const SelectFetch: React.FC<SelectStoryProps> = props => {
   const [value, setValue] = useState<SelectMultipleValue>([]);

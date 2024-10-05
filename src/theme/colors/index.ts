@@ -1,7 +1,10 @@
 import {additional} from './additional';
 import {theme} from './theme';
 import {ui} from './ui';
-import {ColorTokenGroup, ColorTokenMoreGroup, ColorTokenState} from './types';
+
+import {ColorTokenState} from './types';
+
+import type {ColorTokenGroup, ColorTokenMoreGroup} from './types';
 
 export * from './types';
 

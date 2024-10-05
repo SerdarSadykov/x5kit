@@ -1,7 +1,10 @@
 import {closeSnackbar, enqueueSnackbar as baseEnqueueSnackbar} from 'notistack';
 
 import {MessageComponent} from './MessageComponent';
-import {SnackbarMessage, SnackbarMessageInner, SnackbarVariant} from './types';
+
+import {SnackbarVariant} from './types';
+
+import type {SnackbarMessage, SnackbarMessageInner} from './types';
 
 const enqueueSnackbar = (message: SnackbarMessage) => {
   const innerMessage: SnackbarMessageInner = {

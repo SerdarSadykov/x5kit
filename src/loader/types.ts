@@ -1,7 +1,7 @@
-import {CSSProperties, HTMLAttributes, PropsWithChildren} from 'react';
+import type {CSSProperties, HTMLAttributes} from 'react';
 
-import {QA} from 'common';
-import {ColorTokenValue, SizeTokenValue} from 'theme';
+import type {QA} from 'common';
+import type {ColorTokenValue, SizeTokenValue} from 'theme';
 
 export type LoaderProps = {
   size?: SizeTokenValue | CSSProperties['width'];

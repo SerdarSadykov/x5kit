@@ -2,7 +2,8 @@ import type {Meta} from '@storybook/react';
 
 import {theme} from 'theme';
 
-import {Typography as BaseTypography, TypographyProps} from './Typography';
+import type {TypographyProps} from './Typography';
+import {Typography as BaseTypography} from './Typography';
 
 export const Typography = (props: TypographyProps) => <BaseTypography {...props} />;
 

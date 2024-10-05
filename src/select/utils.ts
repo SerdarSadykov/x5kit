@@ -1,8 +1,8 @@
-import {SelectContextProps, SelectMultipleValue, SelectOption} from 'select/types';
+import type {SelectMultipleValue, SelectOption} from 'select/types';
 
-export const getValueLabel = (context: SelectContextProps): string => {
-  return findOptions(context.options, context.value)[0]?.label ?? '';
-}
+export const getValueLabel = (options: SelectOption[], value: SelectMultipleValue): string => {
+  return findOptions(options, value)[0]?.label ?? '';
+};
 
 export const findOptions = (options: SelectOption[], value: SelectMultipleValue): SelectOption[] => {
   const result: SelectOption[] = [];

@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type {ReactNode} from 'react';
 
 export type RangeDayProps = {
   isSelected: boolean;
@@ -6,7 +6,7 @@ export type RangeDayProps = {
   isRangeEnd: boolean;
   isRangeIn: boolean;
   isRangeHover: boolean;
-}
+};
 
 export type DayProps = {
   date: Date;

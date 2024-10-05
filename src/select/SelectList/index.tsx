@@ -8,7 +8,10 @@ import {SelectContext} from '../Select';
 import {SelectItems} from '../SelectItems';
 import {Hint} from '../Hint';
 import {Loader} from '../Loader';
-import {SelectState, SelectItemsProps, SelectListProps} from '../types';
+
+import {SelectState} from '../types';
+
+import type {SelectItemsProps, SelectListProps} from '../types';
 
 const Empty = styled.div`
   padding: 12px;
@@ -50,9 +53,9 @@ export const SelectList: React.FC<SelectListProps> = ({components}) => {
       if (!e?.clientWidth) {
         return;
       }
-  
-      setClientWidth(e.clientWidth);  
-    })
+
+      setClientWidth(e.clientWidth);
+    });
   };
 
   const Component = components?.items ?? SelectItems;

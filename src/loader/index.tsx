@@ -1,2 +1,2 @@
-export * from './Loader'
-export * from './LoaderBlock'
+export * from './Loader';
+export * from './LoaderBlock';

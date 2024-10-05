@@ -1,12 +1,18 @@
-import {ReactNode} from 'react';
-
 import {SizeTokenValue} from 'theme';
 import {Download} from 'icons';
 import {Loader} from 'loader';
-import {Chip, ChipProps} from 'chip';
 
-import {UploadedFileProps, useUploadedFile} from './hook';
-import {FileItem, UploadedFilesProps} from 'fileUploader/types';
+import {Chip} from 'chip';
+
+import {useUploadedFile} from './hook';
+
+import type {ChipProps} from 'chip';
+
+import type {FileItem, UploadedFilesProps} from 'fileUploader/types';
+
+import type {UploadedFileProps} from './hook';
+
+import type {ReactNode} from 'react';
 
 const UploadedFile: React.FC<UploadedFileProps> = props => {
   const {item} = props;
@@ -18,7 +24,7 @@ const UploadedFile: React.FC<UploadedFileProps> = props => {
   }
 
   let startAdornment: ReactNode;
-  
+
   if (isLoading) {
     startAdornment = <Loader size={SizeTokenValue.Small} />;
   } else if (item.url) {

@@ -1,11 +1,12 @@
-import {ChangeEventHandler, useState} from 'react';
+import type {ChangeEventHandler} from 'react';
+import {useState} from 'react';
 import type {Meta} from '@storybook/react';
 
 import {SizeTokenValue} from 'theme';
 import {Notification, Settings, ShoppingCart} from 'icons';
 
 import {SegmentedControl as BaseSegmentedControl} from './SegmentedControl';
-import {SegmentedControlProps, SegmentedControlOption} from './types';
+import type {SegmentedControlProps, SegmentedControlOption} from './types';
 
 const options: SegmentedControlOption[] = [
   {

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import {SidebarMenuContextProps, SidebarMenuProps} from './types';
+import type {SidebarMenuContextProps, SidebarMenuProps} from './types';
 
 export const useSidebarMenu = (props: SidebarMenuProps) => {
   const [isExpandedIn, setIsExpandedIn] = useState<boolean>(props.isExpanded ?? false);
@@ -29,7 +29,9 @@ export const useSidebarMenu = (props: SidebarMenuProps) => {
       return false;
     }
 
-    return item.id === props.selected || (!!item.childs && item.childs.findIndex(subItem => isSelected(subItem)) !== -1);
+    return (
+      item.id === props.selected || (!!item.childs && item.childs.findIndex(subItem => isSelected(subItem)) !== -1)
+    );
   };
 
   const context = {isSelected, onClick, isExpanded, setIsExpanded};

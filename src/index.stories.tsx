@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Meta} from '@storybook/react/*';
+import type {Meta} from '@storybook/react/*';
 
 import badgeMeta, {Badge} from './badge/Badge.stories';
 import badgeDotMeta, {BadgeDot} from './badge/BadgeDot.stories';
@@ -38,7 +38,16 @@ export const All: React.FC = () => {
   return (
     <div style={{position: 'relative'}}>
       <SidebarMenu {...(sidebarMeta.args as any)} />
-      <div style={{display: 'flex', flexDirection: 'column', gap: 16, paddingLeft: 70, maxHeight: '100vh', overflow: 'auto'}}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          paddingLeft: 70,
+          maxHeight: '100vh',
+          overflow: 'auto',
+        }}
+      >
         <div>
           <Typography variant="h2">Все компоненты</Typography>
         </div>

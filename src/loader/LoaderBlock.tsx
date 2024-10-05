@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import {theme} from 'theme';
 
 import {Loader} from './Loader';
-import {LoaderBlockProps} from './types';
+
+import type {LoaderBlockProps} from './types';
 
 export const Container = styled.div`
   display: flex;

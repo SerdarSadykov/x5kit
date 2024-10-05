@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 
-import type {InputInternalProps} from '../types';
 import {Field} from '../Field';
 import {Label} from '../Label';
+
+import type {InputInternalProps} from '../types';
 
 const Container = styled.div`
   position: relative;

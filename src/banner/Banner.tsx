@@ -1,11 +1,15 @@
-import styled, {CSSObject} from '@emotion/styled';
+import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
 import {Content} from './Content';
 import {Icon} from './Icon';
-import {BannerProps, BannerStyles, BannerVariant} from './types';
+
+import {BannerVariant} from './types';
 import {CloseButton} from './CloseButton';
+
+import type {BannerProps, BannerStyles} from './types';
+import type {CSSObject} from '@emotion/styled';
 
 const variantProps: Record<BannerVariant, CSSObject> = {
   [BannerVariant.defaultBlue]: {

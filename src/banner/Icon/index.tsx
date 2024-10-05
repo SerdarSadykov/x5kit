@@ -1,10 +1,12 @@
-import {ReactNode} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Check, Error, Info, WarningOutline} from 'icons';
 
-import {BannerProps, BannerVariant} from '../types';
+import {BannerVariant} from '../types';
+
+import type {BannerProps} from '../types';
+import type {ReactNode} from 'react';
 
 const typeIcon: Record<BannerVariant, ReactNode> = {
   [BannerVariant.defaultBlue]: <Info size={SizeTokenValue.Medium} color={theme.colors.additional.blue[80]} />,
@@ -12,7 +14,7 @@ const typeIcon: Record<BannerVariant, ReactNode> = {
   [BannerVariant.success]: <Check size={SizeTokenValue.Medium} color={theme.colors.additional.green[80]} />,
   [BannerVariant.warning]: <WarningOutline size={SizeTokenValue.Medium} color={theme.colors.additional.yellow[80]} />,
   [BannerVariant.error]: <Error size={SizeTokenValue.Medium} color={theme.colors.additional.red[80]} />,
-}
+};
 
 const Container = styled.div`
   svg {

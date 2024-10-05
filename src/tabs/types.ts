@@ -1,6 +1,6 @@
-import {AnchorHTMLAttributes, HTMLAttributes, MouseEvent, PropsWithChildren, ReactNode} from 'react';
+import type {AnchorHTMLAttributes, HTMLAttributes, MouseEvent, PropsWithChildren, ReactNode} from 'react';
 
-import {QA} from 'common';
+import type {QA} from 'common';
 
 export type TabProps = {
   value: string;
@@ -14,7 +14,8 @@ export type TabsProps = {
   value?: string;
   onChange: (newValue: string, e: MouseEvent<HTMLDivElement>) => void;
   arrows?: boolean;
-} & QA & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
+} & QA &
+  Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
 export type TabListProps = Omit<TabsProps, 'value'>;
 

@@ -6,7 +6,7 @@ import {ArrowNavigationUpward} from 'icons';
 import inputStory from 'input/Input.stories';
 
 import {PasswordInput as BaseInput} from './PasswordInput';
-import {PasswordInputProps} from './types';
+import type {PasswordInputProps} from './types';
 
 type PasswordInputStoryProps = Omit<PasswordInputProps, 'onClearClick'> & {
   endAdornment: boolean;

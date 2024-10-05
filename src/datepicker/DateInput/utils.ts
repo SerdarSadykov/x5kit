@@ -1,19 +1,13 @@
-import {
-  ChangeEventHandler,
-  FocusEventHandler,
-  InputHTMLAttributes,
-  KeyboardEventHandler,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {format, isValid, parse} from 'date-fns';
 
 import {startOfDay} from 'common';
-import {InputInternalProps, } from 'input';
-import {BaseCalendarValue} from 'calendar';
+
 import {DatepickerContext} from 'datepicker';
+
+import type {InputInternalProps} from 'input';
+import type {BaseCalendarValue} from 'calendar';
+import type {ChangeEventHandler, FocusEventHandler, InputHTMLAttributes, KeyboardEventHandler} from 'react';
 
 type Segment = {
   label: string;
@@ -70,6 +64,8 @@ const useSegments = () => {
     }
 
     setSegmentsValue(newSegments);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {

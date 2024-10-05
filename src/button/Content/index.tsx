@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import {PropsWithChildren} from 'react';
+
+import type {PropsWithChildren} from 'react';
 
 const Container = styled.div<{isString: boolean}>`
   padding: ${props => (props.isString ? '0 4px' : undefined)};

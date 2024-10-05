@@ -1,10 +1,12 @@
-import {InputHTMLAttributes, useState} from 'react';
+import {useState} from 'react';
 
 import {Visibility, VisibilityOff} from 'icons';
 import {SizeTokenValue} from 'theme';
 import {Input, InputButton} from 'input';
 
-import {PasswordInputProps} from './types';
+import type {InputHTMLAttributes} from 'react';
+
+import type {PasswordInputProps} from './types';
 
 export const PasswordInput: React.FC<PasswordInputProps> = props => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

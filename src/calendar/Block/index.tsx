@@ -2,13 +2,16 @@ import {createContext, useContext} from 'react';
 import styled from '@emotion/styled';
 import {addMonths} from 'date-fns';
 
-import {RequiredQA, getQAAttribute} from 'common';
+import {getQAAttribute} from 'common';
 import {CalendarContext} from 'calendar';
+
+import {theme} from 'theme';
 
 import {WeekDays} from '../WeekDays';
 import {Header} from '../Header';
 import {Days} from '../Days';
-import {theme} from 'theme';
+
+import type {RequiredQA} from 'common';
 
 export type BlockContextProps = {
   viewDate: Date;

@@ -1,6 +1,6 @@
 import {flip, offset, shift, useDismiss, useFloating, useInteractions, useRole} from '@floating-ui/react';
 
-import {ModalProps} from './types';
+import type {ModalProps} from './types';
 
 export const useModal = (props: ModalProps) => {
   const targetRef = props.targetRef?.current;

@@ -1,9 +1,11 @@
-import {HTMLAttributes, KeyboardEventHandler, useRef} from 'react';
+import {useRef} from 'react';
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {RadioStyles} from '../types';
+import type {HTMLAttributes, KeyboardEventHandler} from 'react';
+
+import type {RadioStyles} from '../types';
 
 const Container = styled.div<RadioStyles>`
   position: relative;

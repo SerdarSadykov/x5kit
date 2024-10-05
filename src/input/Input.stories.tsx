@@ -5,7 +5,7 @@ import {SizeTokenValue} from 'theme';
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 
 import {Input as BaseInput} from './Input';
-import {InputProps} from './types';
+import type {InputProps} from './types';
 
 type InputStoryProps = Omit<InputProps, 'onClearClick'> & {
   startAdornment: boolean;

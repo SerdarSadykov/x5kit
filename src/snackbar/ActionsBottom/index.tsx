@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 
 import {getAction} from '../Actions';
-import {SnackbarContentProps} from '../types';
+
+import type {SnackbarContentProps} from '../types';
 
 const Container = styled.div`
   display: flex;

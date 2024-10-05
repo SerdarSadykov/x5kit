@@ -1,8 +1,8 @@
-import {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {QA} from 'common';
-import {SizeTokenValue} from 'theme';
+import type {QA} from 'common';
+import type {SizeTokenValue} from 'theme';
 
 export type SwitchState = boolean | 'halfOn';
 
@@ -19,4 +19,7 @@ export type SwitchStyles = {
 export type SwitchProps = {
   label?: ReactNode;
   startAdornment?: ReactNode;
-} & QA & PropsWithChildren & SwitchStyles & Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>;
+} & QA &
+  PropsWithChildren &
+  SwitchStyles &
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>;

@@ -1,7 +1,9 @@
-import {CalendarContextProps, CalendarMode} from 'calendar/types';
-import {BlockContextProps} from 'calendar/Block';
+import {CalendarMode} from 'calendar/types';
 
-import {DayProps, RangeDayProps} from './types';
+import type {CalendarContextProps} from 'calendar/types';
+import type {BlockContextProps} from 'calendar/Block';
+
+import type {DayProps, RangeDayProps} from './types';
 
 type GetDayPropsArgs = {
   context: CalendarContextProps;

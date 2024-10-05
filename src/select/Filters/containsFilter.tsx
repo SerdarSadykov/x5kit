@@ -1,5 +1,6 @@
-import {ReactNode} from 'react';
-import {LastResult, SelectFilter, SelectOption} from '../types';
+import type {ReactNode} from 'react';
+
+import type {LastResult, SelectFilter, SelectOption} from '../types';
 
 const search = async (query: string, options: SelectOption[]) => {
   if (!query) {

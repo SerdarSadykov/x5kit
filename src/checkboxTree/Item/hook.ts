@@ -1,15 +1,15 @@
-import {CheckboxProps} from 'checkbox/types';
+import type {MouseEventHandler} from 'react';
 
-import {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from '../types';
-import {MouseEventHandler} from 'react';
+import type {CheckboxProps} from 'checkbox/types';
+
+import type {CheckboxTreeOption, CheckboxTreeOptionValue, CheckboxTreeProps} from '../types';
 
 export type ItemProps = {
   option: CheckboxTreeOption;
   value: CheckboxTreeOptionValue[];
   depth: number;
   hasChildsInDepth: boolean;
-}
-  & Required<Pick<CheckboxTreeProps, 'onChange' | 'opened' | 'toggleOpened'>>;
+} & Required<Pick<CheckboxTreeProps, 'onChange' | 'opened' | 'toggleOpened'>>;
 
 const getValues = (options: CheckboxTreeOption[], enabledOnly: boolean): CheckboxTreeOptionValue[] => {
   const traverse = (option: CheckboxTreeOption) => {

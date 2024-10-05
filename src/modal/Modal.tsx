@@ -1,11 +1,15 @@
-import React, {CSSProperties, HTMLAttributes} from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import {FloatingFocusManager, FloatingOverlay, FloatingOverlayProps, FloatingPortal} from '@floating-ui/react';
+
+import {FloatingFocusManager, FloatingOverlay, FloatingPortal} from '@floating-ui/react';
 
 import {SizeTokenValue, theme} from 'theme';
 
 import {useModal} from './hook';
-import {ModalProps} from './types';
+
+import type {FloatingOverlayProps} from '@floating-ui/react';
+import type {CSSProperties, HTMLAttributes} from 'react';
+import type {ModalProps} from './types';
 
 const Container = styled.div<Pick<ModalProps, 'size'>>`
   display: flex;

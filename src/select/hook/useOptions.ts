@@ -1,11 +1,13 @@
 import {useEffect, useRef, useState} from 'react';
 
-import {LastResult, SelectContextProps, SelectOption, SelectProps, SelectSingleValue, SelectState} from '../types';
+import {SelectState} from '../types';
+
+import type {LastResult, SelectContextProps, SelectOption, SelectProps, SelectSingleValue} from '../types';
 
 export const useOptions = (
   baseOptions: SelectProps['options'],
   filter: SelectProps['filter'],
-  onLoadMore: SelectProps['onLoadMore'],
+  onLoadMore: SelectProps['onLoadMore']
 ) => {
   const [state, setStateValue] = useState<SelectState>(SelectState.default);
   const [options, setOptions] = useState<SelectContextProps['options']>([]);
@@ -52,19 +54,22 @@ export const useOptions = (
 
     setState(SelectState.searching);
 
-    filter.cb(query, options, lastFilterResult.current).then(newResult => {
-      insertOptions(newResult.options);
+    filter
+      .cb(query, options, lastFilterResult.current)
+      .then(newResult => {
+        insertOptions(newResult.options);
 
-      setState(SelectState.filtred, newResult.options);
+        setState(SelectState.filtred, newResult.options);
 
-      lastQuery.current = query;
-      lastFilterResult.current = newResult;
-    }).catch(e => {
-      setState(SelectState.default, []);
+        lastQuery.current = query;
+        lastFilterResult.current = newResult;
+      })
+      .catch(e => {
+        setState(SelectState.default, []);
 
-      // eslint-disable-next-line  no-console
-      console.error(e);
-    });
+        // eslint-disable-next-line  no-console
+        console.error(e);
+      });
   };
 
   const loadMore: SelectContextProps['loadMore'] = target => {
@@ -80,18 +85,21 @@ export const useOptions = (
 
     if (state === SelectState.filtred) {
       if (filter && lastQuery.current) {
-        filter.cb(lastQuery.current, options, lastFilterResult.current).then(newResult => {
-          insertOptions(newResult.options);
+        filter
+          .cb(lastQuery.current, options, lastFilterResult.current)
+          .then(newResult => {
+            insertOptions(newResult.options);
 
-          setState(SelectState.filtred, [...filtred, ...newResult.options]);
+            setState(SelectState.filtred, [...filtred, ...newResult.options]);
 
-          lastFilterResult.current = newResult;
-        }).catch(e => {
-          setState(SelectState.default, []);
+            lastFilterResult.current = newResult;
+          })
+          .catch(e => {
+            setState(SelectState.default, []);
 
-          // eslint-disable-next-line  no-console
-          console.error(e);
-        });
+            // eslint-disable-next-line  no-console
+            console.error(e);
+          });
       }
 
       return;

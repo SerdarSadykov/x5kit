@@ -1,11 +1,12 @@
-import React, {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
-import {CSSObject} from '@emotion/react';
-import {VariableSizeListProps} from 'react-window';
+import type {ReactNode, ChangeEvent, PropsWithChildren, HTMLAttributes} from 'react';
+import type React from 'react';
+import type {CSSObject} from '@emotion/react';
+import type {VariableSizeListProps} from 'react-window';
 
-import {InputProps} from 'input';
-import {getQAAttribute, QA, RequiredQA} from 'common';
-import {DropdownProps} from 'dropdown';
-import {CheckboxTreeOption} from 'checkboxTree';
+import type {InputProps} from 'input';
+import type {getQAAttribute, QA, RequiredQA} from 'common';
+import type {DropdownProps} from 'dropdown';
+import type {CheckboxTreeOption} from 'checkboxTree';
 
 export type SelectSingleValue = string | number;
 export type SelectMultipleValue = SelectSingleValue[];
@@ -14,18 +15,20 @@ export type SelectOption = {
   label: string;
   icon?: ReactNode;
   childs?: SelectOption[];
-} & PropsWithChildren & Omit<CheckboxTreeOption, 'label'>;;
+} & PropsWithChildren &
+  Omit<CheckboxTreeOption, 'label'>;
 
 export type SelectItemProps = {
   option: SelectOption;
   checked: boolean; // isActive
-} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> & Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
+} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> &
+  Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
 
 export type SelectItemsProps = {
   options: SelectOption[];
   clientWidth: number | undefined;
-} & RequiredQA
-  & Pick<
+} & RequiredQA &
+  Pick<
     SelectContextProps,
     | 'state'
     | 'value'
@@ -37,17 +40,23 @@ export type SelectItemsProps = {
     | 'virtualize'
     | 'whiteSpace'
     | 'loadMore'
-  >
-  & Pick<SelectComponents, 'item'>;
+  > &
+  Pick<SelectComponents, 'item'>;
 
 export type SelectListProps = {
   components?: SelectComponents;
 };
-export type SelectListOnChange =
-  (value: SelectMultipleValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
+export type SelectListOnChange = (
+  value: SelectMultipleValue,
+  target?: SelectOption,
+  event?: ChangeEvent<HTMLInputElement>
+) => void;
 
-export type SelectSingleOnChange =
-  (value: SelectSingleValue, target?: SelectOption, event?: ChangeEvent<HTMLInputElement>) => void;
+export type SelectSingleOnChange = (
+  value: SelectSingleValue,
+  target?: SelectOption,
+  event?: ChangeEvent<HTMLInputElement>
+) => void;
 
 export type LastResult = {
   options: SelectOption[];
@@ -92,7 +101,8 @@ type CommonProps<T extends LastResult = LastResult> = {
   filter?: SelectFilter<T>;
 
   virtualize?: VariableSizeListProps | boolean;
-} & Pick<InputProps, 'disabled' | 'readOnly'> & Pick<CSSObject, 'whiteSpace'>;
+} & Pick<InputProps, 'disabled' | 'readOnly'> &
+  Pick<CSSObject, 'whiteSpace'>;
 
 export type SelectProps<T extends LastResult = LastResult> = {
   options: SelectOption[];
@@ -100,15 +110,15 @@ export type SelectProps<T extends LastResult = LastResult> = {
   dropdownProps?: Partial<DropdownProps>;
 
   onLoadMore?: LoadMore<T>;
-} & QA
-  & CommonProps<T>
-  & SelectListProps
-  & Omit<InputProps, 'value' | 'onChange'>
-  & Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
+} & QA &
+  CommonProps<T> &
+  SelectListProps &
+  Omit<InputProps, 'value' | 'onChange'> &
+  Partial<Pick<DropdownProps, 'isOpen' | 'setIsOpen'>>;
 
 export type SelectContextProps = {
-  options: SelectOption[],
-  filtred: SelectOption[],
+  options: SelectOption[];
+  filtred: SelectOption[];
 
   state: SelectState;
   setState: (state: SelectState, filtred?: SelectOption[]) => void;
@@ -119,9 +129,9 @@ export type SelectContextProps = {
 
   loadMore: (target: HTMLDivElement | undefined) => void;
   filterOptions: (query: string) => void;
-} & CommonProps
-  & Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'>
-  & Required<Pick<DropdownProps, 'maxHeight'>>;
+} & CommonProps &
+  Pick<DropdownProps, 'isOpen' | 'setIsOpen' | 'height'> &
+  Required<Pick<DropdownProps, 'maxHeight'>>;
 
 export type SingleSelectProps<T extends LastResult = LastResult> = {
   value: SelectSingleValue | undefined;

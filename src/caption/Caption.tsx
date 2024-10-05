@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {CaptionProps} from './types';
+import type {CaptionProps} from './types';
 
 const Container = styled.div<CaptionProps>`
   padding: 4px 0;

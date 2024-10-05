@@ -1,4 +1,4 @@
-import {ColorTokenGroup} from './types';
+import type {ColorTokenGroup} from './types';
 
 export const theme = {
   tsx: {

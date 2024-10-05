@@ -3,10 +3,13 @@ import styled from '@emotion/styled';
 
 import {Calendar} from 'icons';
 import {SizeTokenValue, theme} from 'theme';
-import {Input, InputButton, InputInternalProps, InputProps, InputStyles, Label} from 'input';
+
+import {Input, InputButton, Label} from 'input';
 import {DatepickerContext} from 'datepicker';
 
 import {useInputComponent} from './utils';
+
+import type {InputInternalProps, InputProps, InputStyles} from 'input';
 
 const Container = styled.div`
   position: relative;
@@ -23,7 +26,7 @@ const Value = styled.div<InputStyles>`
   padding: 0;
   outline: none;
   border: none;
-  
+
   ${theme.typography.p1}
 
   ${({isSmall, isFocused, isFilled, isLabeled}) => ({
@@ -56,7 +59,7 @@ const HiddenInput = styled.input`
   opacity: 0;
 `;
 
-const inputComponent: React.FC<InputInternalProps> = props => {
+const InputComponent: React.FC<InputInternalProps> = props => {
   const {inputProps, style} = props;
 
   const {step, componentProps, segments} = useInputComponent(inputProps);
@@ -101,8 +104,8 @@ export const DateInput: React.FC = () => {
   const inputProps: InputProps = {
     ...context,
 
-    inputComponent,
     endAdornment,
+    inputComponent: InputComponent,
 
     value: value[0] || value[1] ? 'filled' : '',
     onChange: () => {},

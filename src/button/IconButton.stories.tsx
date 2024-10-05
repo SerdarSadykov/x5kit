@@ -5,7 +5,8 @@ import {EditOn} from 'icons';
 
 import {IconButton as BaseIconButton, variantBehavior} from './Button';
 import ButtonStory from './Button.stories';
-import {IconButtonProps, ButtonVariant} from './types';
+import type {IconButtonProps} from './types';
+import {ButtonVariant} from './types';
 
 type IconButtonStoryProps = {
   color: string;

@@ -6,7 +6,8 @@ import {theme} from 'theme';
 import {getMenuItem} from './MenuItem';
 import {ExpandButton} from './ExpandButton';
 import {useSidebarMenu} from './hook';
-import {SidebarMenuContextProps, SidebarMenuProps} from './types';
+
+import type {SidebarMenuContextProps, SidebarMenuProps} from './types';
 
 const Container = styled.div`
   position: absolute;

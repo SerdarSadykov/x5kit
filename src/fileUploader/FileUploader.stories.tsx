@@ -1,8 +1,10 @@
 import type {Meta} from '@storybook/react';
 
-import {FileUploader as BaseFileUploader} from './FileUploader';
-import {FileItem, FileItemStatus, FileUploaderProps} from './types';
 import {useState} from 'react';
+
+import {FileUploader as BaseFileUploader} from './FileUploader';
+import type {FileItem, FileUploaderProps} from './types';
+import {FileItemStatus} from './types';
 
 const defaultValue: FileItem[] = [
   {

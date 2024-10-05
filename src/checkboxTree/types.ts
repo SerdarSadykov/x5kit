@@ -1,8 +1,8 @@
-import {ChangeEvent, HTMLAttributes, ReactNode} from 'react';
+import type {ChangeEvent, HTMLAttributes, ReactNode} from 'react';
 
-import {QA} from 'common';
-import {TooltipProps} from 'tooltip';
-import {CheckboxProps} from 'checkbox';
+import type {QA} from 'common';
+import type {TooltipProps} from 'tooltip';
+import type {CheckboxProps} from 'checkbox';
 
 export type CheckboxTreeOptionValue = string | number;
 
@@ -16,8 +16,11 @@ export type CheckboxTreeOption = {
   // parent?: CheckboxTreeOption removed
 } & Omit<CheckboxProps, 'label' | 'value' | 'checked'>;
 
-export type CheckboxTreeOnChange<T = CheckboxTreeOption> =
-  (value: CheckboxTreeOptionValue[], target: T, event: ChangeEvent<HTMLInputElement>) => void;
+export type CheckboxTreeOnChange<T = CheckboxTreeOption> = (
+  value: CheckboxTreeOptionValue[],
+  target: T,
+  event: ChangeEvent<HTMLInputElement>
+) => void;
 
 export type CheckboxTreeProps<T extends CheckboxTreeOption = CheckboxTreeOption> = {
   options: T[];
@@ -33,4 +36,5 @@ export type CheckboxTreeProps<T extends CheckboxTreeOption = CheckboxTreeOption>
   // onlyUserSelected?: boolean; removed
   // searchStr?: string; removed
   // showNotFound?: boolean; removed
-} & QA & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
+} & QA &
+  Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;

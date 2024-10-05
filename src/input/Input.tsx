@@ -1,4 +1,4 @@
-import {FocusEventHandler, forwardRef, useState} from 'react';
+import {forwardRef, useState} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
@@ -7,7 +7,9 @@ import {InputCaption} from './InputCaption';
 import {EndAdornment} from './EndAdornment';
 
 import {InputComponent} from './InputComponent';
-import {InputInternalProps, InputProps, InputStyles} from './types';
+
+import type {FocusEventHandler} from 'react';
+import type {InputInternalProps, InputProps, InputStyles} from './types';
 
 const Container = styled.div<Pick<InputInternalProps, 'width'>>`
   width: ${props => props.width || '100%'};

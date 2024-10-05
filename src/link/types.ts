@@ -1,7 +1,7 @@
-import {AnchorHTMLAttributes} from 'react';
-import {CSSObject} from '@emotion/react';
+import type {AnchorHTMLAttributes} from 'react';
+import type {CSSObject} from '@emotion/react';
 
-import {QA} from 'common';
+import type {QA} from 'common';
 
 export enum LinkVariant {
   accent = 'accent',
@@ -25,4 +25,6 @@ export type LinkStyles = {
 
 export type LinkProps = {
   variant?: LinkVariant;
-} & QA & Partial<LinkStyles> & AnchorHTMLAttributes<HTMLAnchorElement>;
+} & QA &
+  Partial<LinkStyles> &
+  AnchorHTMLAttributes<HTMLAnchorElement>;

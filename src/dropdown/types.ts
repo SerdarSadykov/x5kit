@@ -1,14 +1,14 @@
-import {CSSProperties, ReactElement, RefObject} from 'react';
-import {UseFloatingOptions, UseFloatingReturn} from '@floating-ui/react';
+import type {CSSProperties, ReactElement, RefObject} from 'react';
+import type {UseFloatingOptions, UseFloatingReturn} from '@floating-ui/react';
 
-import {Placement} from 'theme';
-import {QA} from 'common';
+import type {Placement} from 'theme';
+import type {QA} from 'common';
 
 export type DropdownProps = {
   children: ReactElement;
   targetRef: RefObject<Element>;
 
-  width?: string | 'target',
+  width?: string | 'target';
   placement?: Placement;
 
   isOpen: boolean;
@@ -18,4 +18,6 @@ export type DropdownProps = {
   isMounted?: boolean;
 
   setFloating?: (floating: UseFloatingReturn) => void;
-} & QA & Pick<CSSProperties, 'zIndex' | 'height' | 'maxHeight'> & Pick<UseFloatingOptions, 'middleware'>;
+} & QA &
+  Pick<CSSProperties, 'zIndex' | 'height' | 'maxHeight'> &
+  Pick<UseFloatingOptions, 'middleware'>;

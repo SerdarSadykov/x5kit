@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 
-import {RequiredQA} from 'common';
+import {Placement} from 'theme';
+
+import {Tooltip} from 'tooltip';
+
 import {Dropdown} from 'calendar/Dropdown';
 
 import {HeaderDateType} from '../types';
 
 import {useHeaderDateDropdown, useMonths, useYears} from './hook';
+
+import type {RequiredQA} from 'common';
 
 export * from './hook';
 
@@ -20,8 +25,12 @@ export const HeaderDateDropdown: React.FC<RequiredQA> = props => {
 
   return (
     <Center>
-      <Dropdown {...monthsProps} {...getDropdownProps(HeaderDateType.month)} />
-      <Dropdown {...yearsProps} {...getDropdownProps(HeaderDateType.year)} />
+      <Tooltip placement={Placement.bottom} content="Выбор месяца">
+        <Dropdown {...monthsProps} {...getDropdownProps(HeaderDateType.month)} />
+      </Tooltip>
+      <Tooltip placement={Placement.bottom} content="Выбор года">
+        <Dropdown {...yearsProps} {...getDropdownProps(HeaderDateType.year)} />
+      </Tooltip>
     </Center>
   );
 };

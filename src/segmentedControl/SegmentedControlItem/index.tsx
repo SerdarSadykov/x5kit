@@ -1,9 +1,9 @@
 import {forwardRef} from 'react';
 import styled from '@emotion/styled';
 
-import {SegmentedControlOption} from '../types';
-
 import {theme} from 'theme';
+
+import type {SegmentedControlOption} from '../types';
 
 const Label = styled.label`
   position: relative;

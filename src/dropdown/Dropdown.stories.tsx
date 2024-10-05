@@ -6,7 +6,7 @@ import {ArrowDown, ArrowUp} from 'icons';
 import {Button} from 'button';
 
 import {Dropdown as BaseDropdown, DropdownContent} from './Dropdown';
-import {DropdownProps} from './types';
+import type {DropdownProps} from './types';
 
 export const Dropdown: React.FC<DropdownProps> = props => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -34,12 +34,12 @@ export const Dropdown: React.FC<DropdownProps> = props => {
 
   return (
     <>
-      <Button ref={ref} {...buttonProps}>Создать отчет</Button>
+      <Button ref={ref} {...buttonProps}>
+        Создать отчет
+      </Button>
       <BaseDropdown {...resultProps}>
         <DropdownContent>
-          <div style={{padding: 15, ...theme.typography.p2}}>
-            Описание текст форма
-          </div>
+          <div style={{padding: 15, ...theme.typography.p2}}>Описание текст форма</div>
         </DropdownContent>
       </BaseDropdown>
     </>

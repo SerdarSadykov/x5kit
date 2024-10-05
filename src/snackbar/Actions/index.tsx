@@ -2,7 +2,7 @@ import {SizeTokenValue} from 'theme';
 import {Button, ButtonVariant} from 'button';
 import {Link} from 'link';
 
-import {SnackbarAction} from '../types';
+import type {SnackbarAction} from '../types';
 
 export const getAction = (action: SnackbarAction, index: number) => {
   if (action && typeof action === 'object') {

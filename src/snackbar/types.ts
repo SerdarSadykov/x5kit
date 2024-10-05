@@ -1,9 +1,9 @@
-import {CSSProperties, ReactNode} from 'react';
-import {SnackbarProviderProps as BaseSnackbarProviderProps, OptionsObject} from 'notistack';
+import type {CSSProperties, ReactNode} from 'react';
+import type {SnackbarProviderProps as BaseSnackbarProviderProps, OptionsObject} from 'notistack';
 
-import {QA} from 'common';
-import {ButtonProps} from 'button';
-import {LinkProps} from 'link';
+import type {QA} from 'common';
+import type {ButtonProps} from 'button';
+import type {LinkProps} from 'link';
 
 export type SnackbarProviderProps = BaseSnackbarProviderProps;
 
@@ -26,7 +26,9 @@ export type SnackbarMessage = {
 
   actionsTop?: SnackbarAction[];
   actionsBottom?: SnackbarAction[];
-} & QA & Omit<OptionsObject, 'variant'> & Pick<CSSProperties, 'maxWidth' | 'whiteSpace'>;
+} & QA &
+  Omit<OptionsObject, 'variant'> &
+  Pick<CSSProperties, 'maxWidth' | 'whiteSpace'>;
 
 export type SnackbarMessageInner = Omit<SnackbarMessage, 'key'> & Required<Pick<SnackbarMessage, 'key' | 'variant'>>;
 

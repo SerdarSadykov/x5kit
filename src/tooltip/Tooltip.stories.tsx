@@ -4,7 +4,7 @@ import {Help, Calendar} from 'icons';
 import {Placement} from 'theme';
 
 import {Tooltip as BaseTooltip} from './Tooltip';
-import {TooltipProps} from './types';
+import type {TooltipProps} from './types';
 
 export const Tooltip: React.FC<TooltipProps> = props => {
   const resultProps = {

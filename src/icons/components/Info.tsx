@@ -2,9 +2,9 @@ import {forwardRef} from 'react';
 
 import {SizeTokenValue} from 'theme';
 
-import {IconComponent, IconProps} from '../types';
-
 import {SVG} from './SVG';
+
+import type {IconComponent, IconProps} from '../types';
 
 const largeIcon = [
   <path

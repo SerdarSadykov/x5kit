@@ -5,7 +5,8 @@ import {FloatingPortal} from '@floating-ui/react';
 import {theme} from 'theme';
 
 import {useDropdown} from './hook';
-import {DropdownProps} from './types';
+
+import type {DropdownProps} from './types';
 
 const Container = styled.div<Pick<DropdownProps, 'width' | 'height' | 'maxHeight' | 'zIndex' | 'isOpen' | 'isMounted'>>`
   ${({isOpen, isMounted, zIndex, height, maxHeight, width = 248}) => {

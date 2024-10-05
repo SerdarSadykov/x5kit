@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 
 import {theme} from 'theme';
-import {getQAAttribute, QA} from 'common';
+
+import {getQAAttribute} from 'common';
 
 import {Action} from '../Action';
-import {BannerProps} from '../types';
+
+import type {QA} from 'common';
+import type {BannerProps} from '../types';
 
 type ContentProps = Pick<BannerProps, 'children' | 'title' | 'action' | 'actionNextLine'> & Required<QA>;
 

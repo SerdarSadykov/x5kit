@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import {theme} from 'theme';
 
 import {Asterisk} from '../Asterisk';
+
 import type {InputInternalProps, InputStyles} from '../types';
 
 export const LabelComponent = styled.div<InputStyles>`

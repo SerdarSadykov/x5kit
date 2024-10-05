@@ -5,7 +5,8 @@ import {SizeTokenValue} from 'theme';
 import {ChevronLeft} from 'icons';
 
 import {ArrowBase} from '../ArrowBase';
-import {ArrowProps} from '../types';
+
+import type {ArrowProps} from '../types';
 
 const Component = styled(ArrowBase)`
   left: 0;
@@ -36,22 +37,24 @@ export const ArrowLeft: React.FC<ArrowProps> = ({scrollableRef}) => {
     scrollableRef.current?.scrollBy({left: -100, behavior: 'smooth'});
   };
 
-  const onScroll = () => {
-    if (!scrollableRef.current) {
-      return;
-    }
-
-    ref.current?.toggleAttribute('data-active', scrollableRef.current?.scrollLeft > 10);
-  };
-
   useEffect(() => {
-    onScroll();
+    const scrollableEl = scrollableRef.current;
 
-    scrollableRef.current?.addEventListener('scroll', onScroll);
+    const onScroll = () => {
+      if (!scrollableEl) {
+        return;
+      }
+
+      ref.current?.toggleAttribute('data-active', scrollableEl?.scrollLeft > 10);
+    };
+
+    scrollableEl?.addEventListener('scroll', onScroll);
 
     return () => {
-      scrollableRef.current?.removeEventListener('scroll', onScroll);
+      scrollableEl?.removeEventListener('scroll', onScroll);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

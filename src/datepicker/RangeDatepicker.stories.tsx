@@ -4,13 +4,13 @@ import {useEffect, useState} from 'react';
 import type {Meta} from '@storybook/react';
 
 import {ArrowNavigationBackward} from 'icons';
-import {RangeCalendarValue} from 'calendar';
+import type {RangeCalendarValue} from 'calendar';
 
 import inputStory from 'input/Input.stories';
 
 import {RangeDatepicker as BaseDatepicker} from './Datepicker';
 import datepickerStory from './Datepicker.stories';
-import {DatepickerProps, RangeDatepickerProps} from './types';
+import type {DatepickerProps, RangeDatepickerProps} from './types';
 
 type DatepickerStoryProps = {
   valueFrom: number;

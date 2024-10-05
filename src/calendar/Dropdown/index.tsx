@@ -1,9 +1,11 @@
-import {MouseEventHandler, useEffect} from 'react';
-import {useFloating, flip} from '@floating-ui/react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {ArrowDown, ArrowUp} from 'icons';
+
+import {useDropdown} from './hook';
+
+import type {DropdownButtonStyle, DropdownListItemProps, DropdownStyle, DropdownProps, ListItemStyle} from './types';
 
 const Container = styled.div(theme.typography.base);
 
@@ -53,10 +55,6 @@ const List = styled.div<DropdownStyle>`
   ${theme.scroll}
 `;
 
-export type ListItemStyle = {
-  isSelected: boolean;
-};
-
 const ListItem = styled.button<ListItemStyle>`
   display: block;
   min-width: 100%;
@@ -86,34 +84,6 @@ const ListItem = styled.button<ListItemStyle>`
   }}
 `;
 
-export type DropdownItem = {
-  name: string;
-  value: number;
-  disabled: boolean;
-};
-
-type DropdownStyle = {
-  width: number;
-};
-
-type DropdownButtonStyle = {
-  isOpen: boolean;
-};
-
-export type DropdownOpenProps = {
-  isOpen: boolean;
-  setIsOpen: (newIsOpen: boolean) => void;
-};
-
-export type DropdownProps = {
-  items: DropdownItem[];
-  value: DropdownItem;
-  onChange: (newItem: DropdownItem) => void;
-} & DropdownStyle &
-  DropdownOpenProps;
-
-export type DropdownListItemProps = Pick<DropdownProps, 'onChange'> & ListItemStyle & {item: DropdownItem};
-
 const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSelected}) => {
   const {name, disabled} = item;
 
@@ -124,33 +94,9 @@ const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSe
   );
 };
 
-export const Dropdown: React.FC<DropdownProps> = ({items, value, onChange, isOpen, setIsOpen, width}) => {
-  const floating = useFloating({placement: 'bottom-start', middleware: [flip()]});
-
-  const onToggle = () => {
-    setIsOpen(!isOpen);
-
-    if (!isOpen) {
-      floating.update?.();
-    }
-  };
-
-  const onClickContainer: MouseEventHandler = e => {
-    e.stopPropagation();
-  };
-
-  const onClickItem: DropdownProps['onChange'] = newItem => {
-    setIsOpen(false);
-    onChange(newItem);
-  };
-
-  useEffect(() => {
-    const listner = () => setIsOpen(false);
-
-    document.body.addEventListener('click', listner);
-
-    return () => document.body.removeEventListener('click', listner);
-  }, [setIsOpen]);
+export const Dropdown: React.FC<DropdownProps> = props => {
+  const {items, value, isOpen, width} = props;
+  const {floating, onToggle, onClickContainer, onClickItem} = useDropdown(props);
 
   const listItems = items.map(item => (
     <DropdownListItem key={item.value} item={item} isSelected={item.value === value.value} onChange={onClickItem} />

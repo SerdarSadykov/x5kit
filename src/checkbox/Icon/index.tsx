@@ -1,10 +1,11 @@
-import {KeyboardEventHandler, ReactNode, RefObject} from 'react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Done, Remove} from 'icons';
 
-import {CheckboxStyles} from '../types';
+import type {KeyboardEventHandler, ReactNode, RefObject} from 'react';
+
+import type {CheckboxStyles} from '../types';
 
 const Container = styled.div<CheckboxStyles>`
   position: relative;

@@ -1,9 +1,10 @@
 import {forwardRef} from 'react';
 
 import {SizeTokenValue} from 'theme';
-import {IconComponent} from 'icons/types';
 
 import {SVG} from './SVG';
+
+import type {IconComponent} from 'icons/types';
 
 const largeIcon = [
   <path
@@ -14,7 +15,7 @@ const largeIcon = [
     key="1"
     d="M9.24773 12.4894L11.4119 14.7452C11.7378 15.0849 12.2642 15.0849 12.5901 14.7452L14.7543 12.4894C15.2808 11.9407 14.9047 11 14.161 11H9.83265C9.08897 11 8.72131 11.9407 9.24773 12.4894Z"
   />,
-]
+];
 
 const smallIcon = (
   <path
@@ -22,7 +23,7 @@ const smallIcon = (
     clipRule="evenodd"
     d="M13.87 8C13.87 11.2419 11.2419 13.87 8 13.87C4.75809 13.87 2.13 11.2419 2.13 8C2.13 4.75809 4.75809 2.13 8 2.13C11.2419 2.13 13.87 4.75809 13.87 8ZM15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8ZM6.08715 7H9.91293C10.3401 7 10.5706 7.50106 10.2926 7.8254L8.37967 10.0571C8.18012 10.2899 7.81996 10.2899 7.62041 10.0571L5.70752 7.8254C5.42952 7.50106 5.65997 7 6.08715 7Z"
   />
-)
+);
 
 export const ArrowCircleDown: IconComponent = forwardRef((props, ref) => {
   const {size} = props;
@@ -33,4 +34,3 @@ export const ArrowCircleDown: IconComponent = forwardRef((props, ref) => {
     </SVG>
   );
 });
-

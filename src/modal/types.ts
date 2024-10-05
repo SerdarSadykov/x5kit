@@ -1,7 +1,8 @@
-import {CSSProperties, HTMLAttributes, PropsWithChildren, ReactNode, RefObject} from 'react';
-import {Placement, UseFloatingOptions, UseFloatingReturn} from 'dropdown';
+import type {CSSProperties, HTMLAttributes, PropsWithChildren, ReactNode, RefObject} from 'react';
 
-import {SizeTokenValue} from 'theme';
+import type {Placement, UseFloatingOptions, UseFloatingReturn} from 'dropdown';
+
+import type {SizeTokenValue} from 'theme';
 
 export type ModalHeaderProps = {
   caption?: ReactNode;
@@ -32,4 +33,6 @@ export type ModalProps = {
   // maxWidth?: string | number
   // minWidth?: string | number
   // showCloseButton?: boolean
-} & PropsWithChildren & Pick<UseFloatingOptions, 'middleware'> & Pick<CSSProperties, 'zIndex'>;
+} & PropsWithChildren &
+  Pick<UseFloatingOptions, 'middleware'> &
+  Pick<CSSProperties, 'zIndex'>;
