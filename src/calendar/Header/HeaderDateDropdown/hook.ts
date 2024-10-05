@@ -27,7 +27,7 @@ export const useMonths = (): Omit<DropdownProps, keyof DropdownOpenProps> => {
     onChangeViewDate(setMonth(viewDate, newItem.value));
   };
 
-  return {onChange, value, items: months, width: 112};
+  return {onChange, value, items: months, width: 112, tooltip: 'Выбор месяца'};
 };
 
 export const useYears = (): Omit<DropdownProps, keyof DropdownOpenProps> => {
@@ -44,7 +44,7 @@ export const useYears = (): Omit<DropdownProps, keyof DropdownOpenProps> => {
     onChangeViewDate(setYear(viewDate, newItem.value));
   };
 
-  return {onChange, value, items: years, width: 80};
+  return {onChange, value, items: years, width: 80, tooltip: 'Выбор года'};
 };
 
 export const useHeaderDateDropdown = ({qa}: RequiredQA) => {

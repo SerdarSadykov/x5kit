@@ -22,7 +22,8 @@
     "react-dom": "^18.3.1",
     "storybook": "^8.1.1",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^7.10.0"
+    "typescript-eslint": "^7.10.0",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006 --https --ssl-cert=/app/.storybook/cert/all.crt --ssl-key=/app/.storybook/cert/all.key",

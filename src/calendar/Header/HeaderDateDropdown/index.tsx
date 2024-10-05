@@ -25,12 +25,8 @@ export const HeaderDateDropdown: React.FC<RequiredQA> = props => {
 
   return (
     <Center>
-      <Tooltip placement={Placement.bottom} content="Выбор месяца">
-        <Dropdown {...monthsProps} {...getDropdownProps(HeaderDateType.month)} />
-      </Tooltip>
-      <Tooltip placement={Placement.bottom} content="Выбор года">
-        <Dropdown {...yearsProps} {...getDropdownProps(HeaderDateType.year)} />
-      </Tooltip>
+      <Dropdown {...monthsProps} {...getDropdownProps(HeaderDateType.month)} />
+      <Dropdown {...yearsProps} {...getDropdownProps(HeaderDateType.year)} />
     </Center>
   );
 };

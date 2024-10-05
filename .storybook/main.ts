@@ -1,3 +1,6 @@
+import {mergeConfig} from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
 import type {StorybookConfig} from '@storybook/react-vite';
 
 const config: StorybookConfig = {
@@ -17,5 +20,8 @@ const config: StorybookConfig = {
     reactDocgen: 'react-docgen-typescript',
     check: true,
   },
+
+  viteFinal: config => mergeConfig(config, {plugins: [tsconfigPaths()]}),
 };
+
 export default config;

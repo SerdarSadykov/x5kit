@@ -8,6 +8,8 @@ import type {DropdownProps} from './types';
 export const useDropdown = ({onChange, isOpen, setIsOpen}: DropdownProps) => {
   const floating = useFloating({placement: 'bottom-start', middleware: [flip()]});
 
+  const isTooltipOpen = isOpen ? false : undefined;
+
   const onToggle = () => {
     setIsOpen(!isOpen);
 
@@ -33,5 +35,5 @@ export const useDropdown = ({onChange, isOpen, setIsOpen}: DropdownProps) => {
     return () => document.removeEventListener('click', listner);
   }, [setIsOpen]);
 
-  return {floating, onToggle, onClickContainer, onClickItem};
+  return {floating, isTooltipOpen, onToggle, onClickContainer, onClickItem};
 };

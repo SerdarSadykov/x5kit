@@ -21,6 +21,7 @@ export type DropdownProps = {
   items: DropdownItem[];
   value: DropdownItem;
   onChange: (newItem: DropdownItem) => void;
+  tooltip: string;
 } & DropdownStyle &
   DropdownOpenProps;
 

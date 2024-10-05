@@ -34,6 +34,7 @@ const ArrowButton = styled.button`
   background: no-repeat;
   border: none;
   outline: none;
+  border-radius: 4px;
   color: ${props => theme.colors.grey[props.disabled ? 40 : 60]};
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 

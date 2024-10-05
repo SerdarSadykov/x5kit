@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 
-import {SizeTokenValue, theme} from 'theme';
+import {Placement, SizeTokenValue, theme} from 'theme';
 import {ArrowDown, ArrowUp} from 'icons';
+import {Tooltip} from 'tooltip';
 
 import {useDropdown} from './hook';
 
@@ -95,8 +96,8 @@ const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSe
 };
 
 export const Dropdown: React.FC<DropdownProps> = props => {
-  const {items, value, isOpen, width} = props;
-  const {floating, onToggle, onClickContainer, onClickItem} = useDropdown(props);
+  const {items, value, isOpen, tooltip, width} = props;
+  const {floating, isTooltipOpen, onToggle, onClickContainer, onClickItem} = useDropdown(props);
 
   const listItems = items.map(item => (
     <DropdownListItem key={item.value} item={item} isSelected={item.value === value.value} onChange={onClickItem} />
@@ -106,10 +107,12 @@ export const Dropdown: React.FC<DropdownProps> = props => {
 
   return (
     <Container onClick={onClickContainer}>
-      <DropdownButton ref={floating.refs.setReference} isOpen={isOpen} onClick={onToggle}>
-        {value.name}
-        <Chevron size={SizeTokenValue.Small} />
-      </DropdownButton>
+      <Tooltip placement={Placement.bottom} content={tooltip} isOpen={isTooltipOpen}>
+        <DropdownButton ref={floating.refs.setReference} isOpen={isOpen} onClick={onToggle}>
+          {value.name}
+          <Chevron size={SizeTokenValue.Small} />
+        </DropdownButton>
+      </Tooltip>
 
       <List ref={floating.refs.setFloating} width={width} hidden={!isOpen} style={floating.floatingStyles}>
         {listItems}
