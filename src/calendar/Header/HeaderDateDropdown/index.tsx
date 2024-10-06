@@ -1,9 +1,5 @@
 import styled from '@emotion/styled';
 
-import {Placement} from 'theme';
-
-import {Tooltip} from 'tooltip';
-
 import {Dropdown} from 'calendar/Dropdown';
 
 import {HeaderDateType} from '../types';

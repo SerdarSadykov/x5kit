@@ -1,12 +1,12 @@
-import type {Meta} from '@storybook/react';
-
 import {theme} from 'theme';
 import {ShoppingCart} from 'icons';
 
 import {BadgeDot as BaseBadgeDot} from './BadgeDot';
 import badgeStory from './Badge.stories';
-import type {BadgeDotProps} from './types';
 import {BadgeDotSize} from './types';
+
+import type {Meta} from '@storybook/react';
+import type {BadgeDotProps} from './types';
 
 export const BadgeDot: React.FC<BadgeDotProps> = props => (
   <div style={{position: 'relative', color: theme.colors.grey[60], display: 'inline-block'}}>

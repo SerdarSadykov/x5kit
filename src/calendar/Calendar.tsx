@@ -46,12 +46,12 @@ const CalendarComponent: React.FC<RequiredQA> = ({qa}) => {
   return <Container data-qa={getQA()}>{blockComponents}</Container>;
 };
 
-export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa, ...props}) => {
+export const BaseCalendar: React.FC<BaseCalendarProps> = ({qa = 'calendar', ...props}) => {
   const context = useCalendar(props);
 
   return (
     <CalendarContext.Provider value={context}>
-      <CalendarComponent qa={qa ?? 'calendar'} />
+      <CalendarComponent qa={qa} />
     </CalendarContext.Provider>
   );
 };

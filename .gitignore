@@ -1,5 +1,7 @@
-node_modules
 .vscode
+
+node_modules
+coverage
 storybook-static
 *.tar.gz
 *storybook.log

@@ -1,10 +1,11 @@
 import {useState} from 'react';
-import type {ArgTypes, Meta, StoryObj} from '@storybook/react';
 
 import {SizeTokenValue} from 'theme';
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 
 import {Input as BaseInput} from './Input';
+
+import type {ArgTypes, Meta, StoryObj} from '@storybook/react';
 import type {InputProps} from './types';
 
 type InputStoryProps = Omit<InputProps, 'onClearClick'> & {
