@@ -1,40 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {linkTo} from '@storybook/addon-links';
 
-import badgeMeta, {Badge} from './badge/Badge.stories';
-import badgeDotMeta, {BadgeDot} from './badge/BadgeDot.stories';
-import bannerMeta, {Banner, WithAction, WithActionNewLine} from './banner/Banner.stories';
-import buttonMeta, {Button} from './button/Button.stories';
-import iconButtonMeta, {IconButton} from './button/IconButton.stories';
-import calendarMeta, {Calendar} from './calendar/Calendar.stories';
-import rangeCalendarMeta, {RangeCalendar} from './calendar/RangeCalendar.stories';
-import captionMeta, {Caption} from './caption/Caption.stories';
-import checkboxMeta, {Checkbox} from './checkbox/Checkbox.stories';
-import checkboxTreeMeta, {CheckboxTree} from './checkboxTree/CheckboxTree.stories';
-import chipMeta, {Chip} from './chip/Chip.stories';
-import datepickerMeta, {Datepicker} from './datepicker/Datepicker.stories';
-import rangeDatepickerMeta, {RangeDatepicker} from './datepicker/RangeDatepicker.stories';
-import dropdownMeta, {Dropdown} from './dropdown/Dropdown.stories';
-import fileUploaderMeta, {FileUploader} from './fileUploader/FileUploader.stories';
-import iconsMeta, {Icons} from './icons/Icons.stories';
-import inputMeta, {Input, MasketInput} from './input/Input.stories';
-import linkMeta, {Link} from './link/Link.stories';
-import loaderMeta, {Loader} from './loader/Loader.stories';
-import modalMeta, {Modal, ModalPopup} from './modal/Modal.stories';
-import passwordInputMeta, {PasswordInput} from './passwordInput/PasswordInput.stories';
-import radioMeta, {Radio} from './radio/Radio.stories';
-import searchInputMeta, {SearchInput} from './searchInput/SearchInput.stories';
-import segmentedControlMeta, {SegmentedControl} from './segmentedControl/SegmentedControl.stories';
-import selectMeta, {Select, SelectFetch, SelectTree, SelectVirtualized} from './select/Select.stories';
-import snackbarMeta, {Snackbar} from './snackbar/Snackbar.stories';
-import sidebarMeta, {SidebarMenu} from './sidebarMenu/SidebarMenu.stories';
-import switchMeta, {Switch} from './switch/Switch.stories';
-import tabsMeta, {Tabs, TabList} from './tabs/Tabs.stories';
-import textareaMeta, {Textarea} from './textarea/Textarea.stories';
-import tooltipMeta, {Tooltip} from './tooltip/Tooltip.stories';
-import typographyMeta, {Typography} from './typography/Typography.stories';
+import badgeMeta, {Badge} from 'badge/Badge.stories';
+import badgeDotMeta, {BadgeDot} from 'badge/BadgeDot.stories';
+import bannerMeta, {Banner, WithAction, WithActionNewLine} from 'banner/Banner.stories';
+import buttonMeta, {Button} from 'button/Button.stories';
+import iconButtonMeta, {IconButton} from 'button/IconButton.stories';
+import calendarMeta, {Calendar} from 'calendar/Calendar.stories';
+import rangeCalendarMeta, {RangeCalendar} from 'calendar/RangeCalendar.stories';
+import captionMeta, {Caption} from 'caption/Caption.stories';
+import checkboxMeta, {Checkbox} from 'checkbox/Checkbox.stories';
+import checkboxTreeMeta, {CheckboxTree} from 'checkboxTree/CheckboxTree.stories';
+import chipMeta, {Chip} from 'chip/Chip.stories';
+import datepickerMeta, {Datepicker} from 'datepicker/Datepicker.stories';
+import rangeDatepickerMeta, {RangeDatepicker} from 'datepicker/RangeDatepicker.stories';
+import dropdownMeta, {Dropdown} from 'dropdown/Dropdown.stories';
+import fileUploaderMeta, {FileUploader} from 'fileUploader/FileUploader.stories';
+import iconsMeta, {Icons} from 'icons/Icons.stories';
+import inputMeta, {Input, MasketInput} from 'input/Input.stories';
+import linkMeta, {Link} from 'link/Link.stories';
+import loaderMeta, {Loader} from 'loader/Loader.stories';
+import modalMeta, {Modal, ModalPopup} from 'modal/Modal.stories';
+import passwordInputMeta, {PasswordInput} from 'passwordInput/PasswordInput.stories';
+import radioMeta, {Radio} from 'radio/Radio.stories';
+import searchInputMeta, {SearchInput} from 'searchInput/SearchInput.stories';
+import segmentedControlMeta, {SegmentedControl} from 'segmentedControl/SegmentedControl.stories';
+import selectMeta, {Select, SelectFetch, SelectTree, SelectVirtualized} from 'select/Select.stories';
+import snackbarMeta, {Snackbar} from 'snackbar/Snackbar.stories';
+import sidebarMeta, {SidebarMenu} from 'sidebarMenu/SidebarMenu.stories';
+import switchMeta, {Switch} from 'switch/Switch.stories';
+import tabsMeta, {Tabs, TabList} from 'tabs/Tabs.stories';
+import textareaMeta, {Textarea} from 'textarea/Textarea.stories';
+import tooltipMeta, {Tooltip} from 'tooltip/Tooltip.stories';
+import typographyMeta, {Typography} from 'typography/Typography.stories';
 
-import type {Meta} from '@storybook/react/*';
+import type {Meta} from '@storybook/react';
 
 export const All: React.FC = () => {
   return (

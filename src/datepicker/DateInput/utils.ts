@@ -74,7 +74,7 @@ const useSegments = () => {
     const matches = formatStr.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
 
     for (const [, label, end] of matches) {
-      const token = label.replaceAll(/д|м|г/gi, part => {
+      const token = label.replace(/д|м|г/gi, part => {
         switch (part.toLowerCase()) {
           case 'д':
             return 'd';

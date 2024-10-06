@@ -9,10 +9,9 @@ export abstract class FileError extends Error {
 
   constructor(
     public readonly file: File,
-    message?: string,
-    options?: ErrorOptions
+    message?: string
   ) {
-    super(message, options);
+    super(message);
 
     this.message ??= this.defaultMessage;
   }

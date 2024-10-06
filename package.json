@@ -1,4 +1,23 @@
 {
+  "name": "x5join-react",
+  "version": "0.0.0",
+  "private": true,
+  "description": "https://www.figma.com/design/c0xn3Ib5FZSfPcnfsOIrmy4i/Join-Web%3A-component",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://art.x5.ru/artifactory/api/npm/npm-pp-prod/"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006 --https --ssl-cert=/app/.storybook/cert/all.crt --ssl-key=/app/.storybook/cert/all.key",
+    "storybook-build": "storybook build",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ignore-pattern \"**/*.stories.tsx\"",
+    "test": "vitest"
+  },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "@storybook/addon-essentials": "^8.1.1",
@@ -8,8 +27,13 @@
     "@storybook/react": "^8.1.1",
     "@storybook/react-vite": "^8.3.5",
     "@storybook/test": "^8.1.1",
-    "@types/react": "^18.3.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
     "@types/react-window": "^1.8.8",
+    "@vitejs/plugin-react": "^4.3.2",
+    "@vitest/coverage-v8": "^2.1.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -17,18 +41,18 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "glob": "^10.3.12",
+    "jsdom": "^25.0.1",
     "prettier": "3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "^8.1.1",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.10.0",
-    "vite-tsconfig-paths": "^5.0.1"
-  },
-  "scripts": {
-    "storybook": "storybook dev -p 6006 --https --ssl-cert=/app/.storybook/cert/all.crt --ssl-key=/app/.storybook/cert/all.key",
-    "storybook-build": "storybook build",
-    "lint": "eslint src --ignore-pattern \"**/*.stories.tsx\""
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^4.2.3",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^2.1.2"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
