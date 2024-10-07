@@ -21,7 +21,7 @@ import type {ReactNode} from 'react';
 
 export const CalendarContext = createContext<CalendarContextProps>({} as never);
 
-export const Container = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: flex-start;
   background: ${theme.colors.white};

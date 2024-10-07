@@ -1,5 +1,4 @@
 import {useRef, useState} from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
 
 import {SizeTokenValue, theme} from 'theme';
 import {AccountCircle} from 'icons';
@@ -10,7 +9,9 @@ import {ModalContent} from './ModalContent';
 import {ModalHeader} from './ModalHeader';
 import {ModalFooter, ModalFooterContent} from './ModalFooter';
 import {Modal as BaseModal} from './Modal';
+
 import type {ModalProps} from './types';
+import type {Meta, StoryObj} from '@storybook/react';
 
 type ModalStoryProps = {
   title: string;
@@ -25,10 +26,17 @@ export const Modal: React.FC<ModalStoryProps> = props => {
   const {title, caption, noBorderScroll, withTargetRef, ...rest} = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenConfirm, setIsOpenConfirm] = useState<boolean>(false);
   const ref = useRef<HTMLButtonElement>(null);
 
   const onToggle = () => setIsOpen(!isOpen);
   const onClose = () => setIsOpen(false);
+
+  const onOpenConfirm = () => setIsOpenConfirm(true);
+  const onCloseConfirm = () => {
+    setIsOpen(false);
+    setIsOpenConfirm(false);
+  };
 
   const resultProps: ModalProps = {
     ...rest,
@@ -37,6 +45,28 @@ export const Modal: React.FC<ModalStoryProps> = props => {
     isOpen,
     onClose,
   };
+
+  const modalConfirm = (
+    <BaseModal
+      isOpen={isOpenConfirm}
+      onClose={() => setIsOpenConfirm(false)}
+      closeOnOverlay={false}
+      closeOnEscape={false}
+    >
+      <ModalHeader>Вы уверены что хотите "Отправить"?</ModalHeader>
+      <ModalFooter>
+        <ModalFooterContent />
+        <ModalFooterContent>
+          <Button size={SizeTokenValue.Small} variant={ButtonVariant.outlined} onClick={() => setIsOpenConfirm(false)}>
+            Отменить
+          </Button>
+          <Button size={SizeTokenValue.Small} onClick={onCloseConfirm}>
+            Отправить
+          </Button>
+        </ModalFooterContent>
+      </ModalFooter>
+    </BaseModal>
+  );
 
   const modal = (
     <BaseModal {...resultProps}>
@@ -66,11 +96,12 @@ export const Modal: React.FC<ModalStoryProps> = props => {
               Отменить
             </Button>
           )}
-          <Button size={SizeTokenValue.Small} onClick={onToggle}>
+          <Button size={SizeTokenValue.Small} onClick={onOpenConfirm}>
             Отправить
           </Button>
         </ModalFooterContent>
       </ModalFooter>
+      {modalConfirm}
     </BaseModal>
   );
 

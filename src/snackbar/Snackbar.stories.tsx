@@ -121,7 +121,7 @@ const meta = {
     qa: {type: 'string', control: 'text'},
   },
   args: {
-    title: "Snackbar's title",
+    title: 'Snackbars title',
     content: 'Simple message with action',
     closable: true,
   },

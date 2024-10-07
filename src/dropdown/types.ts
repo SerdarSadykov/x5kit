@@ -21,3 +21,5 @@ export type DropdownProps = {
 } & QA &
   Pick<CSSProperties, 'zIndex' | 'height' | 'maxHeight'> &
   Pick<UseFloatingOptions, 'middleware'>;
+
+export type {UseFloatingOptions, UseFloatingReturn};

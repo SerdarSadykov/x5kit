@@ -1,8 +1,7 @@
 import type {CSSProperties, HTMLAttributes, PropsWithChildren, ReactNode, RefObject} from 'react';
 
-import type {Placement, UseFloatingOptions, UseFloatingReturn} from 'dropdown';
-
-import type {SizeTokenValue} from 'theme';
+import type {Placement, SizeTokenValue} from 'theme';
+import type {UseFloatingOptions, UseFloatingReturn} from 'dropdown';
 
 export type ModalHeaderProps = {
   caption?: ReactNode;
