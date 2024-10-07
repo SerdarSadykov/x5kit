@@ -7,6 +7,9 @@ import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
   {
+    ignores: ['dist/*', 'vite.config.mjs', 'eslint.config.mjs'],
+  },
+  {
     languageOptions: {
       parserOptions: {
         ecmaVersion: 6,
@@ -42,15 +45,16 @@ export default [
       'react/display-name': 'off',
       'react/prop-types': 'off',
       'react/jsx-props-no-spreading': 'off',
+      'react/no-unescaped-entities': ['error', {'forbid': ['>', '}']}],
 
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/consistent-type-imports': 'error',
-      "@typescript-eslint/quotes": [
-        "error",
-        "single",
+      '@typescript-eslint/quotes': [
+        'error',
+        'single',
         {
-          "avoidEscape": true,
-          "allowTemplateLiterals": true
+          'avoidEscape': true,
+          'allowTemplateLiterals': true
         }
       ],
 
