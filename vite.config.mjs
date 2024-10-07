@@ -30,14 +30,30 @@ export default defineConfig({
     rollupOptions: {
       input,
 
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        '@emotion/react',
+        '@emotion/styled',
+        '@floating-ui/react',
+        'date-fns',
+        'notistack',
+        'react-window',
+      ],
       output: {
         entryFileNames: '[name].js',
         assetFileNames: 'assets/[name][extname]',
         globals: {
-          react: 'React',
-          'react-dom': 'React-dom',
+          'react': 'react',
+          'react-dom': 'react-dom',
           'react/jsx-runtime': 'react/jsx-runtime',
+          '@emotion/react': '@emotion/react',
+          '@emotion/styled': '@emotion/styled',
+          '@floating-ui/react': '@floating-ui/react',
+          'date-fns': 'date-fns',
+          'notistack': 'notistack',
+          'react-window': 'react-window',
         },
       },
     },

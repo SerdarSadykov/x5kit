@@ -1,10 +1,12 @@
 {
-  "name": "x5join-react",
+  "name": "@x5join/react",
   "version": "0.0.0",
   "private": true,
   "description": "https://www.figma.com/design/c0xn3Ib5FZSfPcnfsOIrmy4i/Join-Web%3A-component",
   "type": "module",
-  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -63,6 +65,16 @@
     "notistack": "^3.0.1",
     "react-dropzone": "^14.2.3",
     "react-textarea-autosize": "^8.5.3",
+    "react-window": "^1.8.10"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@floating-ui/react": "^0.26.19",
+    "date-fns": "^3.6.0",
+    "notistack": "^3.0.1",
     "react-window": "^1.8.10"
   }
 }
