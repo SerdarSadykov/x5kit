@@ -94,7 +94,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
     type: props.type,
     onInput: props.onChange,
 
-    'data-qa': `${qa}-maskedinput`,
+    'data-qa': qa,
   };
 
   return (
@@ -115,7 +115,7 @@ const BasicField: React.FC<InputInternalProps> = props => {
     ...inputProps,
     ...style,
 
-    'data-qa': `${qa}-input`,
+    'data-qa': qa,
   };
 
   const child = <FieldComponent ref={ref} {...componentProps} />;

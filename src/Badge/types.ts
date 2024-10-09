@@ -1,6 +1,7 @@
 import type {HTMLAttributes} from 'react';
 import type {CSSObject} from '@emotion/react';
 
+import type {QA} from 'common';
 import type {SizeTokenValue} from 'theme';
 
 export enum BadgeVariant {
@@ -18,7 +19,7 @@ export type BadgeStyles = {
   color?: string;
 } & Pick<CSSObject, 'backgroundColor' | 'borderColor'>;
 
-export type BadgeProps = Partial<BadgeStyles> & HTMLAttributes<HTMLDivElement>;
+export type BadgeProps = Partial<BadgeStyles> & QA & HTMLAttributes<HTMLDivElement>;
 
 export enum BadgeDotSize {
   xs = 'xs',
@@ -28,4 +29,5 @@ export enum BadgeDotSize {
 }
 export type BadgeDotProps = {
   size: BadgeDotSize;
-} & Omit<BadgeProps, 'children' | 'size' | 'color'>;
+} & QA &
+  Omit<BadgeProps, 'children' | 'size' | 'color'>;

@@ -59,7 +59,7 @@ const Container = styled.div<BadgeDotProps & Required<Pick<BadgeDotProps, 'size'
 `;
 
 export const BadgeDot: React.FC<BadgeDotProps> = props => {
-  const {size = BadgeDotSize.m, ...rest} = props;
+  const {size = BadgeDotSize.m, qa = 'badge-dot', ...rest} = props;
 
-  return <Container {...rest} size={size} />;
+  return <Container data-qa={qa} {...rest} size={size} />;
 };

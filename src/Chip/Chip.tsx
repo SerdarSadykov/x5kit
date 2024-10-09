@@ -131,6 +131,7 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
     maxLength = 25,
     size = SizeTokenValue.Medium,
     variant = ChipVariant.filled,
+    qa = 'chip',
   } = props;
 
   const newProps = {maxLength, size, variant, ...props};
@@ -149,6 +150,8 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>((props, ref) => {
     target: props.target,
 
     onClick: props.disabled ? undefined : onClick,
+
+    'data-qa': qa,
   };
 
   return (

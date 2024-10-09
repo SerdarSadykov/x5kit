@@ -85,6 +85,7 @@ const Container = styled.div<BadgeStyles>`
 
 export const Badge: React.FC<BadgeProps> = props => {
   const {
+    qa = 'badge',
     variant = BadgeVariant.red,
     size = SizeTokenValue.Medium,
     borderColor = theme.colors.grey[10],
@@ -94,5 +95,5 @@ export const Badge: React.FC<BadgeProps> = props => {
 
   const containerProps = {size, borderColor, variant, ...rest};
 
-  return <Container {...containerProps} />;
+  return <Container data-qa={qa} {...containerProps} />;
 };

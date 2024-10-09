@@ -85,6 +85,11 @@ describe('Calendar', () => {
     fireEvent.click(screen.getByTestId('calendar-block-0-header-next'));
 
     expect(screen.getByTestId('calendar-block-0-header-next').hasAttribute('disabled')).toBeTruthy();
+
+    comp.rerender(<Calendar {...props} blocks={2} />);
+
+    expect(screen.getByTestId('calendar-block-0-header-month').textContent).toBe('апрель');
+    expect(screen.getByTestId('calendar-block-1-header-month').textContent).toBe('май');
   });
 
   it('value', () => {

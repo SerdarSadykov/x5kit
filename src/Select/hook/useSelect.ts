@@ -94,7 +94,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
     name,
     disabled,
     readOnly,
-    qa,
+    qa: `${qa}-input`,
   };
 
   return {ref, inputProps, context, dropdownProps, components};

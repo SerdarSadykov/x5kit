@@ -1,13 +1,13 @@
-import {expect, it, describe, vi, beforeAll, beforeEach, afterEach} from 'vitest';
+import {expect, it, describe, vi, beforeEach, afterEach} from 'vitest';
 
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 
 import {SelectContext} from 'Select/Select';
-import {containsFilter} from 'Select/Filters';
+import {SelectState} from 'Select/types';
 
 import {SelectInput} from '.';
 
-import {SelectState, type SelectContextProps, type SelectOption} from 'Select/types';
+import type {SelectContextProps, SelectOption} from 'Select/types';
 
 const options: SelectOption[] = [
   {label: 'Andreev', value: 'davletshin', disabled: false, tooltip: 'Вот такой тултип'},
@@ -33,7 +33,7 @@ describe('SelectInput', () => {
 
     const comp = render(
       <SelectContext.Provider value={context}>
-        <SelectInput qa="select" name="select" />
+        <SelectInput qa="select-input" name="select" />
       </SelectContext.Provider>
     );
 
@@ -45,7 +45,7 @@ describe('SelectInput', () => {
 
     comp.rerender(
       <SelectContext.Provider value={context}>
-        <SelectInput qa="select" name="select" />
+        <SelectInput qa="select-input" name="select" />
       </SelectContext.Provider>
     );
 
@@ -76,7 +76,7 @@ describe('SelectInput', () => {
 
     comp.rerender(
       <SelectContext.Provider value={context}>
-        <SelectInput qa="select" name="select" />
+        <SelectInput qa="select-input" name="select" />
       </SelectContext.Provider>
     );
 
@@ -97,7 +97,7 @@ describe('SelectInput', () => {
 
     const comp = render(
       <SelectContext.Provider value={context}>
-        <SelectInput qa="select" name="select" />
+        <SelectInput qa="select-input" name="select" />
       </SelectContext.Provider>
     );
 
@@ -125,7 +125,7 @@ describe('SelectInput', () => {
 
     comp.rerender(
       <SelectContext.Provider value={context}>
-        <SelectInput qa="select" name="select" />
+        <SelectInput qa="select-input" name="select" />
       </SelectContext.Provider>
     );
 

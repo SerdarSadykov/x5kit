@@ -53,7 +53,7 @@ export const InputChips: InputInputComponent = props => {
 
     readOnly: isReadOnly,
 
-    'data-qa': `${props.qa}-input`,
+    'data-qa': props.qa,
   };
 
   return (

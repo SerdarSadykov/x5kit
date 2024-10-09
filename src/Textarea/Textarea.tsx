@@ -131,6 +131,8 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>((props, ref) =
 
     value: props.value,
     onInput: props.onChange,
+
+    'data-qa': props.qa ?? 'textarea',
   } as TextareaProps;
 
   return (
