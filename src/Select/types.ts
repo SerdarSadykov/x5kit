@@ -21,7 +21,7 @@ export type SelectOption = {
 export type SelectItemProps = {
   option: SelectOption;
   checked: boolean; // isActive
-} & Pick<SelectContextProps, 'onChange' | 'setIsOpen'> &
+} & Pick<SelectContextProps, 'onChange' | 'setIsOpen' | 'name'> &
   Pick<HTMLAttributes<HTMLDivElement>, 'style'>;
 
 export type SelectItemsProps = {
@@ -31,6 +31,7 @@ export type SelectItemsProps = {
   Pick<
     SelectContextProps,
     | 'state'
+    | 'name'
     | 'value'
     | 'onChange'
     | 'multiple'
@@ -96,12 +97,12 @@ type CommonProps<T extends LastResult = LastResult> = {
 
   multiple?: boolean;
   showChips?: number;
-  noWrap?: boolean;
+  wrap?: boolean;
 
   filter?: SelectFilter<T>;
 
   virtualize?: VariableSizeListProps | boolean;
-} & Pick<InputProps, 'disabled' | 'readOnly'> &
+} & Pick<InputProps, 'disabled' | 'readOnly' | 'name'> &
   Pick<CSSObject, 'whiteSpace'>;
 
 export type SelectProps<T extends LastResult = LastResult> = {

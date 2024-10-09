@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
 
 import {ArrowNavigationBackward, ArrowNavigationForward} from 'icons';
 
@@ -9,6 +8,8 @@ import CheckboxTreeStory from 'CheckboxTree/CheckboxTree.stories';
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
 import {header, footer} from './SelectStory';
+
+import type {Meta, StoryObj} from '@storybook/react';
 import type {
   LastResult,
   LoadMore,
@@ -211,7 +212,7 @@ const meta = {
       control: 'boolean',
     },
 
-    noWrap: {
+    wrap: {
       type: 'boolean',
       control: 'boolean',
       description: 'Не переносить текст',

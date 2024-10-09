@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import {Label, FieldComponent} from 'Input';
 import {SelectContext} from 'Select/Select';
 
-import type {InputProps} from 'Input';
+import type {InputInputComponent} from 'Input';
 import type {SelectProps} from 'Select/types';
 
 const Container = styled.div<Pick<SelectProps, 'isOpen'>>`
@@ -29,7 +29,7 @@ const DivFieldComponent = styled(FieldComponent)`
   padding-top: 19px;
 `;
 
-export const WrapInput: InputProps['inputComponent'] = props => {
+export const WrapInput: InputInputComponent = props => {
   const divProps = {
     ...props.style,
     ...props.inputProps,
@@ -39,6 +39,8 @@ export const WrapInput: InputProps['inputComponent'] = props => {
 
     onBlur: undefined,
     tabIndex: 0,
+
+    'data-qa': `${props.qa}-input-div`,
   };
 
   return (
@@ -49,7 +51,7 @@ export const WrapInput: InputProps['inputComponent'] = props => {
   );
 };
 
-export const WrapInputEditable: InputProps['inputComponent'] = props => {
+export const WrapInputEditable: InputInputComponent = props => {
   const {isOpen} = useContext(SelectContext);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -59,6 +61,8 @@ export const WrapInputEditable: InputProps['inputComponent'] = props => {
     ...props.inputProps,
 
     onFocus: undefined,
+
+    'data-qa': `${props.qa}-input`,
   };
 
   const divProps = {
@@ -70,6 +74,8 @@ export const WrapInputEditable: InputProps['inputComponent'] = props => {
 
     onBlur: undefined,
     tabIndex: isOpen ? undefined : 0,
+
+    'data-qa': `${props.qa}-input-div`,
   };
 
   useEffect(() => {

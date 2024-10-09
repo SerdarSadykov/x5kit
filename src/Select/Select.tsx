@@ -37,8 +37,8 @@ export const SingleSelect = forwardRef<HTMLInputElement, SingleSelectProps>((pro
   const [value, setValue] = useState<SelectMultipleValue>([]);
 
   const onChange = useCallback<SelectListOnChange>(
-    (value, target, event) => {
-      props.onChange(value[0], target, event);
+    (newValue, ...rest) => {
+      props.onChange(newValue[0], ...rest);
     },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -4,10 +4,12 @@ import type {MaskInputOptions} from 'maska';
 import type {CSSObject} from '@emotion/react';
 
 import type {SizeTokenValue} from 'theme';
+import type {QA} from 'common';
 
 type InputBaseProps<T> = Pick<
   InputHTMLAttributes<T>,
   | 'type'
+  | 'name'
   | 'disabled'
   | 'readOnly'
   | 'required'
@@ -20,6 +22,8 @@ type InputBaseProps<T> = Pick<
   | 'onChange'
   | 'tabIndex'
 >;
+
+export type InputInputComponent<T = HTMLInputElement> = React.FC<InputInternalProps<T>>;
 
 export type InputProps<T = HTMLInputElement> = {
   size?: SizeTokenValue;
@@ -47,13 +51,14 @@ export type InputProps<T = HTMLInputElement> = {
   containerRef?: Ref<HTMLDivElement>;
 
   inputProps?: InputHTMLAttributes<T> & {ref?: RefCallback<T>};
-  inputComponent?: React.FC<InputInternalProps<T>>;
+  inputComponent?: InputInputComponent<T>;
 
   // forbidTyping?: boolean; - readonly
   // textError?: string - error;
   // isAbsoluteCaption?: boolean;
   // autoFocus?: boolean;
-} & InputBaseProps<T> &
+} & QA &
+  InputBaseProps<T> &
   Pick<CSSObject, 'width'>;
 
 export type InputStyles = {

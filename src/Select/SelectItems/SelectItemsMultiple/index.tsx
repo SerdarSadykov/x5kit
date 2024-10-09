@@ -142,6 +142,7 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
     opened,
     onChange,
     options: props.options,
+    name: props.name,
     value: props.value,
   };
 

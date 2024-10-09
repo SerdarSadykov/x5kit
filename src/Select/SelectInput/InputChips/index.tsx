@@ -8,7 +8,7 @@ import {SelectContext} from 'Select/Select';
 
 import {Chips} from './Chips';
 
-import type {InputProps} from 'Input';
+import type {InputInputComponent} from 'Input';
 
 const Container = styled.div`
   position: relative;
@@ -42,7 +42,7 @@ const InputComponent = styled.input`
   ${theme.typography.p1}
 `;
 
-export const InputChips: InputProps['inputComponent'] = props => {
+export const InputChips: InputInputComponent = props => {
   const isReadOnly = !useContext(SelectContext).filter;
 
   const componentProps = {...props.style, isReadOnly};
@@ -52,6 +52,8 @@ export const InputChips: InputProps['inputComponent'] = props => {
     ...props.inputProps,
 
     readOnly: isReadOnly,
+
+    'data-qa': `${props.qa}-input`,
   };
 
   return (

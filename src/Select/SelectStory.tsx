@@ -1,3 +1,4 @@
+/* v8 ignore next 100 lines */
 // for Select.stories.tsx
 
 import styled from '@emotion/styled';

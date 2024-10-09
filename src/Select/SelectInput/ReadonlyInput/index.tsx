@@ -11,9 +11,9 @@ import {useReadonlyInput} from './hook';
 import type {InputProps} from 'Input';
 
 export const ReadonlyInput = forwardRef<HTMLInputElement, Omit<InputProps, 'value' | 'onChange'>>((props, ref) => {
-  const {inputProps, multiple, noWrap} = useReadonlyInput(props);
+  const {inputProps, multiple, wrap} = useReadonlyInput(props);
 
-  let inputComponent = noWrap ? WrapInput : NoWrapInput;
+  let inputComponent = wrap ? WrapInput : NoWrapInput;
 
   if (multiple) {
     inputComponent = InputChips;

@@ -11,9 +11,9 @@ import {useEditableInput} from './hook';
 import type {InputProps} from 'Input';
 
 export const EditableInput = forwardRef<HTMLInputElement, Omit<InputProps, 'value' | 'onChange'>>((props, ref) => {
-  const {inputProps, multiple, noWrap} = useEditableInput(props);
+  const {inputProps, multiple, wrap} = useEditableInput(props);
 
-  let inputComponent = noWrap ? WrapInputEditable : NoWrapInput;
+  let inputComponent = wrap ? WrapInputEditable : NoWrapInput;
 
   if (multiple) {
     inputComponent = InputChips;

@@ -139,6 +139,7 @@ export const useInput = (props: InputProps): InputInternalProps => {
     inputProps: {
       ...props.inputProps,
 
+      name: props.name,
       value: props.value ?? '',
       type: props.type,
       disabled: props.disabled,

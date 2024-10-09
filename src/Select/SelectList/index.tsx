@@ -64,6 +64,7 @@ export const SelectList: React.FC<SelectListProps> = ({components}) => {
     state,
     options,
     clientWidth,
+    name: context.name,
     value: context.value,
     onChange: context.onChange,
     multiple: context.multiple,

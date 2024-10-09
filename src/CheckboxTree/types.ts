@@ -1,4 +1,4 @@
-import type {ChangeEvent, HTMLAttributes, ReactNode} from 'react';
+import type {ChangeEvent, HTMLAttributes, InputHTMLAttributes, ReactNode} from 'react';
 
 import type {QA} from 'common';
 import type {TooltipProps} from 'Tooltip';
@@ -37,4 +37,5 @@ export type CheckboxTreeProps<T extends CheckboxTreeOption = CheckboxTreeOption>
   // searchStr?: string; removed
   // showNotFound?: boolean; removed
 } & QA &
-  Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
+  Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> &
+  Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>;

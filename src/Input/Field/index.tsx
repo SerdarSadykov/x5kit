@@ -59,7 +59,7 @@ const Placeholder = styled.div<InputStyles>`
 `;
 
 const MaskedField: React.FC<InputInternalProps> = props => {
-  const {mask, value, style, inputProps} = props;
+  const {mask, value, style, inputProps, qa} = props;
 
   const maska = useRef<MaskInput>();
 
@@ -93,6 +93,8 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 
     type: props.type,
     onInput: props.onChange,
+
+    'data-qa': `${qa}-maskedinput`,
   };
 
   return (
@@ -104,7 +106,7 @@ const MaskedField: React.FC<InputInternalProps> = props => {
 };
 
 const BasicField: React.FC<InputInternalProps> = props => {
-  const {value, style, inputProps} = props;
+  const {value, style, inputProps, qa} = props;
 
   const [isOverflown, setIsOverflown] = useState<boolean>(false);
   const ref = useRef<HTMLInputElement>(null);
@@ -112,6 +114,8 @@ const BasicField: React.FC<InputInternalProps> = props => {
   const componentProps = {
     ...inputProps,
     ...style,
+
+    'data-qa': `${qa}-input`,
   };
 
   const child = <FieldComponent ref={ref} {...componentProps} />;

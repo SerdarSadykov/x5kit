@@ -5,7 +5,7 @@ import {Item} from './Item';
 import type {CheckboxTreeOptionValue, CheckboxTreeProps} from './types';
 
 export const CheckboxTree = forwardRef<HTMLDivElement, CheckboxTreeProps>((props, ref) => {
-  const {options, disabled, readOnly, onChange, value = []} = props;
+  const {options, disabled, readOnly, name, onChange, value = []} = props;
 
   const [openedValue, toggleOpenedValue] = useState<CheckboxTreeOptionValue[]>([]);
 
@@ -32,7 +32,7 @@ export const CheckboxTree = forwardRef<HTMLDivElement, CheckboxTreeProps>((props
   };
 
   const child = options.map(option => (
-    <Item key={option.value} option={{disabled, readOnly, ...option}} {...itemProps} />
+    <Item key={option.value} option={{disabled, readOnly, name, ...option}} {...itemProps} />
   ));
 
   return <div ref={ref}>{child}</div>;

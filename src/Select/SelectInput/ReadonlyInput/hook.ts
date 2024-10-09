@@ -8,7 +8,7 @@ import type {FocusEventHandler} from 'react';
 
 export const useReadonlyInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
   const context = useContext(SelectContext);
-  const {value, options, multiple, noWrap} = context;
+  const {value, options, multiple, wrap} = context;
 
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -45,5 +45,5 @@ export const useReadonlyInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     setInputValue(multiple ? '' : getValueLabel(options, value));
   }, [multiple, value, options]);
 
-  return {inputProps, multiple, noWrap};
+  return {inputProps, multiple, wrap};
 };

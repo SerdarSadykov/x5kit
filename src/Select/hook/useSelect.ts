@@ -14,12 +14,13 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
   const [isOpenValue, setIsOpenValue] = useState<boolean>(false);
 
   const {
+    name,
     value,
     onChange,
     multiple,
     disabled,
     readOnly,
-    noWrap,
+    wrap,
     showChips,
     filter,
     virtualize,
@@ -68,13 +69,14 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
 
     filtred,
 
+    name,
     value,
     onChange,
     onClear,
     multiple,
     disabled,
     readOnly,
-    noWrap,
+    wrap,
     showChips,
     filter,
     isOpen,
@@ -89,6 +91,7 @@ export const useSelect = (props: SelectProps, baseRef: ForwardedRef<HTMLInputEle
   const inputProps = {
     ...baseInputProps,
 
+    name,
     disabled,
     readOnly,
     qa,

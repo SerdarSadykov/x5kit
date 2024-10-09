@@ -9,7 +9,7 @@ import type {FocusEventHandler} from 'react';
 
 export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) => {
   const context = useContext(SelectContext);
-  const {value, options, filterOptions, setState, filter, multiple, noWrap, isOpen} = context;
+  const {value, options, filterOptions, setState, filter, multiple, wrap, isOpen} = context;
 
   const [inputValue, setInputValue] = useState('');
 
@@ -96,5 +96,5 @@ export const useEditableInput = (props: Omit<InputProps, 'value' | 'onChange'>) 
     setInputValue(multiple ? '' : getValueLabel(options, value));
   }, [multiple, value, options, isOpen]);
 
-  return {inputProps, multiple, noWrap};
+  return {inputProps, multiple, wrap};
 };

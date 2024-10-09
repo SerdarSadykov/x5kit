@@ -62,10 +62,11 @@ const Container = styled.label<Pick<CheckboxProps, 'checked' | 'disabled'>>`
 
 const SelectItem = memo<SelectItemProps>(props => {
   const {
+    name,
     style,
     checked,
     option,
-    option: {name, label, value, disabled, children, tooltip},
+    option: {label, value, disabled, children, tooltip},
   } = props;
 
   const onChange: CheckboxProps['onChange'] = e => {
@@ -79,7 +80,14 @@ const SelectItem = memo<SelectItemProps>(props => {
 
   const containerProps = {style, checked, disabled};
 
-  const inputProps = {name, value, checked, onChange, type: 'radio'};
+  const inputProps = {
+    value,
+    checked,
+    onChange,
+
+    type: 'radio',
+    name: name ? `${name}-option` : undefined,
+  };
 
   const child = (
     <Container {...containerProps}>
@@ -110,6 +118,7 @@ export const Item: React.FC<ItemProps> = ({data, index, style}) => {
       key={option.value}
       option={option}
       style={style}
+      name={data.name}
       checked={data.value.includes(option.value)}
       onChange={data.onChange}
       setIsOpen={data.setIsOpen}
