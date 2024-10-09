@@ -1,7 +1,7 @@
 import {useContext} from 'react';
 import {startOfMonth, startOfToday, startOfWeek} from 'date-fns';
 
-import {CalendarContext} from 'Calendar/Calendar';
+import {CalendarContext} from 'Calendar/CalendarContext';
 import {BlockContext} from 'Calendar/Block';
 
 import {getDayProps} from './Day';

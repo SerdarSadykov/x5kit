@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import {getQAAttribute} from 'common';
 import {theme} from 'theme';
 
 import {CalendarMode} from 'Calendar/types';
@@ -101,17 +102,21 @@ const Container = styled.div<Omit<DayProps, 'date' | 'tooltipContent'>>`
   }}
 `;
 
-export const getDayComponent = (context: CalendarContextProps) => {
-  return ({date, tooltipContent, ...props}: DayProps) => {
-    const {
-      mode,
-      onChange,
-      hoverDate,
-      setHoverDate,
-      value: [rangeStart, rangetEnd],
-    } = context;
+export const getDayComponent = (context: CalendarContextProps, qa: string) => {
+  const {
+    mode,
+    onChange,
+    hoverDate,
+    setHoverDate,
+    value: [rangeStart, rangetEnd],
+  } = context;
 
-    const hasHover = mode === CalendarMode.range && (!rangeStart || !rangetEnd);
+  const hasHover = mode === CalendarMode.range && (!rangeStart || !rangetEnd);
+
+  const getQA = getQAAttribute(qa);
+
+  return ({date, tooltipContent, ...props}: DayProps) => {
+    const dayValue = date.getDate();
 
     const events = {
       onClick: () => {
@@ -134,8 +139,8 @@ export const getDayComponent = (context: CalendarContextProps) => {
     };
 
     const child = (
-      <Container key={date.getTime()} {...props} {...events}>
-        {date.getDate()}
+      <Container key={date.getTime()} data-qa={getQA(dayValue, props)} {...props} {...events}>
+        {dayValue}
       </Container>
     );
 

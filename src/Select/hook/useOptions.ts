@@ -1,4 +1,6 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
+
+import {useUpdateEffect} from 'common';
 
 import {SelectState} from '../types';
 
@@ -10,7 +12,7 @@ export const useOptions = (
   onLoadMore: SelectProps['onLoadMore']
 ) => {
   const [state, setStateValue] = useState<SelectState>(SelectState.default);
-  const [options, setOptions] = useState<SelectContextProps['options']>([]);
+  const [options, setOptions] = useState<SelectContextProps['options']>(baseOptions);
   const [filtred, setFiltred] = useState<SelectContextProps['options']>([]);
 
   const lastQuery = useRef<string>('');
@@ -120,7 +122,7 @@ export const useOptions = (
       });
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setOptions(baseOptions);
 
     lastMoreResult.current = undefined;

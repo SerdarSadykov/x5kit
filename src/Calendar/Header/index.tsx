@@ -6,8 +6,9 @@ import {getQAAttribute} from 'common';
 import {Tooltip} from 'Tooltip';
 import {ChevronLeft, ChevronRight} from 'icons';
 import {Placement, SizeTokenValue, SpaceTokenName, theme} from 'theme';
-import {CalendarContext} from 'Calendar';
-import {BlockContext} from 'Calendar/Block';
+
+import {CalendarContext} from '../CalendarContext';
+import {BlockContext} from '../Block';
 
 import {HeaderDate} from './HeaderDate';
 import {HeaderDateDropdown} from './HeaderDateDropdown';

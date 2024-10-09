@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 
 import {getQAAttribute} from 'common';
 import {theme} from 'theme';
-import {CalendarContext} from 'Calendar/Calendar';
+
+import {CalendarContext} from 'Calendar/CalendarContext';
 import {BlockContext} from 'Calendar/Block';
 
 import {HeaderDateType} from '../types';

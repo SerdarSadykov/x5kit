@@ -7,7 +7,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
   {
-    ignores: ['dist/*', 'vite.config.mjs', 'eslint.config.mjs'],
+    ignores: ['dist/*', 'vite.config.mjs', 'eslint.config.mjs', 'test-setup.js'],
   },
   {
     languageOptions: {

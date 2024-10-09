@@ -96,7 +96,7 @@ const DropdownListItem: React.FC<DropdownListItemProps> = ({onChange, item, isSe
 };
 
 export const Dropdown: React.FC<DropdownProps> = props => {
-  const {items, value, isOpen, tooltip, width} = props;
+  const {items, value, isOpen, tooltip, width, qa} = props;
   const {floating, isTooltipOpen, onToggle, onClickContainer, onClickItem} = useDropdown(props);
 
   const listItems = items.map(item => (
@@ -106,7 +106,7 @@ export const Dropdown: React.FC<DropdownProps> = props => {
   const Chevron = isOpen ? ArrowUp : ArrowDown;
 
   return (
-    <Container onClick={onClickContainer}>
+    <Container data-qa={qa} onClick={onClickContainer}>
       <Tooltip placement={Placement.bottom} content={tooltip} isOpen={isTooltipOpen}>
         <DropdownButton ref={floating.refs.setReference} isOpen={isOpen} onClick={onToggle}>
           {value.name}

@@ -1,9 +1,9 @@
 import {useContext} from 'react';
 import styled from '@emotion/styled';
 
-import {CalendarContext} from 'Calendar';
-
 import {theme} from 'theme';
+
+import {CalendarContext} from '../CalendarContext';
 
 import type {Day} from 'date-fns';
 

@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import {addMonths} from 'date-fns';
 
 import {getQAAttribute} from 'common';
-import {CalendarContext} from 'Calendar';
 
 import {theme} from 'theme';
 
+import {CalendarContext} from '../CalendarContext';
 import {WeekDays} from '../WeekDays';
 import {Header} from '../Header';
 import {Days} from '../Days';
@@ -56,11 +56,11 @@ export const Block: React.FC<BlockProps> = ({qa, blockNumber}) => {
   };
 
   return (
-    <Container data-qa={getQA('block-1')}>
+    <Container data-qa={getQA()}>
       <BlockContext.Provider value={blockContext}>
         <Header qa={getQA('header')} />
         <WeekDays qa={getQA('week')} />
-        <Days />
+        <Days qa={getQA('days')} />
       </BlockContext.Provider>
     </Container>
   );

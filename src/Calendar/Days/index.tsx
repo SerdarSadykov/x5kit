@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import {getDayComponent} from './Day';
 import {useDays} from './hook';
 
+import type {RequiredQA} from 'common';
 import type {DayProps} from './Day';
 
 export * from './utils';
@@ -17,10 +18,10 @@ const Week = styled.div`
   align-items: flex-start;
 `;
 
-export const Days: React.FC = () => {
+export const Days: React.FC<RequiredQA> = ({qa}) => {
   const {weeks, context} = useDays();
 
-  const getWeek = (week: DayProps[], indx: number) => <Week key={indx}>{week.map(getDayComponent(context))}</Week>;
+  const getWeek = (week: DayProps[], indx: number) => <Week key={indx}>{week.map(getDayComponent(context, qa))}</Week>;
 
-  return <Container>{weeks.map(getWeek)}</Container>;
+  return <Container data-qa={qa}>{weeks.map(getWeek)}</Container>;
 };

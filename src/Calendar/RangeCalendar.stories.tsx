@@ -1,10 +1,11 @@
 import {useEffect, useState} from 'react';
-import type {Meta} from '@storybook/react';
 
-import type {DayProps} from './Days';
 import calendarMeta from './Calendar.stories';
 import {RangeCalendar as BaseRangeCalendar} from './Calendar';
-import type {RangeCalendarProps, RangeCalendarValue} from './types';
+import {CalendarFreezeRange, type RangeCalendarProps, type RangeCalendarValue} from './types';
+
+import type {Meta} from '@storybook/react';
+import type {DayProps} from './Days';
 
 type RangeComponentProps = {
   valueFrom: number;
@@ -75,7 +76,14 @@ export const RangeCalendar: React.FC<
     onChangeViewDate: setViewDate,
   };
 
-  return <BaseRangeCalendar {...calendarProps} />;
+  return (
+    <div>
+      <div style={{marginBottom: 16}}>
+        <BaseRangeCalendar {...calendarProps} />
+      </div>
+      <div>[{value?.map(val => val?.toLocaleString() ?? 'undefined').join(', ')}]</div>
+    </div>
+  );
 };
 
 const valueTo = new Date();
@@ -105,6 +113,13 @@ const meta = {
       type: 'Date' as never,
       control: 'date',
       description: 'Окончание диапазона',
+    },
+
+    freezeRange: {
+      type: 'CalendarFreezeRange' as never,
+      control: 'select',
+      options: [CalendarFreezeRange.start, CalendarFreezeRange.end],
+      description: 'Фиксация границ диапазона',
     },
   },
   args: {

@@ -1,15 +1,17 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 import {useEffect, useState} from 'react';
-import type {Meta} from '@storybook/react';
 
 import {ArrowNavigationBackward} from 'icons';
-import type {CalendarProps, CalendarValue, DayProps} from 'Calendar';
 
 import inputStory from 'Input/Input.stories';
 import calendarStory from 'Calendar/Calendar.stories';
 
 import {Datepicker as BaseDatepicker} from './Datepicker';
+
+import type {Meta} from '@storybook/react';
+import type {CalendarProps, CalendarValue, DayProps} from 'Calendar';
+
 import type {DatepickerProps} from './types';
 
 type DatepickerStoryProps = {

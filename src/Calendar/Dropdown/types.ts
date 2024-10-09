@@ -1,3 +1,5 @@
+import type {QA} from 'common';
+
 export type DropdownItem = {
   name: string;
   value: number;
@@ -22,7 +24,8 @@ export type DropdownProps = {
   value: DropdownItem;
   onChange: (newItem: DropdownItem) => void;
   tooltip: string;
-} & DropdownStyle &
+} & QA &
+  DropdownStyle &
   DropdownOpenProps;
 
 export type ListItemStyle = {

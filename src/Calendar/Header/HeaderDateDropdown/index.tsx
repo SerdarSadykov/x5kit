@@ -20,7 +20,7 @@ export const HeaderDateDropdown: React.FC<RequiredQA> = props => {
   const getDropdownProps = useHeaderDateDropdown(props);
 
   return (
-    <Center>
+    <Center data-qa={props.qa}>
       <Dropdown {...monthsProps} {...getDropdownProps(HeaderDateType.month)} />
       <Dropdown {...yearsProps} {...getDropdownProps(HeaderDateType.year)} />
     </Center>

@@ -3,13 +3,13 @@ import {useContext, useState} from 'react';
 import {setMonth, setYear} from 'date-fns';
 
 import {getQAAttribute} from 'common';
-import {CalendarContext} from 'Calendar';
 
+import {CalendarContext} from 'Calendar/CalendarContext';
 import {BlockContext} from 'Calendar/Block';
 
-import type {DropdownItem, DropdownOpenProps, DropdownProps} from 'Calendar/Dropdown/types';
-import type {RequiredQA} from 'common';
 import type {Month} from 'date-fns';
+import type {RequiredQA} from 'common';
+import type {DropdownItem, DropdownOpenProps, DropdownProps} from 'Calendar/Dropdown/types';
 
 import type {HeaderDateType} from '../types';
 

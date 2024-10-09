@@ -1,25 +1,18 @@
-import {createContext, useContext} from 'react';
+import {useContext} from 'react';
 import styled from '@emotion/styled';
 
 import {getQAAttribute, startOfDay} from 'common';
 import {theme} from 'theme';
 
+import {CalendarContext} from './CalendarContext';
 import {Block} from './Block';
 
 import {CalendarMode} from './types';
 import {useCalendar} from './hook';
 
-import type {
-  CalendarContextProps,
-  BaseCalendarProps,
-  CalendarProps,
-  RangeCalendarProps,
-  RangeCalendarValue,
-} from './types';
+import type {BaseCalendarProps, CalendarProps, RangeCalendarProps, RangeCalendarValue} from './types';
 import type {RequiredQA} from 'common';
 import type {ReactNode} from 'react';
-
-export const CalendarContext = createContext<CalendarContextProps>({} as never);
 
 const Container = styled.div`
   display: flex;

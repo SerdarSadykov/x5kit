@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
-import type {ArgTypes, Meta} from '@storybook/react';
 
 import {Calendar as BaseCalendar} from './Calendar';
+
+import type {ArgTypes, Meta} from '@storybook/react';
 import type {CalendarProps, CalendarValue} from './types';
 import type {DayProps} from './Days';
 
@@ -63,7 +64,14 @@ export const Calendar: React.FC<CalendarStoryProps & Omit<CalendarProps, keyof C
     onChangeViewDate: setViewDate,
   };
 
-  return <BaseCalendar {...calendarProps} />;
+  return (
+    <div>
+      <div style={{marginBottom: 16}}>
+        <BaseCalendar {...calendarProps} />
+      </div>
+      <div>{value?.toLocaleString()}</div>
+    </div>
+  );
 };
 
 const commonArgTypes: ArgTypes = {

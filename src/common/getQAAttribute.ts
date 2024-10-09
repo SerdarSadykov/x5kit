@@ -5,15 +5,19 @@ export type QA = {
 export type RequiredQA = Required<QA>;
 
 export const getQAAttribute = (rootName: string) => {
-  return (subName?: string, state?: string[]): string => {
+  return (subName?: string | number, state?: Record<string, boolean>): string => {
     let name = rootName;
 
     if (subName) {
       name += `-${subName}`;
     }
 
-    if (state?.length) {
-      name += ':' + state.join(':');
+    if (state) {
+      for (const item in state) {
+        if (state[item] === true) {
+          name += ':' + item;
+        }
+      }
     }
 
     return name;
