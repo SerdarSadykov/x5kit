@@ -2,9 +2,9 @@ import {expect, it, describe} from 'vitest';
 
 import {render, screen} from '@testing-library/react';
 
-import {Badge, BadgeDot} from '.';
-
 import {BadgeDotSize} from './types';
+
+import {Badge, BadgeDot} from '.';
 
 describe('Badge', () => {
   it('Badge', async () => {

@@ -3,9 +3,10 @@ import {expect, it, describe, vi} from 'vitest';
 
 import {fireEvent, render, renderHook, screen} from '@testing-library/react';
 
-import {Calendar} from './Calendar';
 import {useCalendar} from './hook';
 import {CalendarMode} from './types';
+
+import {Calendar} from '.';
 
 import type {BaseCalendarValue, CalendarProps} from './types';
 
