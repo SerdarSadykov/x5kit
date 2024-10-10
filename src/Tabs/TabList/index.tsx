@@ -2,16 +2,27 @@ import {createContext, forwardRef, useContext} from 'react';
 
 import {Tabs} from '../Tabs';
 
-import type {TabListProps} from '../types';
+import type {PropsWithChildren} from 'react';
+import type {TabListProps, TabPanelProps, TabContextProps} from '../types';
 
-export const TabContext = createContext<string | undefined>(undefined);
+const TabContextValue = createContext<TabContextProps>({} as TabContextProps);
+
+export const TabContext: React.FC<TabContextProps & PropsWithChildren> = ({children, ...value}) => {
+  return <TabContextValue.Provider value={value}>{children}</TabContextValue.Provider>;
+};
 
 export const TabList = forwardRef<HTMLDivElement, TabListProps>((props, ref) => {
-  const curValue = useContext(TabContext);
+  const context = useContext(TabContextValue);
 
-  return (
-    <TabContext.Provider value={curValue}>
-      <Tabs ref={ref} value={curValue} {...props} />
-    </TabContext.Provider>
-  );
+  return <Tabs ref={ref} value={context.value} onChange={context.onChange} {...props} />;
 });
+
+export const TabPanel: React.FC<TabPanelProps> = ({children, value}) => {
+  const curValue = useContext(TabContextValue).value;
+
+  if (value !== curValue) {
+    return null;
+  }
+
+  return children;
+};

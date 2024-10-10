@@ -1,4 +1,4 @@
 export * from './Tab';
-export * from './TabPanel';
-export * from './Tabs';
+export * from './TabList';
+export {Tabs} from './Tabs';
 export * from './types';

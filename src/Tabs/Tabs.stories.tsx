@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
-import type {Meta} from '@storybook/react';
 
 import {AccountCircle, Settings} from 'icons';
 import {SizeTokenValue, theme} from 'theme';
 
 import {Tab} from './Tab';
 import {Tabs as BaseTabs} from './Tabs';
-import {TabContext, TabList as BaseTabList} from './TabList';
-import {TabPanel} from './TabPanel';
-import type {TabListProps, TabsProps} from './types';
+import {TabContext, TabPanel, TabList as BaseTabList} from './TabList';
+
+import type {Meta} from '@storybook/react';
+import type {TabContextProps, TabsProps} from './types';
 
 type TabsStoryProps = {onChange: boolean} & Omit<TabsProps, 'onChange'>;
 
@@ -65,7 +65,7 @@ export const Tabs: React.FC<TabsStoryProps> = props => {
 export const TabList: React.FC<TabsStoryProps> = props => {
   const [value, setValue] = useState<string | undefined>(props.value);
 
-  const onChange: TabListProps['onChange'] = (newValue: string) => {
+  const onChange: TabContextProps['onChange'] = (newValue: string) => {
     setValue(newValue);
 
     if (props.onChange) {
@@ -79,8 +79,8 @@ export const TabList: React.FC<TabsStoryProps> = props => {
 
   return (
     <div style={{width: 600}}>
-      <TabContext.Provider value={value}>
-        <BaseTabList onChange={onChange}>
+      <TabContext value={value} onChange={onChange}>
+        <BaseTabList>
           <Tab value="1" icon={<Settings size={SizeTokenValue.Small} />}>
             Первая
           </Tab>
@@ -100,7 +100,7 @@ export const TabList: React.FC<TabsStoryProps> = props => {
         <TabPanel value="импорт">
           <div style={{paddingTop: 20, ...theme.typography.p1}}>Третья</div>
         </TabPanel>
-      </TabContext.Provider>
+      </TabContext>
     </div>
   );
 };

@@ -30,11 +30,11 @@ const ArrowRightComponent = styled(ArrowBase)`
   }
 `;
 
-export const ArrowRight: React.FC<ArrowProps> = ({scrollableRef}) => {
+export const ArrowRight: React.FC<ArrowProps> = ({scrollableRef, qa}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const onClick = () => {
-    scrollableRef.current?.scrollBy({left: 100, behavior: 'smooth'});
+    scrollableRef.current?.scrollBy?.({left: 100, behavior: 'smooth'});
   };
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const ArrowRight: React.FC<ArrowProps> = ({scrollableRef}) => {
   }, []);
 
   return (
-    <ArrowRightComponent ref={ref} onClick={onClick}>
+    <ArrowRightComponent ref={ref} data-qa={`${qa}-arrow-right`} onClick={onClick}>
       <ChevronRight size={SizeTokenValue.Small} />
     </ArrowRightComponent>
   );

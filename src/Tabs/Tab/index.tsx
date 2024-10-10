@@ -61,7 +61,7 @@ const Container = styled.div<Pick<TabProps, 'disabled'> & {selected: boolean}>`
 `;
 
 export const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
-  const {children, label, icon, badge, value, disabled, ...rest} = props;
+  const {children, label, icon, badge, value, disabled, qa, ...rest} = props;
 
   const selected = useContext(TabsValueContext) === value;
 
@@ -103,6 +103,7 @@ export const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
     onKeyDown,
 
     'data-tab': value,
+    'data-qa': qa ?? `tab-${value}`,
 
     as: props.href ? ('a' as ElementType) : undefined,
 

@@ -36,7 +36,7 @@ const Content = styled.div`
 export const TabsValueContext = createContext<string | undefined>(undefined);
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
-  const {children, value, onChange, arrows, qa} = props;
+  const {children, value, onChange, arrows, qa = 'tabs'} = props;
 
   const scrollableRef = useRef<HTMLDivElement>(null);
 
@@ -72,10 +72,10 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
   return (
     <TabsValueContext.Provider value={value}>
       <Container ref={ref} data-qa={qa} onClick={onClick}>
-        <Scrollable ref={scrollableRef} value={value} arrows={arrows}>
+        <Scrollable ref={scrollableRef} qa={qa} value={value} arrows={arrows}>
           <Content>{children}</Content>
         </Scrollable>
-        {arrows && <Arrow scrollableRef={scrollableRef} />}
+        {arrows && <Arrow qa={qa} scrollableRef={scrollableRef} />}
       </Container>
     </TabsValueContext.Provider>
   );

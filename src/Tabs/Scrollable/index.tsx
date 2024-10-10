@@ -5,6 +5,7 @@ import {theme} from 'theme';
 
 import type {PropsWithChildren, WheelEventHandler} from 'react';
 
+import type {RequiredQA} from 'common';
 import type {TabsProps} from '../types';
 
 const Container = styled.div`
@@ -35,9 +36,9 @@ const Container = styled.div`
   }
 `;
 
-type ScrollableProps = Pick<TabsProps, 'value' | 'arrows'> & PropsWithChildren;
+type ScrollableProps = Pick<TabsProps, 'value' | 'arrows'> & RequiredQA & PropsWithChildren;
 
-export const Scrollable = forwardRef<HTMLDivElement, ScrollableProps>(({children, value, arrows}, ref) => {
+export const Scrollable = forwardRef<HTMLDivElement, ScrollableProps>(({children, value, arrows, qa}, ref) => {
   const observerRef = useRef<ResizeObserver>();
 
   const onWheel: WheelEventHandler<HTMLDivElement> = e => {
@@ -90,7 +91,7 @@ export const Scrollable = forwardRef<HTMLDivElement, ScrollableProps>(({children
   }, [value, arrows]);
 
   return (
-    <Container ref={setObserver} onWheel={onWheel}>
+    <Container ref={setObserver} data-qa={`${qa}-scrollable`} onWheel={onWheel}>
       {children}
     </Container>
   );

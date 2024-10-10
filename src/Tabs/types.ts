@@ -8,7 +8,8 @@ export type TabProps = {
   icon?: ReactNode;
   badge?: ReactNode;
   disabled?: boolean;
-} & AnchorHTMLAttributes<HTMLDivElement>;
+} & QA &
+  AnchorHTMLAttributes<HTMLDivElement>;
 
 export type TabsProps = {
   value?: string;
@@ -17,8 +18,8 @@ export type TabsProps = {
 } & QA &
   Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
-export type TabListProps = Omit<TabsProps, 'value'>;
+export type TabContextProps = Pick<TabsProps, 'value' | 'onChange'>;
 
-export type TabPanelProps = {
-  value: string;
-} & PropsWithChildren;
+export type TabListProps = Omit<TabsProps, 'value' | 'onChange'>;
+
+export type TabPanelProps = Pick<TabProps, 'value'> & PropsWithChildren;
