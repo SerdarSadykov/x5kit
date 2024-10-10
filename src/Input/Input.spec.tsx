@@ -11,7 +11,7 @@ describe('Input', () => {
     const label = 'input-label';
     const onChange = vi.fn();
 
-    render(<Input qa={name} name={name} value={value} label={label} onChange={onChange} />);
+    render(<Input required qa={name} name={name} value={value} label={label} onChange={onChange} />);
 
     expect(screen.getByTestId(name)).toBeDefined();
     expect(screen.getByDisplayValue(value)).toBeDefined();

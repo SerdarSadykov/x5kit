@@ -1,10 +1,10 @@
-import type {Meta} from '@storybook/react';
-
 import {useState} from 'react';
 
 import {FileUploader as BaseFileUploader} from './FileUploader';
-import type {FileItem, FileUploaderProps} from './types';
 import {FileItemStatus} from './types';
+
+import type {Meta} from '@storybook/react';
+import type {FileItem, FileUploaderProps} from './types';
 
 const defaultValue: FileItem[] = [
   {
@@ -22,7 +22,7 @@ const defaultValue: FileItem[] = [
   },
   {
     id: '3s0',
-    name: 'File_disabled.dic',
+    name: 'File_disabled with long long name.dic',
     size: 100,
     disabled: true,
     status: FileItemStatus.loaded,

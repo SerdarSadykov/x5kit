@@ -56,6 +56,8 @@ const Dropzone = styled.div<DropzoneStyles>`
 `;
 
 export const FileUploader: React.FC<FileUploaderProps> = props => {
+  const qa = props.qa ?? 'uploader';
+
   const {dzState, titleProps, captionProps, listProps} = useFileUploader(props);
 
   const FilesComponent = props.filesComponent ?? UploadedFiles;
@@ -64,10 +66,12 @@ export const FileUploader: React.FC<FileUploaderProps> = props => {
     isDragActive: dzState.isDragActive,
     isError: !!props.error,
     isDisabled: !!props.disabled,
+
+    'data-qa': `${qa}-dropzone`,
   };
 
   return (
-    <div data-qa={props.qa}>
+    <div data-qa={qa}>
       <Dropzone {...dzState.getRootProps()} {...dropzoneProps}>
         <input {...dzState.getInputProps()} />
 

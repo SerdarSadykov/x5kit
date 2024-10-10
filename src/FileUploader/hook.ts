@@ -30,11 +30,16 @@ export class MaxSizeAllError extends FileError {
 }
 
 export class MaxFilesError extends FileError {
-  protected defaultMessage = 'Некоторые файлы не загрузились.';
+  constructor(file: File, maxFiles?: number, message?: string) {
+    super(
+      file,
+      message ?? 'Некоторые файлы не загрузились.' + (maxFiles ? `Вы можете загрузить до ${maxFiles} файлов` : '')
+    );
+  }
 }
 
 export class FileTypeError extends FileError {
-  protected defaultMessage = 'Формат файла не поддерживается. Удалите файл и загрузите другой формат';
+  protected defaultMessage = 'Формат файла не поддерживается.';
 }
 
 export const useFileUploader = (props: FileUploaderProps) => {
@@ -78,7 +83,7 @@ export const useFileUploader = (props: FileUploaderProps) => {
             errors.push(new MinSizeError(rejected.file, minSizeError));
             break;
           case ErrorCode.TooManyFiles:
-            errors.push(new MaxFilesError(rejected.file, maxFilesError));
+            errors.push(new MaxFilesError(rejected.file, props.maxFiles, maxFilesError));
             break;
           case ErrorCode.FileInvalidType:
             errors.push(new FileTypeError(rejected.file, fileTypeError));
