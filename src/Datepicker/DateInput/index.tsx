@@ -60,7 +60,7 @@ const HiddenInput = styled.input`
 `;
 
 const InputComponent: React.FC<InputInternalProps> = props => {
-  const {inputProps, style} = props;
+  const {inputProps, style, qa} = props;
 
   const {step, componentProps, segments} = useInputComponent(inputProps);
 
@@ -78,20 +78,23 @@ const InputComponent: React.FC<InputInternalProps> = props => {
   return (
     <Container>
       <Label {...props} style={{...style, isFilled: style.isFocused || style.isFilled}} />
-      <Value {...style}>{items}</Value>
-      <HiddenInput {...componentProps} />
+      <Value data-qa={`${qa}-value`} {...style}>
+        {items}
+      </Value>
+      <HiddenInput data-qa={qa} {...componentProps} />
     </Container>
   );
 };
 
 export const DateInput: React.FC = () => {
   const context = useContext(DatepickerContext);
-  const {isOpen, setIsOpen, size, value, disabled, readOnly, floating, endAdornment: parentEndAdornment} = context;
+  const {isOpen, setIsOpen, size, value, disabled, readOnly, floating, endAdornment: parentEndAdornment, qa} = context;
 
   const endAdornment = (
     <>
       {parentEndAdornment}
       <InputButton
+        data-qa={`${qa}-toggle`}
         isDisabled={disabled || readOnly}
         isSmall={size === SizeTokenValue.Small}
         onClick={() => setIsOpen(!isOpen)}

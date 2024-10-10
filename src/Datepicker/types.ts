@@ -11,7 +11,7 @@ export type BaseDatepickerProps = {
 
   formatStr: string;
 
-  calendarProps: Omit<BaseCalendarProps, 'mode' | 'value' | 'onChange'>;
+  calendarProps?: Omit<BaseCalendarProps, 'mode' | 'value' | 'onChange'>;
 
   referenceDate?: Date;
 } & Omit<InputProps, 'mask' | 'value' | 'onChange' | 'onClearClick'> &
@@ -19,13 +19,13 @@ export type BaseDatepickerProps = {
 
 export type DatepickerProps = {
   formatStr?: string;
-  calendarProps: Omit<CalendarProps, 'value' | 'onChange'>;
+  calendarProps?: Omit<CalendarProps, 'value' | 'onChange'>;
 } & Omit<BaseDatepickerProps, 'formatStr' | 'mode' | 'value' | 'onChange'> &
   Pick<CalendarProps, 'value' | 'onChange'>;
 
 export type RangeDatepickerProps = {
   formatStr?: string;
-  calendarProps: Omit<RangeCalendarProps, 'value' | 'onChange'>;
+  calendarProps?: Omit<RangeCalendarProps, 'value' | 'onChange'>;
 } & Omit<BaseDatepickerProps, 'formatStr' | 'mode' | 'value' | 'onChange'> &
   Pick<RangeCalendarProps, 'value' | 'onChange'>;
 

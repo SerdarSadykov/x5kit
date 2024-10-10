@@ -26,9 +26,11 @@ export const Tooltip: React.FC<TooltipProps> = props => {
     zIndex = theme.sizes.zIndex.tooltip,
     color = theme.colors.white,
     backgroundColor = theme.colors.grey[90],
+
+    qa = 'tooltip',
   } = props;
 
-  const {isMounted, getQA, floating, interactions, arrowRef, styles, child} = useTooltip(props);
+  const {isMounted, floating, interactions, arrowRef, styles, child} = useTooltip(props);
 
   if (!isMounted) {
     return child;
@@ -49,7 +51,7 @@ export const Tooltip: React.FC<TooltipProps> = props => {
       backgroundColor: backgroundColor,
     },
 
-    'data-qa': getQA(),
+    'data-qa': qa,
   };
 
   const arrowProps = {

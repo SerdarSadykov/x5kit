@@ -8,7 +8,7 @@ import type {InputHTMLAttributes} from 'react';
 
 import type {PasswordInputProps} from './types';
 
-export const PasswordInput: React.FC<PasswordInputProps> = props => {
+export const PasswordInput: React.FC<PasswordInputProps> = ({qa = 'password', ...props}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const Icon = isOpen ? Visibility : VisibilityOff;
@@ -17,6 +17,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = props => {
 
   const endAdornment = (
     <InputButton
+      data-qa={`${qa}-toggle`}
       isDisabled={props.disabled}
       isSmall={props.size === SizeTokenValue.Small}
       onClick={() => setIsOpen(!isOpen)}
@@ -25,5 +26,5 @@ export const PasswordInput: React.FC<PasswordInputProps> = props => {
     </InputButton>
   );
 
-  return <Input endAdornment={endAdornment} type={type} {...props} />;
+  return <Input endAdornment={endAdornment} type={type} qa={qa} {...props} />;
 };

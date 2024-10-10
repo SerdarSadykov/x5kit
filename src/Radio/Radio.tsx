@@ -47,7 +47,7 @@ export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
     error,
     disabled,
 
-    'data-qa': qa,
+    'data-qa': `${qa}-container`,
   };
 
   const labelProps = {
@@ -61,7 +61,7 @@ export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
     <Container ref={ref} {...containerProps}>
       <Content>
         {startAdornment}
-        <Icon {...styles} inputProps={rest} />
+        <Icon {...styles} qa={qa} inputProps={rest} />
         <Label {...labelProps} />
       </Content>
     </Container>

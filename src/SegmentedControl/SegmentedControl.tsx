@@ -46,18 +46,18 @@ const Container = styled.div<Pick<SegmentedControlProps, 'size' | 'disabled' | '
 
 export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>((props, ref) => {
   const {options, size, width, qa = 'segmented', ...restProps} = props;
-  const getQA = getQAAttribute(qa);
 
-  const children = options.map((props, index) => {
+  const children = options.map((option, index) => {
     const resultProps = {
       ...restProps,
-      ...props,
+      ...option,
 
-      checked: typeof restProps.value !== 'undefined' ? restProps.value === props.value : undefined,
-      qa: getQA('element'),
+      checked: typeof restProps.value !== 'undefined' ? restProps.value === option.value : undefined,
+
+      qa: option.qa ?? `${qa}-element`,
     };
 
-    return <SegmentedControlItem key={`${index}-${props.value}`} {...resultProps} />;
+    return <SegmentedControlItem key={`${index}-${option.value}`} {...resultProps} />;
   });
 
   const containerProps = {

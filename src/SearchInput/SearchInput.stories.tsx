@@ -1,11 +1,12 @@
 import {useState} from 'react';
-import type {Meta} from '@storybook/react';
 
 import {ArrowNavigationForward} from 'icons';
 
 import inputStory from 'Input/Input.stories';
 
 import {SearchInput as BaseInput} from './SearchInput';
+
+import type {Meta} from '@storybook/react';
 import type {SearchInputProps} from './types';
 
 type SearchInputStoryProps = Omit<SearchInputProps, 'onClearClick'> & {

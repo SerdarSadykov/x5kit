@@ -1,7 +1,7 @@
 import {useContext, useEffect, useRef, useState} from 'react';
 import {format, isValid, parse} from 'date-fns';
 
-import {startOfDay} from 'common';
+import {startOfDay, useUpdateEffect} from 'common';
 
 import {DatepickerContext} from 'Datepicker';
 
@@ -16,12 +16,38 @@ type Segment = {
   value: string;
 };
 
+const parseSegments = (formatStr: string) => {
+  const newSegments: Segment[] = [];
+
+  const matches = formatStr.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
+
+  for (const [, label, end] of matches) {
+    const token = label.replace(/д|м|г/gi, part => {
+      switch (part.toLowerCase()) {
+        case 'д':
+          return 'd';
+        case 'м':
+        case 'm':
+          return 'M';
+        case 'г':
+          return 'y';
+      }
+
+      return part;
+    });
+
+    newSegments.push({token, label, end, value: ''});
+  }
+
+  return newSegments;
+};
+
 const useSegments = () => {
   const {formatStr, value, onChange, referenceDate} = useContext(DatepickerContext);
 
   const inputValue = useRef<BaseCalendarValue>();
 
-  const [segments, setSegmentsValue] = useState<Segment[]>([]);
+  const [segments, setSegmentsValue] = useState<Segment[]>(() => parseSegments(formatStr));
 
   const setSegments = (newSegments: Segment[]) => {
     setSegmentsValue(newSegments);
@@ -68,30 +94,8 @@ const useSegments = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  useEffect(() => {
-    const newSegments: Segment[] = [];
-
-    const matches = formatStr.matchAll(/([дdмmгy]{1,4})([^дdмmгy]*)/gi);
-
-    for (const [, label, end] of matches) {
-      const token = label.replace(/д|м|г/gi, part => {
-        switch (part.toLowerCase()) {
-          case 'д':
-            return 'd';
-          case 'м':
-          case 'm':
-            return 'M';
-          case 'г':
-            return 'y';
-        }
-
-        return part;
-      });
-
-      newSegments.push({token, label, end, value: ''});
-    }
-
-    setSegmentsValue(newSegments);
+  useUpdateEffect(() => {
+    setSegmentsValue(parseSegments(formatStr));
   }, [formatStr]);
 
   return {segments, setSegments};

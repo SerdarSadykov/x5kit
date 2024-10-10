@@ -15,14 +15,14 @@ const Container = styled.div`
   flex-shrink: 0;
 `;
 
-export const CloseButton: React.FC<Pick<BannerProps, 'onClose'>> = ({onClose}) => {
+export const CloseButton: React.FC<Pick<BannerProps, 'onClose' | 'qa'>> = ({onClose, qa}) => {
   if (!onClose) {
     return null;
   }
 
   return (
     <Container>
-      <IconButton size={SizeTokenValue.XXSmall} variant={ButtonVariant.innerInput} onClick={onClose}>
+      <IconButton qa={`${qa}-close`} size={SizeTokenValue.XXSmall} variant={ButtonVariant.innerInput} onClick={onClose}>
         <Close size={SizeTokenValue.Small} />
       </IconButton>
     </Container>

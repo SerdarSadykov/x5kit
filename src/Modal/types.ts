@@ -1,5 +1,6 @@
 import type {CSSProperties, HTMLAttributes, PropsWithChildren, ReactNode, RefObject} from 'react';
 
+import type {QA} from 'common';
 import type {Placement, SizeTokenValue} from 'theme';
 import type {UseFloatingOptions, UseFloatingReturn} from 'Dropdown';
 
@@ -7,11 +8,13 @@ export type ModalHeaderProps = {
   caption?: ReactNode;
   icon?: ReactNode;
   onClose?: () => void;
-} & HTMLAttributes<HTMLDivElement>;
+} & QA &
+  HTMLAttributes<HTMLDivElement>;
 
 export type ModalContentProps = {
   noBorderScroll?: boolean;
-} & HTMLAttributes<HTMLDivElement>;
+} & QA &
+  HTMLAttributes<HTMLDivElement>;
 
 export type ModalProps = {
   isOpen: boolean;
@@ -32,6 +35,7 @@ export type ModalProps = {
   // maxWidth?: string | number
   // minWidth?: string | number
   // showCloseButton?: boolean
-} & PropsWithChildren &
+} & QA &
+  PropsWithChildren &
   Pick<UseFloatingOptions, 'middleware'> &
   Pick<CSSProperties, 'zIndex'>;

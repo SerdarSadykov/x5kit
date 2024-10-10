@@ -51,7 +51,7 @@ const ButtonPlaceholder = styled.div`
 `;
 
 const ParentItem: React.FC<ItemProps> = props => {
-  const {disabled, readOnly} = props.option;
+  const {disabled, readOnly, qa = 'checkbox'} = props.option;
   const {option, childs, isOpen, itemProps, checkboxProps, onToggle, depth} = useParentItem(props);
 
   const items =
@@ -63,7 +63,7 @@ const ParentItem: React.FC<ItemProps> = props => {
   const Icon = isOpen ? ChevronDown : ChevronRight;
 
   const startAdornment = (
-    <Button type="button" onClickCapture={onToggle}>
+    <Button data-qa={`${qa}-toggle`} type="button" onClickCapture={onToggle}>
       <Icon size={SizeTokenValue.Small} />
     </Button>
   );

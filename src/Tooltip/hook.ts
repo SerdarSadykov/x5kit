@@ -14,8 +14,6 @@ import {
   useTransitionStyles,
 } from '@floating-ui/react';
 
-import {getQAAttribute} from 'common';
-
 import type {TooltipProps} from './types';
 
 export const useTooltip = (props: TooltipProps) => {
@@ -23,7 +21,6 @@ export const useTooltip = (props: TooltipProps) => {
     children,
     placement,
     enabled,
-    qa = 'tooltip',
 
     delay = {open: 330, close: 100},
   } = props;
@@ -31,8 +28,6 @@ export const useTooltip = (props: TooltipProps) => {
   const [isOpenIn, setIsOpenIn] = useState<boolean>(false);
   const isOpen = props.isOpen ?? isOpenIn;
   const setIsOpen = props.setIsOpen ?? setIsOpenIn;
-
-  const getQA = getQAAttribute(qa);
 
   const arrowRef = useRef(null);
 
@@ -57,5 +52,5 @@ export const useTooltip = (props: TooltipProps) => {
 
   const child = cloneElement(children, interactions.getReferenceProps({...children.props, ref}));
 
-  return {isMounted, getQA, floating, interactions, arrowRef, styles, child};
+  return {isMounted, floating, interactions, arrowRef, styles, child};
 };

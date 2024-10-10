@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
+import type {RequiredQA} from 'common';
 import type {HTMLAttributes, KeyboardEventHandler} from 'react';
 
 import type {RadioStyles} from '../types';
@@ -140,8 +141,10 @@ const Input = styled.input<RadioStyles>`
   }
 `;
 
-export const Icon: React.FC<RadioStyles & {inputProps: HTMLAttributes<HTMLInputElement>}> = props => {
-  const {disabled, readOnly, error, hasLabel, inputProps} = props;
+type IconProps = RadioStyles & RequiredQA & {inputProps: HTMLAttributes<HTMLInputElement>};
+
+export const Icon: React.FC<IconProps> = props => {
+  const {disabled, readOnly, error, hasLabel, inputProps, qa} = props;
   const isEnabled = !disabled && !readOnly;
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -174,6 +177,8 @@ export const Icon: React.FC<RadioStyles & {inputProps: HTMLAttributes<HTMLInputE
 
     type: 'radio',
     onChange: isEnabled ? inputProps.onChange : undefined,
+
+    'data-qa': qa,
   };
 
   return (

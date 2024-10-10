@@ -81,6 +81,8 @@ export const Modal: React.FC<ModalProps> = props => {
     children: props.children,
 
     style: hasTarget ? floating.floatingStyles : undefined,
+
+    'data-qa': props.qa ?? 'modal',
   };
 
   return (

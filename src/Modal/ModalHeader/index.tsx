@@ -42,29 +42,33 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const CloseButton: React.FC<Pick<ModalHeaderProps, 'onClose'>> = ({onClose}) => {
+const CloseButton: React.FC<Pick<ModalHeaderProps, 'onClose' | 'qa'>> = ({onClose, qa}) => {
   if (!onClose) {
     return null;
   }
 
   return (
     <ButtonContainer>
-      <IconButton variant={ButtonVariant.innerInput} size={SizeTokenValue.Small} onClick={onClose}>
+      <IconButton qa={`${qa}-close`} variant={ButtonVariant.innerInput} size={SizeTokenValue.Small} onClick={onClose}>
         <Close />
       </IconButton>
     </ButtonContainer>
   );
 };
 
-export const ModalHeader: React.FC<ModalHeaderProps> = ({children, onClose, caption, icon, ...prop}) => (
-  <Container {...prop}>
-    <TitleContainer>
-      {icon}
-      <div>
-        <Title>{children}</Title>
-        {!!caption && <Caption>{caption}</Caption>}
-      </div>
-    </TitleContainer>
-    <CloseButton onClose={onClose} />
-  </Container>
-);
+export const ModalHeader: React.FC<ModalHeaderProps> = props => {
+  const {children, onClose, caption, icon, qa = 'modal-header', ...rest} = props;
+
+  return (
+    <Container data-qa={qa} {...rest}>
+      <TitleContainer>
+        {icon}
+        <div>
+          <Title>{children}</Title>
+          {!!caption && <Caption>{caption}</Caption>}
+        </div>
+      </TitleContainer>
+      <CloseButton qa={qa} onClose={onClose} />
+    </Container>
+  );
+};

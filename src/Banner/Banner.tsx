@@ -119,7 +119,7 @@ export const Banner: React.FC<BannerProps> = props => {
     <Container data-qa={qa} {...bannerStyles}>
       <Icon {...iconProps} />
       <Content {...contentProps} />
-      <CloseButton onClose={onClose} />
+      <CloseButton qa={qa} onClose={onClose} />
     </Container>
   );
 };

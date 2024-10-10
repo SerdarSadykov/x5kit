@@ -65,6 +65,8 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     checked: checked === true,
 
     onChange: !readOnly && !disabled ? props.onChange : undefined,
+
+    'data-qa': qa,
   };
 
   const containerProps = {
@@ -72,7 +74,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref)
     error,
     disabled,
 
-    'data-qa': qa,
+    'data-qa': `${qa}-container`,
   };
 
   const iconProps = {...styles, inputRef};

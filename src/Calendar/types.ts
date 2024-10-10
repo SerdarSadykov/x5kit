@@ -71,7 +71,7 @@ export type BaseCalendarProps = {
 
 export type RangeCalendarProps = Omit<BaseCalendarProps, 'mode' | 'value'> & {
   /** Выбранный период */
-  value: RangeCalendarValue | undefined;
+  value: Date[] | RangeCalendarValue | undefined;
 };
 
 export type CalendarProps = {

@@ -22,7 +22,9 @@ const Container = styled.div`
   }
 `;
 
-export const ModalContent: React.FC<ModalContentProps> = ({children, noBorderScroll, ...rest}) => {
+export const ModalContent: React.FC<ModalContentProps> = props => {
+  const {children, noBorderScroll, qa = 'modal-content', ...rest} = props;
+
   const observerRef = useRef<ResizeObserver>();
 
   const ref = (el: HTMLDivElement | null) => {
@@ -48,7 +50,7 @@ export const ModalContent: React.FC<ModalContentProps> = ({children, noBorderScr
   };
 
   return (
-    <Container {...rest} ref={ref}>
+    <Container {...rest} ref={ref} data-qa={qa}>
       {children}
     </Container>
   );
