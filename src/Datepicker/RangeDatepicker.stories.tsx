@@ -27,7 +27,10 @@ type DatepickerStoryProps = {
 } & Omit<DatepickerProps, 'onClearClick'>;
 
 export const RangeDatepicker: React.FC<DatepickerStoryProps> = props => {
-  const [value, setValue] = useState<RangeCalendarValue>();
+  const [value, setValue] = useState<RangeCalendarValue>([
+    new Date('2020-02-01T00:00:00Z'),
+    new Date('2020-02-05T00:00:00Z'),
+  ]);
 
   const startAdornment = props.startAdornment ? <ArrowNavigationBackward /> : undefined;
 

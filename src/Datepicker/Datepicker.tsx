@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import {createContext, useCallback, useMemo, useState} from 'react';
 import {offset, useFloating} from '@floating-ui/react';
 import {startOfToday} from 'date-fns';
 
@@ -17,7 +17,7 @@ import type {RangeCalendarValue} from 'Calendar';
 export const DatepickerContext = createContext<DatepickerContextProps>({} as never);
 
 const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
-  const {referenceDate = startOfToday()} = props;
+  const {referenceDate = startOfToday(), qa = 'datepicker'} = props;
 
   const [isOpenIn, setIsOpenIn] = useState<boolean>(false);
   const isOpen = props.isOpen ?? isOpenIn;
@@ -41,6 +41,7 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
   const context: DatepickerContextProps = {
     ...props,
 
+    qa,
     floating,
     isOpen,
     referenceDate,
@@ -55,27 +56,35 @@ const BaseDatepicker: React.FC<BaseDatepickerProps> = props => {
   );
 };
 
-export const Datepicker: React.FC<DatepickerProps> = ({formatStr, value, onChange, ...props}) => {
+export const Datepicker: React.FC<DatepickerProps> = props => {
+  const value = useMemo(() => [props.value ? startOfDay(props.value) : undefined, undefined], [props.value]);
+
+  const onChange = useCallback<BaseDatepickerProps['onChange']>(
+    newValue => props.onChange(newValue[0]),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.onChange]
+  );
+
   const overrideProps = {
+    ...props,
+
+    value,
+    onChange,
+
     mode: CalendarMode.single,
 
-    formatStr: formatStr ?? DEFAULT_FORMAT,
-
-    value: [value ? startOfDay(value) : undefined, undefined],
-
-    onChange: newValue => onChange(newValue[0]),
+    formatStr: props.formatStr ?? DEFAULT_FORMAT,
   } as BaseDatepickerProps;
 
-  return <BaseDatepicker {...props} {...overrideProps} />;
+  return <BaseDatepicker {...overrideProps} />;
 };
 
 export const RangeDatepicker: React.FC<RangeDatepickerProps> = props => {
-  const [rangeStart, rangeEnd] = props.value ?? [];
+  const value = useMemo<RangeCalendarValue>(() => {
+    const [rangeStart, rangeEnd] = props.value ?? [];
 
-  const value: RangeCalendarValue = [
-    rangeStart ? startOfDay(rangeStart) : undefined,
-    rangeEnd ? startOfDay(rangeEnd) : undefined,
-  ];
+    return [rangeStart ? startOfDay(rangeStart) : undefined, rangeEnd ? startOfDay(rangeEnd) : undefined];
+  }, [props.value]);
 
   const format = `${props.formatStr ?? DEFAULT_FORMAT} — ${props.formatStr ?? DEFAULT_FORMAT}`;
 
