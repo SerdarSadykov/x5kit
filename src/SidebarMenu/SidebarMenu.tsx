@@ -29,6 +29,7 @@ const Items = styled.div`
 export const SidebarMenuContext = createContext({} as SidebarMenuContextProps);
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
+  const qa = props.qa ?? 'sidebar-menu';
   const {context, isExpanded} = useSidebarMenu(props);
 
   const containerStyle = {
@@ -47,9 +48,9 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = props => {
 
   return (
     <SidebarMenuContext.Provider value={context}>
-      <Container data-qa={props.qa} style={containerStyle}>
+      <Container data-qa={qa} style={containerStyle}>
         <Items style={itemsStyle}>{child}</Items>
-        <ExpandButton />
+        <ExpandButton qa={qa} />
       </Container>
     </SidebarMenuContext.Provider>
   );

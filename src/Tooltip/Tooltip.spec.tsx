@@ -24,12 +24,14 @@ describe('Tooltip', () => {
     );
 
     expect(screen.getByText(content)).toBeDefined();
+    expect(screen.queryByTestId('tooltip')).toBeNull();
     expect(screen.queryByTestId(tooltipContent)).toBeNull();
 
     fireEvent.mouseEnter(screen.getByTestId('content'));
 
     waitFor(() => {
       expect(screen.getByTestId(tooltipContent)).toBeDefined();
+      expect(screen.getByTestId('tooltip')).toBeDefined();
     });
   });
 });

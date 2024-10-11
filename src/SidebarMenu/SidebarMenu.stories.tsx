@@ -1,10 +1,11 @@
 import {useState} from 'react';
-import type {Meta} from '@storybook/react';
 
 import {AccountCircle, Help, Link, List, Settings} from 'icons';
 import {Badge, BadgeVariant} from 'Badge';
 
 import {SidebarMenu as BaseSidebarMenu} from './SidebarMenu';
+
+import type {Meta} from '@storybook/react';
 import type {SidebarMenuItemProps, SidebarMenuProps} from './types';
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = props => {

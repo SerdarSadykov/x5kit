@@ -20,14 +20,18 @@ describe('Switch', () => {
     expect(onChange).toBeCalled();
     expect(onChange.mock.calls[0][0].target.checked).toBeTruthy();
 
+    fireEvent.keyDown(screen.getByTestId(`${name}-icon`), {code: 'Enter'});
+
+    expect(onChange).toBeCalledTimes(2);
+
     comp.rerender(<Switch readOnly qa={name} name={name} label={label} onChange={onChange} />);
 
     fireEvent.click(screen.getByTestId(name));
-    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toBeCalledTimes(2);
 
     comp.rerender(<Switch disabled qa={name} name={name} label={label} onChange={onChange} />);
 
     fireEvent.click(screen.getByTestId(name));
-    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toBeCalledTimes(2);
   });
 });

@@ -38,19 +38,21 @@ const Top = styled.div`
 `;
 
 export const MessageComponent: React.FC<SnackbarContentProps> = props => {
-  const {qa, variant, maxWidth} = props.message;
+  const {qa = 'snackbar-message', variant, maxWidth} = props.message;
+
+  const resultProps = {...props, qa};
 
   return (
     <Container data-qa={qa} variant={variant} style={{maxWidth}}>
-      <MessageIcon {...props} />
+      <MessageIcon {...resultProps} />
 
       <Content>
         <Top>
-          <MessageContent {...props} />
-          <ActionsTop {...props} />
+          <MessageContent {...resultProps} />
+          <ActionsTop {...resultProps} />
         </Top>
 
-        <ActionsBottom {...props} />
+        <ActionsBottom {...resultProps} />
       </Content>
     </Container>
   );

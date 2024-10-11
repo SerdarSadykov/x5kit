@@ -46,7 +46,7 @@ const Placeholder = styled.div<InputStyles>`
 
   ${theme.typography.p1}
 
-  div:first-child {
+  div:first-of-type {
     visibility: hidden;
   }
 

@@ -8,6 +8,7 @@ import {Close} from 'icons';
 
 import {getAction} from '../Actions';
 
+import type {RequiredQA} from 'common';
 import type {SnackbarContentProps} from '../types';
 
 const Container = styled.div`
@@ -15,8 +16,8 @@ const Container = styled.div`
   align-items: flex-start;
 `;
 
-export const ActionsTop: React.FC<SnackbarContentProps> = props => {
-  const {key, closable, actionsTop = []} = props.message;
+export const ActionsTop: React.FC<SnackbarContentProps & RequiredQA> = ({qa, message}) => {
+  const {key, closable, actionsTop = []} = message;
 
   const child = actionsTop.map(getAction).filter(Boolean);
 
@@ -24,7 +25,13 @@ export const ActionsTop: React.FC<SnackbarContentProps> = props => {
     const onClose = () => closeSnackbar(key);
 
     child.push(
-      <IconButton key="closebutton" size={SizeTokenValue.Small} variant={ButtonVariant.inner} onClick={onClose}>
+      <IconButton
+        key="closebutton"
+        qa={`${qa}-close`}
+        size={SizeTokenValue.Small}
+        variant={ButtonVariant.inner}
+        onClick={onClose}
+      >
         <Close size={SizeTokenValue.Small} />
       </IconButton>
     );
@@ -34,5 +41,5 @@ export const ActionsTop: React.FC<SnackbarContentProps> = props => {
     return null;
   }
 
-  return <Container>{child}</Container>;
+  return <Container data-qa={`${qa}-actions-top`}>{child}</Container>;
 };

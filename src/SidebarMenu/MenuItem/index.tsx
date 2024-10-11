@@ -71,7 +71,7 @@ const DropdownWrapper = styled.div`
       display: block;
     }
 
-    > div:first-child {
+    > div:first-of-type {
       z-index: ${theme.sizes.zIndex.dropdown + 1};
 
       > div {

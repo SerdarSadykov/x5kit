@@ -6,8 +6,8 @@ import {Check, Error, WarningOutline} from 'icons';
 
 import {SnackbarVariant} from '../types';
 
+import type {RequiredQA} from 'common';
 import type {IconComponent} from 'icons';
-
 import type {SnackbarContentProps} from '../types';
 
 const variantIcon: Record<SnackbarVariant, IconComponent | null> = {
@@ -36,7 +36,7 @@ const Container = styled.div`
   ${theme.typography.h4}
 `;
 
-export const MessageIcon: React.FC<SnackbarContentProps> = ({message: {icon, variant}}) => {
+export const MessageIcon: React.FC<SnackbarContentProps & RequiredQA> = ({qa, message: {icon, variant}}) => {
   if (typeof icon !== 'undefined' && icon !== true) {
     return icon;
   }
@@ -47,7 +47,7 @@ export const MessageIcon: React.FC<SnackbarContentProps> = ({message: {icon, var
   }
 
   return (
-    <Container>
+    <Container data-qa={`${qa}-icon`}>
       <Component size={SizeTokenValue.Medium} color={variantColor[variant]} />
     </Container>
   );

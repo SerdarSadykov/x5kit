@@ -6,6 +6,8 @@ import {ChevronLeft, ChevronRight} from 'icons';
 
 import {SidebarMenuContext} from '../SidebarMenu';
 
+import type {RequiredQA} from 'common';
+
 const Button = styled.button`
   display: block;
   outline: none;
@@ -40,7 +42,7 @@ const Button = styled.button`
   }
 `;
 
-export const ExpandButton: React.FC = () => {
+export const ExpandButton: React.FC<RequiredQA> = ({qa}) => {
   const {isExpanded, setIsExpanded} = useContext(SidebarMenuContext);
 
   const onClick = () => {
@@ -50,7 +52,7 @@ export const ExpandButton: React.FC = () => {
   const Icon = isExpanded ? ChevronLeft : ChevronRight;
 
   return (
-    <Button onClick={onClick}>
+    <Button data-qa={`${qa}-toggle`} onClick={onClick}>
       <div>
         <Icon size={SizeTokenValue.Medium} />
         {isExpanded && <span>Свернуть</span>}

@@ -8,9 +8,9 @@ import {useDropdown} from './hook';
 
 import type {DropdownProps} from './types';
 
-const Container = styled.div<Pick<DropdownProps, 'width' | 'height' | 'maxHeight' | 'zIndex' | 'isOpen' | 'isMounted'>>`
-  ${({isOpen, isMounted, zIndex, height, maxHeight, width = 248}) => {
-    if (isOpen || !isMounted) {
+const Container = styled.div<Pick<DropdownProps, 'width' | 'height' | 'maxHeight' | 'zIndex' | 'isOpen'>>`
+  ${({isOpen, zIndex, height, maxHeight, width = 248}) => {
+    if (isOpen) {
       return {
         zIndex,
         height,
@@ -20,11 +20,7 @@ const Container = styled.div<Pick<DropdownProps, 'width' | 'height' | 'maxHeight
     }
 
     return {
-      position: 'fixed',
-      visibility: 'hidden',
-      overflow: 'hidden',
-      width: 0,
-      height: 0,
+      display: 'none',
     };
   }}
 `;

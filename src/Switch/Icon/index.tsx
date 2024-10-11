@@ -5,6 +5,7 @@ import {SizeTokenValue, theme} from 'theme';
 import type {KeyboardEventHandler, RefObject} from 'react';
 import type {CSSObject} from '@emotion/styled';
 
+import type {RequiredQA} from 'common';
 import type {SwitchStyles} from '../types';
 
 const Container = styled.div<SwitchStyles>`
@@ -144,7 +145,9 @@ const Container = styled.div<SwitchStyles>`
   }}
 `;
 
-export const Icon: React.FC<SwitchStyles & {inputRef: RefObject<HTMLInputElement>}> = ({inputRef, ...props}) => {
+type IconProps = {inputRef: RefObject<HTMLInputElement>} & SwitchStyles & RequiredQA;
+
+export const Icon: React.FC<IconProps> = ({inputRef, qa, ...props}) => {
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       inputRef.current?.click();
@@ -157,6 +160,8 @@ export const Icon: React.FC<SwitchStyles & {inputRef: RefObject<HTMLInputElement
     ...props,
 
     onKeyDown,
+
+    'data-qa': `${qa}-icon`,
   };
 
   return <Container {...containerProps} />;

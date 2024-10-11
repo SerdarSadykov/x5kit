@@ -1,15 +1,13 @@
-import type {Meta} from '@storybook/react';
-
-import type {CSSObject} from '@emotion/react';
-
 import {Button} from 'Button';
 
 import {Link} from 'Link';
 
 import {enqueueSnackbar} from './hook';
-
-import type {SnackbarMessage} from './types';
 import {SnackbarVariant} from './types';
+
+import type {Meta} from '@storybook/react';
+import type {CSSObject} from '@emotion/react';
+import type {SnackbarMessage} from './types';
 
 export const Snackbar: React.FC<SnackbarMessage> = props => {
   const actionsTop: SnackbarMessage['actionsTop'] = props.actionsTop

@@ -19,7 +19,7 @@ export type SidebarMenuItemProps = {
 
 export type SidebarMenuProps = {
   items: SidebarMenuItemProps[];
-  selected: string | undefined;
+  selected?: string;
   onChange?: (newSelected: SidebarMenuItemProps) => void;
 
   isExpanded?: boolean;

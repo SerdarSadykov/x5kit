@@ -78,7 +78,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>((props, ref) => 
     'data-qa': qa,
   };
 
-  const iconProps = {...styles, inputRef};
+  const iconProps = {...styles, inputRef, qa};
 
   const labelProps = {
     ...styles,

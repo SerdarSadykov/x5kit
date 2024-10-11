@@ -4,6 +4,7 @@ import {theme} from 'theme';
 
 import {SnackbarVariant} from '../types';
 
+import type {RequiredQA} from 'common';
 import type {SnackbarContentProps, SnackbarMessageInner} from '../types';
 
 const variantColor: Record<SnackbarVariant, string> = {
@@ -30,11 +31,11 @@ const ContentComponent = styled.div`
   ${theme.typography.p1compact}
 `;
 
-export const MessageContent: React.FC<SnackbarContentProps> = props => {
-  const {title, content, variant, whiteSpace} = props.message;
+export const MessageContent: React.FC<SnackbarContentProps & RequiredQA> = ({message, qa}) => {
+  const {title, content, variant, whiteSpace} = message;
 
   return (
-    <Container>
+    <Container data-qa={`${qa}-message`}>
       {title && <TitleComponent variant={variant}>{title}</TitleComponent>}
       <ContentComponent style={{whiteSpace}}>{content}</ContentComponent>
     </Container>
