@@ -43,7 +43,7 @@ describe('CheckboxTree', () => {
     const name = 'input';
     const onChange = vi.fn();
 
-    const comp = render(<CheckboxTree value={['sub1', 'subsub1']} name={name} onChange={onChange} options={options} />);
+    render(<CheckboxTree value={['sub1', 'subsub1']} name={name} onChange={onChange} options={options} />);
 
     expect(screen.getByTestId('checkbox-tree')).toBeDefined();
     expect(screen.getByTestId('opt1')).toBeDefined();

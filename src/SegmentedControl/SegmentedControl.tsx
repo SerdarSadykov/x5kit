@@ -4,8 +4,6 @@ import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 
-import {getQAAttribute} from 'common';
-
 import {SegmentedControlItem} from './SegmentedControlItem';
 
 import type {CSSObject} from '@emotion/styled';

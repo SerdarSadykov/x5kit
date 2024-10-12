@@ -6,7 +6,7 @@ import {render, screen} from '@testing-library/react';
 
 import {SelectItems} from '.';
 
-import type {SelectOption, SelectItemsProps, SelectMultipleValue, LoadMore} from 'Select/types';
+import type {SelectOption, SelectItemsProps, SelectMultipleValue} from 'Select/types';
 
 const options: SelectOption[] = [
   {label: 'Andreev', value: 'davletshin', disabled: false, tooltip: 'Вот такой тултип'},
