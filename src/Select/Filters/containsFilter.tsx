@@ -2,6 +2,7 @@ import type {ReactNode} from 'react';
 
 import type {LastResult, SelectFilter, SelectOption} from '../types';
 
+/** Поиск по вхождению с подстветкой */
 const search = async (query: string, options: SelectOption[]) => {
   if (!query) {
     return [...options];
