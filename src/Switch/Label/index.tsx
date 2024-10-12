@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import {SizeTokenValue, theme} from 'theme';
 
 import type {MouseEventHandler} from 'react';
+import type {RequiredQA} from 'common';
 
 import type {SwitchProps, SwitchStyles} from '../types';
 
@@ -33,7 +34,9 @@ const Container = styled.div<SwitchStyles>`
   }}
 `;
 
-export const Label: React.FC<Pick<SwitchProps, 'children' | 'label'> & SwitchStyles> = props => {
+type LabelProps = Pick<SwitchProps, 'children' | 'label'> & SwitchStyles & RequiredQA;
+
+export const Label: React.FC<LabelProps> = props => {
   if (!props.hasLabel) {
     return null;
   }
@@ -52,7 +55,7 @@ export const Label: React.FC<Pick<SwitchProps, 'children' | 'label'> & SwitchSty
   };
 
   return (
-    <Container onClickCapture={onClick} {...styles}>
+    <Container data-qa={`${props.qa}-label`} onClickCapture={onClick} {...styles}>
       {children ?? label}
     </Container>
   );

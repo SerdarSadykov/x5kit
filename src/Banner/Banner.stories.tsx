@@ -1,42 +1,43 @@
-import type {Meta, StoryObj} from '@storybook/react';
-
 import {SizeTokenValue, theme} from 'theme';
 import {Download} from 'icons';
 import {Tooltip} from 'Tooltip';
 import {Button} from 'Button';
+import {Link} from 'Link';
 
 import {Banner as BaseBanner} from './Banner';
-import type {BannerProps} from './types';
 import {BannerVariant} from './types';
 
+import type {Meta, StoryObj} from '@storybook/react';
+import type {BannerProps} from './types';
+
 type BannerStoryProps = Omit<BannerProps, 'onClose'> & {
-  actionText?: string;
-  actionHref?: string;
   onClose?: boolean;
 };
 
 export const Banner: React.FC<BannerStoryProps> = ({children, ...props}) => {
   const onClose = props.onClose ? () => alert('onClose') : undefined;
 
-  const action = props.actionText && {
-    text: props.actionText,
-    href: props.actionHref,
-    onClick: () => alert('onClick'),
-  };
+  const actionsTop = props.actionsTop ? (
+    <Link target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      Перейти
+    </Link>
+  ) : undefined;
 
-  const buttonAction = props.actionText && (
+  const actionsBottom = props.actionsBottom ? (
     <Button size={SizeTokenValue.Small} onClick={() => alert('onClick')}>
-      {props.actionText}
+      Исправить
     </Button>
-  );
+  ) : undefined;
 
-  const customIcon = props.icon !== false && <Download size={SizeTokenValue.Medium} color={theme.colors.focus} />;
+  const icon = props.icon !== false ? <Download size={SizeTokenValue.Medium} color={theme.colors.focus} /> : undefined;
 
   const resultProps = {
     ...props,
 
+    icon,
     onClose,
-    action,
+    actionsTop,
+    actionsBottom,
   };
 
   return (
@@ -49,11 +50,6 @@ export const Banner: React.FC<BannerStoryProps> = ({children, ...props}) => {
           <Tooltip content={children}>
             <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{children}</div>
           </Tooltip>
-        </BaseBanner>
-      </div>
-      <div>
-        <BaseBanner {...resultProps} icon={customIcon} action={buttonAction}>
-          {children}
         </BaseBanner>
       </div>
     </div>
@@ -106,22 +102,16 @@ const meta = {
       description: 'Размер',
     },
 
-    actionText: {
-      type: 'BannerAction | ReactNode' as never,
-      control: 'text',
-      description: 'Текст кнопки',
-    },
-
-    actionHref: {
-      type: 'string',
-      control: 'text',
-      description: 'Ссылка кнопки',
-    },
-
-    actionNextLine: {
+    actionsBottom: {
       type: 'boolean',
       control: 'boolean',
-      description: 'Расположение кнопки',
+      description: 'Кнопки сверху',
+    },
+
+    actionsTop: {
+      type: 'boolean',
+      control: 'boolean',
+      description: 'Кнопки снизу',
     },
 
     width: {
@@ -166,18 +156,8 @@ export const WithAction: StoryObj<typeof Banner> = {
   args: {
     children: 'У вашей команды не собираются метрики по Проектированию, потому что отсутствует ссылка на Базу знаний ',
     maxWidth: '513px',
-    actionText: 'Текст ссылки',
     variant: BannerVariant.warning,
     onClose: true,
-  },
-};
-
-export const WithActionNewLine: StoryObj<typeof Banner> = {
-  args: {
-    ...WithAction.args,
-
-    actionText: 'Исправить',
-    actionNextLine: true,
   },
 };
 

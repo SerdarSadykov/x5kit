@@ -85,6 +85,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>((props, ref) => 
 
     children,
     label,
+    qa,
   };
 
   return (

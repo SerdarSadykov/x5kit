@@ -4,6 +4,7 @@ export type QA = {
 
 export type RequiredQA = Required<QA>;
 
+/** Helper работы с data-qa */
 export const getQAAttribute = (rootName: string) => {
   return (subName?: string | number, state?: Record<string, boolean>): string => {
     let name = rootName;

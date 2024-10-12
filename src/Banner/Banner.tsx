@@ -67,10 +67,6 @@ const sizeProps: Partial<Record<SizeTokenValue, CSSObject>> = {
 };
 
 const Container = styled.div<BannerStyles>`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -93,12 +89,27 @@ const Container = styled.div<BannerStyles>`
   }};
 `;
 
+const ContentContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+`;
+
 export const Banner: React.FC<BannerProps> = props => {
   const {
     children,
     icon,
-    action,
-    actionNextLine,
+    actionsTop,
+    actionsBottom,
     title,
     onClose,
 
@@ -113,13 +124,18 @@ export const Banner: React.FC<BannerProps> = props => {
 
   const iconProps = {variant, icon};
 
-  const contentProps = {children, title, action, actionNextLine, qa};
+  const contentProps = {children, title, actionsTop, qa};
+
+  const bottom = actionsBottom && <Actions data-qa={`${qa}-actions-bottom`}>{actionsBottom}</Actions>;
 
   return (
     <Container data-qa={qa} {...bannerStyles}>
-      <Icon {...iconProps} />
-      <Content {...contentProps} />
-      <CloseButton qa={qa} onClose={onClose} />
+      <ContentContainer>
+        <Icon {...iconProps} />
+        <Content {...contentProps} />
+        <CloseButton qa={qa} onClose={onClose} />
+      </ContentContainer>
+      {bottom}
     </Container>
   );
 };

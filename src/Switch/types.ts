@@ -1,8 +1,9 @@
+//eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import {SizeTokenValue} from 'theme';
+
 import type {InputHTMLAttributes, PropsWithChildren, ReactNode} from 'react';
 import type {CSSObject} from '@emotion/react';
-
 import type {QA} from 'common';
-import type {SizeTokenValue} from 'theme';
 
 export type SwitchState = boolean | 'halfOn';
 
@@ -22,4 +23,4 @@ export type SwitchProps = {
 } & QA &
   PropsWithChildren &
   SwitchStyles &
-  Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>;
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'checked' | 'size'>;

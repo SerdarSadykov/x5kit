@@ -14,7 +14,7 @@ export enum SnackbarVariant {
   error = 'error',
 }
 
-export type SnackbarAction = ({isButton: boolean} & ButtonProps) | ({isLink: boolean} & LinkProps) | ReactNode;
+export type SnackbarAction = ({isButton: true} & ButtonProps) | ({isLink: true} & LinkProps) | ReactNode;
 
 export type SnackbarMessage = {
   content: ReactNode;

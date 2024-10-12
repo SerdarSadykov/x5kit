@@ -68,14 +68,14 @@ export const useParentItem = (props: ItemProps) => {
     props.onChange(newValue, option, e);
   };
 
-  const onOptionChange: ItemProps['onChange'] = (newValue, target, e) => {
+  const onOptionChange: ItemProps['onChange'] = (newValue, targetOption, e) => {
     const newValueExceptThis = newValue.filter(value => value !== option.value);
 
     const allChildsChecked = getValues(childs, false).findIndex(value => !newValue.includes(value)) === -1;
 
     const resultValues = allChildsChecked ? [...newValueExceptThis, option.value] : newValueExceptThis;
 
-    props.onChange(resultValues, target, e);
+    props.onChange(resultValues, targetOption, e);
   };
 
   const itemProps = {

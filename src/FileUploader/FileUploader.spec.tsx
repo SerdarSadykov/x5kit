@@ -1,11 +1,10 @@
 import {expect, it, describe, vi} from 'vitest';
 
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 
 import {FileUploader, FileItemStatus, FileTypeError, MaxFilesError, MaxSizeError, MaxSizeAllError} from '.';
 
 import type {FileItem, FileUploaderProps} from '.';
-import {act} from 'react';
 
 const defaultValue: FileItem[] = [
   {

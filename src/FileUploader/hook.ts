@@ -65,7 +65,7 @@ export const useFileUploader = (props: FileUploaderProps) => {
     maxLabelLength,
     maxLabelLengthFunc,
 
-    dropzoneStateRef,
+    setDropzone,
 
     ...dropzoneProps
   } = props;
@@ -123,9 +123,7 @@ export const useFileUploader = (props: FileUploaderProps) => {
     onDrop,
   });
 
-  if (dropzoneStateRef) {
-    dropzoneStateRef.current = dzState;
-  }
+  setDropzone?.(dzState);
 
   return {
     dzState,

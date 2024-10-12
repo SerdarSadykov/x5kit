@@ -2,25 +2,15 @@ import styled from '@emotion/styled';
 
 import {theme} from 'theme';
 
-import {getQAAttribute} from 'common';
-
-import {Action} from '../Action';
-
 import type {QA} from 'common';
 import type {BannerProps} from '../types';
 
-type ContentProps = Pick<BannerProps, 'children' | 'title' | 'action' | 'actionNextLine'> & Required<QA>;
-
-const Container = styled.div<Pick<ContentProps, 'actionNextLine'>>`
+const Container = styled.div`
   display: flex;
   min-width: 0;
   justify-content: space-between;
   flex-grow: 1;
-
-  ${props => ({
-    gap: props.actionNextLine ? 4 : 8,
-    flexDirection: props.actionNextLine ? 'column' : undefined,
-  })}
+  gap: 8px;
 `;
 
 const ContentContainer = styled.div`
@@ -33,21 +23,27 @@ const Title = styled.div`
   ${theme.typography.h4}
 `;
 
-export const Content: React.FC<ContentProps> = ({children, title, action, actionNextLine, qa}) => {
-  const getQA = getQAAttribute(qa);
+const Actions = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+`;
 
-  const titleContent = title ? <Title data-qa={getQA('title')}>{title}</Title> : null;
+type ContentProps = Pick<BannerProps, 'children' | 'title' | 'actionsTop'> & Required<QA>;
 
-  const actionProps = {action, qa: getQA('action')};
+export const Content: React.FC<ContentProps> = ({children, title, actionsTop, qa}) => {
+  const titleContent = title && <Title data-qa={`${qa}-title`}>{title}</Title>;
+
+  const right = actionsTop && <Actions data-qa={`${qa}-actions-top`}>{actionsTop}</Actions>;
 
   return (
-    <Container actionNextLine={actionNextLine}>
+    <Container>
       <ContentContainer>
         {titleContent}
-        <div data-qa={getQA('message')}>{children}</div>
+        <div data-qa={`${qa}-message`}>{children}</div>
       </ContentContainer>
-
-      <Action {...actionProps} />
+      {right}
     </Container>
   );
 };

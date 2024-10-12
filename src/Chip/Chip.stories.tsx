@@ -1,12 +1,13 @@
-import type {Meta} from '@storybook/react';
 import styled from '@emotion/styled';
 
 import {SizeTokenValue, theme} from 'theme';
 import {Done} from 'icons';
 
 import {Chip as BaseChip} from './Chip';
-import type {ChipProps} from './types';
 import {ChipVariant} from './types';
+
+import type {Meta} from '@storybook/react';
+import type {ChipProps} from './types';
 
 const Icon = styled.div`
   display: flex;

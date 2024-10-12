@@ -1,13 +1,14 @@
-import type {ChangeEventHandler} from 'react';
 import {useState} from 'react';
-import type {Meta} from '@storybook/react';
-import type {CSSObject} from '@emotion/react';
 
 import {Link} from 'Link';
 
 import {SizeTokenValue} from 'theme';
 
 import {Switch as BaseSwitch} from './Switch';
+
+import type {ChangeEventHandler} from 'react';
+import type {Meta} from '@storybook/react';
+import type {CSSObject} from '@emotion/react';
 import type {SwitchProps, SwitchState} from './types';
 
 export const Switch: React.FC<SwitchProps> = props => {

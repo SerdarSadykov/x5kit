@@ -10,7 +10,12 @@ describe('Banner', () => {
     const onClose = vi.fn();
 
     render(
-      <Banner onClose={onClose} action={<div data-qa="modal-action" />} icon={<div data-qa="modal-icon" />}>
+      <Banner
+        onClose={onClose}
+        actionsTop={<div data-qa="actions-top" />}
+        actionsBottom={<div data-qa="actions-bottom" />}
+        icon={<div data-qa="modal-icon" />}
+      >
         {content}
       </Banner>
     );
@@ -18,7 +23,8 @@ describe('Banner', () => {
     expect(screen.getByText(content)).toBeDefined();
     expect(screen.getByTestId('modal-icon')).toBeDefined();
     expect(screen.getByTestId('banner-close')).toBeDefined();
-    expect(screen.getByTestId('modal-action')).toBeDefined();
+    expect(screen.getByTestId('actions-top')).toBeDefined();
+    expect(screen.getByTestId('actions-bottom')).toBeDefined();
 
     fireEvent.click(screen.getByTestId('banner-close'));
 

@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 
 import type {RefObject} from 'react';
 
+/** Обработчик нажатия вне refs */
 export const useClickAway = (handler: EventListener, ...refs: Array<RefObject<Element>>): void => {
   useEffect(() => {
     const listener = (e: MouseEvent) => {

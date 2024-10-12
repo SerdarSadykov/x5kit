@@ -12,10 +12,13 @@ export enum BadgeVariant {
 }
 
 export type BadgeStyles = {
+  /** Размер */
   size: SizeTokenValue;
+  /** Вариант */
   variant: BadgeVariant;
+  /** Очерченная граница */
   hasStroke?: boolean;
-
+  /** Цвет текста */
   color?: string;
 } & Pick<CSSObject, 'backgroundColor' | 'borderColor'>;
 
@@ -28,6 +31,7 @@ export enum BadgeDotSize {
   l = 'l',
 }
 export type BadgeDotProps = {
+  /** Размер */
   size: BadgeDotSize;
 } & QA &
   Omit<BadgeProps, 'children' | 'size' | 'color'>;

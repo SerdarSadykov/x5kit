@@ -21,30 +21,37 @@ export enum ButtonVariant {
 }
 
 export type ButtonStyles = {
+  /** Размер */
   size: SizeTokenValue;
+  /** Показывать Loader */
   loading?: boolean;
 
+  /** Кастомные стили */
   behavior: {
+    /** По умолчанию */
     default: CSSObject;
+    /** При наведении */
     hover: CSSObject;
+    /** При нажатии */
     active: CSSObject;
+    /** Отключенный */
     disabled: CSSObject;
   };
 } & Pick<CSSObject, 'width' | 'justifyContent' | 'fontSize' | 'lineHeight'>;
 
 export type ButtonProps = {
+  /** Вариант кнопки */
   variant?: ButtonVariant;
+  /** Всплывающая подсказка */
   tooltip?: TooltipProps['content'];
 
-  startAdornment?: ReactNode; // startIcon
-  endAdornment?: ReactNode; // endIcon
+  /** Иконка | Контент слева */
+  startAdornment?: ReactNode;
+  /** Иконка | Контент справа */
+  endAdornment?: ReactNode;
 
+  /** TagName - по умолчанию button */
   as?: ElementType;
-
-  // equated?: boolean; определяется на основе typeof childred === string
-  // mode?: keyof typeof buttonModes === variant inner | innerInput
-
-  // type?: keyof typeof buttonTypes
 } & QA &
   Partial<ButtonStyles> &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> &

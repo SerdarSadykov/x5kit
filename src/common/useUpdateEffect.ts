@@ -1,5 +1,6 @@
 import {useEffect, useRef} from 'react';
 
+/** Обработчик изменения deps, вне первого рендера */
 export const useUpdateEffect: typeof useEffect = (effect, deps) => {
   const isFirstMount = useRef<boolean>(true);
 
