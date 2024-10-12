@@ -1,4 +1,5 @@
 export type QA = {
+  /** data-qa аттрибут */
   qa?: string;
 };
 

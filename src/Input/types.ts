@@ -26,37 +26,53 @@ type InputBaseProps<T> = Pick<
 export type InputInputComponent<T = HTMLInputElement> = React.FC<InputInternalProps<T>>;
 
 export type InputProps<T = HTMLInputElement> = {
+  /** Размер */
   size?: SizeTokenValue;
 
+  /** Принудительная установка состояния "Заполнено" */
   filled?: boolean;
+  /** Принудительная установка состояния "В фокусе" */
   focused?: boolean;
+  /** Без границы */
   unborder?: boolean;
+  /** Всплывающая подсказка если значение не помещается */
   overflowTooltip?: boolean;
+  /** Показать loader */
   loading?: boolean;
+  /** Абсолютное позиционирование caption, не занимает место между полями */
   absoluteCaption?: boolean;
+  /** Ошибка в поле */
   error?: boolean | ReactNode;
 
+  /** Подпись */
   caption?: ReactNode;
+  /** Label */
   label?: string | React.FC<InputStyles & Pick<InputProps<T>, 'error'>>;
 
+  /** Значение */
   value: string | undefined;
 
+  /** Иконка | Контент слева */
   startAdornment?: ReactNode;
+  /** Иконка | Контент справа */
   endAdornment?: ReactNode;
 
+  /** Обработчик нажатия на крестик(очистки)
+   *
+   * Крестик отображатся при передаче
+   */
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
 
+  /** Маска поля */
   mask?: MaskInputOptions;
 
+  /** ref контейнера */
   containerRef?: Ref<HTMLDivElement>;
 
+  /** Свойства элемента input */
   inputProps?: InputHTMLAttributes<T> & {ref?: RefCallback<T>};
+  /** Компонент input */
   inputComponent?: InputInputComponent<T>;
-
-  // forbidTyping?: boolean; - readonly
-  // textError?: string - error;
-  // isAbsoluteCaption?: boolean;
-  // autoFocus?: boolean;
 } & QA &
   InputBaseProps<T> &
   Pick<CSSObject, 'width'>;

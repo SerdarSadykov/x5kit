@@ -4,7 +4,7 @@ import type {QA} from 'common';
 import type {TooltipProps} from 'Tooltip';
 import type {CheckboxProps} from 'Checkbox';
 
-/** Значение варианта */
+/** Значение option */
 export type CheckboxTreeOptionValue = string | number;
 
 export type CheckboxTreeOption = {
@@ -14,18 +14,19 @@ export type CheckboxTreeOption = {
   /** Значение */
   value: CheckboxTreeOptionValue;
 
-  /** Дочерние элементы */
+  /** Дочерние option */
   childs?: CheckboxTreeOption[];
 
   /** Подпись */
   tooltip?: TooltipProps['content'];
 } & Omit<CheckboxProps, 'label' | 'value' | 'checked'>;
 
+/** Обработчик изменения значения */
 export type CheckboxTreeOnChange<T = CheckboxTreeOption> = (
   /** Новое значение */
   value: CheckboxTreeOptionValue[],
 
-  /** Вариант на котором произошло событие  */
+  /** Option на котором произошло событие  */
   option: T,
 
   /** Событие */
@@ -33,11 +34,11 @@ export type CheckboxTreeOnChange<T = CheckboxTreeOption> = (
 ) => void;
 
 export type CheckboxTreeProps<T extends CheckboxTreeOption = CheckboxTreeOption> = {
-  /** Варианты */
+  /** Option */
   options: T[];
-  /** Выбранные варианты */
+  /** Выбранные option */
   value: CheckboxTreeOptionValue[] | undefined;
-  /** Обработчик изменения */
+  /** Обработчик изменения значения */
   onChange: CheckboxTreeOnChange<T>;
 
   /** Отключен */
@@ -45,9 +46,9 @@ export type CheckboxTreeProps<T extends CheckboxTreeOption = CheckboxTreeOption>
   /** Фокусируемый без редактирования */
   readOnly?: boolean;
 
-  /** Раскрытые варианты */
+  /** Раскрытые option */
   opened?: CheckboxTreeOptionValue[];
-  /** Обработчие раскрытия варианта */
+  /** Обработчие раскрытия option */
   toggleOpened?: (value: CheckboxTreeOptionValue) => void;
 } & QA &
   Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> &

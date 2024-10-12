@@ -5,7 +5,7 @@ import type {Placement} from 'theme';
 import type {QA} from 'common';
 
 export type DropdownProps = {
-  /** Элемент от которого */
+  /** Элемент от которого показывать выпадашку */
   targetRef: RefObject<Element>;
 
   /** Ширина.

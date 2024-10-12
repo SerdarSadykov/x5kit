@@ -1,12 +1,15 @@
-import type {Meta} from '@storybook/react';
+import {useRef} from 'react';
 
 import {Help, Calendar} from 'icons';
 import {Placement} from 'theme';
 
 import {Tooltip as BaseTooltip} from './Tooltip';
+
+import type {Meta} from '@storybook/react';
 import type {TooltipProps} from './types';
 
 export const Tooltip: React.FC<TooltipProps> = props => {
+  const ref = useRef<SVGSVGElement>(null);
   const resultProps = {
     ...props,
   };
@@ -14,7 +17,7 @@ export const Tooltip: React.FC<TooltipProps> = props => {
   return (
     <div style={{display: 'flex', gap: 16}}>
       <BaseTooltip {...resultProps}>
-        <Help />
+        <Help color="red" ref={ref} />
       </BaseTooltip>
       <BaseTooltip {...resultProps} content="Текст подсказки">
         <Calendar />

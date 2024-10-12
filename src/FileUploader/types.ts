@@ -56,11 +56,14 @@ export type FileUploaderProps = {
   /** Подзаголовок */
   subTitle?: ReactNode;
 
-  /** Ошибка */
+  /** Ошибка в поле */
   error?: boolean | ReactNode;
   /** Подпись */
   caption?: ReactNode;
-  /** Абсолютное позиционирование caption, не занимает место между полями */
+  /** Абсолютное позиционирование caption
+   *
+   * не занимает место между полями
+   */
   absoluteCaption?: boolean;
 
   /** Обработчик загрузки */

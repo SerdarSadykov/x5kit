@@ -6,7 +6,9 @@ import {theme} from 'theme';
 import type {AnchorHTMLAttributes, ElementType, HTMLAttributes} from 'react';
 
 export type TypographyProps = {
+  /** Вариант */
   variant: keyof typeof theme.typography;
+  /** TagName - по умолчанию div */
   as?: ElementType;
 } & HTMLAttributes<HTMLDivElement> &
   AnchorHTMLAttributes<HTMLAnchorElement>;
