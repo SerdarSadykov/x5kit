@@ -11,7 +11,7 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@SerdarSadykov"
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006 --https --ssl-cert=/app/.storybook/cert/all.crt --ssl-key=/app/.storybook/cert/all.key",
