@@ -12,7 +12,8 @@ import type {SelectItemProps, SelectItemsProps} from 'Select/types';
 
 const Container = styled.label<Pick<CheckboxProps, 'checked' | 'disabled'>>`
   position: relative;
-  display: block;
+  display: flex;
+  gap: 8px;
   padding: 6px 12px;
   word-wrap: break-word;
   box-sizing: border-box;
@@ -66,7 +67,7 @@ const SelectItem = memo<SelectItemProps>(props => {
     style,
     checked,
     option,
-    option: {label, value, disabled, children, tooltip},
+    option: {label, icon, value, disabled, children, tooltip},
   } = props;
 
   const onChange: CheckboxProps['onChange'] = e => {
@@ -92,7 +93,8 @@ const SelectItem = memo<SelectItemProps>(props => {
   const child = (
     <Container {...containerProps}>
       <input {...inputProps} />
-      {children ?? label}
+      {icon}
+      <div>{children ?? label}</div>
     </Container>
   );
 

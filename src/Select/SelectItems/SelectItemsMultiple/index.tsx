@@ -53,6 +53,11 @@ const VirtualizedContainer = styled(BaseContainer)`
   }
 `;
 
+const LabelContainer = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
 const VirtualizedItem: ListProps<SelectItemsProps>['children'] = ({data, index, style}) => {
   const option = data.options[index];
   const value = data.value;
@@ -115,8 +120,8 @@ const Virtualized: React.FC<SelectItemsProps> = props => {
 
 export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
   if (props.virtualize) {
-    const isTree = props.options.findIndex(option => !!option.childs?.length) !== -1;
-    if (!isTree) {
+    const canVirtualize = props.options.findIndex(option => !!option.icon || !!option.childs?.length) === -1;
+    if (canVirtualize) {
       return <Virtualized {...props} />;
     }
   }
@@ -131,6 +136,26 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
 
   const opened = props.state === SelectState.filtred ? props.options.flatMap(getValues) : undefined;
 
+  let options = props.options;
+
+  const hasIcons = props.options.findIndex(option => !!option.icon) !== -1;
+  if (hasIcons) {
+    options = props.options.map(option => {
+      if (!option.icon) {
+        return option;
+      }
+
+      const children = (
+        <LabelContainer>
+          {option.icon}
+          <div>{option.children ?? option.label}</div>
+        </LabelContainer>
+      );
+
+      return {...option, children};
+    });
+  }
+
   const containerProps = {
     onScroll,
     height: props.height,
@@ -140,8 +165,8 @@ export const SelectItemsMultiple: React.FC<SelectItemsProps> = props => {
 
   const treeProps = {
     opened,
+    options,
     onChange,
-    options: props.options,
     name: props.name,
     value: props.value,
   };

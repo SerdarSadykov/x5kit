@@ -1,7 +1,7 @@
 {
   "name": "@x5join/react",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "https://www.figma.com/design/c0xn3Ib5FZSfPcnfsOIrmy4i/Join-Web%3A-component",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,14 +11,15 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "https://art.x5.ru/artifactory/api/npm/npm-pp-prod/"
+    "registry": "https://npm.pkg.github.com/@SerdarSadykov"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006 --https --ssl-cert=/app/.storybook/cert/all.crt --ssl-key=/app/.storybook/cert/all.key",
     "storybook-build": "storybook build",
     "build": "tsc && vite build",
     "lint": "eslint src --ignore-pattern \"**/*.stories.tsx\"",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",

@@ -11,7 +11,10 @@ export type BaseDatepickerProps = {
   /** Обработчик раскрытия календаря */
   setIsOpen?: (newIsOpen: boolean) => void;
 
-  /** Формат даты в инпуте */
+  /** Формат даты в инпуте
+   *
+   * поддержка д|d|м|m|г|y
+   */
   formatStr: string;
 
   /** Свойства календаря */
@@ -23,7 +26,10 @@ export type BaseDatepickerProps = {
   Pick<BaseCalendarProps, 'mode' | 'value' | 'onChange'>;
 
 export type DatepickerProps = {
-  /** Формат даты в инпуте */
+  /** Формат даты в инпуте
+   *
+   * поддержка д|d|м|m|г|y
+   */
   formatStr?: string;
   /** Свойства календаря */
   calendarProps?: Omit<CalendarProps, 'value' | 'onChange'>;
@@ -31,7 +37,10 @@ export type DatepickerProps = {
   Pick<CalendarProps, 'value' | 'onChange'>;
 
 export type RangeDatepickerProps = {
-  /** Формат даты в инпуте */
+  /** Формат даты в инпуте
+   *
+   * поддержка д|d|м|m|г|y
+   */
   formatStr?: string;
   /** Свойства календаря */
   calendarProps?: Omit<RangeCalendarProps, 'value' | 'onChange'>;

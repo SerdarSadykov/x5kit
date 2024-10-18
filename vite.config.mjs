@@ -41,6 +41,11 @@ export default defineConfig({
         'notistack',
         'react-window',
       ],
+
+      plugins: [
+        tsconfigPaths(),
+      ],
+
       output: {
         entryFileNames: '[name].js',
         assetFileNames: 'assets/[name][extname]',
@@ -63,9 +68,11 @@ export default defineConfig({
     environment: 'jsdom',
     dir: 'src',
     exclude: ['**/*.stories.tsx'],
+    setupFiles: ['./test-setup.js'],
     coverage: {
       provider: 'v8',
-      exclude: ['**/*.stories.tsx'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['**/*.stories.tsx', 'src/icons', 'src/theme', 'src/index.ts'],
     },
   },
 });

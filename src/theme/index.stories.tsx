@@ -3,7 +3,7 @@ import {linkTo} from '@storybook/addon-links';
 
 import badgeMeta, {Badge} from 'Badge/Badge.stories';
 import badgeDotMeta, {BadgeDot} from 'Badge/BadgeDot.stories';
-import bannerMeta, {Banner, WithAction, WithActionNewLine} from 'Banner/Banner.stories';
+import bannerMeta, {Banner, WithAction} from 'Banner/Banner.stories';
 import buttonMeta, {Button} from 'Button/Button.stories';
 import iconButtonMeta, {IconButton} from 'Button/IconButton.stories';
 import calendarMeta, {Calendar} from 'Calendar/Calendar.stories';
@@ -25,7 +25,7 @@ import passwordInputMeta, {PasswordInput} from 'PasswordInput/PasswordInput.stor
 import radioMeta, {Radio} from 'Radio/Radio.stories';
 import searchInputMeta, {SearchInput} from 'SearchInput/SearchInput.stories';
 import segmentedControlMeta, {SegmentedControl} from 'SegmentedControl/SegmentedControl.stories';
-import selectMeta, {Select, SelectFetch, SelectTree, SelectVirtualized} from 'Select/Select.stories';
+import selectMeta, {Select, SelectFetch, SelectWithIcons, SelectTree, SelectVirtualized} from 'Select/Select.stories';
 import snackbarMeta, {Snackbar} from 'Snackbar/Snackbar.stories';
 import sidebarMeta, {SidebarMenu} from 'SidebarMenu/SidebarMenu.stories';
 import switchMeta, {Switch} from 'Switch/Switch.stories';
@@ -76,17 +76,6 @@ export const All: React.FC = () => {
             Banner with action
           </Typography>
           <Banner {...WithAction.args} />
-        </div>
-        <div style={{borderTop: '1px solid #ccc'}}>
-          <Typography
-            as="h2"
-            variant="h2"
-            onClick={linkTo('Banner', 'with-action-new-line')}
-            style={{cursor: 'pointer'}}
-          >
-            Banner with action new line
-          </Typography>
-          <Banner {...WithActionNewLine.args} />
         </div>
         <div style={{borderTop: '1px solid #ccc'}}>
           <Typography as="h2" variant="h2" onClick={linkTo('Button')} style={{cursor: 'pointer'}}>
@@ -165,6 +154,14 @@ export const All: React.FC = () => {
             </span>
           </Typography>
           <SelectFetch {...(selectMeta.args as any)} />
+        </div>
+        <div style={{borderTop: '1px solid #ccc'}}>
+          <Typography as="h2" variant="h2">
+            <span onClick={linkTo('Select', 'select-with-icons')} style={{cursor: 'pointer'}}>
+              Select + icons
+            </span>
+          </Typography>
+          <Select {...(SelectWithIcons.args as any)} />
         </div>
         <div style={{borderTop: '1px solid #ccc'}}>
           <Typography as="h2" variant="h2">

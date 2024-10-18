@@ -9,7 +9,7 @@ import {SelectItems} from '.';
 import type {SelectOption, SelectItemsProps, SelectMultipleValue} from 'Select/types';
 
 const options: SelectOption[] = [
-  {label: 'Andreev', value: 'davletshin', disabled: false, tooltip: 'Вот такой тултип'},
+  {label: 'Andreev', value: 'davletshin', disabled: false, tooltip: 'Вот такой тултип', icon: <div data-qa="icon" />},
   {label: 'Glebov', value: 'glebov', disabled: false},
   {label: 'Sevostyanov', value: 'sevostyanov', disabled: false},
 ];
@@ -47,13 +47,13 @@ describe('SelectItems', () => {
     expect(screen.getByDisplayValue(options[0].value)).toBeDefined();
     expect(screen.getByText(options[2].label)).toBeDefined();
     expect(screen.getByDisplayValue(options[2].value).getAttribute('type')).toBe('radio');
-    expect(loadMore).toBeCalledTimes(1);
 
     comp.rerender(<SelectItems {...props} loadMore={loadMore} virtualize multiple />);
 
     expect(screen.getByDisplayValue(options[0].value)).toBeDefined();
     expect(screen.getByText(options[2].label)).toBeDefined();
     expect(screen.getByDisplayValue(options[2].value).getAttribute('type')).toBe('checkbox');
-    expect(loadMore).toBeCalledTimes(2);
+
+    expect(loadMore).not.toBeCalled();
   });
 });

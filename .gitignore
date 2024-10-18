@@ -1,8 +1,10 @@
-.vscode
+/coverage
+/node_modules
+/dist
+/packages/components/dist
+/packages/shared/dist
+/packages/icons/dist
+.npmrc
+lerna-debug.log
 
-node_modules
-dist
-coverage
-storybook-static
-*.tar.gz
 *storybook.log

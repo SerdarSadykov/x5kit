@@ -7,7 +7,7 @@ import CheckboxTreeStory from 'CheckboxTree/CheckboxTree.stories';
 
 import {Select as BaseSelect} from './Select';
 import {containsFilter} from './Filters';
-import {header, footer} from './SelectStory';
+import {header, footer, setIcon} from './SelectStory';
 
 import type {Meta, StoryObj} from '@storybook/react';
 import type {
@@ -172,7 +172,7 @@ const getOptions = (i): SelectOption[] => [
   {label: `Shiganova${i}`, value: `shiganova${i}`, disabled: false},
   {label: `Shorova${i}`, value: `shorova${i}`, disabled: false},
   {label: `Shevkun${i}`, value: `shevkun${i}`, disabled: true},
-  {label: `Ovcharenko Ovcharenko Ovcharenko Ovcharenko${i}`, value: `ovcharenko${i}`, disabled: false},
+  {label: `Ovcharenko Ovcharenko Ovcharenko Ovcharenko Ovcharenko${i}`, value: `ovcharenko${i}`, disabled: false},
 ];
 
 const meta = {
@@ -260,6 +260,15 @@ const meta = {
     label: 'Выберите варианты',
   },
 } satisfies Meta<typeof Select>;
+
+export const SelectWithIcons: StoryObj<typeof Select> = {
+  args: {
+    options: getOptions('').map(setIcon),
+    filter: true,
+
+    label: 'Выберите варианты',
+  },
+};
 
 export const SelectTree: StoryObj<typeof Select> = {
   args: {

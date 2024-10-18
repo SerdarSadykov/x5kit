@@ -14,6 +14,7 @@ const getOptions = (i): SelectOption[] => [
     label: `Andreev${i}`,
     value: `davletshin${i}`,
     disabled: false,
+    icon: <div data-qa="icon" />,
     childs: [
       {
         label: 'child1',
@@ -21,7 +22,7 @@ const getOptions = (i): SelectOption[] => [
       },
     ],
   },
-  {label: `Glebov${i}`, value: `glebov${i}`, disabled: false},
+  {label: `Glebov${i}`, value: `glebov${i}`, disabled: false, icon: <div data-qa="icon" />},
   {label: `Sevostyanov${i}`, value: `sevostyanov${i}`, disabled: false},
 ];
 

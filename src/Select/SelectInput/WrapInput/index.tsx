@@ -26,7 +26,7 @@ const Container = styled.div<Pick<SelectProps, 'isOpen'>>`
 `;
 
 const DivFieldComponent = styled(FieldComponent)`
-  padding-top: 19px;
+  padding-top: ${props => (props.isSmall ? '4px' : '19px')};
 `;
 
 export const WrapInput: InputInputComponent = props => {

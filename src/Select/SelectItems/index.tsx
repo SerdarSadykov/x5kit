@@ -83,7 +83,10 @@ export const SelectItems = memo<SelectItemsProps>(props => {
   }
 
   if (props.virtualize) {
-    return <Virtualized {...props} />;
+    const canVirtualize = props.options.findIndex(option => !!option.icon) === -1;
+    if (canVirtualize) {
+      return <Virtualized {...props} />;
+    }
   }
 
   const onScroll: UIEventHandler<HTMLDivElement> = e => {

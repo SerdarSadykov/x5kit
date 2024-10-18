@@ -17,9 +17,15 @@ export type SelectMultipleValue = SelectSingleValue[];
 export type SelectOption = {
   /** Label */
   label: string;
-  /** Иконка */
+  /** Иконка
+   *
+   *
+   * Наличие приведет к отключению virtualize
+   */
   icon?: ReactNode;
   /** Дочерние option
+   *
+   * Отображаются только при multiple
    *
    * Наличие приведет к рендеру CheckboxTree
    * и отключению virtualize
@@ -165,7 +171,10 @@ type SelectComponents = {
   list?: React.FC<SelectListProps>;
   /** Элементы списка */
   items?: React.FC<SelectItemsProps>;
-  /** Элемент списка */
+  /** Элемент списка
+   *
+   * Не используется при virtualize
+   */
   item?: React.FC<SelectItemProps>;
 };
 
